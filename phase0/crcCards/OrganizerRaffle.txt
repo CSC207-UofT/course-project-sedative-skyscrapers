@@ -1,0 +1,16 @@
+Class name: OrganizerRaffle 
+
+Clean Architecture Layer:
+
+Parent Class: Raffle
+
+Subclasses: none
+
+Responsibilities:
+- Store accomplishedParticipant List (number of Participant instances completing at least one Task)
+- Store winners List (Participant intances of winners selected through generateAndNotifyWinner)
+
+
+Collaborators:
+- Organizer
+- Participant

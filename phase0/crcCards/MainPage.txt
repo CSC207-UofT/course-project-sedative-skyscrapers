@@ -1,0 +1,14 @@
+Class name: MainPage
+
+Clean Architecture Layer:
+
+Parent Class: none
+
+Subclasses: none
+
+Responsibilities:
+- createRaffle(): prompt user to be registered to a Raffle as a Organizer
+- joinRaffle(): prompt user to enter raffleID to be registered to a Raffle as a Participant
+
+Collaborators:
+- Raffle

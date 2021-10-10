@@ -1,0 +1,14 @@
+Class name: Task
+
+Clean Architecture Layer:
+
+Parent Class: none
+
+Subclasses: none
+
+Responsibilities:
+- addActions(): set up details of a Task (question, answer, ...)
+
+
+Collaborators:
+- Organizer

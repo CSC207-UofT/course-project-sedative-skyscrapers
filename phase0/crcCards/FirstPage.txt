@@ -1,0 +1,16 @@
+Class name: FirstPage
+
+Clean Architecture Layer:
+
+Parent Class: none
+
+Subclasses: none
+
+Responsibilities:
+- createUser(): create a User instance to be stored in Database
+- signIn(): enter MainPage as an already registerd User in Database
+- learnMore(): display relevant information about the project to interested users
+
+Collaborators:
+- MainPage
+- Database

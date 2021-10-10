@@ -1,0 +1,17 @@
+Class name: ParticipantRaffle 
+
+Clean Architecture Layer:
+
+Parent Class: Raffle
+
+Subclasses: none
+
+Responsibilities:
+- Store oneTaskCompleted bool (whether a Participant has completed at least one task of a Raffle)
+- Store tasksCompleted (number of tasks completed by Participant of this Raffle)
+
+
+Collaborators:
+- Raffle
+- Participant
+- System

@@ -1,0 +1,16 @@
+Class name: User 
+
+Clean Architecture Layer:
+
+Parent Class: none
+
+Subclasses: Organizer, Participant
+
+Responsibilities:
+- Store raffleID
+- Methods shared by subclasses
+
+
+Collaborators:
+- Participant
+- Organizer

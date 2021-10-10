@@ -1,0 +1,15 @@
+Database
+
+Clean Architecture Layer:
+
+Parent Class: none
+
+Subclasses: none
+
+Responsibilities:
+- Store User map from username to password and profile details
+- Store Raffle map from raffleID to Raffle instance details
+
+Collaborators:
+- Raffle
+- FirstPage

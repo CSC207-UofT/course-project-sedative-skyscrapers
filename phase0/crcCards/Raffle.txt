@@ -1,0 +1,18 @@
+Class name: Raffle 
+
+Clean Architecture Layer:
+
+Parent Class: none
+
+Subclasses: OrganizerRaffle, ParticipantRaffle
+
+Responsibilities:
+- Store Task instances to be completed by Participant
+- Store numberOfWinners as set up by Organizer
+- Store raffleID
+- Store rulesReference (reference to Rules.txt file set up by Organizer)
+
+Collaborators:
+- Organizer
+- User
+- System 
