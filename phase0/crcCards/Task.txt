@@ -1,6 +1,6 @@
 Class name: Task
 
-Clean Architecture Layer:
+Clean Architecture Layer: Entity
 
 Parent Class: none
 

@@ -1,6 +1,6 @@
 Class name: ParticipantRaffle 
 
-Clean Architecture Layer:
+Clean Architecture Layer: Use Case
 
 Parent Class: Raffle
 
