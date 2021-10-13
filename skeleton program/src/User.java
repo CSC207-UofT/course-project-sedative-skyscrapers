@@ -12,8 +12,4 @@ public class User implements Participable, Organizable {
 
     }
 
-    @Override
-    public void createRaffle() {
-
-    }
 }
