@@ -30,7 +30,7 @@ public class ParticipantRaffleTest {
         pRaff1 = new ParticipantRaffle(participant2, 0);
     }
 
-    @Test(timeout = 50)
+    @Test(timeout = 60)
     public void TestParticipantRaffleID(){
         assertEquals(pRaff0.getRaffleID(), oRaff0.getRaffleID());
         assertEquals(pRaff1.getRaffleID(), oRaff0.getRaffleID());

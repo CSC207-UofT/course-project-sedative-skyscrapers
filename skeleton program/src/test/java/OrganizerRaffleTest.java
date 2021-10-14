@@ -19,7 +19,7 @@ public class OrganizerRaffleTest {
         raff1 = new OrganizerRaffle("Raffle1", 3, new Date(2021, 11, 27));
     }
 
-    @Test(timeout = 50)
+    @Test(timeout = 60)
     public void TestRaffleID(){
         assertEquals(0, raff0.getRaffleID());
         assertEquals(0, raff1.getRaffleID());

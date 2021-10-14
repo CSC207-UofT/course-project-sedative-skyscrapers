@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-// raffle works very weirdly, Im not sure if it should really even be a class at this point, it makes more sense
+// raffle works very weirdly, I'm not sure if it should really even be a class at this point, it makes more sense
 // to have the two current subclasses on their own being joined together through some sort of raffleManager class
 
 

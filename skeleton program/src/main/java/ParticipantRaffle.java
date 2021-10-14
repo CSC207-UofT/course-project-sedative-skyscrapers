@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParticipantRaffle extends Raffle {
-// TODO: add the stuff specific to participant raffle according to crc
+
     private boolean validParticipant = false;
     private List<Task> tasksCompleted = new ArrayList<>();
 

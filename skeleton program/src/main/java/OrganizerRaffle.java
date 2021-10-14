@@ -28,7 +28,7 @@ public class OrganizerRaffle extends Raffle {
     public void addNewTask(Task newTask){
         super.addTask(newTask);
     }
-    // TODO: make sure main.java.User doesnt implement these methods
+
 
 
 
