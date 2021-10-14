@@ -1,3 +1,5 @@
+package main.java;
+
 public class Task {
     private String question;
     private final String answer;

@@ -1,3 +1,8 @@
+package main.java;
+
+import main.java.Organizable;
+import main.java.Participable;
+
 public class User implements Participable, Organizable {
     private int raffleID;
 
@@ -15,5 +20,13 @@ public class User implements Participable, Organizable {
     @Override
     public void createRaffle() {
 
+    }
+
+    public int getRaffleID() {
+        return raffleID;
+    }
+
+    public void setRaffleID(int raffleID) {
+        this.raffleID = raffleID;
     }
 }
