@@ -126,7 +126,7 @@ public class User implements Participable, Organizable {
                 //TODO: Later select based on actions completed or something
                 int winnerIndex = (int) (Math.random() * (currentRaffleList.size() - 1)); // from 0 to last element.
 
-                //TODO: Add code for informing the selected winner.
+                //TODO:Add code for informing the selected winner.
 
                 return currentRaffleList.get(winnerIndex); // Returns the selected winner (random) for the raffle
             }
@@ -136,4 +136,3 @@ public class User implements Participable, Organizable {
 
     }
 }
-
