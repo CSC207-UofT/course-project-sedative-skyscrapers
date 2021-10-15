@@ -1,6 +1,6 @@
 Class name: RaffleSystem
 
-Clean Architecture Layer:
+Clean Architecture Layer: Use Case
 
 Parent Class: none
 

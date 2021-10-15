@@ -1,6 +1,6 @@
 Class name: User 
 
-Clean Architecture Layer:
+Clean Architecture Layer: Entity
 
 Parent Class: none
 
