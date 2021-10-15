@@ -103,7 +103,7 @@ public class User implements Participable, Organizable {
          * @return Selected Winner (User object) for the raffle contest
          */
 
-        //TODO: This code is under the assumption that all users have same raffleID for 1 contest and will
+        //TODO:This code is under the assumption that all users have same raffleID for 1 contest and will
         // win based on the actions completed.
 
         if (participantList.isEmpty()){
