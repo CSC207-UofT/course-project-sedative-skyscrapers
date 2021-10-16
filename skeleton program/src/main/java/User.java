@@ -97,7 +97,7 @@ public class User implements Participable, Organizable {
 //    }
 
 
-//    public User generateAndNotifyWinner(List<User> participantList, int raffleNo) {
+    //    public User generateAndNotifyWinner(List<User> participantList, int raffleNo) {
 //        /**
 //         * Return and inform the chosen winner for the raffle contest.
 //         *
@@ -138,18 +138,15 @@ public class User implements Participable, Organizable {
 //
 //
 //    }
-
     public void completeTask(int taskID, int raffleID){
-        currentRafflesMap = getPtcRaffles();
-        participantRaffle = currentRafflesMap.get(raffleID);
-        tasksToComplete = participantRaffle.getTasksTOComplete();
+        ParticipantRaffle participantRaffle;
+        participantRaffle = this.ptcRaffles.get(raffleID);
+        ArrayList<Task> tasksToComplete = participantRaffle.getTasksToComplete();
         for(int i = 0; i < tasksToComplete.size(); i++){
-            if(tasksToComplete[i].taskID = taskID){
+            if(tasksToComplete.get(i).getTaskID() == taskID){
                 reqTaskLocation = i;
             }
         }
-
-
     }
 
     @Override
@@ -166,7 +163,6 @@ public class User implements Participable, Organizable {
         }
     }
 
-    @Override
     public void showTasks(int raffleID) {
         currentRafflesMap = getPtcRaffles();
         tasks = currentRafflesMap.get(raffleID).getTasksToComplete();

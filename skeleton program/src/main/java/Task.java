@@ -7,7 +7,7 @@ public class Task {
     private boolean taskState;  // true means completed by participant, false otherwise
     private int taskID;
 
-    public Task(String q, String a){
+    public Task(String q, String a) {
         this.question = q;
         this.answer = a;
         this.userAnswer = null;
@@ -20,7 +20,10 @@ public class Task {
         return a.equals(ua);
     }
 
-    public String getQuestion(){ return question; }
+    public String getQuestion() {
+        return question;
+    }
+
     public int getTaskID() {
         return taskID;
     }
@@ -30,9 +33,9 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String completedTask;
-        if(taskState){
+        if (taskState) {
             completedTask = "Completed";
         } else {
             completedTask = "Yet to complete";
@@ -44,6 +47,8 @@ public class Task {
     public String getAnswer() {
         return answer;
     }
+
     public String getUserAnswer() {
         return userAnswer;
+    }
 }

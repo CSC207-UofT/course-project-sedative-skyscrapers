@@ -15,7 +15,7 @@ public interface Participable {
     /* Join the raffle using the unique raffle id.
     Update the <this.raffleID> */
 
-    public void completeTask(int taskID);
+    public void completeTask(int taskID, int raffleID);
         /*
         Show what the task is, track that the task is done and submit
          (input from user) [we may want a different class as per the
@@ -23,7 +23,7 @@ public interface Participable {
          If the user has completed a task shift it from <tasksLeft> to
          <completedTasks>
          */
-    public boolean checkAnswer(int taskID);
+    public boolean checkAnswer(int raffleID, int taskID);
     /* check if the answer is correct  */
 
     // public void claimPrize();
@@ -32,6 +32,6 @@ public interface Participable {
     updates the <completedAllTasks> boolean
     */
 
-    public void showTasks();
+    public void showTasks(int raffleID);
     /* prints the tasks the partcipant has to do and the ones done */
 }

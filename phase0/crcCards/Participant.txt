@@ -17,5 +17,5 @@ Responsibilities:
 
 
 Collaborators:
-- PartcipantRaffle
+- ParticipantRaffle
 - Task
