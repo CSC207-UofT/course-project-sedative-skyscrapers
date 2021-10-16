@@ -20,7 +20,7 @@ public class Task {
         return a.equals(ua);
     }
 
-
+    public String getQuestion(){ return question; }
     public int getTaskID() {
         return taskID;
     }
@@ -44,4 +44,6 @@ public class Task {
     public String getAnswer() {
         return answer;
     }
+    public String getUserAnswer() {
+        return userAnswer;
 }

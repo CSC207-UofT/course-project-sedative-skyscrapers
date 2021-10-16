@@ -139,18 +139,40 @@ public class User implements Participable, Organizable {
 //
 //    }
 
-    public void completeTask(int taskID){
+    public void completeTask(int taskID, int raffleID){
+        currentRafflesMap = getPtcRaffles();
+        participantRaffle = currentRafflesMap.get(raffleID);
+        tasksToComplete = participantRaffle.getTasksTOComplete();
+        for(int i = 0; i < tasksToComplete.size(); i++){
+            if(tasksToComplete[i].taskID = taskID){
+                reqTaskLocation = i;
+            }
+        }
+
 
     }
 
     @Override
-    public boolean checkAnswer(int taskID) {
-        return false;
+    public boolean checkAnswer(int raffleID, int taskID) {
+        currentRafflesMap = getPtcRaffles();
+        tasks = currentRafflesMap.get(raffleID).getTasksToComplete();
+        for(Task x : tasks){
+            if (x.getTaskID == taskID){
+                return x.verifyAnswer(x.getAnswer(), x.getUserAnswer());
+            }
+            else{
+                return false;
+            }
+        }
     }
 
     @Override
-    public void showTasks() {
-
+    public void showTasks(int raffleID) {
+        currentRafflesMap = getPtcRaffles();
+        tasks = currentRafflesMap.get(raffleID).getTasksToComplete();
+        for(Task x : tasks){
+            System.out.println(x.getQuestion());
+        }
     }
 
 
