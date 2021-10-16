@@ -40,6 +40,12 @@ public class ParticipantRaffle extends Raffle {
      * ParticipantRaffle object be considered eligible for the draw for the prize.
      *
      */
+    public void removeAddTasksToBeCompleted(int location){
+        //removes task from 'to be completed' to 'to completed'
+        Task taskCompleted = tasksToComplete.remove(location);
+        tasksCompleted.add(taskCompleted);
+
+    }
     public void setValidParticipant(){
         if (!this.tasksCompleted.isEmpty()){
             this.validParticipant = true;

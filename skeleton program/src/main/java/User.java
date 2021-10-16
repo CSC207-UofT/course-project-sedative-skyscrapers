@@ -3,9 +3,7 @@ package main.java;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class User implements Participable, Organizable {
     private String username;
@@ -144,33 +142,28 @@ public class User implements Participable, Organizable {
         ArrayList<Task> tasksToComplete = participantRaffle.getTasksToComplete();
         for(int i = 0; i < tasksToComplete.size(); i++){
             if(tasksToComplete.get(i).getTaskID() == taskID){
-                reqTaskLocation = i;
+                participantRaffle.removeAddTasksToBeCompleted(i);
             }
         }
     }
 
-    @Override
     public boolean checkAnswer(int raffleID, int taskID) {
-        currentRafflesMap = getPtcRaffles();
-        tasks = currentRafflesMap.get(raffleID).getTasksToComplete();
+        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
         for(Task x : tasks){
-            if (x.getTaskID == taskID){
+            if (x.getTaskID() == taskID){
+                //Questions about this
                 return x.verifyAnswer(x.getAnswer(), x.getUserAnswer());
             }
-            else{
-                return false;
-            }
         }
+        return false;
     }
 
     public void showTasks(int raffleID) {
-        currentRafflesMap = getPtcRaffles();
-        tasks = currentRafflesMap.get(raffleID).getTasksToComplete();
+        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
         for(Task x : tasks){
             System.out.println(x.getQuestion());
         }
     }
-
 
     public String getUsername() {
         return username;
