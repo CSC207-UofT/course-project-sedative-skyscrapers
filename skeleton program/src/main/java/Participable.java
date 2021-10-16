@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.List;
 
 public interface Participable {
@@ -9,7 +11,7 @@ public interface Participable {
     List<Integer> completedTasks = null;
     //
 
-    public void joinRaffle(int raffleID);
+    public ParticipantRaffle joinRaffle(int raffleID);
     /* Join the raffle using the unique raffle id.
     Update the <this.raffleID> */
 
@@ -24,7 +26,7 @@ public interface Participable {
     public boolean checkAnswer(int taskID);
     /* check if the answer is correct  */
 
-    public void claimPrize();
+    // public void claimPrize();
     /*
     Checks if all the tasks are completed and then
     updates the <completedAllTasks> boolean
