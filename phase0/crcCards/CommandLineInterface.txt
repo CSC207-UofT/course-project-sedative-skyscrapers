@@ -1,0 +1,14 @@
+CommandLineInterface
+
+Clean Architecture Layer: Frameworks and Drivers
+
+Parent Class: n/a
+
+Subclasses: n/a
+
+Responsibilities:
+n/a
+
+
+Collaborators:
+n/a

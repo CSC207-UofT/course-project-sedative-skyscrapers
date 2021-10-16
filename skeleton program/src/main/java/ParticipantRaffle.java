@@ -29,7 +29,7 @@ public class ParticipantRaffle extends Raffle {
             copy of the Raffle's taskList since that way the participant can manipulate the state of
             individual tasks
         */
-        this.tasksCompleted = new ArrayList<>();
+        this.tasksCompleted = new ArrayList<Task>();
         this.currentParticipant = rafflePtc;
     }
 
@@ -40,6 +40,12 @@ public class ParticipantRaffle extends Raffle {
      * ParticipantRaffle object be considered eligible for the draw for the prize.
      *
      */
+    public void removeAddTasksToBeCompleted(int location){
+        //removes task from 'to be completed' to 'to completed'
+        Task taskCompleted = tasksToComplete.remove(location);
+        tasksCompleted.add(taskCompleted);
+
+    }
     public void setValidParticipant(){
         if (!this.tasksCompleted.isEmpty()){
             this.validParticipant = true;
@@ -63,7 +69,7 @@ public class ParticipantRaffle extends Raffle {
         StringBuilder taskListStr = new StringBuilder();
         int i;
         for (i = 0; i < this.getTasksToComplete().size(); i++){
-            taskListStr.append("[").append(i).append("]").append(getTasksToComplete().get(i)).append("\n");
+            taskListStr.append("[").append(i).append("]").append(getTasksToComplete().get(i).toString()).append("\n");
         }
 
         return generalInfo + "\nTasks:\n" + taskListStr;

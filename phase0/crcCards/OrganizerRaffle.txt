@@ -1,6 +1,6 @@
 Class name: OrganizerRaffle 
 
-Clean Architecture Layer:
+Clean Architecture Layer: Use Case
 
 Parent Class: Raffle
 

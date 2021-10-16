@@ -3,9 +3,7 @@ package main.java;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class User implements Participable, Organizable {
     private String username;
@@ -97,7 +95,7 @@ public class User implements Participable, Organizable {
 //    }
 
 
-//    public User generateAndNotifyWinner(List<User> participantList, int raffleNo) {
+    //    public User generateAndNotifyWinner(List<User> participantList, int raffleNo) {
 //        /**
 //         * Return and inform the chosen winner for the raffle contest.
 //         *
@@ -138,21 +136,34 @@ public class User implements Participable, Organizable {
 //
 //
 //    }
-
-    public void completeTask(int taskID){
-
+    public void completeTask(int taskID, int raffleID){
+        ParticipantRaffle participantRaffle;
+        participantRaffle = this.ptcRaffles.get(raffleID);
+        ArrayList<Task> tasksToComplete = participantRaffle.getTasksToComplete();
+        for(int i = 0; i < tasksToComplete.size(); i++){
+            if(tasksToComplete.get(i).getTaskID() == taskID){
+                participantRaffle.removeAddTasksToBeCompleted(i);
+            }
+        }
     }
 
-    @Override
-    public boolean checkAnswer(int taskID) {
+    public boolean checkAnswer(int raffleID, int taskID) {
+        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
+        for(Task x : tasks){
+            if (x.getTaskID() == taskID){
+                //Questions about this
+                return x.verifyAnswer(x.getAnswer(), x.getUserAnswer());
+            }
+        }
         return false;
     }
 
-    @Override
-    public void showTasks() {
-
+    public void showTasks(int raffleID) {
+        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
+        for(Task x : tasks){
+            System.out.println(x.getQuestion());
+        }
     }
-
 
     public String getUsername() {
         return username;
