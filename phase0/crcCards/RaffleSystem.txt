@@ -1,15 +1,15 @@
-Class name: RaffleSystem
+Class name: RaffleSystem (not phase0)
 
-Clean Architecture Layer: Use Case
+Clean Architecture Layer: controller
 
 Parent Class: none
 
 Subclasses: none
 
 Responsibilities:
-- calculateParticipantWeight(): return number of Tasks completed by a Participant with respect to total entries (by all Participant instances participating) in Raffle
-- calculateTotalEntries(): return number of tasks completed by all Participant instances
-- calculateTimeLeft(): return time left to complete tasks in this Raffle
+- managing information from Raffle objects and delivering them to the User
 
 Collaborators:
 - Raffle
+- OrganizerRaffle
+- participantRaffle
