@@ -1,4 +1,4 @@
-#Project specification summary:
+# Project specification summary:
 
 At phase0, the program should be able to allow the user to interact with the core components of giveaways. The user being the central piece should be able to take on different roles such as a participant or an organizer of a raffle, therefore allowing them to explore how the creation and joinning of raffles processes work, while also giving them the chance to see how a participant of a raffle gets to interact with what organizers create through the tasks objects. So basically we want to show the user how everything related to setting up a raffle as an organizer, and getting the participants started on the processes of becoming accomplished/valid participant, works.
 
@@ -29,7 +29,7 @@ Controller and Command line interface along with Main:
 - Once joined, user can complete tasks (answer questions in this case)
 - Once Tasks are completed, user can terminate program
 
-#Skeleton Program Summary:
+# Skeleton Program Summary:
 - CommandLine
 
 #Questions Group is Struggling With:
