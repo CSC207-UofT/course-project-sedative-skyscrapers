@@ -7,8 +7,11 @@ Parent Class: none
 Subclasses: none
 
 Responsibilities:
-- addActions(): set up details of a Task (question, answer, ...)
+- Storing the question and answer for a participant to answer 
+- create the instances of actions to be completed by a Participant
 
 
 Collaborators:
-- Organizer
+- Raffle
+- OrganizerRaffle
+- ParticipantRaffle
