@@ -1,4 +1,4 @@
-Interface Organizable: Organizer 
+Interface: Organizable 
 
 Clean Architecture Layer: n/a
 
