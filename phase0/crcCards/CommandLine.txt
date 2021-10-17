@@ -1,0 +1,15 @@
+ClassName: CommandLine
+
+Clean Architecture Layer: acts as part of Frameworks and Drivers and Controllers 
+
+Parent Class: n/a
+
+Subclasses: n/a
+
+Responsibilities:
+- take input and communicate to other classes 
+
+
+Collaborators:
+- Raffle
+- User
