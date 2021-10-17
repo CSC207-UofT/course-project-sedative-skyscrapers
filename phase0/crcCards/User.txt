@@ -4,13 +4,14 @@ Clean Architecture Layer: Entity
 
 Parent Class: none
 
-Subclasses: Organizer, Participant
+Implements: Organizable, Participable
 
 Responsibilities:
 - Store raffleID
-- Methods shared by subclasses
+- Store the Raffles this User is part of (both as participant and organizer)
 
 
 Collaborators:
 - Participant
 - Organizer
+- Raffle
