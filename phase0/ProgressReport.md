@@ -37,3 +37,6 @@ One of the main questions the group is struggling with is identifying a solution
 
 What has worked well so far with current design:
 Splitting up entities into different sub-entities like Participatable and Organizable has made it easier to implement and use these classes. For instance, the Raffle class depends on the Organizable entity, and thus making the decision to separate Participants and Organizers rather than having them in a single class has made design changes a lot easier for Organizable and Raffle class as there were lots of changes being made with respect to the CRC model
+
+what each group member has been working on and plans to work on next:
+Aakash: Contributed to questions on the project report and implemented relevant methods in User class from the Organizable interface.
