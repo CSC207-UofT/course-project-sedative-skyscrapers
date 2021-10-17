@@ -8,11 +8,11 @@ Subclasses: OrganizerRaffle, ParticipantRaffle
 
 Responsibilities:
 - Store Task instances to be completed by Participant
-- Store numberOfWinners as set up by Organizer
+- Store raffle attributes as setup by organizer (end date of raffle, number of participants, ...)
+- Stores participant list
 - Store raffleID
-- Store rulesReference (reference to Rules.txt file set up by Organizer)
 
 Collaborators:
-- Organizer
 - User
-- System 
+- OrganizerRaffle
+- PariticipantRaffle
