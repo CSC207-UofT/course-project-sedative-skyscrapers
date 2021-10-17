@@ -1,16 +1,18 @@
 Class name: OrganizerRaffle 
 
-Clean Architecture Layer: Use Case
+Clean Architecture Layer: Use Case (invoking Raffle entity)
 
 Parent Class: Raffle
 
 Subclasses: none
 
 Responsibilities:
-- Store accomplishedParticipant List (number of Participant instances completing at least one Task)
+- Store a List of valid participants (number of Participant instances completing at least one Task)
 - Store winners List (Participant intances of winners selected through generateAndNotifyWinner)
 
 
 Collaborators:
 - Organizer
 - Participant
+- User
+- Raffle
