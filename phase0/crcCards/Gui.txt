@@ -1,15 +1,16 @@
-Class name: Gui
+Class name: Gui (not phase0)
 
-Clean Architecture Layer:
+Clean Architecture Layer: frameworks and drivers
 
 Parent Class: none
 
 Subclasses: none
 
 Responsibilities:
-- completeActionPage(): enter a Raffles instances page
-- navigateUserPage(): enter the page where a User can see the Raffle instances they take part in (both as Organizer or Participant)
+- enter and navigate a Raffles instances page
+- enter and navigate the page where a User can see the Raffle instances they take part in (both as Organizer or Participant)
 
 Collaborators:
 - OrganizerRaffle
 - ParticipantRaffle
+- Raffle
