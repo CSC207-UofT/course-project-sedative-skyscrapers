@@ -1,0 +1,19 @@
+Interface: Participable 
+
+Clean Architecture Layer: n/a
+
+Implemented by: User class
+
+Subclasses:
+
+Responsibilities:
+- join a previously created Raffle
+- complete Tasks in a Raffle
+- check answer provided for a Task is correct
+
+
+Collaborators:
+- ParticipantRaffle
+- Task
+- Raffle
+- User
