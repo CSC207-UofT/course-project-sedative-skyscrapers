@@ -1,6 +1,13 @@
-## Replace this README.md!
+## Giveaway Application by Sedative Skyscrapers
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
+## Using the program:
+	
+To run the program:
+	Go over to src/main.java/main and run this file
 
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+Program Usage:
+	Follow the prompts as they are displayed to you, stick to the type of input that is asked of you to enter to avoid errors in the creation of objects according to that input (follow annotations in brackets after each prompt)
+
+Example (in command line):
+>>> Username (single word): username00
+# so you would enter a single word, all together
