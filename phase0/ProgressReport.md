@@ -40,4 +40,7 @@ Splitting up entities into different sub-entities like Participatable and Organi
 
 ## What each group member has been working on and plans to work on next:
 - Aakash: Contributed to questions on the project report and implemented relevant methods in User class from the Organizable interface.
+- Khushaal: Finished the implementation and comments in the User class and Task class and worked on the interface Participable and Organizable. Plans to complete the implementation of Task.java. and make other extensions in the code.
 - Michele: Mainly worked on the creation of the Raffle entity and its subclasses (along with Nischal), as well as taking part in combining everything when it comes to some of the methods in the CommandLine class. Trying to lighten the load for phase0, we ended up running over clean architecture and its principles, especially for this Raffle entity, so the main plan after this phase0 submission is to start working on dividing the Raffle objects and introducing proper use case classes and controllers to make the code easier to navigate and expand.
+- Garv:  Worked on implementing the methods in the User.java and Task.java. Also helped to make the Participable interface and make comments on it. Plans to make various extensions in the interface and Task.java and incorporate the commented-out code in the program.
+
