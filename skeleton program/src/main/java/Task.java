@@ -51,4 +51,8 @@ public class Task {
     public String getUserAnswer() {
         return userAnswer;
     }
+
+    public void setUserAnswer(String userAns){this.userAnswer = userAns;}
+
+    public void setTaskState(boolean newTaskState){this.taskState = newTaskState;}
 }

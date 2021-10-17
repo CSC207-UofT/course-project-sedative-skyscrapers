@@ -19,7 +19,7 @@ public class CommandLine {
         programPtcRaffles = new HashMap<>();
     }
 
-    // todo.
+
     public void offerRaffleCreation(){
         System.out.print("Do you want to create a raffle[Y/N] (single character): ");
         char createRaffle = new Scanner(System.in).next().charAt(0);
@@ -36,10 +36,12 @@ public class CommandLine {
                 programOrgRaffles.get(newOrgRaffle.getRaffleID()).addNewTask(newTask);  // update taskList
                 System.out.println("You just created a Task with the following details: \n" + newTask);
             }
+
+            this.printSeparator();
         }
     }
 
-    // todo
+
     public void offerRaffleJoin(){
         System.out.print("Do you want to join a raffle[Y/N] (single character): ");
         char joinRaffle = new Scanner(System.in).next().charAt(0);
@@ -48,19 +50,51 @@ public class CommandLine {
             programPtcRaffles.put(newPtcRaffle.getRaffleID(), newPtcRaffle);
             System.out.println("You just joined a Raffle with the following details: \n" +
                     programPtcRaffles.get(newPtcRaffle.getRaffleID()));
-//                    System.out.print("Do you want to take a look at this raffle's tasks[Y/N]: ");
-//                    char checkTasks = new Scanner(System.in).next().charAt(0);
-//                    if (checkTasks == 'Y'){
-//                        System.out.println();
-//            System.out.print("Do you want to complete this Raffle's task[Y/N] (single character): ");
-//            char completeTask = new Scanner(System.in).next().charAt(0);
-//            if (completeTask == 'Y'){
-//
-//            }
+
+            this.printSeparator();
+
+            // completing a task using helper offerCompleteTask
+            if (!programOrgRaffles.get(newPtcRaffle.getRaffleID()).getTaskList().isEmpty()) {
+                offerCompleteTask(newPtcRaffle);
+            }
         }
     }
 
-    // todo
+    public void offerCompleteTask(Raffle ptcRaffle){
+        System.out.print("Do you want to complete this raffle's task[Y/N] (single character): ");
+        char completeTask = new Scanner(System.in).next().charAt(0);
+        if (completeTask == 'Y'){
+            // since there is a single task in the task list, we access it by just indexing 0 for now
+            System.out.println("The task question is: " + ptcRaffle.getTaskList().get(0).getQuestion());
+            System.out.print("Enter your answer (correct answer would be the exact same as the " +
+                    "correct answer input when creating the task above): ");
+            String userAns = new Scanner(System.in).nextLine();
+            // setting the Task answer as indicated by the user
+            programPtcRaffles.get(ptcRaffle.getRaffleID()).getTaskList().get(0).setUserAnswer(userAns);
+
+            // since there is a single task id which is default to 0, we access it this way for now
+            boolean result = user0.checkAnswer(ptcRaffle.getRaffleID(), 0);
+
+            this.printSeparator();
+
+            if (result){
+                System.out.println("You have successfully completed this task! The resulting task object" +
+                        " now has the following details: \n" +
+                        programPtcRaffles.get(ptcRaffle.getRaffleID()).getTaskList().get(0));
+
+                // since there is a single task id which is default to 0, we access it this way for now
+                user0.completeTask(0, ptcRaffle.getRaffleID());  // task gets removed from tasks to be completed
+                System.out.println("The resulting raffle now has the following details:" +
+                        " \n" +  programPtcRaffles.get(ptcRaffle.getRaffleID()));
+            } else {
+                System.out.println("That answer was wrong, you'll get 'em next time!");
+            }
+
+            // changes involving how to access tasks will come around in phase1, once we get the database set up
+        }
+    }
+
+
     public Raffle createRaffleWithProvidedInput(){
         // get input
         System.out.print("Enter the name for the raffle (>=1 words): ");
@@ -78,7 +112,7 @@ public class CommandLine {
                 LocalDate.of(endYear, endMonth, endDay));
     }
 
-    // todo
+
     public Raffle joinRaffleWithProvidedInput(){
         // get input
         System.out.print("Enter the ID for the raffle (single number): ");
@@ -87,7 +121,7 @@ public class CommandLine {
         return this.user0.joinRaffle(raffleID);
     }
 
-    // todo
+
     public Task createTaskWithProvidedInput(){
         // get input
         System.out.print("Enter the question for the task (>=1 words): ");
@@ -98,20 +132,24 @@ public class CommandLine {
         return new Task(question, answer);
     }
 
-    // todo
+    public void printSeparator(){
+        System.out.println("\n--------------------------------------------------------------------\n");
+    }
+
     public boolean offerExitProgram() {
         System.out.print("Do you want to exit the program[Y/N] (single character): ");
         char quitProgram = new Scanner(System.in).next().charAt(0);
         return quitProgram != 'Y';
     }
 
+
     public HashMap<Integer, Raffle> getOrgProgramRaffles(){
         return this.programOrgRaffles;
     }
 
-    public HashMap<Integer, Raffle> getPtcProgramRaffles(){
-        return this.programPtcRaffles;
-    }
+//    public HashMap<Integer, Raffle> getPtcProgramRaffles(){
+//        return this.programPtcRaffles;
+//    }
 
 }
 

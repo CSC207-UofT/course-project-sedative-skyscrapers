@@ -21,6 +21,7 @@ public class Main {
         boolean running = true;
 
         while(running){
+            cmdLine.printSeparator();
             cmdLine.offerRaffleCreation();  // prompt to create Raffle
 
             if (!cmdLine.getOrgProgramRaffles().isEmpty()){
