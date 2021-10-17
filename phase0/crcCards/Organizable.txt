@@ -1,0 +1,15 @@
+Interface Organizable: Organizer 
+
+Clean Architecture Layer: n/a
+
+Implemented by: User class
+
+Responsibilities:
+- create Raffle object according to input
+- add Tasks to Raffle object
+
+
+Collaborators:
+- OrganizerRaffle
+- Raffle
+- User
