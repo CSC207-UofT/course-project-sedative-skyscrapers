@@ -30,7 +30,15 @@ Controller and Command line interface along with Main:
 - Once Tasks are completed, user can terminate program
 
 # Skeleton Program Summary:
-- CommandLine
+- CommandLine.java: Contains the CommandLine class that takes inputs from a user and sends it onto relevant classes
+- Main.java: File in charge of running the program
+- Organizable.java: contains the interface that interacts with User objects for organizers of raffles
+- OrganizerRaffle: contains the subclass of Raffle that is specifically created by organizers
+- Participable: contains the interface that interacts with User objects for participants in raffles
+- ParticipantRaffle: contains the subclass of Raffle that is specifically created for participants
+- Raffle: Contains the Raffle class that is created by organizers for participants
+- Task: contains the Task class that is set by organizers and completed by users
+- User: an Entity that represents the end consumers who interact with the program
 
 ## Questions Group is Struggling With:
 One of the main questions the group is struggling with is identifying a solution for having different participants take part in the contest via the console. The limitation at the moment is having only 1 participant take part in the raffle contest. Consequently, certain attributes like ‘numWinners’ and ‘prizes’ for the contest have not been put to good use. Another question the group is working to resolve is finding ways of reducing the dependencies of certain entities from one another. The current solution in mind is to have a class dedicated to manage these entities and have the different manager classes communicate with one another. We believe once we formalize the clean architecture principle, we can resolve this issue.
@@ -42,6 +50,7 @@ Splitting up entities into different sub-entities like Participatable and Organi
 - Aakash: Contributed to questions on the project report and implemented relevant methods in User class from the Organizable interface.
 - Khushaal: Finished the implementation and comments in the User class and Task class and worked on the interface Participable and Organizable. Plans to complete the implementation of Task.java. and make other extensions in the code.
 - Michele: Mainly worked on the creation of the Raffle entity and its subclasses (along with Nischal), as well as taking part in combining everything when it comes to some of the methods in the CommandLine class. Trying to lighten the load for phase0, we ended up running over clean architecture and its principles, especially for this Raffle entity, so the main plan after this phase0 submission is to start working on dividing the Raffle objects and introducing proper use case classes and controllers to make the code easier to navigate and expand.
+- Nischal: Worked on implementation of Raffle entity and its subclasses, its test cases and internal design of the interaction between classes. Also helped with CommandLine, organizable, User and written reports (ProgressReport etc). 
 - Garv:  Worked on implementing the methods in the User.java and Task.java. Also helped to make the Participable interface and make comments on it. Plans to make various extensions in the interface and Task.java and incorporate the commented-out code in the program.
 - Shih-Hua: Worked on the method signatures of Organizable interface. Plans to make implement the future extensions that are already added in the Organizable interface. Also need to work on reorganizaing some of the methods in Organizable interface to a higher-level class so the design follows the Dependency rule of Clean Architecture.
 - Varun: Worked on some methods in the User.java class, helped to make the Participable.java interface and plans to work on the GUI of the project.
