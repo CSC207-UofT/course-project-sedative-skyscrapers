@@ -1,6 +1,6 @@
-Database
+Database (not in phase0)
 
-Clean Architecture Layer:
+Clean Architecture Layer: frameworks and drivers
 
 Parent Class: none
 
@@ -12,4 +12,4 @@ Responsibilities:
 
 Collaborators:
 - Raffle
-- FirstPage
+- User
