@@ -29,7 +29,7 @@ Scenario Walkthrough Summary:
 - Once Tasks are completed, user can terminate program
 
 Skeleton Program Summary:
-- 
+- CommandLine
 
 Questions Group is Struggling With:
 One of the main questions the group is struggling with is identifying a solution for having different participants take part in the contest via the console. The limitation at the moment is having only 1 participant take part in the raffle contest. Consequently, certain attributes like ‘numWinners’ and ‘prizes’ for the contest have not been put to good use. Another question the group is working to resolve is finding ways of reducing the dependencies of certain entities from one another. The current solution in mind is to have a class dedicated to manage these entities and have the different manager classes communicate with one another. We believe once we formalize the clean architecture principle, we can resolve this issue.
