@@ -151,8 +151,9 @@ public class User implements Participable, Organizable {
         ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
         for(Task x : tasks){
             if (x.getTaskID() == taskID){
-                //Questions about this
-                return x.verifyAnswer(x.getAnswer(), x.getUserAnswer());
+                boolean result = x.verifyAnswer(x.getAnswer(), x.getUserAnswer());
+                x.setTaskState(result);
+                return result;
             }
         }
         return false;
