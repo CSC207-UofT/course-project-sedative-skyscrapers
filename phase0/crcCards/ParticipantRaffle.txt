@@ -1,17 +1,17 @@
 Class name: ParticipantRaffle 
 
-Clean Architecture Layer: Use Case
+Clean Architecture Layer: Use Case (invoking Raffle entity)
 
 Parent Class: Raffle
 
 Subclasses: none
 
 Responsibilities:
-- Store oneTaskCompleted bool (whether a Participant has completed at least one task of a Raffle)
-- Store tasksCompleted (number of tasks completed by Participant of this Raffle)
+- Store tasks already completed by a Participant
+- Store tasks for Participant to complete
 
 
 Collaborators:
 - Raffle
 - Participant
-- System
+- User
