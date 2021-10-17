@@ -1,4 +1,4 @@
-The moment the program is run, the user is presented with prompts in the command line to enter their account details (for now any string works to login or create an account), after completing that step, the user is then presented with a set of prompts to get the uset to create/join raffles depending on the state of the program.
+The moment the program is run, the user is presented with prompts in the command line to enter their account details (for now any string works to login or create an account), after completing that step, the user is then presented with a set of prompts to get the user to create/join raffles depending on the state of the program.
 
 Upon choosing the option to create a raffle as an organizer (answering "Y"), the user will be presented with the ability to create the raffle according to their specification, and after that, even modify certain aspects of their raffles, including modifying the tasks that participants in the raffle will be presented with. After the creation of a raffle, the user will be shown all of the information now stored in the raffle.
 
