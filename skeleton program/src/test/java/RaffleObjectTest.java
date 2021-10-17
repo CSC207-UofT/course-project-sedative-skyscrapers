@@ -59,7 +59,7 @@ public class RaffleObjectTest {
 
     @Test(timeout = 60)
     public void TestRaffleLinkageV1(){
-        // testing whether an attribute other than the User input raffleID gets properly copied
+        // testing whether an attribute other than the User input raffleID gets properly copied.
         assertEquals(oRaff0.getEndDate(), pRaff0.getEndDate());
     }
 

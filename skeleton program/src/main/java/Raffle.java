@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 // Raffle class could be made abstract, exporting shared things to ParticipantRaffle and OrganizerRaffle
-// while letting them add the methods that are independent to them
+// while letting them add the methods that are independent to them.
 
 /**
  * Class representing a Raffle object, which can be joined or created by Participants and Organizers respectively.

@@ -9,7 +9,7 @@ public interface Participable {
     List<Integer> tasksLeft = null;
     // TODO: should we make <completeTasks> a private variable?
     List<Integer> completedTasks = null;
-    //
+    //.
 
     public ParticipantRaffle joinRaffle(int raffleID);
     /* Join the raffle using the unique raffle id.

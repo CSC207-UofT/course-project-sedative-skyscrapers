@@ -68,7 +68,7 @@ public class User implements Participable, Organizable {
 
     }
 
-    // Suggestion: Have a map in Raffle class that will map each raffle ID to a list of strings of rafflePrizes
+    // Suggestion: Have a map in Raffle class that will map each raffle ID to a list of strings of rafflePrizes.
 
     public void declarePrizes(int raffleID, String rafflePrizes) {
         /**

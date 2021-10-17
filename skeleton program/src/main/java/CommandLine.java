@@ -19,7 +19,7 @@ public class CommandLine {
         programPtcRaffles = new HashMap<>();
     }
 
-    // todo
+    // todo.
     public void offerRaffleCreation(){
         System.out.print("Do you want to create a raffle[Y/N] (single character): ");
         char createRaffle = new Scanner(System.in).next().charAt(0);

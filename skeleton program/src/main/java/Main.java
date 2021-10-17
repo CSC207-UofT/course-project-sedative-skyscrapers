@@ -3,7 +3,7 @@ package main.java;
 
 import java.util.Scanner;
 
-// this is the file to be run for the command line interface to start working
+// this is the file to be run for the command line interface to start working.
 public class Main {
 
     public static void main(String[] args) {

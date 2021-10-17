@@ -4,7 +4,7 @@ public class Task {
     private String question;
     private final String answer;
     private String userAnswer;
-    private boolean taskState;  // true means completed by participant, false otherwise
+    private boolean taskState;  // true means completed by participant, false otherwise.
     private int taskID;
 
     public Task(String q, String a) {

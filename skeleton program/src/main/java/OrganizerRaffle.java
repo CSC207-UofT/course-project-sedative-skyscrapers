@@ -23,7 +23,7 @@ public class OrganizerRaffle extends Raffle {
         this.winnerList = new ArrayList<>();
     }
 
-    // public void setRules(File rules){super.setRules(rules);}
+    // public void setRules(File rules){super.setRules(rules);}.
 
     @Override
     public void setTaskList(ArrayList<Task> taskList) {

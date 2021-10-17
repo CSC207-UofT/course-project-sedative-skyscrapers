@@ -11,7 +11,7 @@ public class ParticipantRaffle extends Raffle {
     private boolean validParticipant;
     private ArrayList<Task> tasksToComplete;
     private ArrayList<Task> tasksCompleted;
-    private User currentParticipant;  // the participant to make use of Raffle class
+    private User currentParticipant;  // the participant to make use of Raffle class.
 
 
     /**
