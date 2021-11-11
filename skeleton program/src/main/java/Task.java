@@ -3,14 +3,14 @@ package main.java;
 public class Task {
     private String question;
     private final String answer;
-    private String userAnswer;
+    public String userAnswer;
     private boolean taskState;  // true means completed by participant, false otherwise.
     private int taskID;
 
     public Task(String q, String a) {
         this.question = q;
         this.answer = a;
-        this.userAnswer = null;
+        this.userAnswer = a;
         this.taskID = 0;
         this.taskState = false;
     }

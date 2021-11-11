@@ -76,4 +76,19 @@ public class ParticipantRaffle extends Raffle {
 
     }
 
+    public void transferTask(Task t1){
+
+        for (Task t: this.tasksToComplete) {
+            if (t == t1) {
+                this.tasksToComplete.remove(t);
+                t.setTaskState(true);
+                System.out.println("This Task has been completed!");
+                this.tasksCompleted.add(t);
+            }
+            else {
+                System.out.println("Task not in tasks to be completed list");
+            }
+        }
+    }
+
 }
