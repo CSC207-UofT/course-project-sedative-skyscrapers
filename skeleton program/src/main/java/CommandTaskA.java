@@ -15,15 +15,15 @@ public class CommandTaskA implements Command {
     @Override
     public void execute() {
 
-        for (Task t: theRaffle.tasksToComplete) {
+        for (Task t: theRaffle.tasksReq) {
 
             if (t.getTaskID() == TaskA.getTaskID()) {
                 theRaffle.transferTask(t);
+                System.out.println(t.userAnswer);
             }
 
-            System.out.println(t.userAnswer);
-        }
 
+        }
 
     }
 }

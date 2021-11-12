@@ -1,7 +1,11 @@
 package main.java;
+import java.util.*;
+
+
 
 public class Task {
-    private String question;
+    public static HashMap<Integer, Task> allTasks = new HashMap<>();
+    private final String question;
     private final String answer;
     public String userAnswer;
     private boolean taskState;  // true means completed by participant, false otherwise.
