@@ -9,8 +9,6 @@ import java.util.HashMap;
 
 public class DataExtractor {
 
-    URL data_path = DataMain.class.getResource("raffleUserDetails.csv");
-    File raffleUserDetailsFile = new File(((URL) data_path).getFile());
     DataMiner data = new DataMiner();
 
     public DataExtractor() throws FileNotFoundException {
@@ -87,6 +85,12 @@ public class DataExtractor {
 
     }
 
+    /**
+     * Gets the information of the raffleID as needed
+     * @param raffleID the raffleID whose info is needed
+     * @throws IOException when the file is not found
+     */
+    // TODO: make the function return HashMap in form required
     public void get_controller_data(String raffleID) throws IOException {
         HashMap<Integer, ArrayList<Object>> controller_data = new HashMap<>();
 
