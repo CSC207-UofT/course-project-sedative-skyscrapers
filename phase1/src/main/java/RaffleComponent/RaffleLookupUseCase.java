@@ -21,7 +21,8 @@ public class RaffleLookupUseCase {
         ArrayList<Object> ptcRaffleInfo = new ArrayList<>();
 
         // returns [name, numOfWinners, endDate]
-        ptcRaffleInfo.add(orgRaffleInfo.get(0), orgRaffleInfo.get(1)), orgRaffleInfo.get(3));
+        for ()
+        ptcRaffleInfo.add(orgRaffleInfo.get(0), orgRaffleInfo.get(1)), orgRaffleInfo.get(2), );
         return ptcRaffleInfo;
     }
 }

@@ -26,6 +26,7 @@ public class RaffleWinnerGeneratorUseCase {
     }
 
     public ArrayList<String> updateRaffleWinners(){
+        // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
         this.orgRaffle.setWinnerList(this.generateWinners());
         // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle)
         return this.orgRaffle.getWinnerList();
