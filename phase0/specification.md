@@ -11,4 +11,3 @@ Main Features of the program for phase0:
 - Join a raffle and complete a task as setup by the raffle organizer (for participant). 
 
 *Note on "tasks" completed by users: as of this stage, the tasks will consist of simple String questions which must be given a simple "String" answer, this is one of the main points of expansion in the future.
-

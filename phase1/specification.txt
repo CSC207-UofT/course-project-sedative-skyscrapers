@@ -1,0 +1,39 @@
+Domain: Giveaway application
+
+Brief Description:
+Online raffle platform allowing for brands/organizers to put up items for prizes and organize raffles to have other users (participants) complete a set of actions (created by the raffle's organizer) to have a chance to enter a random draw in which the actions they completed turn into entries, and from the pool of entries submitted by all participants, an amount of winners (as specified by the raffle organizer) is selected to win the prize.
+
+
+Main Features: 
+- Login/Create account page for all users (participants and organizers), account login/creation process is the same for both types of users except for when creating an account, where the user has to specify whether they want to sign up exclusively as a raffle organizer or participant. 
+- Main page for users to check the raffles in which they are involved (this main page is the same for both types of users). From here you can enter a raffle's page (SubPage) where the range of actions of the user are limited by their account's role (organizer or participant). Raffles can be "completed" (by completing tasks as a participant), or "modified" (by changing some of the raffle's characteristics as an organizer). Within this Main page, organizers will also have the option to create new raffles, while participants should have the option to join an ongoing raffle.
+
+
+Inside a raffle's subpage: 
+
+- As a participant: you can see the details of the raffle you are enrolled in, and you can choose to "complete" a raffle by completing the tasks displayed on the screen as indicated by the organizer (this involves entering an answer, getting this answer checked at the moment, and getting feedback on whether the task was successfully completed).
+- As an organizer: you can see the details of the raffle as set up at the moment of the raffle's creation, from here you can edit certain attributes like adding a raffle rules text file, adding raffle tasks for users to complete, and changing the raffle's end date. From this page, the organizer should also be able to generate the set of random raffle winners, and notify such winners (this would be a phase2 extension where the Main page also includes a page dedicated to notifications that a participant gets when taking part in a raffle).
+
+*Note on "actions" completed by users: We plan to start off with simple actions like solving equations, or typing text displayed on the console, and as we progress through the project, we will try to expand the range of actions that can be performed.
+
+Entities: 	# the main classes of the program
+- User 
+- Task
+- Raffle
+
+Use Case Classes: 	# some classes which invoke entities
+- LoginUser
+- CreateUser
+- LoginRaffle (joining a raffle)
+- CreateRaffle
+- CreateTask
+- AddRaffleTask (adding tasks to be completed to a raffle object)
+
+Controllers: 	# calling the use cases
+- LoginRaffleController
+- CompleteTaskController
+- and more to match the use cases we have
+
+GUI:
+
+<details to be added>
