@@ -1,0 +1,10 @@
+rafflename
+number of winners 
+enddate 
+startdate
+raffleRules
+
+taskid
+
+winner ids
+participant ids
