@@ -1,4 +1,9 @@
-package main.java.UserComponent;
+package main.java.UserWeb;
+
+import main.java.UserComponent.GetOrganizerUseCase;
+import main.java.UserComponent.GetParticipantUseCase;
+import main.java.UserComponent.Organizer;
+import main.java.UserComponent.Participant;
 
 import java.util.ArrayList;
 import java.util.Date;
