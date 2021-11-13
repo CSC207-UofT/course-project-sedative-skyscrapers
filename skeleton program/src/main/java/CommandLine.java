@@ -65,15 +65,15 @@ public class CommandLine {
         char completeTask = new Scanner(System.in).next().charAt(0);
         if (completeTask == 'Y'){
             // since there is a single task in the task list, we access it by just indexing 0 for now
-            System.out.println("The task question is: " + ptcRaffle.getTaskList().get(0).getQuestion());
-            System.out.print("Enter your answer (correct answer would be the exact same as the " +
+            System.out.println("The task link is: " + ptcRaffle.getTaskList().get(0).getLink());
+            System.out.print("Enter your link (correct answer would be the exact same as the " +
                     "correct answer input when creating the task above): ");
-            String userAns = new Scanner(System.in).nextLine();
+            String link = new Scanner(System.in).nextLine();
             // setting the Task answer as indicated by the user
-            programPtcRaffles.get(ptcRaffle.getRaffleID()).getTaskList().get(0).setUserAnswer(userAns);
+            programPtcRaffles.get(ptcRaffle.getRaffleID()).getTaskList().get(0).setTaskLink(link);
 
             // since there is a single task id which is default to 0, we access it this way for now
-            boolean result = user0.checkAnswer(ptcRaffle.getRaffleID(), 0);
+            boolean result = true;
 
             this.printSeparator();
 
@@ -124,12 +124,15 @@ public class CommandLine {
 
     public Task createTaskWithProvidedInput(){
         // get input
-        System.out.print("Enter the question for the task (>=1 words): ");
-        String question = new Scanner(System.in).nextLine();
-        System.out.print("Enter the answer for such question (>=1 words): ");
-        String answer = new Scanner(System.in).nextLine();
+        System.out.print("Enter the name the task (>=1 words): ");
+        String name = new Scanner(System.in).nextLine();
+        System.out.print("Enter the description for the task (>=1 words): ");
+        String description = new Scanner(System.in).nextLine();
+        System.out.print("Enter the link for the task (>=1 words) Please ensure this is a complete URL, e.g. https://youtube.com ");
+        String link = new Scanner(System.in).nextLine();
 
-        return new Task(question, answer);
+        return new Task(name, description, link);
+
     }
 
     public void printSeparator(){

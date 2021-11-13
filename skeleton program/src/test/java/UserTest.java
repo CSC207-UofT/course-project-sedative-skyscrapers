@@ -25,7 +25,7 @@ public class UserTest {
 
         orgRaffle = organizer1.createRaffle("Raffle0", 5,
                 LocalDate.of(2021, 10, 26));
-        organizer1.addTask(orgRaffle.getRaffleID(), "2+2", "4");
+        organizer1.addTask(orgRaffle.getRaffleID(), "Task A", "A task", "facebook.com");
 
         ptcRaffle = participant1.joinRaffle(orgRaffle.getRaffleID());
     }
@@ -43,12 +43,12 @@ public class UserTest {
 
     @Test(timeout = 60)
     public void TestAddTask(){
-        assertEquals(orgRaffle.getTaskList().get(0).getAnswer(), "4");
+        assertEquals(orgRaffle.getTaskList().get(0).getLink(), "facebook.com");
     }
 
     @Test(timeout = 60)
     public void TestPtcTaskList(){
-        assertEquals(orgRaffle.getTaskList().get(0).getAnswer(), ptcRaffle.getTaskList().get(0).getAnswer());
+        assertEquals(orgRaffle.getTaskList().get(0).getLink(), ptcRaffle.getTaskList().get(0).getLink());
     }
 
 }

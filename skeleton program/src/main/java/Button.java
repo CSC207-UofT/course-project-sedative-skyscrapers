@@ -7,7 +7,7 @@ public class Button {
     public Button(Command newTask){
         CompleteTask = newTask;
     }
-    public void press() {
+    public void press() throws Exception {
         CompleteTask.execute();
     }
 }

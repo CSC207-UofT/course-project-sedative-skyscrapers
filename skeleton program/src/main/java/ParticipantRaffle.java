@@ -1,15 +1,11 @@
 package main.java;
 
-import main.java.Raffle;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class ParticipantRaffle extends Raffle {
 
     private boolean validParticipant;
-    private ArrayList<Task> tasksToComplete;
+    private ArrayList<Task> tasksReq;
     private ArrayList<Task> tasksCompleted;
     private User currentParticipant;  // the participant to make use of Raffle class.
 
@@ -18,13 +14,14 @@ public class ParticipantRaffle extends Raffle {
      * Initializer in charge of creating a ParticipantRaffle object, calling Raffle's second
      * initializer, and adding the needed extras of the subclass. Its main purpose is to add a
      * User participant to the Raffle object.
+     *
      * @param rafflePtc User object to join the Raffle as a participant
-     * @param raffleID int unique to the Raffle the User wants to join
+     * @param raffleID  int unique to the Raffle the User wants to join
      */
     public ParticipantRaffle(User rafflePtc, int raffleID) {
         super(rafflePtc, raffleID);
         this.validParticipant = false;
-        this.tasksToComplete = super.getTaskList();
+        this.tasksReq = super.getTaskList();
         /* for now these attributes are equal, but the idea is to have tasksToComplete be a deep
             copy of the Raffle's taskList since that way the participant can manipulate the state of
             individual tasks
@@ -38,57 +35,67 @@ public class ParticipantRaffle extends Raffle {
     /**
      * Modified setter, checking for the completion of at least one Task to have the User of this
      * ParticipantRaffle object be considered eligible for the draw for the prize.
-     *
      */
-    public void removeAddTasksToBeCompleted(int location){
+    public void removeAddTasksToBeCompleted(int location) {
         //removes task from 'to be completed' to 'to completed'
-        Task taskCompleted = tasksToComplete.remove(location);
+        Task taskCompleted = tasksReq.remove(location);
         tasksCompleted.add(taskCompleted);
 
     }
-    public void setValidParticipant(){
-        if (!this.tasksCompleted.isEmpty()){
+
+    public void setValidParticipant() {
+        if (this.tasksCompleted.size() == this.tasksReq.size()) {
             this.validParticipant = true;
         }
     }
 
-    public ArrayList<Task> getTasksToComplete() {
-        return tasksToComplete;
+    public boolean isValidParticipant() {
+        return this.validParticipant;
     }
 
-    public void setTasksToComplete(ArrayList<Task> tasksToComplete) {
-        this.tasksToComplete = tasksToComplete;
+    public ArrayList<Task> getTasksReq() {
+        return tasksReq;
+    }
+
+    public ArrayList<Task> getTasksCompleted() {
+        return tasksCompleted;
+    }
+
+    public void setTasksReq(ArrayList<Task> tasksReq) {
+        this.tasksReq = tasksReq;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String generalInfo = "Raffle Name: " + getRaffleName() + "\nRaffle ID: " + getRaffleID() + "\nRaffle Creator: "
                 + this.getOrganizer().getUsername() + "\nEnding Date: " + this.getEndDate();
 
         // String of taskList should let user see the tasks numbered for them to choose to complete a Task
         StringBuilder taskListStr = new StringBuilder();
         int i;
-        for (i = 0; i < this.getTasksToComplete().size(); i++){
-            taskListStr.append("[").append(i).append("]").append(getTasksToComplete().get(i).toString()).append("\n");
+        for (i = 0; i < this.getTasksReq().size(); i++) {
+            taskListStr.append("[").append(i).append("]").append(getTasksReq().get(i).toString()).append("\n");
         }
 
         return generalInfo + "\nTasks:\n" + taskListStr;
 
     }
 
-    public void transferTask(Task t1){
+    public void transferTask(Task t1) {
 
-        for (Task t: this.tasksToComplete) {
-            if (t == t1) {
-                this.tasksToComplete.remove(t);
-                t.setTaskState(true);
-                System.out.println("This Task has been completed!");
+        ArrayList<Task> completedCollector = new ArrayList<>();
+        for (Task t : this.tasksReq) {
+            if (t == t1 && !completedCollector.contains(t1) && !this.tasksCompleted.contains(t)) {
+                System.out.println("This Task has copied to completed list");
                 this.tasksCompleted.add(t);
+                completedCollector.add(t);
             }
-            else {
-                System.out.println("Task not in tasks to be completed list");
-            }
+            this.setValidParticipant();
         }
+    }
+
+    public boolean checkTaskCompleted(Task t) {
+       return this.getTasksCompleted().contains(t) && this.getTasksReq().contains(t);
     }
 
 }

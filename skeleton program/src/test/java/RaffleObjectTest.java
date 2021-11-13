@@ -28,7 +28,7 @@ public class RaffleObjectTest {
         participant1 = new User("xX_Alice_Kitten_Xx");
         participant2 = new User("x_Alice_Kitten_x");
 
-        task0 = new Task("Whats 2 + 2", "5");
+        task0 = new Task("Task A", "Subscribe to youtube channel", "youtube.com/pewdiepie");
 
         oRaff0 = organizer1.createRaffle("Raffle0", 5,
                 LocalDate.of(2021, 10, 26));
@@ -54,7 +54,7 @@ public class RaffleObjectTest {
 
     @Test(timeout = 60)
     public void TestSubclassRaffleTasks(){
-        assertEquals(oRaff0.getTaskList(), pRaff0.getTasksToComplete());
+        assertEquals(oRaff0.getTaskList(), pRaff0.getTasksReq());
     }
 
     @Test(timeout = 60)

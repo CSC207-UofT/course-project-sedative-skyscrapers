@@ -157,7 +157,7 @@ public class Raffle {
             for (ParticipantRaffle ptcRaff: ptc.getPtcRaffles().values()){
                 // each User should have a raffleListPTC for participation and raffleListOrg for organization
                 if (ptcRaff.getRaffleID() == this.raffleID){
-                    ptcRaff.setTasksToComplete(taskList);  // updating the tasks
+                    ptcRaff.setTasksReq(taskList);  // updating the tasks
                 }
             }
         }

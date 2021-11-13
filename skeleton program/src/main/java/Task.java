@@ -5,18 +5,24 @@ import java.util.*;
 
 public class Task {
     public static HashMap<Integer, Task> allTasks = new HashMap<>();
-    private final String question;
+    public String name;
+    public String description;
+    public String link;
+    /* private final String question;
     private final String answer;
     public String userAnswer;
-    private boolean taskState;  // true means completed by participant, false otherwise.
+    public String type;*/
+    // private boolean taskState;  // true means completed by participant, false otherwise.
     private int taskID;
 
-    public Task(String q, String a) {
-        this.question = q;
+    public Task(String name, String description, String link) {
+        /*this.question = q;
         this.answer = a;
-        this.userAnswer = a;
+        this.userAnswer = a;*/
         this.taskID = 0;
-        this.taskState = false;
+        this.name = name;
+        this.description = description;
+        this.link = link;
     }
 
     //Verify participant answer
@@ -24,8 +30,16 @@ public class Task {
         return a.equals(ua);
     }
 
-    public String getQuestion() {
-        return question;
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getLink(){
+        return link;
     }
 
     public int getTaskID() {
@@ -36,27 +50,16 @@ public class Task {
         this.taskID = taskID;
     }
 
+    public void setTaskLink(String link) {
+        this.link = link;
+    }
+
+
     @Override
     public String toString() {
-        String completedTask;
-        if (taskState) {
-            completedTask = "Completed";
-        } else {
-            completedTask = "Yet to complete";
-        }
-        return "Question: " + this.question + "; Task State: " + completedTask;
+       return("Name: " + name + ", Description: " + description + ", Link: " + link);
 
     }
 
-    public String getAnswer() {
-        return answer;
-    }
 
-    public String getUserAnswer() {
-        return userAnswer;
-    }
-
-    public void setUserAnswer(String userAns){this.userAnswer = userAns;}
-
-    public void setTaskState(boolean newTaskState){this.taskState = newTaskState;}
 }

@@ -139,7 +139,7 @@ public class User implements Participable, Organizable {
     public void completeTask(int taskID, int raffleID){
         ParticipantRaffle participantRaffle;
         participantRaffle = this.ptcRaffles.get(raffleID);
-        ArrayList<Task> tasksToComplete = participantRaffle.getTasksToComplete();
+        ArrayList<Task> tasksToComplete = participantRaffle.getTasksReq();
         for(int i = 0; i < tasksToComplete.size(); i++){
             if(tasksToComplete.get(i).getTaskID() == taskID){
                 participantRaffle.removeAddTasksToBeCompleted(i);
@@ -147,8 +147,8 @@ public class User implements Participable, Organizable {
         }
     }
 
-    public boolean checkAnswer(int raffleID, int taskID) {
-        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
+    /*public boolean checkAnswer(int raffleID, int taskID) {
+        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksReq();
         for(Task x : tasks){
             if (x.getTaskID() == taskID){
                 boolean result = x.verifyAnswer(x.getAnswer(), x.getUserAnswer());
@@ -156,13 +156,13 @@ public class User implements Participable, Organizable {
                 return result;
             }
         }
-        return false;
-    }
+        return false
+    }*/
 
     public void showTasks(int raffleID) {
-        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksToComplete();
+        ArrayList<Task> tasks = ptcRaffles.get(raffleID).getTasksReq();
         for(Task x : tasks){
-            System.out.println(x.getQuestion());
+            System.out.println(x.getName());
         }
     }
 
@@ -185,10 +185,10 @@ public class User implements Participable, Organizable {
     }
 
     @Override
-    public void addTask(int raffleID, String question, String answer) {
+    public void addTask(int raffleID, String name, String description, String link) {
         for (Raffle raff : Raffle.allRaffles.values()){
             if (raff.getRaffleID() == raffleID){
-                Raffle.allRaffles.get(raffleID).addNewTask(new Task(question, answer));
+                Raffle.allRaffles.get(raffleID).addNewTask(new Task(name, description, link));
             }
         }
     }

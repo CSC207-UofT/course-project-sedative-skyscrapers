@@ -32,7 +32,7 @@ public interface Organizable {
     //maybe we need a task id for identifying each task?
     //future extension: different kind of tasks
     //add an Q&A task with a question and an answer
-    void addTask(int raffleID, String question, String answer);
+    void addTask(int raffleID, String name, String description, String link);
 
     //delete a Q&A task
     // void deleteTask(String question);

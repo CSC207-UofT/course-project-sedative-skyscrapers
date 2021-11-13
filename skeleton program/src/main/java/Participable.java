@@ -23,7 +23,7 @@ public interface Participable {
          If the user has completed a task shift it from <tasksLeft> to
          <completedTasks>
          */
-    public boolean checkAnswer(int raffleID, int taskID);
+    /*public boolean checkAnswer(int raffleID, int taskID);*/
     /* check if the answer is correct  */
 
     // public void claimPrize();
