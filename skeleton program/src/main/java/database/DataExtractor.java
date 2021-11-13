@@ -86,7 +86,13 @@ public class DataExtractor {
         return (used_raffleIDs);
 
     }
-
+    
+    /**
+     * Gets the information of the raffleID as needed
+     * @param raffleID the raffleID whose info is needed
+     * @throws IOException when the file is not found
+     */
+    // TODO: make the function return HashMap in form required
     public void get_controller_data(String raffleID) throws IOException {
         HashMap<Integer, ArrayList<Object>> controller_data = new HashMap<>();
 
