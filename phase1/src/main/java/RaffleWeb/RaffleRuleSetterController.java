@@ -20,35 +20,19 @@ public class RaffleRuleSetterController {
     ... and we get this hashmap for all existing raffles in the program (through a method in db)
     */
 
-    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
+//    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
 
     public RaffleRuleSetterController(String id, String rulesString, HashMap<String, ArrayList<Object>> dbOrgRaffles){
         this.raffleId = id;
         this.rulesString = rulesString;
-        this.orgAllRaffles = dbOrgRaffles;
+//        this.orgAllRaffles = dbOrgRaffles;
     }
 
     public void runRaffleRuleSetter(){
         // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-        RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.raffleId, this.rulesString,
-                this.orgAllRaffles.get(this.raffleId));
+        RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.raffleId, this.rulesString);
         raffleManager.updateRules(); // updates the rules in the raffleManager raffle
-        // todo
-        // store these changes to the OrganizerRaffle object in the database
     }
 
-//    public ArrayList<Object> getRaffleInfo(){
-//
-//        ArrayList<Object> result = null;
-//
-//        for (String idKey: this.orgAllRaffles.keySet()){
-//            if (idKey.equals(this.raffleId)){
-//                result = this.orgAllRaffles.get(this.raffleId);
-//            }
-//        }
-//
-//        // if result stays as null, this case is handled in the use case
-//        return result;
-//    }
 
 }

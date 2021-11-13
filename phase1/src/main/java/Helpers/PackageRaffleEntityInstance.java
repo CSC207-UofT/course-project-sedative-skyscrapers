@@ -49,5 +49,4 @@ public class PackageRaffleEntityInstance implements PackageRaffleObject {
         return this.raffleToReturn;
     }
 
-
 }

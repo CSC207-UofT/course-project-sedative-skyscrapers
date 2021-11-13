@@ -20,36 +20,21 @@ public class RaffleWinnerGeneratorController {
     ... and we get this hashmap for all existing raffles in the program (through a method in db)
     */
 
-    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
+//    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
 
 
     public RaffleWinnerGeneratorController(String id, HashMap<String, ArrayList<Object>> dbOrgRaffles) {
         this.raffleId = id;
-        this.orgAllRaffles = dbOrgRaffles;
+//        this.orgAllRaffles = dbOrgRaffles;
     }
 
-    public void runRaffleWinnerGenerator() {
+    public ArrayList<String> runRaffleWinnerGenerator() {
         // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-        RaffleWinnerGeneratorUseCase raffleManager = new RaffleWinnerGeneratorUseCase(this.raffleId,
-                this.orgAllRaffles.get(this.raffleId));
-        raffleManager.updateRaffleWinners();  // generate and store winners inside the use cases' raffle
-
-        // todo
-        // store these changes to the OrganizerRaffle object in the database
+        RaffleWinnerGeneratorUseCase raffleManager = new RaffleWinnerGeneratorUseCase(this.raffleId);
+        return raffleManager.updateRaffleWinners();  // generate and store winners inside the use cases' raffle
+        // use this returned arrayList to notify winners
+        // winners to be notified through something, IDK
     }
 
-//    public ArrayList<Object> getRaffleInfo(){
-//
-//        ArrayList<Object> result = null;
-//
-//        for (String idKey: this.orgAllRaffles.keySet()){
-//            if (idKey.equals(this.raffleId)){
-//                result = this.orgAllRaffles.get(this.raffleId);
-//            }
-//        }
-//
-//        // if result stays as null, this case is handled in the use case
-//        return result;
-//    }
 }
 

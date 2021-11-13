@@ -6,17 +6,25 @@ import java.util.ArrayList;
 public class CompleteTaskUseCase {
 
     private RaffleEntity ptcRaffle;
-    private String taskId;
+    private final String taskId;
+    private ArrayList<Object> ptcRaffleInfo;
 
-    public CompleteTaskUseCase(String taskToComplete, String raffleId, ArrayList<Object> ptcRaffleDetails){
-        this.ptcRaffle = new RaffleEntity((String)ptcRaffleDetails.get(0), (Integer)ptcRaffleDetails.get(1),
-                (LocalDate)ptcRaffleDetails.get(3));
+    public CompleteTaskUseCase(String taskToComplete, String raffleId){
+        // todo uncomment: this.ptcRaffleInfo = DataAccess.getPtcRaffleById(raffleId)
+        this.ptcRaffle = new RaffleEntity((String)ptcRaffleInfo.get(0), (Integer)ptcRaffleInfo.get(1),
+                (LocalDate)ptcRaffleInfo.get(3));
         this.ptcRaffle.setRaffleId(raffleId);
-        this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleDetails.get(4));
+        this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
         this.taskId = taskToComplete;
     }
 
     public void completeTask(){
-        this.ptcRaffle.getTaskIdList().remove(this.taskId);
+        if (this.ptcRaffle.getTaskIdList().contains(this.taskId)){
+            this.ptcRaffle.getTaskIdList().remove(this.taskId);
+            // todo uncomment: DataAccess.uploadModifiedPtcRaffle(this.ptcRaffle)
+        } else {
+            // raise exception
+        }
+
     }
 }

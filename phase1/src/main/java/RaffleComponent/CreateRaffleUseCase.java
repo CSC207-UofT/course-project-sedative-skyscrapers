@@ -11,24 +11,29 @@ public class CreateRaffleUseCase {
     private RaffleIdGenerator idGenerator;
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
+    private CreationResult creationOutcome;
+    private String orgUsername;
+
+    public CreationResult getCreationOutcome() {
+        return creationOutcome;
+    }
 
     public enum CreationResult {
         SUCCESS, FAILURE
     }
 
-    public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, ArrayList<String> takenIds){
+    public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String organizerUsername){
         this.raffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate);
-        this.takenIds = takenIds;
-        this.idGenerator = new RaffleIdGenerator(this.takenIds);
+        this.orgUsername = organizerUsername;
+
+        // todo uncomment this when implemented: this.takenIds = DataAccess.getTakenRaffleIds();
+
+        this.idGenerator = new RaffleIdGenerator(this.takenIds, this.orgUsername);
         // save the raffle object along with the raffleID in database
     }
 
-//    public void StoreCreatedRaffle(){
-//
-//        // store in database
-//    }
+    public String runRaffleCreation(){
 
-    public CreationResult runRaffleCreation(){
         ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
         // generate id from use case
         String raffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
@@ -37,14 +42,17 @@ public class CreateRaffleUseCase {
             this.raffle.setRaffleId(raffleId);  // always true based on RaffleIdGenerator
             // update  takenIds
             this.takenIds.add(raffleId);
-            return CreationResult.SUCCESS;
+            // todo uncomment: DataAccess.uploadCreatedRaffle(takenIds, this.raffle)
+            this.creationOutcome = CreationResult.SUCCESS;
+            return raffleId;
         }
 
-        return CreationResult.FAILURE;
-
+        // this case never really executes since the idGenerator makes sure there is no id repetition
+        this.creationOutcome = CreationResult.FAILURE;
+        return null;
     }
 
     public RaffleEntity getRaffle() {
-        return raffle;
+        return this.raffle;
     }
 }

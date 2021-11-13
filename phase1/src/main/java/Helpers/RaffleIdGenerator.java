@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class RaffleIdGenerator implements EntityIdGenerator {
     private ArrayList<String> takenRaffleIds;
+    private String username;
 
-    public RaffleIdGenerator(ArrayList<String> takenIds){
+    public RaffleIdGenerator(ArrayList<String> takenIds, String userId){
         this.takenRaffleIds = takenIds;
+        this.username = userId;
     }
 
     @Override
@@ -17,7 +19,7 @@ public class RaffleIdGenerator implements EntityIdGenerator {
         int raffleNumber = generateIdNum(takenRaffleNums);
         String raffleCode = Character.toString(entityCode);  // String so far is just the entityCode
 
-        return raffleCode + raffleNumber;
+        return this.username + ":" + raffleCode + raffleNumber;
     }
 
     @Override

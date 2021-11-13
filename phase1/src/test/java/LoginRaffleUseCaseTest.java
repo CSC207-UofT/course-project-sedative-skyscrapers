@@ -6,6 +6,9 @@ import main.java.RaffleComponent.OrganizerRaffleEntity;
 import main.java.RaffleComponent.RaffleEntity;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.swing.plaf.IconUIResource;
+
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
@@ -18,29 +21,36 @@ public class LoginRaffleUseCaseTest {
     LoginRaffleUseCase correctRaffleManager;
     LoginRaffleUseCase wrongRaffleManager;
     OrganizerRaffleEntity orgRaffle;
+    String ptcId;
 
 
     @Before
     public void setUp() throws Exception {
 
-        String raffleId = "R1001";
-        String incorrectRaffleId = "R1002";
+        String orgRaffleId = "UsernameSubject1457:R1001";
+        ptcId = "UserNameSubject7844";  // the id provided by the participant joining
+        String incorrectOrgRaffleId = "UsernameSubject1457:R1002";
         orgRaffle = new OrganizerRaffleEntity("TestRaffle",
                 2, LocalDate.of(2021, 12, 25));
-        orgRaffle.setRaffleId(raffleId);
+        orgRaffle.setRaffleId(orgRaffleId);
+        orgRaffle.setRaffleRules("Participant must be human, and preferably live within 10LY from Earth)");
 
-        ArrayList<Object> orgRaffleDetails = new ArrayList<>(); // todo: after making the object -> info arrayList class
-
-        raffleMapping = new HashMap<String, ArrayList<Object>>();
-        raffleMapping.put(raffleId, orgRaffleDetails);
+        ArrayList<Object> orgRaffleInfo = new ArrayList<>(); // todo: after making the object -> info arrayList class
+        orgRaffleInfo.add(orgRaffle.getRaffleName());
+        orgRaffleInfo.add(orgRaffle.getNumberOfWinners());
+        orgRaffleInfo.add(orgRaffle.getRaffleRules());
+        orgRaffleInfo.add(orgRaffle.getEndDate());
+        orgRaffleInfo.add(orgRaffle.getTaskIdList());
+        raffleMapping = new HashMap<>();
+        raffleMapping.put(orgRaffleId, orgRaffleInfo);
 
         // login with already registered id
-        correctRaffleManager = new LoginRaffleUseCase(raffleId, raffleMapping.getOrDefault(raffleId, null));
+        correctRaffleManager = new LoginRaffleUseCase(orgRaffleId, ptcId);
+        correctRaffleManager.setOrgRaffleInfo(raffleMapping.getOrDefault(orgRaffleId, null));
 
         // login with not registered id
-        wrongRaffleManager = new LoginRaffleUseCase(incorrectRaffleId,
-                raffleMapping.getOrDefault(incorrectRaffleId, null));
-
+        wrongRaffleManager = new LoginRaffleUseCase(incorrectOrgRaffleId, ptcId);
+        wrongRaffleManager.setOrgRaffleInfo(raffleMapping.getOrDefault(incorrectOrgRaffleId, null));
 
     }
 
@@ -64,13 +74,20 @@ public class LoginRaffleUseCaseTest {
         assertEquals(ptcRaffle.getRaffleId(), orgRaffle.getRaffleId());
         assertEquals(ptcRaffle.getEndDate(), orgRaffle.getEndDate());
         assertEquals(ptcRaffle.getNumberOfWinners(), orgRaffle.getNumberOfWinners());
+        assertEquals(ptcRaffle.getRaffleRules(), orgRaffle.getRaffleRules());
+        assertEquals(ptcRaffle.getTaskIdList(), orgRaffle.getTaskIdList());
     }
 
-// todo
-//    @Test(timeout = 60)
-//    public void TestOrgRafflePtcListUpdated(){
-//
-//    }
+
+    @Test(timeout = 60)
+    public void TestOrgRafflePtcListUpdated(){
+        correctRaffleManager.runRaffleLogin();
+        ArrayList<String> ptcsSoFar = new ArrayList<>();
+        ptcsSoFar.add(ptcId);
+        assertEquals(orgRaffle.getParticipantIdList(), ptcsSoFar);
+
+
+    }
 
 
 }

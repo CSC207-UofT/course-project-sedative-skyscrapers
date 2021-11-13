@@ -10,5 +10,4 @@ public interface PackageRaffleObject {
     public ArrayList<Object> packageParticipantRaffle(RaffleEntity ptcRaffle);
 
     public ArrayList<Object> packageOrganizerRaffle(OrganizerRaffleEntity orgRaffle);
-
 }

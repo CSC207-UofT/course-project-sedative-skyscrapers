@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class RaffleEntity {
 
-    private String raffleName;
+    private final String raffleName;
     private String raffleId;
-    private int numberOfWinners;
+    private final int numberOfWinners;
     private String raffleRules;
-    private LocalDate endDate;
+    private final LocalDate endDate;
     private ArrayList<String> taskIdList;
 
     // constructor for participant (this entity is going to be used as the participant raffle, ORaffle is an extension)
@@ -23,13 +23,30 @@ public class RaffleEntity {
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;
-        this.taskIdList = new ArrayList<String>();
+        this.taskIdList = new ArrayList<>();
 
 //        this.raffleID = tempId;  TO BE SET THROUGH USE CASE
     }
 
-    public boolean checkIdsMatch(String id){
-        return this.raffleId.equals(id);
+//    public boolean checkIdsMatch(String id){
+//        return this.raffleId.equals(id);
+//    }
+
+    @Override
+    public String toString(){
+        // only to be called when all information is available
+        String generalInfo = "Raffle Name: " + this.raffleName + "\nRaffle ID: " + this.raffleId +
+                "\nEnding Date: " + this.getFormattedEndDate() + "\nNumber of Winners: "
+                + this.numberOfWinners;
+
+        StringBuilder taskListStr = new StringBuilder();
+        int i;
+        for (i = 0; i < this.taskIdList.size(); i++){
+            taskListStr.append("[").append(i).append("]").append(this.taskIdList.get(i)).append("\n");
+        }
+
+        return generalInfo + "\nTasks:\n" + taskListStr;
+
     }
 
 
@@ -52,6 +69,14 @@ public class RaffleEntity {
 
     public LocalDate getEndDate() {
         return endDate;
+    }
+
+    public String getFormattedEndDate(){
+        int year = this.endDate.getYear();
+        int month = this.endDate.getMonthValue();
+        int day = this.endDate.getDayOfMonth();
+
+        return year + "/" +  month + "/" + day;
     }
 
 
