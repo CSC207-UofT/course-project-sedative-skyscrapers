@@ -1,5 +1,6 @@
 package main.java.RaffleComponent;
 
+import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.RaffleComponent.OrganizerRaffleEntity;
 
 import java.awt.image.AreaAveragingScaleFilter;
@@ -18,6 +19,7 @@ public class RaffleRuleSetterUseCase {
     */
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
+    private PackageRaffleEntityInstance dataPackager;
 
     public RaffleRuleSetterUseCase(String raffleId, String rulesString, ArrayList<Object> orgRaffleDetails){
         this.rulesString = rulesString;
@@ -25,10 +27,16 @@ public class RaffleRuleSetterUseCase {
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                 (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(raffleId);
+        this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
+        // taskIdList, ptcIdList and winnerIdList empty at this stage
+
+        this.dataPackager = new PackageRaffleEntityInstance();
+
     }
 
     public void updateRules(){
         this.orgRaffle.setRaffleRules(this.rulesString);
-        // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle)
+        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
+        // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
     }
 }

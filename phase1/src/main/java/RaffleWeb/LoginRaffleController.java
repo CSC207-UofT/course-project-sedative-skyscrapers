@@ -27,13 +27,11 @@ public class LoginRaffleController {
 //        this.orgAllRaffles = dbOrgRaffles;  // input from db
     }
 
-    public void runLoginRaffle(){
+    public String runLoginRaffle(){
 
         // if raffleId is valid, then it is passed onto the use case, otherwise, use case takes care of null input
         LoginRaffleUseCase raffleManager = new LoginRaffleUseCase(this.orgRaffleId, this.ptcLogginInId);
-        System.out.println(raffleManager.runRaffleLogin());
-
-        // send raffleManager.getRaffle to DB through an {Id:RaffleEntity mapping}
+        return raffleManager.runRaffleLogin();
 
     }
 

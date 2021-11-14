@@ -46,11 +46,15 @@ public interface DataAccessPoint {
     ArrayList<ArrayList<Object>> getAllParticipantRaffles(String raffleId);
     // get the information of all participantRaffles under the provided raffleId
 
+    HashMap<String, ArrayList<Object>> getAllParticipantRafflesAndIDs(String raffleId);
+    // get the information of all participantRaffles under the provided pure raffleId, and return a hashmap of the
+    // format {participantRaffleId = "username:raffleID" : participantRaffleInfo = ArrayList<Object>}
+
     void uploadModifiedPtcRaffle(String ptcRaffleId, ArrayList<Object> raffleModifiedInfo);
     // sends updated ptcRaffle information data to DB under the provided Id, at DB all data related to the raffle
     // is updated according to raffleModifiedInfo, this would be just like uploadLoggedInRaffle, but some values
     // are to be replaced/added according to how the raffle was modified
 
-    ArrayList<Object> getParticipantRaffle(String raffleId);
+    ArrayList<Object> getParticipantRaffleById(String raffleId);
     // get the information of the one participant raffle being requested through the given Id
 }

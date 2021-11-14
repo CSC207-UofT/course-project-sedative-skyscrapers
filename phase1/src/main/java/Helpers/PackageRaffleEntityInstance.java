@@ -13,14 +13,6 @@ public class PackageRaffleEntityInstance implements PackageRaffleObject {
         this.raffleToReturn = new ArrayList<Object>();
     }
 
-//    public ArrayList<Object> packageRaffleObject(RaffleEntity raffle){
-//        if (raffle instanceof OrganizerRaffleEntity){
-//            this.packageOrganizerRaffle((OrganizerRaffleEntity) raffle);
-//        } else {
-//            this.packageParticipantRaffle(raffle);
-//        }
-//    }
-
     @Override
     public ArrayList<Object> packageParticipantRaffle(RaffleEntity raffle) {
         if (!this.raffleToReturn.isEmpty()) {
