@@ -8,16 +8,6 @@ import java.util.HashMap;
 public class DataMain {
 
     public static void main(String[] args) throws Exception {
-//        DataExtractor de = new DataExtractor();
-//        DataExtractorFrontEnd defe = new DataExtractorFrontEnd();
-////        String[] chaman = de.getUserDetails("faltu", "P");
-////        System.out.print(Arrays.toString(chaman));
-//        System.out.print(defe.checkUser("pavbhaji", "O"));
-//
-//        ArrayList<String> used_raffle_ids = de.getUsedRaffleIDs();
-//
-//        DataMiner dm = new DataMiner();
-//        de.get_controller_data("1");
         AddOrganizer dw = new AddOrganizer();
         dw.updateOrganizerPool("khushaal", "admin123", "uoft", "9099272288", "khushaal@uoft.com");
 
@@ -27,12 +17,10 @@ public class DataMain {
         given.add(4);
         given.add("these are very strict rules for raffle");
         given.add(LocalDate.of(2021, 12, 25));
-//        ArrayList<String> taskids = new ArrayList<String>();
-//        taskids.add("1");
-//        taskids.add("2");
-//        given.add(taskids);
-//
         dw.uploadCreatedRaffle(faltu, "136", given);
+        // SUPREMELY IMPORTANT STEP IN THE NEXT LINE: GOD MODE
+        dw.addOrganizer();
+        // GN function
         dw.uploadCreatedTask("1", "first task", "www.google.com", "this is a hardcore descrp of task");
 
 
