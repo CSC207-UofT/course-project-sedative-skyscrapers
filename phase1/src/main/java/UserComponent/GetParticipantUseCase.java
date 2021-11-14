@@ -5,9 +5,9 @@ import java.util.Date;
 public class GetParticipantUseCase {
     private final Participant participant;
 
-    public GetParticipantUseCase(String userName, String firstName, String lastName,
+    public GetParticipantUseCase(String userName, String password, String firstName, String lastName,
                                       Date dateOfBirth, String phone, String email) {
-        Participant newParticipant = new Participant(userName, firstName, lastName);
+        Participant newParticipant = new Participant(userName, password, firstName, lastName);
         if (dateOfBirth != null) {
             newParticipant.setDateOfBirth(dateOfBirth);
         }

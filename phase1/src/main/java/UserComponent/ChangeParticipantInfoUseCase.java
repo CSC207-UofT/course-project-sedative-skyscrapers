@@ -9,15 +9,27 @@ public class ChangeParticipantInfoUseCase {
         this.participant = participant;
     }
 
-    public void changeParticipantDateOfBirth(Date dateOfBirth) {
+    /**
+     * change or set the date of birth of the participant
+     * @param dateOfBirth date of birth of the participant
+     */
+    public void setParticipantDateOfBirth(Date dateOfBirth) {
         participant.setDateOfBirth(dateOfBirth);
     }
 
-    public void changeParticipantPhone(String phone) {
+    /**
+     * change or set the phone number of the participant
+     * @param phone phone number of the participant
+     */
+    public void setParticipantPhone(String phone) {
         participant.setPhone(phone);
     }
 
-    public void changeParticipantEmail(String email) {
+    /**
+     * change or set the email of the participant
+     * @param email email of the participant
+     */
+    public void setParticipantEmail(String email) {
         participant.setEmail(email);
     }
 
