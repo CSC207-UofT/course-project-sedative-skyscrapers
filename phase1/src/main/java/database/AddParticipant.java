@@ -22,10 +22,10 @@ public class AddParticipant {
                                       String ilastName, String idateOfBirth, String iphone,
                                       String iemail) throws IOException {
         String row = assignData(iusername, ipassword, ifirstName, ilastName, idateOfBirth, iphone, iemail);
-        fuckingPrint(row);
+        pleasePrint(row);
     }
 
-    private void fuckingPrint(String row) throws IOException {
+    private void pleasePrint(String row) throws IOException {
         FileWriter fw  = getfile.getFile("PuserCred");
         fw.append(row);
         fw.flush();

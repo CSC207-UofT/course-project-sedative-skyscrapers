@@ -28,7 +28,7 @@ public class AddOrganizer {
         addToOuserCred();
     }
 
-
+// only have to be called in sequence
     public void updateOrganizerPool(String iusername, String ipassword, String iaffiliatedOrganization, String iphone, String iemail) {
         username = iusername;
         password = ipassword;
@@ -62,7 +62,6 @@ public class AddOrganizer {
         FileWriter fw = getfile.getFile("raffleTaskDetails");
         fw.append(data);
         fw.flush();
-        fw.close();
 
     }
 
@@ -74,7 +73,6 @@ public class AddOrganizer {
                 enddate + COMMA + possiblewinners;
         fw.append(data);
         fw.flush();
-        fw.close();
     }
 }
 

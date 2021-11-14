@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class DataExtractor {
@@ -159,7 +160,13 @@ public class DataExtractor {
         Integer targetRaffleID = Integer.parseInt(raffleID);
 
         String[] attributes = data.get_line("raffleTaskDetails", true);
-        attributes = data.get_line("raffleTaskDetails", false);
+        while (!Objects.equals(attributes[0], raffleID)) {
+            attributes = data.get_line("raffleTaskDetails", false);
+            if (attributes[0] == null) {
+                break;
+            }
+        }
+
 
         while (raffleID.equals(attributes[0])) {
             tasks.add(attributes[1]);

@@ -31,10 +31,9 @@ public class JoinUserToRaffle {
             fw.append(row);
         }
         fw.flush();
-        fw.close();
     }
 
     private String getRow(String raffleID, String username, String taskID) {
-        return "\n" + COMMA + username + COMMA + raffleID + COMMA + taskID + COMMA + "F";
+        return "\n" + username + COMMA + raffleID + COMMA + taskID + COMMA + "F";
     }
 }

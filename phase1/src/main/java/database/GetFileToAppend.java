@@ -21,7 +21,7 @@ public class GetFileToAppend {
             return Ouser;
         }
         else if (Objects.equals(filename, "raffleUserDetails")) {
-            return Ouser;
+            return raffleUser;
         }
         return Puser;
     }
