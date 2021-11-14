@@ -10,53 +10,55 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
-public class UserController{
-    private Set<String> userNamePool; //who should be checking whether the username is used
+public class UserController {
     private HashMap<String, Participant> participantPool;
     private HashMap<String, Organizer> organizerPool;
-    private HashMap<String, ArrayList<String>> participantToRaffleID;
-    private HashMap<String, ArrayList<String>> organizerToRaffleID;
 
+    //TODO: implement constructor
     public UserController() {}
 
-    /*
-    Return a Participant object based on the information userName, firstName, lastName, dateOfBirth, phone, and email.
-    */
-    public Participant getParticipant(String userName, String firstName, String lastName,
+    /**
+     * Return a participant upon request
+     * @param username username
+     * @param password password
+     * @param firstName first name
+     * @param lastName last name
+     * @param dateOfBirth date of birth
+     * @param phone phone
+     * @param email email
+     * @return a Participant object
+     */
+    public Participant getParticipant(String username, String password, String firstName, String lastName,
                                       Date dateOfBirth, String phone, String email) {
-        if (participantPool.containsKey(userName)) {
-            return participantPool.get(userName);
+        if (participantPool.containsKey(username)) {
+            return participantPool.get(username);
         } else {
-            GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(userName, firstName, lastName,
-                    dateOfBirth, phone, email);
+            GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
+                    lastName, dateOfBirth, phone, email);
             Participant newParticipant = getParticipantUseCase.getParticipant();
-            participantPool.put(userName, newParticipant);
+            participantPool.put(username, newParticipant);
             return newParticipant;
         }
     }
 
-    /*
-    Return an Organizer object based on the information userName, affiliatedOrganization, phone, and email.
+    /**
+     * Return an organizer upon request
+     * @param username username
+     * @param password password
+     * @param affiliatedOrganization affiliated organization
+     * @param phone phone
+     * @param email email
+     * @return an Organizer object
      */
-    public Organizer getOrganizer(String userName, String affiliatedOrganization, String phone, String email) {
-        if (organizerPool.containsKey(userName)) {
-            return organizerPool.get(userName);
+    public Organizer getOrganizer(String username, String password, String affiliatedOrganization, String phone, String email) {
+        if (organizerPool.containsKey(username)) {
+            return organizerPool.get(username);
         } else {
-            GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(userName, affiliatedOrganization,
+            GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, affiliatedOrganization,
                     phone, email);
             Organizer newOrganizer = getOrganizerUseCase.getOrganizer();
-            organizerPool.put(userName, newOrganizer);
+            organizerPool.put(username, newOrganizer);
             return newOrganizer;
         }
-    }
-
-    //TODO: implement addParticipantRaffleID to associate the list of raffleID to the participant
-    public void addParticipantRaffleID(String userName, ArrayList<String> raffleID) {
-
-    }
-
-    //TODO: implement addOrganizerRaffleID to associate the list of raffleID to the organizer
-    public void addOrganizerRaffleID(String userName, ArrayList<String> raffleID) {
-
     }
 }

@@ -2,20 +2,30 @@ package main.java.UserComponent;
 import java.util.Date;
 
 public class Participant {
-    private final String userName;
+    private final String username;
+    private final String password;
     private final String firstName;
     private final String lastName;
     private Date dateOfBirth;
     private String phone;
     private String email;
 
-    public Participant(String userName, String firstName, String lastName) {
-        this.userName = userName;
+    public Participant(String username, String password, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = null;
         this.phone = null;
         this.email = null;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
@@ -32,7 +42,7 @@ public class Participant {
 
     @Override
     public String toString() {
-        return "User: " + this.userName + "\nUser Type: Participant\n first name: " + this.firstName + "\nlast name: " +
+        return "User: " + this.username + "\nUser Type: Participant\n first name: " + this.firstName + "\nlast name: " +
                 this.lastName + "\n date of birth: " + this.dateOfBirth + "\nphone: " + this.phone + "\nemail: " +
                 this.email;
     }
