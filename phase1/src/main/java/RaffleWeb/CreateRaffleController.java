@@ -14,27 +14,26 @@ public class CreateRaffleController {
     private String raffleName;
     private int numberOfWinners;
     private LocalDate endDate;
-    private String orgUsername;  // from system
+//    private String orgUsername;  // from system
 
-    public CreateRaffleController(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername){
+    public CreateRaffleController(String raffleName, int numOfWinners, LocalDate endDate){
 //        this.takenRaffleIds = takenIds;  // input from DB
 
         // input from user
         this.raffleName = raffleName;
         this.numberOfWinners = numOfWinners;
         this.endDate = endDate;
-        this.orgUsername = orgUsername;
+//        this.orgUsername = orgUsername;
     }
     // todo make return new raffle id
 
     public String runCreateRaffle(){
         // create an instance of createRaffleUseCase with user input
         CreateRaffleUseCase raffleManager = new CreateRaffleUseCase(this.raffleName, this.numberOfWinners,
-                this.endDate, this.orgUsername);
+                this.endDate);
 
         // call use case's run method to update the raffle's id
-        return raffleManager.runRaffleCreation();
+        return raffleManager.runRaffleCreation();  // returns pure raffleId for organizerRaffle
 
-        // send raffleManager.getRaffle to DB through an {Id:OrganizerRaffleEntity mapping}
     }
 }

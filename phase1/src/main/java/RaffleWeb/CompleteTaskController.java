@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class CompleteTaskController {
 
-    private String raffleId; // provided by system (of the form "userId:raffleId")
+    private String raffleId; // provided by system (of the form "ptcId:raffleId")
     private String taskId;
 //    private HashMap<String, ArrayList<Object>> ptcAllRaffles; // provided by db
 
@@ -22,4 +22,4 @@ public class CompleteTaskController {
         raffleManager.completeTask();
         // update db with raffleManager.getRaffle details
     }
-}
+ }
