@@ -19,7 +19,14 @@ public class AddOrganizer {
     String possiblewinners = "";
 
     String COMMA = ",";
+    GetFileToAppend getfile = new GetFileToAppend();
 
+    public AddOrganizer() throws IOException {
+    }
+
+    public void addOrganizer() throws IOException {
+        addToOuserCred();
+    }
 
 
     public void updateOrganizerPool(String iusername, String ipassword, String iaffiliatedOrganization, String iphone, String iemail) {
@@ -51,10 +58,8 @@ public class AddOrganizer {
     }
 
     public void uploadCreatedTask(String taskID, String taskname, String link, String description) throws IOException {
-        addToOuserCred();
-
         String data = "\n" + raffleID + COMMA + taskID + COMMA + taskname + COMMA + link + COMMA + description;
-        FileWriter fw = new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\raffleTaskDetails.csv", true);
+        FileWriter fw = getfile.getFile("raffleTaskDetails");
         fw.append(data);
         fw.flush();
         fw.close();
@@ -62,9 +67,9 @@ public class AddOrganizer {
     }
 
     private void addToOuserCred() throws IOException {
-        FileWriter fw = new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\OuserCred.csv", true);
-
-        String data = "\n" + username + COMMA + password + COMMA + phone + COMMA + email + COMMA + raffleID
+        FileWriter fw = getfile.getFile("OuserCred");
+        String data = "\n" + username + COMMA + password + COMMA + "firstname" + COMMA + "lastname" + COMMA +
+                "21112001" + COMMA + phone + COMMA + email + COMMA + raffleID
                 + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
                 enddate + COMMA + possiblewinners;
         fw.append(data);

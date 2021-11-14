@@ -153,7 +153,7 @@ public class DataExtractor {
         return raffleDetails;
     }
 
-    private ArrayList<String> getTasks(String raffleID) throws IOException {
+    public ArrayList<String> getTasks(String raffleID) throws IOException {
         ArrayList<String> tasks = new ArrayList<String>();
         Integer currentRaffleID = -1;
         Integer targetRaffleID = Integer.parseInt(raffleID);
