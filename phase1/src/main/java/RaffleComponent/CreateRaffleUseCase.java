@@ -16,10 +16,6 @@ public class CreateRaffleUseCase {
     private PackageRaffleEntityInstance dataPackager;
 //    private String orgUsername;
 
-    public CreationResult getCreationOutcome() {
-        return creationOutcome;
-    }
-
     public enum CreationResult {
         SUCCESS, FAILURE
     }
@@ -46,7 +42,7 @@ public class CreateRaffleUseCase {
             this.takenIds.add(raffleId);
 
             ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.raffle);
-            // todo uncomment: DataAccess.uploadCreatedRaffle(takenIds, this.raffle.getRaffleId, packagedOrgRaffle)  takenIds not needed probably
+            // todo uncomment: DataAccess.uploadCreatedRaffle(this.raffle.getRaffleId, packagedOrgRaffle)  takenIds not needed probably
             this.creationOutcome = CreationResult.SUCCESS;
             return raffleId;  // pure raffleId
         }
@@ -56,7 +52,16 @@ public class CreateRaffleUseCase {
         return null;
     }
 
+    // for testing purposes
     public RaffleEntity getRaffle() {
         return this.raffle;
+    }
+
+    public CreationResult getCreationOutcome() {
+        return creationOutcome;
+    }
+
+    public void setTakenIds(ArrayList<String> takenIds) {
+        this.takenIds = takenIds;
     }
 }

@@ -60,4 +60,13 @@ public class CompleteTaskUseCase {
 
         return completedTaskIds;
     }
+
+    // for testing purposes
+    public void setOrgRaffleInfo(ArrayList<Object> orgRaffleInfo) {
+        this.orgRaffleInfo = orgRaffleInfo;
+    }
+
+    public void setPtcRaffle(RaffleEntity ptcRaffle) {
+        this.ptcRaffle = ptcRaffle;
+    }
 }

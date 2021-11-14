@@ -12,7 +12,7 @@ public interface DataAccessPoint {
     ArrayList<String> getTakenRaffleIds();
     // obtain data from DB about ids that are already under use (Already implemented)
 
-    void uploadCreatedRaffle(ArrayList<String> takenIds, String orgRaffleId, ArrayList<Object> raffleCreatedInfo);
+    void uploadCreatedRaffle(String orgRaffleId, ArrayList<Object> raffleCreatedInfo);
     // update of the takenIds after an organizer raffle object is created, along with the new organizer Raffle
     // information that was just input by the used.
     // RaffleCreatedInfo format: [raffleName="raffle", numberOfWinners=2, rules="this is a string of rules",

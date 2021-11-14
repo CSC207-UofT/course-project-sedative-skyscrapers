@@ -69,6 +69,10 @@ public class LoginRaffleUseCase {
         return this.ptcLogginInId + ":" + this.orgRaffleId;  // orgRaffleId is pure
     }
 
+    public LoginResult getLoginResult() {
+        return loginResult;
+    }
+
     // for testing purposes
 
     public void setOrgRaffleInfo(ArrayList<Object> orgRaffleInfo) {
@@ -78,5 +82,6 @@ public class LoginRaffleUseCase {
     public RaffleEntity getRaffle() {
         return ptcRaffle;
     }
+
 }
 

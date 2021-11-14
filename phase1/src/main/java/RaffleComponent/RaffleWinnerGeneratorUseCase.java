@@ -9,14 +9,11 @@ import java.util.ArrayList;
 // the use case for when a raffle organizer wants to decide the winners of a raffle
 public class RaffleWinnerGeneratorUseCase {
 
-//    private final ArrayList<String> participantIdList;
-//    private final int numberOfWinners;
-//    private final ArrayList<Object> orgRaffleInfo;
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
     private PackageRaffleEntityInstance dataPackager;
 
-    public RaffleWinnerGeneratorUseCase(String raffleId, ArrayList<Object> orgRaffleDetails) {
+    public RaffleWinnerGeneratorUseCase(String raffleId) {
 
         // todo uncomment: this.orgRaffleInfo = DataAccess.getOrganizerRaffleById(raffleId)
 //        this.orgRaffleInfo = orgRaffleDetails;
@@ -63,5 +60,14 @@ public class RaffleWinnerGeneratorUseCase {
         }
 
         return winningEntry;
+    }
+
+    // for testing purposes only
+    public void setOrgRaffle(OrganizerRaffleEntity orgRaffle){
+        this.orgRaffle = orgRaffle;
+    }
+
+    public OrganizerRaffleEntity getOrgRaffle(){
+        return this.orgRaffle;
     }
 }

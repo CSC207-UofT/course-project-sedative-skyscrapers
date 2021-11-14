@@ -21,9 +21,9 @@ public class RaffleRuleSetterUseCase {
     private OrganizerRaffleEntity orgRaffle;
     private PackageRaffleEntityInstance dataPackager;
 
-    public RaffleRuleSetterUseCase(String raffleId, String rulesString, ArrayList<Object> orgRaffleDetails){
+    public RaffleRuleSetterUseCase(String raffleId, String rulesString){
         this.rulesString = rulesString;
-        // todo uncomment: this.orgRaffleInfo = DataAccess.getOrganizerRaffleById()
+        // todo uncomment: this.orgRaffleInfo = DataAccess.getOrganizerRaffleById(raffleId)
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                 (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(raffleId);
@@ -38,5 +38,14 @@ public class RaffleRuleSetterUseCase {
         this.orgRaffle.setRaffleRules(this.rulesString);
         ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
         // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
+    }
+
+    // for testing purposes
+    public OrganizerRaffleEntity getOrgRaffle(){
+        return this.orgRaffle;
+    }
+
+    public void setOrgRaffle(OrganizerRaffleEntity orgRaffle){
+        this.orgRaffle = orgRaffle;
     }
 }

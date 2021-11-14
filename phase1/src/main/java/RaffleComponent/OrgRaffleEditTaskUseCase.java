@@ -80,4 +80,21 @@ public class OrgRaffleEditTaskUseCase {
 
     }
 
+    // for testing purposes
+    public void setOrgRaffleInfo(ArrayList<Object> orgRaffleInfo) {
+        this.orgRaffleInfo = orgRaffleInfo;
+    }
+
+    public void setOrgRaffle(OrganizerRaffleEntity orgRaffle){
+        this.orgRaffle = orgRaffle;
+    }
+
+    public HashMap<String, ArrayList<Object>> getPtcAllRaffles(){
+        return this.ptcAllRaffles;
+    };
+
+    public void setPtcAllRaffles(HashMap<String, ArrayList<Object>> ptcAllRaffles) {
+        this.ptcAllRaffles = ptcAllRaffles;
+    }
+
 }

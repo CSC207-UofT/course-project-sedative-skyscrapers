@@ -20,7 +20,8 @@ public class CreateRaffleUseCaseTest {
 
         takenRaffleIds = new ArrayList<>();
         correctRaffleManager = new CreateRaffleUseCase("TestRaffle0", 2,
-                LocalDate.of(2021, 12, 25), "OrganizerSubject1006");
+                LocalDate.of(2021, 12, 25));
+        correctRaffleManager.setTakenIds(new ArrayList<>());
 
     }
 
@@ -35,14 +36,13 @@ public class CreateRaffleUseCaseTest {
     public void TestSuccessfulCreationMessage(){
         correctRaffleManager.runRaffleCreation();
         assertNotNull(correctRaffleManager.runRaffleCreation());
-        // verify we get a string
+        // verify we get a string as a result
 
     }
 
     // there is no possible way for the creation to turn out as a fail due to how Ids are generated to not be repeated
 
-
-
-
+    // checks for correct input are to be implemented in the input layers of the program, so no check for valid input
+    // is required of this use case
 
 }
