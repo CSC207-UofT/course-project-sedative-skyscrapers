@@ -1,24 +1,40 @@
 package main.java.UserWeb;
 
+import main.java.database.*;
 import main.java.UserComponent.GetOrganizerUseCase;
 import main.java.UserComponent.GetParticipantUseCase;
 import main.java.UserComponent.Organizer;
 import main.java.UserComponent.Participant;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.LocalDate;
 
 public class UserController {
-    private HashMap<String, Participant> participantPool;
-    private HashMap<String, Organizer> organizerPool;
+    private DataExtractor dataExtractor;
+    private AddParticipant participantUploader;
+    private AddOrganizer organizerUploader;
 
-    //TODO: implement constructor
-    public UserController() {}
+    public UserController() {
+        try {
+            this.dataExtractor = new DataExtractor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.participantUploader = new AddParticipant();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.organizerUploader = new AddOrganizer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
-     * Get a Participant object and upload the new participant information to database if it is a new Participant
+     * Create a new Participant object and upload the new participant's information to database
      * @param username username
      * @param password password
      * @param firstName first name
@@ -28,45 +44,73 @@ public class UserController {
      * @param email email
      * @return a Participant object
      */
-    public Participant getParticipant(String username, String password, String firstName, String lastName,
-                                      Date dateOfBirth, String phone, String email) {
-        if (participantPool.containsKey(username)) {
-            return participantPool.get(username);
-        } else {
-            GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
+    public Participant createNewParticipant(String username, String password, String firstName, String lastName,
+                                            LocalDate dateOfBirth, String phone, String email) {
+        GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
                     lastName, dateOfBirth, phone, email);
-            Participant newParticipant = getParticipantUseCase.getParticipant();
-            participantPool.put(username, newParticipant);
-            //updateParticipantPool()
-            return newParticipant;
+        Participant newParticipant = getParticipantUseCase.getParticipant();
+        try {
+            participantUploader.updateParticipantPool(username, password, firstName, lastName, dateOfBirth.toString(),
+                    phone, email);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return newParticipant;
     }
 
-    //TODO
-    public void updateParticipantPool() {
-
+    public Participant getExistedParticipant(String username) {
+        String[] ptcInfo = new String[5];
+        try {
+            ptcInfo = dataExtractor.getUserDetails(username, "P");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String password = ptcInfo[0];
+        String firstName = ptcInfo[1];
+        String lastName = ptcInfo[2];
+        LocalDate doB = LocalDate.parse(ptcInfo[3]);
+        String phone = ptcInfo[4];
+        String email = ptcInfo[5];
+        GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
+                lastName, doB, phone, email);
+        return getParticipantUseCase.getParticipant();
     }
+
+//    //phase2 extension
+//    public void updateParticipantPool() {
+//
+//    }
 
     /**
-     * Get an Organizer object
+     * Create a new Organizer object and upload the new organizer's information to database
      * @param username username
      * @param password password
-     * @param affiliatedOrganization affiliated organization
+     * @param orgName affiliated organization name
      * @param phone phone
      * @param email email
      * @return an Organizer object
      */
-    public Organizer getOrganizer(String username, String password, String affiliatedOrganization, String phone,
-                                  String email) {
-        if (organizerPool.containsKey(username)) {
-            return organizerPool.get(username);
-        } else {
-            GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, affiliatedOrganization,
+    public Organizer createNewOrganizer(String username, String password, String orgName, String phone,
+                                        String email) {
+        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName,
                     phone, email);
-            Organizer newOrganizer = getOrganizerUseCase.getOrganizer();
-            organizerPool.put(username, newOrganizer);
-            //updateOrganizerPool()
-            return newOrganizer;
+        Organizer newOrganizer = getOrganizerUseCase.getOrganizer();
+        organizerUploader.updateOrganizerPool(username, password, orgName, phone, email);
+        return newOrganizer;
+    }
+
+    public Organizer getExistedOrganizer(String username) {
+        String[] orgInfo = new String[3];
+        try {
+            orgInfo = dataExtractor.getUserDetails(username, "O");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        String password = orgInfo[0];
+        String orgName = orgInfo[1];
+        String phone = orgInfo[2];
+        String email = orgInfo[3];
+        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName, phone, email);
+        return getOrganizerUseCase.getOrganizer();
     }
 }

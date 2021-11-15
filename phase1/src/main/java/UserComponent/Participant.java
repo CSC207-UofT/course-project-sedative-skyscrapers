@@ -1,12 +1,12 @@
 package main.java.UserComponent;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Participant {
     private final String username;
     private final String password;
     private final String firstName;
     private final String lastName;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String phone;
     private String email;
 
@@ -28,7 +28,7 @@ public class Participant {
         return this.password;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

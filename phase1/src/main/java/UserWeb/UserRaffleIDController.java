@@ -1,14 +1,28 @@
 package main.java.UserWeb;
 
+import main.java.database.DataExtractor;
+import main.java.database.JoinUserToRaffle;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UserRaffleIDController {
-    private HashMap<String, ArrayList<String>> participantToRaffleID;
-    private HashMap<String, String> organizerToRaffleID;
+    private DataExtractor dataExtractor;
+    private JoinUserToRaffle joinUserToRaffle;
 
-    //TODO: implement constructor
-    UserRaffleIDController() {}
+    public UserRaffleIDController() {
+        try {
+            this.dataExtractor = new DataExtractor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.joinUserToRaffle = new JoinUserToRaffle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Get a list of raffleIDs of the raffles that the participant is a part of
@@ -16,7 +30,7 @@ public class UserRaffleIDController {
      * @return a list of raffleIDs
      */
     public ArrayList<String> getParticipantRaffleID(String username) {
-        return participantToRaffleID.get(username);
+        return dataExtractor.getParticipantRaffleId(username);
     }
 
     /**
@@ -25,26 +39,19 @@ public class UserRaffleIDController {
      * @return a raffleID String
      */
     public String getOrganizerRaffleID(String username) {
-        return organizerToRaffleID.get(username);
+        return dataExtractor.getOrganizerRaffleId(username);
     }
 
-    //TODO: implement addParticipantRaffleID
     /**
      * Upload the raffleID of the raffle the participant joined to database
      * @param username participant username
      * @param raffleID the raffleID of the raffle the participant joined
      */
-    public void addRaffleIDToParticipant(String username, ArrayList<String> raffleID) {
-
-    }
-
-    //TODO: implement addOrganizerRaffleID
-    /**
-     * Upload the raffleID of the raffle the organizer created to database
-     * @param username organizer username
-     * @param raffleID the raffleID of the raffle the organizer created
-     */
-    public void addRaffleIDToOrganizer(String username, ArrayList<String> raffleID) {
-
+    public void addRaffleIDToParticipant(String username, String raffleID) {
+        try {
+            joinUserToRaffle.joinUserToRaffle(raffleID, username);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
