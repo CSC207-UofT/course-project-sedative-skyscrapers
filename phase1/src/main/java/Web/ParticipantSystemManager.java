@@ -43,6 +43,7 @@ public class ParticipantSystemManager {
     }
 
 
+
     public void storeRaffleInParticipantData(String raffleID, String username){
 
         UserRaffleIDController userRaffIDCont = new UserRaffleIDController();
@@ -74,6 +75,11 @@ public class ParticipantSystemManager {
         return (ArrayList<String>) raffleLookupCont.runLookupOrgRaffleInfo(orgRaffleID).get(4);
     }
 
+    public boolean checkLoginMatch(String username, String password){
+        CheckUsernameController checkObj = new CheckUsernameController();
+        return checkObj.participantUsernameMatchPassword(username, password);
+    }
+
     public boolean isValidUsername(String username){
         CheckUsernameController checkName = new CheckUsernameController();
         return checkName.userNameUsed(username);
@@ -101,5 +107,6 @@ public class ParticipantSystemManager {
         return raffleLookupCont.runLookupAllRaffleInfo().keySet();
     }
 }
+
 
 
