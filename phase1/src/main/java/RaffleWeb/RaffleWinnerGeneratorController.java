@@ -23,9 +23,8 @@ public class RaffleWinnerGeneratorController {
 //    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
 
 
-    public RaffleWinnerGeneratorController(String id, HashMap<String, ArrayList<Object>> dbOrgRaffles) {
+    public RaffleWinnerGeneratorController(String id) {
         this.raffleId = id;
-//        this.orgAllRaffles = dbOrgRaffles;
     }
 
     public ArrayList<String> runRaffleWinnerGenerator() {

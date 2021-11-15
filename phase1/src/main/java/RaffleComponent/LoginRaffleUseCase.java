@@ -1,7 +1,11 @@
 package main.java.RaffleComponent;
 
 import main.java.Helpers.PackageRaffleEntityInstance;
+import main.java.database.AddOrganizer;
+import main.java.database.DataExtractor;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -14,6 +18,8 @@ public class LoginRaffleUseCase {
     private OrganizerRaffleEntity orgRaffle;
     private LoginResult loginResult;
     private PackageRaffleEntityInstance dataPackager;
+    private DataExtractor dataAccess;
+    private AddOrganizer dataUploader;
 
 
     public enum LoginResult {
@@ -23,7 +29,23 @@ public class LoginRaffleUseCase {
     public LoginRaffleUseCase(String orgRaffleId, String ptcId) {
         this.orgRaffleId = orgRaffleId;  // pureRaffleId provided by user
         this.ptcLogginInId = ptcId;  // provided by system
-        // todo uncomment: this.orgRaffleInfo = DataAccess.getOrganizerRaffleById(this.orgRaffleId)
+
+        try {
+            this.dataAccess = new DataExtractor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.dataUploader = new AddOrganizer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(orgRaffleId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                 (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(orgRaffleId);

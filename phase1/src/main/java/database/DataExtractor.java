@@ -130,6 +130,52 @@ public class DataExtractor {
 
     }
 
+    public HashMap<String, ArrayList<Object>> getAllOrgRaffleInfo() throws IOException{
+        HashMap<String, ArrayList<Object>> hashMapToReturn = new HashMap<>();
+
+        try {
+            for (String orgRaffleId: getUsedRaffleIDs()){
+                hashMapToReturn.put(orgRaffleId, getOrgRaffleInfo(orgRaffleId));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return hashMapToReturn;
+    }
+
+    public HashMap<String, ArrayList<Object>> getAllPtcRaffleInfo(String orgRaffleId) throws Exception{
+        HashMap<String, ArrayList<Object>> allPtcRafflesHashMap = new HashMap<>();
+        HashMap<String, ArrayList<Object>> allRafflesHashMap = this.getAllOrgRaffleInfo();
+        for (String raffleIdKey: allRafflesHashMap.keySet()){
+            if (raffleIdKey.contains(":")){
+                String[] ptcRaffleIdParts = raffleIdKey.split(":");
+                if (ptcRaffleIdParts[1].equals(orgRaffleId)){
+                    allPtcRafflesHashMap.put(raffleIdKey, allRafflesHashMap.get(raffleIdKey));
+                }
+            }
+        }
+
+        return allPtcRafflesHashMap;
+    }
+
+    public ArrayList<Object> getOrgRaffleInfo(String orgRaffleId) throws IOException{
+        ArrayList<Object> orgRaffleInfo = new ArrayList<>(Arrays.asList(getRaffleDetails(orgRaffleId)));
+        orgRaffleInfo.add(getTasks(orgRaffleId));
+        orgRaffleInfo.add(getUsersInRaffle(orgRaffleId));
+        orgRaffleInfo.add(getWinners(orgRaffleId));
+
+        return orgRaffleInfo;
+    }
+
+    public ArrayList<Object> getPtcRaffleInfo(String ptcRaffleId) throws IOException{
+        ArrayList<Object> orgRaffleInfo = new ArrayList<>(Arrays.asList(getRaffleDetails(ptcRaffleId)));
+        orgRaffleInfo.add(getTasks(ptcRaffleId));
+
+        return orgRaffleInfo;
+    }
+
+
     private String[] getRaffleDetails(String raffleID) throws IOException {
 
         int RAFFLEID = 7;

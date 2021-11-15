@@ -10,14 +10,20 @@ public class CreateRaffleController {
     // this controller is going to need to get the information from the database about the taken raffle ids
     // and the information from the user input all raffle details coming from the commandline or gui
 
-//    private ArrayList<String> takenRaffleIds;
+
     private String raffleName;
     private int numberOfWinners;
     private LocalDate endDate;
-//    private String orgUsername;  // from system
+    public ArrayList<Object> raffleInfoSoFar;
+
 
     public CreateRaffleController(String raffleName, int numOfWinners, LocalDate endDate){
-//        this.takenRaffleIds = takenIds;  // input from DB
+
+        this.raffleInfoSoFar = new ArrayList<>();
+        this.raffleInfoSoFar.add(raffleName);
+        this.raffleInfoSoFar.add(numOfWinners);
+        this.raffleInfoSoFar.add(null);
+        this.raffleInfoSoFar.add(endDate);
 
         // input from user
         this.raffleName = raffleName;

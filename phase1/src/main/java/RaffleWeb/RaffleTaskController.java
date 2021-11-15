@@ -21,20 +21,17 @@ public class RaffleTaskController {
     ... and we get this hashmap for all existing raffles in the program (through a method in db)
     */
 
-//    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
-//    private HashMap<String, ArrayList<Object>> ptcAllRaffles; // provided by db
+    public ArrayList<Object> raffleInfoSoFar;
 
 
-    public RaffleTaskController(String raffleId, HashMap<String, ArrayList<Object>> dbOrgRaffles,
-                                HashMap<String, ArrayList<Object>> dbPtcRaffles) {
+    public RaffleTaskController(String raffleId, ArrayList<Object> raffleInfoSoFar) {
         this.raffleId = raffleId;
-//        this.orgAllRaffles = dbOrgRaffles;
-//        this.ptcAllRaffles = dbPtcRaffles;
+        this.raffleInfoSoFar = raffleInfoSoFar;
 
     }
 
     public OrgRaffleEditTaskUseCase.OrgTaskEditOutcome runEditOrgTaskList(
-            OrgRaffleEditTaskUseCase.TaskEditTypes editToPerform, String taskId) {
+            OrgRaffleEditTaskUseCase.TaskEditTypes editToPerform, ArrayList<String> taskIds) {
 
         OrgRaffleEditTaskUseCase raffleManager;
         OrgRaffleEditTaskUseCase.OrgTaskEditOutcome result = OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.STANDBY;
@@ -42,18 +39,18 @@ public class RaffleTaskController {
         switch (editToPerform){
             case ORGANIZER_ADD:
                 // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskId);
+                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
                 result = raffleManager.addTask();
                 if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_ADDED)){
-                    raffleManager.updatePtcRaffles(taskId, editToPerform);
+                    raffleManager.updatePtcRaffles(taskIds, editToPerform);
                 }
 
             case ORGANIZER_REMOVE:
                 // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskId);
+                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
                 result = raffleManager.removeTask();
                 if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_REMOVED)){
-                    raffleManager.updatePtcRaffles(taskId, editToPerform);
+                    raffleManager.updatePtcRaffles(taskIds, editToPerform);
                 }
 
         }

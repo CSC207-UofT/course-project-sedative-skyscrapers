@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
 
 public class CompleteTaskUseCaseTest {
 
-    // todo: test that you return the correct completedTaskIds when completing a valid taskId and when taskId is bad
 
     String correctTaskCompletedId;
     String wrongTaskCompletedId;

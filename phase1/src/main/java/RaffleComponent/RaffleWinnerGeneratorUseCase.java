@@ -2,7 +2,11 @@ package main.java.RaffleComponent;
 
 import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.RaffleComponent.OrganizerRaffleEntity;
+import main.java.database.AddOrganizer;
+import main.java.database.DataExtractor;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -12,11 +16,27 @@ public class RaffleWinnerGeneratorUseCase {
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
     private PackageRaffleEntityInstance dataPackager;
+    private DataExtractor dataAccess;
+    private AddOrganizer dataUploader;
 
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
-        // todo uncomment: this.orgRaffleInfo = DataAccess.getOrganizerRaffleById(raffleId)
-//        this.orgRaffleInfo = orgRaffleDetails;
+        try {
+            this.dataAccess = new DataExtractor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.dataUploader = new AddOrganizer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(raffleId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                 (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(raffleId);
