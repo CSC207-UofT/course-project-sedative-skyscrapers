@@ -1,5 +1,6 @@
 package main.java.Web;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import main.java.RaffleComponent.OrgRaffleEditTaskUseCase;
 import main.java.RaffleWeb.*;
 import main.java.RaffleWeb.RaffleLookupController;
 import main.java.TaskWeb.CreateTaskController;
+import main.java.TaskWeb.TaskLookupController;
 import main.java.UserWeb.UserController;
 import main.java.UserWeb.UserRaffleIDController;
 import main.java.UserWeb.CheckUsernameController;
@@ -50,6 +52,11 @@ public class OrganizerSystemManager {
 
     public void setRaffleID(String raffleID) {
         this.raffleID = raffleID;
+    }
+
+    public boolean checkLoginMatch(String username, String password){
+        CheckUsernameController checkObj = new CheckUsernameController();
+        return checkObj.organizerUsernameMatchPassword(username, password);
     }
 
 
@@ -100,6 +107,11 @@ public class OrganizerSystemManager {
 
     }
 
+    public ArrayList<String> getTaskInfo(String taskID) throws FileNotFoundException {
+        TaskLookupController task = new TaskLookupController(taskID);
+        return task.runLookupTaskInfo();
+    }
+
     // Pass the searched raffleID as get that raffle details.
     public Set<String> getAllRaffleID(){
         RaffleLookupController raffleLookupCont = new RaffleLookupController();
@@ -127,5 +139,6 @@ public class OrganizerSystemManager {
 
 
 }
+
 
 
