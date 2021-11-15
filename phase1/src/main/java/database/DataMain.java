@@ -8,6 +8,10 @@ import java.util.HashMap;
 public class DataMain {
 
     public static void main(String[] args) throws Exception {
+        GetTaskDetails gt = new GetTaskDetails();
+        System.out.print(gt.getTaskDetails("1"));
+        System.out.print(gt.getUsedTaskIDs());
+
 //        AddOrganizer dw = new AddOrganizer();
 //        dw.updateOrganizerPool("khushaal", "admin123", "uoft", "9099272288", "khushaal@uoft.com");
 ////
@@ -26,9 +30,9 @@ public class DataMain {
 //
 //        AddParticipant ap = new AddParticipant();
 //        ap.updateParticipantPool("xi", "mypassword", "anamika", "arora", "21112001", "9809827262", "anamika@gmail.com");
-
-        JoinUserToRaffle jutr = new JoinUserToRaffle();
-        jutr.joinUserToRaffle("136", "xi");
+//
+//        JoinUserToRaffle jutr = new JoinUserToRaffle();
+//        jutr.joinUserToRaffle("136", "xi");
 
 
     }
