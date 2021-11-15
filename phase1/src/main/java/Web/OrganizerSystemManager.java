@@ -13,6 +13,7 @@ import main.java.RaffleWeb.RaffleLookupController;
 import main.java.TaskWeb.CreateTaskController;
 import main.java.UserWeb.UserController;
 import main.java.UserWeb.UserRaffleIDController;
+import main.java.UserWeb.CheckUsernameController;
 
 public class OrganizerSystemManager {
 
@@ -76,6 +77,12 @@ public class OrganizerSystemManager {
 
         taskCont.runEditOrgTaskList(OrgRaffleEditTaskUseCase.TaskEditTypes.ORGANIZER_ADD, taskIDs);
         // Adds or removes the task in list..
+    }
+
+    public boolean isValidUsername(String username){
+        CheckUsernameController checkName = new CheckUsernameController();
+        return checkName.userNameUsed(username);
+
     }
 
 
