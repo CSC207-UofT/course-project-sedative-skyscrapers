@@ -37,8 +37,7 @@ public class AddOrganizer {
         email = iemail;
     }
 
-    public void uploadCreatedRaffle(ArrayList<String> takenIds,
-                                    String orgRaffleId,
+    public void uploadCreatedRaffle(String orgRaffleId,
                                     ArrayList<Object> raffleCreatedInfo) throws IOException {
         raffleID = orgRaffleId;
         rafflename = (String) raffleCreatedInfo.get(0);

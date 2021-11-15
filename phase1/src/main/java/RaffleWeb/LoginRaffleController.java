@@ -20,9 +20,8 @@ public class LoginRaffleController {
 //    private HashMap<String, ArrayList<Object>> orgAllRaffles;
 
 
-
-    public LoginRaffleController(String orgId, String ptcId){
-        this.orgRaffleId = orgId;  // user input
+    public LoginRaffleController(String orgRaffleId, String ptcId){
+        this.orgRaffleId = orgRaffleId;  // user input
         this.ptcLogginInId = ptcId;
 //        this.orgAllRaffles = dbOrgRaffles;  // input from db
     }

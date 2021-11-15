@@ -20,12 +20,13 @@ public class RaffleRuleSetterController {
     ... and we get this hashmap for all existing raffles in the program (through a method in db)
     */
 
-//    private HashMap<String, ArrayList<Object>> orgAllRaffles;  // provided by db
+    public ArrayList<Object> raffleInfoSoFar;
 
-    public RaffleRuleSetterController(String id, String rulesString, HashMap<String, ArrayList<Object>> dbOrgRaffles){
+    public RaffleRuleSetterController(String id, String rulesString, ArrayList<Object> raffleInfoSoFar){
         this.raffleId = id;
         this.rulesString = rulesString;
-//        this.orgAllRaffles = dbOrgRaffles;
+        this.raffleInfoSoFar = raffleInfoSoFar;
+        this.raffleInfoSoFar.set(2, rulesString);
     }
 
     public void runRaffleRuleSetter(){

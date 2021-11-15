@@ -1,50 +1,78 @@
 package main.java.RaffleComponent;
 
+import main.java.database.AddOrganizer;
+import main.java.database.DataExtractor;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RaffleLookupUseCase {
 
 //    private final String orgRaffleId;
-    private final int PTC_DATA_SIZE = 5;
-    private final int ORG_DATA_SIZE = 7;
+//    private final int PTC_DATA_SIZE = 5;
+//    private final int ORG_DATA_SIZE = 7;
+    private DataExtractor dataAccess;
 
     public RaffleLookupUseCase(){
-
+        try {
+            this.dataAccess = new DataExtractor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static HashMap<String, ArrayList<Object>> getAllOrgRaffleInfo(){
+    public HashMap<String, ArrayList<Object>> getAllOrgRaffleInfo(){
         // returns {orgRaffleId: ArrayList<Object>} where ArrayList<Object> refers to a raffle's info
-        // todo uncomment: return DataAccess.getAllOrganizerRaffles();
+        HashMap<String, ArrayList<Object>> hashMapToReturn = new HashMap<>();
+
+        try {
+            hashMapToReturn = this.dataAccess.getAllOrgRaffleInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return hashMapToReturn;
     }
 
     public ArrayList<Object> getPtcRaffleInfo(String ptcRaffleId){
-        // todo uncomment: ArrayList<Object> ptcRaffleInfo = DataAccess.getParticipantRaffleById(this.ptcRaffleId);
-        ArrayList<Object> ptcRaffleInfo = new ArrayList<>();
-
-        // returns [name, numOfWinners, endDate]
-        int i;
-        for (i = 0; i < this.PTC_DATA_SIZE; i++){
-            ptcRaffleInfo.add(ptcRaffleInfo.get(i));
+        ArrayList<Object> ptcRaffleInfo = null;
+        try {
+            ptcRaffleInfo = this.dataAccess.getPtcRaffleInfo(ptcRaffleId);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//
+//
+//        // returns [name, numOfWinners, endDate]
+//        int i;
+//        for (i = 0; i < this.PTC_DATA_SIZE; i++){
+//            ptcRaffleInfo.add(ptcRaffleInfo.get(i));
+//        }
+//        return ptcRaffleInfo;
+//        // this is for the 5 for ptcRaffle
         return ptcRaffleInfo;
-        // this is for the 5 for ptcRaffle
     }
 
     public ArrayList<Object> getOrgRaffleInfo(String orgRaffleId){
-        // todo uncomment: ArrayList<Object> orgRaffleInfo = DataAccess.getOrganizerRaffleById(this.orgRaffleId);
-        ArrayList<Object> orgRaffleInfo = new ArrayList<>();
-
-        // returns [name, numOfWinners, endDate]
-        int i;
-        for (i = 0; i < this.ORG_DATA_SIZE; i++){
-            orgRaffleInfo.add(orgRaffleInfo.get(i));
+        ArrayList<Object> orgRaffleInfo = null;
+        try {
+            orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(orgRaffleId);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//
+//        // returns [name, numOfWinners, endDate]
+//        int i;
+//        for (i = 0; i < this.ORG_DATA_SIZE; i++){
+//            orgRaffleInfo.add(orgRaffleInfo.get(i));
+//        }
         return orgRaffleInfo;
-        // this is for the 5 for ptcRaffle
+        // this is for the 7 for ptcRaffle
     }
 
-    public boolean raffleIdExists(String orgRaffleID){
-        // todo uncomment: return DataAccess.getAllOrganizerRaffles().keyset().contains(orgRaffleId);
+    public boolean raffleIdExists(String orgRaffleID) {
+        return this.getAllOrgRaffleInfo().containsKey(orgRaffleID);
     }
+
 }

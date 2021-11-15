@@ -18,10 +18,10 @@ public class RaffleLookupController {
     }
 
     public HashMap<String, ArrayList<Object>> runLookupAllRaffleInfo() {
-        return RaffleLookupUseCase.getAllOrgRaffleInfo();
+        return this.raffleInfoManager.getAllOrgRaffleInfo();
     }
 
-    public ArrayList<Object> runRaffleIdExists(String orgRaffleId) {
+    public boolean runRaffleIdExists(String orgRaffleId) {
         return this.raffleInfoManager.raffleIdExists(orgRaffleId);
     }
 
@@ -33,9 +33,4 @@ public class RaffleLookupController {
         return this.raffleInfoManager.getOrgRaffleInfo(orgRaffleId);
     }
 
-
-
-    /* todo: for getting raffle Info from a particular organizer, just use the user class' method to
-     return the raffleIds they are involved in, and call runLookupPtcRaffleInfo for each of them
-     */
 }
