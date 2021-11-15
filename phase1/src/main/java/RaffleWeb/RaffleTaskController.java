@@ -44,13 +44,18 @@ public class RaffleTaskController {
                 // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
                 raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskId);
                 result = raffleManager.addTask();
-                raffleManager.updatePtcRaffles(taskId, editToPerform);
+                if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_ADDED)){
+                    raffleManager.updatePtcRaffles(taskId, editToPerform);
+                }
 
             case ORGANIZER_REMOVE:
                 // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
                 raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskId);
                 result = raffleManager.removeTask();
-                raffleManager.updatePtcRaffles(taskId, editToPerform);
+                if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_REMOVED)){
+                    raffleManager.updatePtcRaffles(taskId, editToPerform);
+                }
+
         }
 
         return result;

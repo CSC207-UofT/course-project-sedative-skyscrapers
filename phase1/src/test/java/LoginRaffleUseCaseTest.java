@@ -2,12 +2,11 @@ package test.java;
 
 import main.java.RaffleComponent.LoginRaffleUseCase;
 import main.java.RaffleComponent.OrganizerRaffleEntity;
+import test.java.UseCaseTestHelpers;
 
 import main.java.RaffleComponent.RaffleEntity;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.swing.plaf.IconUIResource;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,25 +21,25 @@ public class LoginRaffleUseCaseTest {
     LoginRaffleUseCase wrongRaffleManager;
     OrganizerRaffleEntity orgRaffle;
     String ptcId;
+    UseCaseTestHelpers helper;
 
 
     @Before
     public void setUp() throws Exception {
 
-        String orgRaffleId = "UsernameSubject1457:R1001";
-        ptcId = "UserNameSubject7844";  // the id provided by the participant joining
-        String incorrectOrgRaffleId = "UsernameSubject1457:R1002";
+        String orgRaffleId = "R1001";
+        String incorrectOrgRaffleId = "R1002";
+
+        ptcId = "UserNameSubject7844";  // the username of the participant joining
+
         orgRaffle = new OrganizerRaffleEntity("TestRaffle",
                 2, LocalDate.of(2021, 12, 25));
         orgRaffle.setRaffleId(orgRaffleId);
         orgRaffle.setRaffleRules("Participant must be human, and preferably live within 10LY from Earth)");
 
-        ArrayList<Object> orgRaffleInfo = new ArrayList<>(); // todo: after making the object -> info arrayList class
-        orgRaffleInfo.add(orgRaffle.getRaffleName());
-        orgRaffleInfo.add(orgRaffle.getNumberOfWinners());
-        orgRaffleInfo.add(orgRaffle.getRaffleRules());
-        orgRaffleInfo.add(orgRaffle.getEndDate());
-        orgRaffleInfo.add(orgRaffle.getTaskIdList());
+        // setting up the dummy database information
+        helper = new UseCaseTestHelpers();
+        ArrayList<Object> orgRaffleInfo = helper.setupDummyOrgRaffleInfo(orgRaffle);
         raffleMapping = new HashMap<>();
         raffleMapping.put(orgRaffleId, orgRaffleInfo);
 
@@ -52,39 +51,45 @@ public class LoginRaffleUseCaseTest {
         wrongRaffleManager = new LoginRaffleUseCase(incorrectOrgRaffleId, ptcId);
         wrongRaffleManager.setOrgRaffleInfo(raffleMapping.getOrDefault(incorrectOrgRaffleId, null));
 
+
     }
 
     @Test(timeout = 60)
     public void TestSuccessfulLogin(){
-        assertEquals(correctRaffleManager.runRaffleLogin(), LoginRaffleUseCase.LoginResult.SUCCESS);
+        correctRaffleManager.runRaffleLogin();
+        assertEquals(correctRaffleManager.getLoginResult(), LoginRaffleUseCase.LoginResult.SUCCESS);
     }
 
     @Test(timeout = 60)
     public void TestFailedLogin(){
-        assertEquals(wrongRaffleManager.runRaffleLogin(), LoginRaffleUseCase.LoginResult.RAFFLE_ID_NOT_RECOGNIZED);
+        wrongRaffleManager.runRaffleLogin();
+        assertEquals(wrongRaffleManager.getLoginResult(), LoginRaffleUseCase.LoginResult.RAFFLE_ID_NOT_RECOGNIZED);
     }
 
     @Test(timeout = 60)
     public void TestCorrectAttributeCopy(){
-        // execute login actions
         correctRaffleManager.runRaffleLogin();
         RaffleEntity ptcRaffle = correctRaffleManager.getRaffle();
 
         assertEquals(ptcRaffle.getRaffleName(), orgRaffle.getRaffleName());
-        assertEquals(ptcRaffle.getRaffleId(), orgRaffle.getRaffleId());
         assertEquals(ptcRaffle.getEndDate(), orgRaffle.getEndDate());
         assertEquals(ptcRaffle.getNumberOfWinners(), orgRaffle.getNumberOfWinners());
         assertEquals(ptcRaffle.getRaffleRules(), orgRaffle.getRaffleRules());
         assertEquals(ptcRaffle.getTaskIdList(), orgRaffle.getTaskIdList());
     }
 
+    @Test(timeout = 60)
+    public void TestCorrectPtcRaffleId(){
+        String ptcRaffleId = correctRaffleManager.runRaffleLogin();
+        assertEquals(ptcRaffleId, ptcId + ":" + orgRaffle.getRaffleId());
+    }
 
     @Test(timeout = 60)
     public void TestOrgRafflePtcListUpdated(){
         correctRaffleManager.runRaffleLogin();
-        ArrayList<String> ptcsSoFar = new ArrayList<>();
-        ptcsSoFar.add(ptcId);
-        assertEquals(orgRaffle.getParticipantIdList(), ptcsSoFar);
+        ArrayList<String> participantsSoFar = new ArrayList<>();
+        participantsSoFar.add(ptcId);
+        assertEquals(orgRaffle.getParticipantIdList(), participantsSoFar);
 
 
     }

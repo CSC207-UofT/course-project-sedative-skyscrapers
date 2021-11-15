@@ -1,2 +1,3 @@
-﻿username  ,password,firstname,lastname ,ageDate,phone,email,raffleID,rafflename,rafflerules,affiliatedorg,startdate,enddate
-pavbhaji,chamach123,pav,bhaji,1122001,9876565656,pavbhaji@pyaaz.com,1,iphone10,There are the rules of the raffles. They are super important and dumb.,fido,1212001,21112001
+﻿username  ,password,firstname,lastname ,ageDate,phone,email,raffleID,rafflename,rafflerules,affiliatedorg,startdate,enddate,possiblewinners
+pavbhaji,chamach123,pav,bhaji,1122001,9876565656,pavbhaji@pyaaz.com,1,iphone10,There are the rules of the raffles. They are super important and dumb.,fido,1212001,21112001,5
+khushaal,admin123,firstname,lastname,21112001,9099272288,khushaal@uoft.com,136,new raffle,these are very strict rules for raffle,uoft,21112001,2021-12-25,4
