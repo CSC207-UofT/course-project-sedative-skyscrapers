@@ -1,38 +1,31 @@
 package main.java.TaskComponent;
 
-import main.java.ParticipantRaffle;
-import main.java.Task;
+import main.java.RaffleComponent.CompleteTaskUseCase;
+import main.java.TaskComponent.Task;
 
 import java.awt.*;
 import java.net.URI;
 
 public class CommandTask implements Command {
 
-    ParticipantRaffle theRaffle;
-    main.java.Task TaskA;
+    String theRaffleID;
+    String theTaskID;
 
-    public CommandTask(ParticipantRaffle newRaffle, main.java.Task theTask){
+    public CommandTask(String raffleID, String taskID){
 
-        theRaffle = newRaffle;
-        TaskA = theTask;
+        theRaffleID = raffleID;
+        theTaskID = taskID;
 
     }
 
     @Override
     public void execute() throws Exception{
 
-        for (Task t: theRaffle.getTasksReq()){
-
-            if (t.getTaskID() == TaskA.getTaskID() && !theRaffle.getTasksCompleted().contains(t)) {
-                theRaffle.transferTask(t);
-                System.out.println(t.link);
-                Desktop d = Desktop.getDesktop();
-                d.browse(new URI(t.getLink()));
-
-            }
-
-
-        }
+        CompleteTaskUseCase Completer = new CompleteTaskUseCase(theTaskID, theRaffleID);
+        Completer.completeTask(); //todo: ensure system manager doesn't repeat this
+        TaskLookupUseCase Looker = new TaskLookupUseCase(theTaskID);
+        Desktop d = Desktop.getDesktop();
+        d.browse(new URI(Looker.getTaskInfo().get(2)));
 
     }
 }

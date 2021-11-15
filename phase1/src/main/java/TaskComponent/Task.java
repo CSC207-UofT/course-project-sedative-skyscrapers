@@ -4,30 +4,15 @@ import java.util.HashMap;
 
 
 public class Task {
-    public static HashMap<Integer, Task> allTasks = new HashMap<>();
-    public String name;
-    public String description;
-    public String link;
-    /* private final String question;
-    private final String answer;
-    public String userAnswer;
-    public String type;*/
-    // private boolean taskState;  // true means completed by participant, false otherwise.
-    private int taskID;
+    private String name;
+    private String description;
+    private String link;
+    private String taskID;
 
     public Task(String name, String description, String link) {
-        /*this.question = q;
-        this.answer = a;
-        this.userAnswer = a;*/
-        this.taskID = 0;
         this.name = name;
         this.description = description;
         this.link = link;
-    }
-
-    //Verify participant answer
-    public boolean verifyAnswer(String a, String ua) {
-        return a.equals(ua);
     }
 
     public String getName(){
@@ -42,17 +27,15 @@ public class Task {
         return link;
     }
 
-    public int getTaskID() {
+    public String getTaskID() {
         return taskID;
     }
 
-    public void setTaskID(int taskID) {
+    public void setTaskID(String taskID) {
         this.taskID = taskID;
     }
 
-    public void setTaskLink(String link) {
-        this.link = link;
-    }
+    // public void setTaskLink(String link) {this.link = link;}
 
 
     @Override

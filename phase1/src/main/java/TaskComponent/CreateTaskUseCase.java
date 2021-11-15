@@ -1,50 +1,39 @@
 package main.java.TaskComponent;
-import main.java.Task;
-//import main.java.Helpers.TaskIdGenerator;
+import main.java.Helpers.TaskIdGenerator;
+import java.util.ArrayList;
 
 public class CreateTaskUseCase {
 
-        private Task task;
-        //private RaffleIdGenerator idGenerator;
-        //private static final char entityCode = 'R';
-        //private ArrayList<String> takenIds;
+    private Task task;
+    private TaskIdGenerator idGenerator;
+    private static final char entityCode = 'T';
+    private ArrayList<String> takenIds;
 
-        /*public enum CreationResult {
-            SUCCESS, FAILURE
-        }
-
-         */
-
-        public CreateTaskUseCase(String name, String description, String link){
-            this.task = new Task(name, description, link);
-            //this.takenIds = takenIds;
-            //this.idGenerator = new RaffleIdGenerator(this.takenIds);
-            // save the raffle object along with the raffleID in database
-        }
-
-//    public void StoreCreatedRaffle(){
-//
-//        // store in database
-//    }
-
-        /*public CreationResult runRaffleCreation(){
-            ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
-            // generate id from use case
-            String raffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
-
-            if (!this.takenIds.contains(raffleId)){
-                this.raffle.setRaffleId(raffleId);  // always true based on RaffleIdGenerator
-                // update  takenIds
-                this.takenIds.add(raffleId);
-                return CreationResult.SUCCESS;
-            }
-
-            return CreationResult.FAILURE;
-
-        }
-*/
-        public Task getTask() {
-            return task;
-        }
+    public CreateTaskUseCase(String name, String description, String link) {
+        this.task = new Task(name, description, link);
+        // todo uncomment this when implemented: this.takenIds = DataAccess.getTakenTaskIds();
+        this.idGenerator = new TaskIdGenerator(this.takenIds);
+        // todo: save the raffle object along with the raffleID in database
     }
+
+    public String runTaskCreation(){
+
+        ArrayList<Integer> takenTaskIdNums = idGenerator.takenNumList(CreateTaskUseCase.entityCode);
+        // generate id from use case
+        String taskID = idGenerator.generateEntityId(CreateTaskUseCase.entityCode, takenTaskIdNums);
+
+        if (!this.takenIds.contains(taskID)){
+            this.task.setTaskID(taskID);  // always true based on RaffleIdGenerator
+            // update  takenIds
+            this.takenIds.add(taskID);
+            // todo uncomment: DataAccess.uploadCreatedTask(takenIds, this.)task
+            return taskID;
+        }
+        return null;
+    }
+
+    public Task getTask(){
+        return this.task;
+    }
+
 }
