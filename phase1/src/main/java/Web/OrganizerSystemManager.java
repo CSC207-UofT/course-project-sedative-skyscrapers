@@ -75,7 +75,7 @@ public class OrganizerSystemManager {
         }
 
         taskCont.runEditOrgTaskList(OrgRaffleEditTaskUseCase.TaskEditTypes.ORGANIZER_ADD, taskIDs);
-        // Adds or removes the task in list.
+        // Adds or removes the task in list..
     }
 
 
