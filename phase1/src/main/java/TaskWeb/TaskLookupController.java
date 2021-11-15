@@ -2,21 +2,19 @@ package main.java.TaskWeb;
 
 import main.java.TaskComponent.TaskLookupUseCase;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class TaskLookupController {
     private final String taskID;
     private final TaskLookupUseCase taskInfoManager;
 
-    public TaskLookupController(String taskID) {
+    public TaskLookupController(String taskID) throws FileNotFoundException {
         this.taskID = taskID;
         this.taskInfoManager = new TaskLookupUseCase(this.taskID);
     }
 
-    public ArrayList<String> runLookupTaskInfo() {
-        /* todo: for getting raffle Info from a particular organizer, just use the user class' method to
-     return the raffleIds they are involved in, and call runLookupPtcRaffleInfo for each of them
-     */
-        return this.taskInfoManager.getTaskInfo(); //todo is this correct? check with raffle lookupcase
+    public ArrayList<String> runLookupTaskInfo() throws FileNotFoundException{
+        return this.taskInfoManager.getTaskInfo();
     }
 }

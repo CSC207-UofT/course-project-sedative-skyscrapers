@@ -1,5 +1,11 @@
 package main.java.TaskComponent;
 import main.java.Helpers.TaskIdGenerator;
+import main.java.database.AddOrganizer;
+import main.java.database.DataExtractor;
+import main.java.database.GetTaskDetails;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CreateTaskUseCase {
@@ -8,12 +14,23 @@ public class CreateTaskUseCase {
     private TaskIdGenerator idGenerator;
     private static final char entityCode = 'T';
     private ArrayList<String> takenIds;
+    private GetTaskDetails extractor;
+    private AddOrganizer writer;
 
-    public CreateTaskUseCase(String name, String description, String link) {
+    public CreateTaskUseCase(String name, String description, String link) throws IOException {
         this.task = new Task(name, description, link);
-        // todo uncomment this when implemented: this.takenIds = DataAccess.getTakenTaskIds();
+        try {
+            this.extractor = new GetTaskDetails();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            this.takenIds = this.extractor.getUsedTaskIDs();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.idGenerator = new TaskIdGenerator(this.takenIds);
-        // todo: save the raffle object along with the raffleID in database
+        this.writer = new AddOrganizer();
     }
 
     public String runTaskCreation(){
@@ -26,7 +43,13 @@ public class CreateTaskUseCase {
             this.task.setTaskID(taskID);  // always true based on RaffleIdGenerator
             // update  takenIds
             this.takenIds.add(taskID);
-            // todo uncomment: DataAccess.uploadCreatedTask(takenIds, this.)task
+
+            try {
+                this.writer.uploadCreatedTask(this.task.getTaskID(),
+                        this.task.getName(), this.task.getLink(), this.task.getDescription());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return taskID;
         }
         return null;

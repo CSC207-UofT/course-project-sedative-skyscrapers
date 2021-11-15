@@ -1,7 +1,6 @@
 package main.java.TaskComponent;
 
-import main.java.RaffleComponent.CompleteTaskUseCase;
-import main.java.TaskComponent.Task;
+import main.java.RaffleComponent.CompleteTaskUseCase;;
 
 import java.awt.*;
 import java.net.URI;
@@ -22,10 +21,10 @@ public class CommandTask implements Command {
     public void execute() throws Exception{
 
         CompleteTaskUseCase Completer = new CompleteTaskUseCase(theTaskID, theRaffleID);
-        Completer.completeTask(); //todo: ensure system manager doesn't repeat this
+        Completer.completeTask(); //todo remove from system manager?
         TaskLookupUseCase Looker = new TaskLookupUseCase(theTaskID);
         Desktop d = Desktop.getDesktop();
-        d.browse(new URI(Looker.getTaskInfo().get(2)));
+        d.browse(new URI(Looker.getTaskInfo().get(1)));
 
     }
 }

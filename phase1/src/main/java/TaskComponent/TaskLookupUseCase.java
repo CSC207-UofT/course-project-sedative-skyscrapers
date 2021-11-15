@@ -1,16 +1,20 @@
 package main.java.TaskComponent;
+import main.java.database.GetTaskDetails;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class TaskLookupUseCase {
     public final String taskID;
+    public GetTaskDetails extractor;
 
-    public TaskLookupUseCase(String taskID) { this.taskID = taskID;}
+    public TaskLookupUseCase (String taskID) throws FileNotFoundException {
+        this.taskID = taskID;
+        this.extractor = new GetTaskDetails();
+    }
 
-    public ArrayList<String> getTaskInfo(){
-        // todo uncomment: ArrayList<Object> theTaskInfo = DataAccess.getTaskById(this.taskId);
-        ArrayList<String> taskInfo = new ArrayList<>();
-        // returns [name of task, description, link]
-        taskInfo = new ArrayList<String>(theTaskInfo.get(1), theTaskInfo.get(2), theTaskInfo.get(3));
+    public ArrayList<String> getTaskInfo() throws FileNotFoundException{
+        ArrayList<String> taskInfo = extractor.getTaskDetails(this.taskID);
         return taskInfo;
     }
 
