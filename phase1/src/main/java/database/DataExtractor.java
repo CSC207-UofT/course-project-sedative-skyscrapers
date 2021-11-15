@@ -2,6 +2,7 @@ package main.java.database;
 
 import javax.naming.directory.AttributeInUseException;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,36 +26,7 @@ public class DataExtractor {
      * @throws Exception if database file is not found
      */
 
-//public interface IUserDetail {
-//         String FirstName = null;
-//         String LastName = null;
-//         int Age = 0;
-//    }
-//
-//    public static class OuserDetail implements IUserDetail {
-//        String FirstName = null;
-//        String LastName = null;
-//        int Age = 0;
-//    }
-//
-//    public static class PuserDetail implements IUserDetail {
-//        String FirstName = null;
-//        String LastName = null;
-//        int Age = 0;
-//        String Email="";
-//    }
-//public enum UserType
-//{
-//    Organizer,
-//    Partyner
-//}
-//    // TODO: convert into enumeration
-//    public IUserDetail[] GetUserDetails(UserType userType)
-//    {
-//        if(userType==UserType.Organizer)
-//            return new OuserDetail();
-//            else if (user)
-//    }
+
     public String[] getUserDetails(String user_search, String user_type) throws Exception{
         if (!(user_type.equals("O") | user_type.equals("P")))
         {
@@ -222,4 +194,63 @@ public class DataExtractor {
 
         return usernames;
     }
+
+    public ArrayList<String> getParticipantRaffleId(String ptcusername) {
+        ArrayList<String> raffles = new ArrayList<>();
+        String[] attributes = new String[0];
+        try {
+            attributes = data.get_line("raffleUserDetails", true);
+            while (attributes != null) {
+                String tempRaffle = attributes[1];
+                if ((Objects.equals(attributes[0], ptcusername)) && (!raffles.contains(tempRaffle))) {
+                    raffles.add(tempRaffle);
+                }
+                attributes = data.get_line("raffleUserDetails", false);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return raffles;
+    }
+
+    public String getOrganizerRaffleId(String orgusername) {
+        try {
+            String[] details = getUserDetails(orgusername, "O");
+            return details[7];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "User Not Found";
+    }
 }
+
+//public interface IUserDetail {
+//         String FirstName = null;
+//         String LastName = null;
+//         int Age = 0;
+//    }
+//
+//    public static class OuserDetail implements IUserDetail {
+//        String FirstName = null;
+//        String LastName = null;
+//        int Age = 0;
+//    }
+//
+//    public static class PuserDetail implements IUserDetail {
+//        String FirstName = null;
+//        String LastName = null;
+//        int Age = 0;
+//        String Email="";
+//    }
+//public enum UserType
+//{
+//    Organizer,
+//    Partyner
+//}
+//    // TODO: convert into enumeration
+//    public IUserDetail[] GetUserDetails(UserType userType)
+//    {
+//        if(userType==UserType.Organizer)
+//            return new OuserDetail();
+//            else if (user)
+//    }
