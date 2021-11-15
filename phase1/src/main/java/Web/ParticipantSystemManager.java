@@ -54,7 +54,7 @@ public class ParticipantSystemManager {
     }
 
     // TODO (Code works just clarification): Ask varun about how 1 by 1 task complete and you call completeTask is called,
-    //  how that will handle for that task in controller and store.
+    //  how that will handle for that task in controller and store..
     public void completeTask(String raffleID, String taskID) throws Exception {
         // Call taskController, save task and add it to the participant raffle object. miGHT Have to call the necessary
         // controller to do this.
