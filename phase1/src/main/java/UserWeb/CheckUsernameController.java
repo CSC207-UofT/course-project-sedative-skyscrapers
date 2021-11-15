@@ -1,4 +1,4 @@
-package main.java.UserComponent;
+package main.java.UserWeb;
 
 import java.util.ArrayList;
 import java.util.HashMap;

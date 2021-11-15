@@ -1,4 +1,9 @@
-package main.java.UserComponent;
+package main.java.UserWeb;
+
+import main.java.UserComponent.GetOrganizerUseCase;
+import main.java.UserComponent.GetParticipantUseCase;
+import main.java.UserComponent.Organizer;
+import main.java.UserComponent.Participant;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +18,7 @@ public class UserController {
     public UserController() {}
 
     /**
-     * Return a participant upon request
+     * Get a Participant object and upload the new participant information to database if it is a new Participant
      * @param username username
      * @param password password
      * @param firstName first name
@@ -32,12 +37,18 @@ public class UserController {
                     lastName, dateOfBirth, phone, email);
             Participant newParticipant = getParticipantUseCase.getParticipant();
             participantPool.put(username, newParticipant);
+            //updateParticipantPool()
             return newParticipant;
         }
     }
 
+    //TODO
+    public void updateParticipantPool() {
+
+    }
+
     /**
-     * Return an organizer upon request
+     * Get an Organizer object
      * @param username username
      * @param password password
      * @param affiliatedOrganization affiliated organization
@@ -45,7 +56,8 @@ public class UserController {
      * @param email email
      * @return an Organizer object
      */
-    public Organizer getOrganizer(String username, String password, String affiliatedOrganization, String phone, String email) {
+    public Organizer getOrganizer(String username, String password, String affiliatedOrganization, String phone,
+                                  String email) {
         if (organizerPool.containsKey(username)) {
             return organizerPool.get(username);
         } else {
@@ -53,6 +65,7 @@ public class UserController {
                     phone, email);
             Organizer newOrganizer = getOrganizerUseCase.getOrganizer();
             organizerPool.put(username, newOrganizer);
+            //updateOrganizerPool()
             return newOrganizer;
         }
     }
