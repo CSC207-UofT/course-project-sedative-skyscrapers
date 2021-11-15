@@ -17,7 +17,7 @@ public class RaffleWinnerGeneratorUseCase {
     private OrganizerRaffleEntity orgRaffle;
     private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
-    private AddOrganizer dataUploader;
+//    private AddOrganizer dataUploader;
 
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
@@ -26,11 +26,11 @@ public class RaffleWinnerGeneratorUseCase {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        try {
-            this.dataUploader = new AddOrganizer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.dataUploader = new AddOrganizer();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
             this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(raffleId);
         } catch (IOException e) {

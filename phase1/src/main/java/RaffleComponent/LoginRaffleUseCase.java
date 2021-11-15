@@ -3,6 +3,7 @@ package main.java.RaffleComponent;
 import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.database.AddOrganizer;
 import main.java.database.DataExtractor;
+import main.java.database.JoinUserToRaffle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,9 +18,9 @@ public class LoginRaffleUseCase {
     private RaffleEntity ptcRaffle;
     private OrganizerRaffleEntity orgRaffle;
     private LoginResult loginResult;
-    private PackageRaffleEntityInstance dataPackager;
+//    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
-    private AddOrganizer dataUploader;
+    private JoinUserToRaffle dataUploader;
 
 
     public enum LoginResult {
@@ -36,7 +37,7 @@ public class LoginRaffleUseCase {
             e.printStackTrace();
         }
         try {
-            this.dataUploader = new AddOrganizer();
+            this.dataUploader = new JoinUserToRaffle();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,7 +55,7 @@ public class LoginRaffleUseCase {
         this.orgRaffle.setParticipantIdList((ArrayList<String>)this.orgRaffleInfo.get(5));
         // winnerList automatically set by constructor to empty, as it should stay while participants can log in
 
-        this.dataPackager = new PackageRaffleEntityInstance();
+//        this.dataPackager = new PackageRaffleEntityInstance();
 
     }
 
@@ -75,11 +76,16 @@ public class LoginRaffleUseCase {
             // this makes us depend on two classes (not single responsibility), but the entity is a single one
             this.orgRaffle.getParticipantIdList().add(this.ptcLogginInId);
 
-            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
-            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageParticipantRaffle(this.orgRaffle);
+//            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
 
-            // todo uncomment: DataAccess.uploadLoggedInRaffle(this.ptcRaffle.getRaffleId(), packagedPtcRaffle)
-            // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
+
+            try {
+                this.dataUploader.joinUserToRaffle(this.ptcRaffle.getRaffleId(), this.ptcLogginInId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // todo: printing function this.dataUploader...
             this.loginResult = LoginResult.SUCCESS;
             return this.ptcRaffle.getRaffleId();
         }

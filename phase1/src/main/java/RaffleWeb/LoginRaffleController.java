@@ -6,8 +6,8 @@ public class LoginRaffleController {
     // this controller is going to need to get the information from the database about the raffleIdList
     // and the information from the user input which is the specific id for the raffle to log into
 
-    private String orgRaffleId;  // provided by user
-    private String ptcLogginInId;  // from system
+    private final String orgRaffleId;  // provided by user
+    private final String ptcLogginInId;  // from system
 
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:

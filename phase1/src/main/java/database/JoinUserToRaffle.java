@@ -14,20 +14,23 @@ public class JoinUserToRaffle {
 
     /**
      * Joins the username to the raffle.
-     * @param raffleID the raffleID user joined
+     * @param ptcRaffleID the raffleID user joined
      * @param username the username you want to join the raffle
      * @throws IOException dw
      */
-    public void joinUserToRaffle(String raffleID, String username) throws IOException {
+    public void joinUserToRaffle(String ptcRaffleID, String username) throws IOException {
         FileWriter fw = getfile.getFile("raffleUserDetails");
-        addTasks(raffleID, username, fw);
+        addTasks(ptcRaffleID, username, fw);
     }
 
-    private void addTasks(String raffleID, String username, FileWriter fw) throws IOException {
-        ArrayList<String> taskIds = extractData.getTasks(raffleID);
+    private void addTasks(String ptcRaffleID, String username, FileWriter fw) throws IOException {
+        String[] ptcRaffleIdParts = ptcRaffleID.split(":");
+        String orgRaffleId = ptcRaffleIdParts[1];
+
+        ArrayList<String> taskIds = extractData.getTasks(orgRaffleId);
         for (String taskID:
              taskIds) {
-            String row = getRow(raffleID, username, taskID);
+            String row = getRow(ptcRaffleID, username, taskID);
             fw.append(row);
         }
         fw.flush();
