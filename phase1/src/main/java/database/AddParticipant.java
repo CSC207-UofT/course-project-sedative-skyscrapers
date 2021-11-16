@@ -14,7 +14,7 @@ public class AddParticipant {
     String ageDate = "";
 
     String COMMA = ",";
-
+    //Methods
     public AddParticipant() throws IOException {
     }
 
