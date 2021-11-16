@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
+//Create raffles
 public class OrganizerCreateRafflePage extends JFrame {
     public static JFrame frame;
     public static JPanel bigPanel;

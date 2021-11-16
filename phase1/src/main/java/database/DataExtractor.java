@@ -130,7 +130,7 @@ public class DataExtractor {
 
         return allPtcRafflesHashMap;
     }
-
+    //
     public ArrayList<Object> getOrgRaffleInfo(String orgRaffleId) throws IOException{
         ArrayList<Object> orgRaffleInfo = new ArrayList<>(Arrays.asList(getRaffleDetails(orgRaffleId)));
         orgRaffleInfo.add(getTasks(orgRaffleId));

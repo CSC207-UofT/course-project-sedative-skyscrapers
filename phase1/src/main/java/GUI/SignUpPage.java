@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+//Sign up page
+
 public class SignUpPage extends JFrame {
     public static JFrame optionFrame;
     public static JPanel parPanel;
