@@ -12,15 +12,16 @@ import java.util.ArrayList;
 
 public class CreateRaffleUseCase {
 
-    private OrganizerRaffleEntity raffle;
-    private RaffleIdGenerator idGenerator;
+    private final OrganizerRaffleEntity raffle;
+    private final RaffleIdGenerator idGenerator;
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
     private CreationResult creationOutcome;
 //    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
-
 //    private AddOrganizer dataUploader;
+    private ArrayList<Object>  raffleInfoSoFar;
+    private String generatedRaffleId;
 
 
     public enum CreationResult {
@@ -48,18 +49,24 @@ public class CreateRaffleUseCase {
 
         this.idGenerator = new RaffleIdGenerator(this.takenIds);
 //        this.dataPackager = new PackageRaffleEntityInstance();
+        this.raffleInfoSoFar = new ArrayList<>();
+        this.raffleInfoSoFar.add(raffleName);
+        this.raffleInfoSoFar.add(numOfWinners);
+        this.raffleInfoSoFar.add(endDate);
     }
 
-    public String runRaffleCreation(){
+    // returns [name, numOfWinners, endDate, raffleId]
+    public ArrayList<Object> runRaffleCreation(){
 
         ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
         // generate id from use case
-        String raffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
+        this.generatedRaffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
 
-        if (!this.takenIds.contains(raffleId)){
-            this.raffle.setRaffleId(raffleId);  // always true based on RaffleIdGenerator
+        if (!this.takenIds.contains(this.generatedRaffleId)){
+            this.raffle.setRaffleId(this.generatedRaffleId);  // always true based on RaffleIdGenerator
             // update  takenIds
-            this.takenIds.add(raffleId);
+            this.takenIds.add(this.generatedRaffleId);
+            this.raffleInfoSoFar.add(this.generatedRaffleId);
 
 //            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.raffle);
 //
@@ -69,12 +76,16 @@ public class CreateRaffleUseCase {
 //                e.printStackTrace();
 //            }
             this.creationOutcome = CreationResult.SUCCESS;
-            return raffleId;  // pure raffleId
+            return this.raffleInfoSoFar;
         }
 
         // this case never really executes since the idGenerator makes sure there is no id repetition
         this.creationOutcome = CreationResult.FAILURE;
         return null;
+    }
+
+    public String getGeneratedRaffleId(){
+        return this.generatedRaffleId;
     }
 
     // for testing purposes

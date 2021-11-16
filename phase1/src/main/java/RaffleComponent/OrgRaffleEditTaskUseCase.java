@@ -24,9 +24,9 @@ public class OrgRaffleEditTaskUseCase {
     }
 
     private OrganizerRaffleEntity orgRaffle;
-    private ArrayList<Object> orgRaffleInfo;
+    private ArrayList<Object> raffleInfoSoFar;
     private final ArrayList<String> taskIds;
-    private HashMap<String, ArrayList<Object>> ptcAllRaffles;
+//    private HashMap<String, ArrayList<Object>> ptcAllRaffles;
     private PackageRaffleEntityInstance dataPackager;
 //    private DataExtractor dataAccess;
     private AddOrganizer dataUploader;
@@ -34,7 +34,7 @@ public class OrgRaffleEditTaskUseCase {
     public OrgRaffleEditTaskUseCase(String raffleId, ArrayList<String> taskIds, ArrayList<Object> raffleInfoSoFar){
 
         this.taskIds = taskIds;
-        this.orgRaffleInfo = raffleInfoSoFar;
+        this.raffleInfoSoFar = raffleInfoSoFar; // format [name, numOfWinners, endDate, raffleId, rules]
 
 //        try {
 //            this.dataAccess = new DataExtractor();
@@ -56,13 +56,14 @@ public class OrgRaffleEditTaskUseCase {
         // uncomment: this.ptcAllRaffles = DataAccess.getAllParticipantRafflesAndIds(raffleId)
         // at the moment of task adding, no participant can join the raffle yet
 
-        this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
+        this.orgRaffle = new OrganizerRaffleEntity((String)this.raffleInfoSoFar.get(0),
+                (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2));
         this.orgRaffle.setRaffleId(raffleId);
-        this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
+        this.orgRaffle.setRaffleRules((String)this.raffleInfoSoFar.get(4));
 
-        // at this point of the raffle's existence, users might already have joined the raffle, so we create the object
-        // accordingly
+        // at this point of the raffle's existence, users haven't been able to join the raffle, and tasks are just
+        // about to get setup
+
         // this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
         // this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
         // no winners set yet
@@ -71,8 +72,8 @@ public class OrgRaffleEditTaskUseCase {
     }
 
     public OrgTaskEditOutcome addTask(){
-        // add the taskId to the list of Ids in this task
-        this.orgRaffle.getTaskIdList().addAll(this.taskIds);
+        // add the taskIds to the list of Ids in this task
+        this.orgRaffle.setTaskIdList(this.taskIds);  // taskIds being set for the first time
         ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
 
         try {
@@ -89,52 +90,55 @@ public class OrgRaffleEditTaskUseCase {
         return OrgTaskEditOutcome.SUCCESSFULLY_ADDED;
     }
 
-    public OrgTaskEditOutcome removeTask(){
-        for (String taskId: this.taskIds) {
-            if (this.orgRaffle.getTaskIdList().contains(taskId)) {
-                this.orgRaffle.getTaskIdList().remove(taskId);
-            } else {
-                return OrgTaskEditOutcome.FAILED_TO_REMOVE;
-            }
-        }
-        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
-        // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
-        return OrgTaskEditOutcome.SUCCESSFULLY_REMOVED;
-    }
+//    removing task functionality postponed
 
+//    public OrgTaskEditOutcome removeTask(){
+//        for (String taskId: this.taskIds) {
+//            if (this.orgRaffle.getTaskIdList().contains(taskId)) {
+//                this.orgRaffle.getTaskIdList().remove(taskId);
+//            } else {
+//                return OrgTaskEditOutcome.FAILED_TO_REMOVE;
+//            }
+//        }
+//        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
+//        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
+//        return OrgTaskEditOutcome.SUCCESSFULLY_REMOVED;
+//    }
 
-    public void updatePtcRaffles(ArrayList<String> taskIds, TaskEditTypes editToPerform){
-        for (String ptcRaffleId : this.ptcAllRaffles.keySet()){
-            ArrayList<Object> ptcRaffleInfo = this.ptcAllRaffles.get(ptcRaffleId);
-            ArrayList<String> ptcRaffleTaskList = (ArrayList<String>)ptcRaffleInfo.get(4);
-            if (editToPerform == TaskEditTypes.ORGANIZER_ADD) {
-                ptcRaffleTaskList.addAll(taskIds);
-            } else {
-                ptcRaffleTaskList.removeAll(taskIds);
-            }
+//    ptcRaffles still haven't been able to join the raffle therefore no need to update them
 
-            // update ptcAllRaffles respectively
-            ptcRaffleInfo.set(4, ptcRaffleTaskList);
-            // todo uncomment: DataAccess.uploadModifiedPtcRaffle(ptcRaffleId, ptcRaffleInfo)
-        }
-
-    }
+//    public void updatePtcRaffles(ArrayList<String> taskIds, TaskEditTypes editToPerform){
+//        for (String ptcRaffleId : this.ptcAllRaffles.keySet()){
+//            ArrayList<Object> ptcRaffleInfo = this.ptcAllRaffles.get(ptcRaffleId);
+//            ArrayList<String> ptcRaffleTaskList = (ArrayList<String>)ptcRaffleInfo.get(4);
+//            if (editToPerform == TaskEditTypes.ORGANIZER_ADD) {
+//                ptcRaffleTaskList.addAll(taskIds);
+//            } else {
+//                ptcRaffleTaskList.removeAll(taskIds);
+//            }
+//
+//            // update ptcAllRaffles respectively
+//            ptcRaffleInfo.set(4, ptcRaffleTaskList);
+//            // DataAccess.uploadModifiedPtcRaffle(ptcRaffleId, ptcRaffleInfo)
+//        }
+//
+//    }
 
     // for testing purposes
-    public void setOrgRaffleInfo(ArrayList<Object> orgRaffleInfo) {
-        this.orgRaffleInfo = orgRaffleInfo;
+    public void setRaffleInfoSoFar(ArrayList<Object> orgRaffleInfo) {
+        this.raffleInfoSoFar = orgRaffleInfo;
     }
 
     public void setOrgRaffle(OrganizerRaffleEntity orgRaffle){
         this.orgRaffle = orgRaffle;
     }
 
-    public HashMap<String, ArrayList<Object>> getPtcAllRaffles(){
-        return this.ptcAllRaffles;
-    };
-
-    public void setPtcAllRaffles(HashMap<String, ArrayList<Object>> ptcAllRaffles) {
-        this.ptcAllRaffles = ptcAllRaffles;
-    }
+//    public HashMap<String, ArrayList<Object>> getPtcAllRaffles(){
+//        return this.ptcAllRaffles;
+//    };
+//
+//    public void setPtcAllRaffles(HashMap<String, ArrayList<Object>> ptcAllRaffles) {
+//        this.ptcAllRaffles = ptcAllRaffles;
+//    }
 
 }

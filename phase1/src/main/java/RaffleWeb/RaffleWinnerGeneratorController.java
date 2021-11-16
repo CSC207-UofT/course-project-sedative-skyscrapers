@@ -10,7 +10,7 @@ public class RaffleWinnerGeneratorController {
     // for which winners are to be calculated, no needed info from user (unless we extend program to look also have
     // weighted entries for each user)
 
-    private String raffleId;  // provided by System
+    private final String raffleId;  // provided by System
 
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:
@@ -31,8 +31,7 @@ public class RaffleWinnerGeneratorController {
         // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
         RaffleWinnerGeneratorUseCase raffleManager = new RaffleWinnerGeneratorUseCase(this.raffleId);
         return raffleManager.updateRaffleWinners();  // generate and store winners inside the use cases' raffle
-        // use this returned arrayList to notify winners
-        // winners to be notified through something, IDK
+        // print this returned arraylist of winners to the screen
     }
 
 }

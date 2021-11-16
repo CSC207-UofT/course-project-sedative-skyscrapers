@@ -15,7 +15,7 @@ public class RaffleWinnerGeneratorUseCase {
 
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
-    private PackageRaffleEntityInstance dataPackager;
+//    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
 //    private AddOrganizer dataUploader;
 
@@ -45,15 +45,18 @@ public class RaffleWinnerGeneratorUseCase {
         this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
         // no winners set yet
 
-        this.dataPackager = new PackageRaffleEntityInstance();
+//        this.dataPackager = new PackageRaffleEntityInstance();
 
     }
 
     public ArrayList<String> updateRaffleWinners(){
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
         this.orgRaffle.setWinnerList(this.generateWinners());
-        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
-        // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
+
+        // winners not saved currently, just returned
+
+//        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
+//        // DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
         return this.orgRaffle.getWinnerList();
     }
 

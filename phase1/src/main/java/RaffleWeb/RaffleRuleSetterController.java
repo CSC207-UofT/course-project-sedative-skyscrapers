@@ -9,8 +9,8 @@ public class RaffleRuleSetterController {
     // rules MUST be set before publishing (sending to DB) a raffle object to be joined by participants
     // therefore, this controller MUST be called right after a raffle is created (before letting user wander off)
 
-    private String raffleId;  // provided by System
-    private String rulesString; // provided by user through text box
+    private final String raffleId;  // provided by System
+    private final String rulesString; // provided by user through text box
 
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:
@@ -26,13 +26,14 @@ public class RaffleRuleSetterController {
         this.raffleId = id;
         this.rulesString = rulesString;
         this.raffleInfoSoFar = raffleInfoSoFar;
-        this.raffleInfoSoFar.set(2, rulesString);
     }
 
-    public void runRaffleRuleSetter(){
+    public ArrayList<Object> runRaffleRuleSetter(){
         // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-        RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.raffleId, this.rulesString);
-        raffleManager.updateRules(); // updates the rules in the raffleManager raffle
+        RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.raffleId, this.rulesString,
+                this.raffleInfoSoFar);
+        this.raffleInfoSoFar = raffleManager.updateRules(); // updates the rules in the raffleManager raffle
+        return this.raffleInfoSoFar;
     }
 
 

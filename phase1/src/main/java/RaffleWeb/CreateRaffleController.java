@@ -11,35 +11,30 @@ public class CreateRaffleController {
     // and the information from the user input all raffle details coming from the commandline or gui
 
 
-    private String raffleName;
-    private int numberOfWinners;
-    private LocalDate endDate;
+    private final String raffleName;
+    private final int numberOfWinners;
+    private final LocalDate endDate;
     public ArrayList<Object> raffleInfoSoFar;
+    private String raffleId;
 
 
     public CreateRaffleController(String raffleName, int numOfWinners, LocalDate endDate){
-
-        this.raffleInfoSoFar = new ArrayList<>();
-        this.raffleInfoSoFar.add(raffleName);
-        this.raffleInfoSoFar.add(numOfWinners);
-        this.raffleInfoSoFar.add(null);
-        this.raffleInfoSoFar.add(endDate);
 
         // input from user
         this.raffleName = raffleName;
         this.numberOfWinners = numOfWinners;
         this.endDate = endDate;
-//        this.orgUsername = orgUsername;
-    }
-    // todo make return new raffle id
 
-    public String runCreateRaffle(){
+    }
+
+    public ArrayList<Object> runCreateRaffle(){
         // create an instance of createRaffleUseCase with user input
         CreateRaffleUseCase raffleManager = new CreateRaffleUseCase(this.raffleName, this.numberOfWinners,
                 this.endDate);
 
         // call use case's run method to update the raffle's id
-        return raffleManager.runRaffleCreation();  // returns pure raffleId for organizerRaffle
-
+        this.raffleInfoSoFar = raffleManager.runRaffleCreation();  // returns [name, numOfWinners, endDate, raffleId]
+        this.raffleId = raffleManager.getGeneratedRaffleId();
+        return this.raffleInfoSoFar;
     }
 }
