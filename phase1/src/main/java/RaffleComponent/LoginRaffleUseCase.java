@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class LoginRaffleUseCase {
 
-    private String orgRaffleId;
-    private String ptcLogginInId;
+    private final String orgRaffleId;
+    private final String ptcLogginInId;
     private ArrayList<Object> orgRaffleInfo;
     private RaffleEntity ptcRaffle;
-    private OrganizerRaffleEntity orgRaffle;
+    private final OrganizerRaffleEntity orgRaffle;
     private LoginResult loginResult;
 //    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
@@ -85,7 +85,8 @@ public class LoginRaffleUseCase {
                 e.printStackTrace();
             }
 
-            // todo: printing function this.dataUploader...
+            // todo: printing function this.dataUploader... I think this is automatic but if there's and error
+            //  check with khushaal
             this.loginResult = LoginResult.SUCCESS;
             return this.ptcRaffle.getRaffleId();
         }

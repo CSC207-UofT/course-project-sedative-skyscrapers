@@ -11,7 +11,7 @@ public class RaffleTaskController {
 //        ORGANIZER_ADD, ORGANIZER_REMOVE
 //    }
 
-    private String raffleId;  // provided by System which will never be null as long as you are inside a raffle subpage
+    private final String raffleId;  // provided by System which will never be null as long as you are inside a raffle subpage
 
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:
@@ -26,7 +26,7 @@ public class RaffleTaskController {
 
     public RaffleTaskController(String raffleId, ArrayList<Object> raffleInfoSoFar) {
         this.raffleId = raffleId;
-        this.raffleInfoSoFar = raffleInfoSoFar;
+        this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId, rules]
 
     }
 
@@ -36,22 +36,25 @@ public class RaffleTaskController {
         OrgRaffleEditTaskUseCase raffleManager;
         OrgRaffleEditTaskUseCase.OrgTaskEditOutcome result = OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.STANDBY;
 
-        switch (editToPerform){
-            case ORGANIZER_ADD:
-                // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
-                result = raffleManager.addTask();
-                if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_ADDED)){
-                    raffleManager.updatePtcRaffles(taskIds, editToPerform);
-                }
-
-            case ORGANIZER_REMOVE:
-                // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
-                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
-                result = raffleManager.removeTask();
-                if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_REMOVED)){
-                    raffleManager.updatePtcRaffles(taskIds, editToPerform);
-                }
+        if (editToPerform.equals(OrgRaffleEditTaskUseCase.TaskEditTypes.ORGANIZER_ADD)){
+            raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
+            result = raffleManager.addTask();
+//        switch (editToPerform){
+//            case ORGANIZER_ADD:
+//                // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
+//                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
+//                result = raffleManager.addTask();
+////                if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_ADDED)){
+////                    raffleManager.updatePtcRaffles(taskIds, editToPerform);
+////                }
+//
+//            case ORGANIZER_REMOVE:
+////                // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
+////                raffleManager = new OrgRaffleEditTaskUseCase(this.raffleId, taskIds, this.raffleInfoSoFar);
+////                result = raffleManager.removeTask();
+////                if (result.equals(OrgRaffleEditTaskUseCase.OrgTaskEditOutcome.SUCCESSFULLY_REMOVED)){
+////                    raffleManager.updatePtcRaffles(taskIds, editToPerform);
+////                }
 
         }
 

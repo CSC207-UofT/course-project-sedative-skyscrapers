@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class RaffleRuleSetterUseCase {
 
-    private String rulesString;
+    private final String rulesString;
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:
     key: "R1002"; corresponding value: [raffleName="raffle", numberOfWinners=2, rules="Age > 18",
@@ -21,14 +21,15 @@ public class RaffleRuleSetterUseCase {
         winnerIds=ArrayList<String>]
     ... and we get this hashmap for all existing raffles in the program (through a method in db)
     */
-    private ArrayList<Object> orgRaffleInfo;
+    private ArrayList<Object> raffleInfoSoFar;
     private OrganizerRaffleEntity orgRaffle;
-    private PackageRaffleEntityInstance dataPackager;
+//    private PackageRaffleEntityInstance dataPackager;
 //    private DataExtractor dataAccess;
 //    private AddOrganizer dataUploader;
 
-    public RaffleRuleSetterUseCase(String raffleId, String rulesString){
+    public RaffleRuleSetterUseCase(String raffleId, String rulesString, ArrayList<Object> raffleInfoSoFar){
         this.rulesString = rulesString;
+        this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId]
 
 //        try {
 //            this.dataAccess = new DataExtractor();
@@ -47,20 +48,21 @@ public class RaffleRuleSetterUseCase {
 //            e.printStackTrace();
 //        }
 
-        this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
+        this.orgRaffle = new OrganizerRaffleEntity((String)this.raffleInfoSoFar.get(0),
+                (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2));
         this.orgRaffle.setRaffleId(raffleId);
-        this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         // taskIdList, ptcIdList and winnerIdList empty at this stage
 
-        this.dataPackager = new PackageRaffleEntityInstance();
+//        this.dataPackager = new PackageRaffleEntityInstance();
 
     }
 
-    public void updateRules(){
+    public ArrayList<Object> updateRules(){
         this.orgRaffle.setRaffleRules(this.rulesString);
-        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
-        // todo uncomment: DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
+//        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
+//        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
+        this.raffleInfoSoFar.add(this.rulesString); // format [name, numOfWinners, endDate, raffleId, rules]
+        return this.raffleInfoSoFar;
     }
 
     // for testing purposes
