@@ -5,24 +5,22 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class GetFileToAppend {
-    FileWriter raffleTask = new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\raffleTaskDetails.csv", true);
-    FileWriter raffleUser = new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\raffleUserDetails.csv", true);
-    FileWriter Ouser = new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\OuserCred.csv", true);
-    FileWriter Puser = new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\PuserCred.csv", true);
 
     public GetFileToAppend() throws IOException {
     }
-
-    public FileWriter getFile(String filename) {
+    public FileWriter getFile(String filename) throws IOException {
         if (Objects.equals(filename, "raffleTaskDetails")) {
-            return raffleTask;
+            return new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\raffleTaskDetails.csv", true);
         }
         else if (Objects.equals(filename, "OuserCred")) {
-            return Ouser;
+            return new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\OuserCred.csv", true);
         }
         else if (Objects.equals(filename, "raffleUserDetails")) {
-            return raffleUser;
+            return new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\raffleUserDetails.csv", true);
         }
-        return Puser;
+        else{
+            return new FileWriter("E:\\csc207\\skeleton program\\src\\main\\java\\database\\PuserCred.csv", true);
+        }
+
     }
 }

@@ -8,28 +8,17 @@ import java.util.HashMap;
 public class DataMain {
 
     public static void main(String[] args) throws Exception {
-        DataExtractor de = new DataExtractor();
-        ArrayList<String> x = de.getParticipantRaffleId("janam_patri");
-        System.out.print(x);
-
-//        GetTaskDetails gt = new GetTaskDetails();
-//        System.out.print(gt.getTaskDetails("1"));
-//        System.out.print(gt.getUsedTaskIDs());
-//
-//        AddOrganizer dw = new AddOrganizer();
+        AddOrganizer dw = new AddOrganizer();
 //        dw.updateOrganizerPool("khushaal", "admin123", "uoft", "9099272288", "khushaal@uoft.com");
-////
-//        ArrayList<String> faltu = new ArrayList<String >();
-//        ArrayList<Object> given = new ArrayList<>();
-//        given.add("new raffle"); // raffleName
-//        given.add(4);   // no of winners
-//        given.add("these are very strict rules for raffle"); //raffleRules
-//        given.add(LocalDate.of(2021, 12, 25)); //raffleEndDate
-//        dw.uploadCreatedRaffle(faltu, "136", given); //RaffleID
-//        // SUPREMELY IMPORTANT STEP IN THE NEXT LINE: GOD MODE
+
+        ArrayList<String> faltu = new ArrayList<String >();
+        ArrayList<Object> given = new ArrayList<>();
+        given.add("new raffle"); // raffleName
+        given.add(4);   // no of winners
+        given.add("these are very strict rules for raffle"); //raffleRules
+        given.add(LocalDate.of(2021, 12, 25)); //raffleEndDate
+        dw.uploadCreatedRaffle(faltu, "136", given); //RaffleID
 //
-//        dw.addOrganizer(); //PRINTS
-//        // GN function
 //        dw.uploadCreatedTask("1", "first task", "www.google.com", "this is a hardcore descrp of task");
 //        dw.uploadCreatedTask("2", "Second task", "www.google.com", "this is a hardcore descrp of task");
 //
@@ -38,7 +27,7 @@ public class DataMain {
 //
 //        JoinUserToRaffle jutr = new JoinUserToRaffle();
 //        jutr.joinUserToRaffle("136", "xi");
-
+//        ArrayList<String> x = de.getParticipantRaffleId("janam_patri");
 
     }
 }

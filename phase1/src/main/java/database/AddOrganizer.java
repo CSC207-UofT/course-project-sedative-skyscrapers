@@ -12,6 +12,7 @@ public class AddOrganizer {
     String email = "";
     String raffleID = "";
     String rafflename = "";
+    // name, noOfWinners, endDate, raffleRules
     String rafflerules = "";
     String affiliatedorg = "";
     String startdate = "21112001";
@@ -24,17 +25,15 @@ public class AddOrganizer {
     public AddOrganizer() throws IOException {
     }
 
-    public void addOrganizer() throws IOException {
-        addToOuserCred();
-    }
-
-// only have to be called in sequence
-    public void updateOrganizerPool(String iusername, String ipassword, String iaffiliatedOrganization, String iphone, String iemail) {
+    public void updateOrganizerPool(String iusername, String ipassword,
+                                    String iaffiliatedOrganization, String iphone, String iemail) throws IOException {
         username = iusername;
         password = ipassword;
         affiliatedorg = iaffiliatedOrganization;
         phone = iphone;
         email = iemail;
+        addToOuserCred(false);
+
     }
 
     public void uploadCreatedRaffle(ArrayList<String> takenIds,
@@ -45,16 +44,7 @@ public class AddOrganizer {
         possiblewinners = raffleCreatedInfo.get(1).toString();
         rafflerules = (String) raffleCreatedInfo.get(2);
         enddate = raffleCreatedInfo.get(3).toString();
-        // RaffleCreatedInfo format: [
-        // raffleName="raffle",
-        // numberOfWinners=2,
-        // rules="this is a string of rules",
-        // endDate=LocalDate.of(2021, 12, 25),
-        // taskIds=ArrayList<String>,
-        // ptcIds=ArrayList<String>,
-        // winnerIds=ArrayList<String>]
-
-        // raffleid, taskname, taskdescrp, link
+        addToOuserCred(true);
     }
 
     public void uploadCreatedTask(String taskID, String taskname, String link, String description) throws IOException {
@@ -62,16 +52,23 @@ public class AddOrganizer {
         FileWriter fw = getfile.getFile("raffleTaskDetails");
         fw.append(data);
         fw.flush();
-
+        fw.close();
     }
 
-    private void addToOuserCred() throws IOException {
+
+    private void addToOuserCred(boolean raffle) throws IOException {
         FileWriter fw = getfile.getFile("OuserCred");
         String data = "\n" + username + COMMA + password + COMMA + "firstname" + COMMA + "lastname" + COMMA +
-                "21112001" + COMMA + phone + COMMA + email + COMMA + raffleID
-                + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
-                enddate + COMMA + possiblewinners;
-        fw.append(data);
+                "21112001" + COMMA + phone + COMMA + email;
+        String data2 = COMMA + possiblewinners + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
+                enddate + COMMA + raffleID;
+        if (raffle) {
+            fw.append(data2);
+        }
+        else {
+            fw.append(data);
+        }
+
         fw.flush();
     }
 }

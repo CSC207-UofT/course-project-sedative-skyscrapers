@@ -69,7 +69,7 @@ public class DataExtractor {
      */
     public ArrayList<String> getUsedRaffleIDs() throws IOException {
 
-        int RAFFLEID = 7;
+        int RAFFLEID = 13;
 
         URL data_path = DataMain.class.getResource("OuserCred.csv");
         File f = new File(((URL) data_path).getFile());
@@ -104,15 +104,16 @@ public class DataExtractor {
 
     private String[] getRaffleDetails(String raffleID) throws IOException {
 
-        int RAFFLEID = 7;
+        int RAFFLEID = 13;
         int RAFFLENAME = 8;
         int RAFFLERULES = 9;
         int RAFFLEENDDATE = 11;
 
         String[] raffleDetails = new String[3];
+        DataMiner data2 = new DataMiner();
 
-        String[] attributes = data.get_line("OuserCred", true);
-        attributes = data.get_line("OuserCred", false);
+        String[] attributes = data2.get_line("OuserCred", true);
+        attributes = data2.get_line("OuserCred", false);
 
         while(attributes != null) {
             if (raffleID.equals(attributes[RAFFLEID])) {
@@ -121,7 +122,7 @@ public class DataExtractor {
                 raffleDetails[2] = attributes[RAFFLEENDDATE];
                 break;
             }
-            attributes = data.get_line("OuserCred", false);
+            attributes = data2.get_line("OuserCred", false);
         }
         return raffleDetails;
     }
@@ -134,13 +135,15 @@ public class DataExtractor {
         String[] attributes = data.get_line("raffleTaskDetails", true);
         while (!Objects.equals(attributes[0], raffleID)) {
             attributes = data.get_line("raffleTaskDetails", false);
-            if (attributes[0] == null) {
+            if (attributes == null) {
                 break;
             }
         }
 
 
-        while (raffleID.equals(attributes[0])) {
+        while (true) {
+            assert attributes != null;
+            if (!raffleID.equals(attributes[0])) break;
             tasks.add(attributes[1]);
             attributes = data.get_line("raffleTaskDetails", false);
             if (attributes == null) {break;}
@@ -195,20 +198,16 @@ public class DataExtractor {
         return usernames;
     }
 
-    public ArrayList<String> getParticipantRaffleId(String ptcusername) {
+    public ArrayList<String> getParticipantRaffleId(String ptcusername) throws IOException {
         ArrayList<String> raffles = new ArrayList<>();
         String[] attributes = new String[0];
-        try {
-            attributes = data.get_line("raffleUserDetails", true);
-            while (attributes != null) {
-                String tempRaffle = attributes[1];
-                if ((Objects.equals(attributes[0], ptcusername)) && (!raffles.contains(tempRaffle))) {
-                    raffles.add(tempRaffle);
-                }
-                attributes = data.get_line("raffleUserDetails", false);
+        attributes = data.get_line("raffleUserDetails", true);
+        while (attributes != null) {
+            String tempRaffle = attributes[1];
+            if ((Objects.equals(attributes[0], ptcusername)) && (!raffles.contains(tempRaffle))) {
+                raffles.add(tempRaffle);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            attributes = data.get_line("raffleUserDetails", false);
         }
         return raffles;
     }
@@ -216,7 +215,7 @@ public class DataExtractor {
     public String getOrganizerRaffleId(String orgusername) {
         try {
             String[] details = getUserDetails(orgusername, "O");
-            return details[7];
+            return details[13];
         } catch (Exception e) {
             e.printStackTrace();
         }

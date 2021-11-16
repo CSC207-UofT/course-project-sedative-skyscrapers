@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class JoinUserToRaffle {
     GetFileToAppend getfile = new GetFileToAppend();
-    DataExtractor extractData = new DataExtractor();
+
     String COMMA = ",";
 
     public JoinUserToRaffle() throws IOException {
@@ -24,6 +24,7 @@ public class JoinUserToRaffle {
     }
 
     private void addTasks(String raffleID, String username, FileWriter fw) throws IOException {
+        DataExtractor extractData = new DataExtractor();
         ArrayList<String> taskIds = extractData.getTasks(raffleID);
         for (String taskID:
              taskIds) {
