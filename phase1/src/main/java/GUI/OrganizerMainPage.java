@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+//OrganizerMainPage
 public class OrganizerMainPage extends JFrame {
     public String username;
     public static JLabel welcomeLabel;

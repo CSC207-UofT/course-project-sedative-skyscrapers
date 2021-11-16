@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class GetFileToAppend {
 
+    //
+
     public GetFileToAppend() throws IOException {
     }
     public FileWriter getFile(String filename) throws IOException {
