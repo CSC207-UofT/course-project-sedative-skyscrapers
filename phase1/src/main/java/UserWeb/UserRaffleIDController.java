@@ -30,7 +30,13 @@ public class UserRaffleIDController {
      * @return a list of raffleIDs
      */
     public ArrayList<String> getParticipantRaffleID(String username) {
-        return dataExtractor.getParticipantRaffleId(username);
+        try {
+            return dataExtractor.getParticipantRaffleId(username);
+        }
+        catch(IOException e)
+        {
+            return new ArrayList<String>();
+        }
     }
 
     /**
@@ -38,7 +44,7 @@ public class UserRaffleIDController {
      * @param username organizer username
      * @return a raffleID String
      */
-    public String getOrganizerRaffleID(String username) {
+    public String[] getOrganizerRaffleID(String username) {
         return dataExtractor.getOrganizerRaffleId(username);
     }
 

@@ -1,5 +1,6 @@
 package main.java.Helpers;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskIdGenerator implements EntityIdGenerator{
     private ArrayList<String> takenTaskIds;
@@ -22,8 +23,11 @@ public class TaskIdGenerator implements EntityIdGenerator{
         ArrayList<Integer> numList = new ArrayList<>();
 
         for (String takenId : this.takenTaskIds){
+            if (takenId.equals("")){
+                continue;
+            }
             String[] takenIdNum = takenId.split(Character.toString(entityCode));
-            int idNumber = Integer.parseInt(takenIdNum[0]);
+            int idNumber = Integer.parseInt(takenIdNum[1]);
             numList.add(idNumber);
         }
 

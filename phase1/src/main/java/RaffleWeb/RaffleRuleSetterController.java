@@ -22,7 +22,7 @@ public class RaffleRuleSetterController {
 
     public ArrayList<Object> raffleInfoSoFar;
 
-    public RaffleRuleSetterController(String id, String rulesString, ArrayList<Object> raffleInfoSoFar){
+    public RaffleRuleSetterController(String id,String rulesString, ArrayList<Object> raffleInfoSoFar){
         this.raffleId = id;
         this.rulesString = rulesString;
         this.raffleInfoSoFar = raffleInfoSoFar;

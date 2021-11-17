@@ -628,8 +628,9 @@ public class SignUpPage extends JFrame {
                             if(!osm.isValidUsername(orgUsernameTextField.getText()))
                             {
                                 osm.storeOrgDetails(orgUsernameTextField.getText(),password,orgOrgNameTextField.getText(),orgEmailTextField.getText(),orgPhoneTextField.getText());
-                                //System.out.println("Hi");
+                                System.out.println("Test");
                                 OrganizerMainPage omp = new OrganizerMainPage(orgUsernameTextField.getText());
+                                System.out.println("Test1");
                                 orgFrame.setVisible(false);
                                 //System.out.println("Hello");
 

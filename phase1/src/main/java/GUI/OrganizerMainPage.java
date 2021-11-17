@@ -16,7 +16,7 @@ public class OrganizerMainPage extends JFrame {
     public static JPanel orgPanel;
     public static JPanel bigPanel;
     public static JScrollPane scrollPane;
-    public JButton orgRaffle;
+    public JButton[] orgRaffle;
     public static JLabel orgRaffleLabel;
     public static JButton createRaffle;
     public static JButton logout;
@@ -85,9 +85,10 @@ public class OrganizerMainPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int choice = JOptionPane.showConfirmDialog(orgFrame,"Are you sure you want to logout?","Logout",JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.NO_OPTION)
+                if (choice == JOptionPane.YES_OPTION)
                 {
-
+                    orgFrame.setVisible(false);
+                    SignInPage sip = new SignInPage();
                 }
                 else
                 {
@@ -105,20 +106,27 @@ public class OrganizerMainPage extends JFrame {
                 .addComponent(welcomeLabel)
                 .addComponent(orgRaffleLabel);
 
-        String raffleID = osm.getOrgRaffleID(username);
+        System.out.println("User = "+username);
 
-        if(raffleID=="")
+        String[] raffleIDs = osm.getOrgRaffleID(username);
+
+        orgRaffle = new JButton[raffleIDs.length];
+
+        if(!(raffleIDs.length == 0))
         {
-            ArrayList<Object> raffleInfo = osm.getRaffleDetails(raffleID);
+            for(int i = 0;i< raffleIDs.length;i++)
+            {
+                ArrayList<Object> raffleInfo = osm.getRaffleDetails(raffleIDs[i]);
+                orgRaffle[i] = new JButton( username + "\t\t\t" + raffleInfo.get(0) + "\t\t\t" + raffleIDs[i] + "\t\t\t" + raffleInfo.get(2).toString());
+                orgRaffle[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+                orgRaffle[i].setPreferredSize(new Dimension(7 * orgFrame.getWidth() / 8, 50));
+                orgRaffle[i].setMinimumSize(orgRaffle[i].getPreferredSize());
+                orgRaffle[i].setMaximumSize(orgRaffle[i].getPreferredSize());
+                orgRaffle[i].addActionListener(new RaffleButton(raffleIDs[i],orgFrame,false,username));
+                pg.addComponent(orgRaffle[i]);
+                sg.addComponent(orgRaffle[i]);
+            }
 
-            orgRaffle = new JButton( username + "\t\t\t" + raffleInfo.get(0) + "\t\t\t" + raffleID + "\t\t\t" + raffleInfo.get(2).toString());
-            orgRaffle.setAlignmentX(Component.LEFT_ALIGNMENT);
-            orgRaffle.setPreferredSize(new Dimension(7 * orgFrame.getWidth() / 8, 50));
-            orgRaffle.setMinimumSize(orgRaffle.getPreferredSize());
-            orgRaffle.setMaximumSize(orgRaffle.getPreferredSize());
-            orgRaffle.addActionListener(new RaffleButton(raffleID,orgFrame,false,username));
-            pg.addComponent(orgRaffle);
-            sg.addComponent(orgRaffle);
         }
 
         pg.addGroup(gl.createSequentialGroup().addComponent(logout).addComponent(createRaffle));

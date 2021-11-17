@@ -16,8 +16,10 @@ public class CreateTaskUseCase {
     private ArrayList<String> takenIds;
     private GetTaskDetails extractor;
     private AddOrganizer writer;
+    private String raffleId;
 
-    public CreateTaskUseCase(String name, String description, String link) throws IOException {
+    public CreateTaskUseCase(String raffleID, String name, String description, String link) throws IOException {
+        this.raffleId = raffleID;
         this.task = new Task(name, description, link);
         try {
             this.extractor = new GetTaskDetails();
@@ -26,6 +28,9 @@ public class CreateTaskUseCase {
         }
         try {
             this.takenIds = this.extractor.getUsedTaskIDs();
+            for (String id: this.takenIds){
+                System.out.println(id);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +50,7 @@ public class CreateTaskUseCase {
             this.takenIds.add(taskID);
 
             try {
-                this.writer.uploadCreatedTask(this.task.getTaskID(),
+                this.writer.uploadCreatedTask(this.raffleId, this.task.getTaskID(),
                         this.task.getName(), this.task.getLink(), this.task.getDescription());
             } catch (IOException e) {
                 e.printStackTrace();

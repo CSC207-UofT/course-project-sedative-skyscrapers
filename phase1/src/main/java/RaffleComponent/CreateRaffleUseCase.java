@@ -17,30 +17,31 @@ public class CreateRaffleUseCase {
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
     private CreationResult creationOutcome;
-//    private PackageRaffleEntityInstance dataPackager;
+    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
-//    private AddOrganizer dataUploader;
+    private AddOrganizer dataUploader;
     private ArrayList<Object>  raffleInfoSoFar;
     private String generatedRaffleId;
+    private String orgUsername;
 
 
     public enum CreationResult {
         SUCCESS, FAILURE
     }
 
-    public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate){
-        this.raffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate);
+    public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername){
+        this.raffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
 
         try {
             this.dataAccess = new DataExtractor();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-//        try {
-//            this.dataUploader = new AddOrganizer();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            this.dataUploader = new AddOrganizer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             this.takenIds = this.dataAccess.getUsedRaffleIDs();
         } catch (IOException e) {
@@ -48,11 +49,13 @@ public class CreateRaffleUseCase {
         }
 
         this.idGenerator = new RaffleIdGenerator(this.takenIds);
-//        this.dataPackager = new PackageRaffleEntityInstance();
+       this.dataPackager = new PackageRaffleEntityInstance();
         this.raffleInfoSoFar = new ArrayList<>();
         this.raffleInfoSoFar.add(raffleName);
         this.raffleInfoSoFar.add(numOfWinners);
         this.raffleInfoSoFar.add(endDate);
+        this.raffleInfoSoFar.add(orgUsername);
+        this.orgUsername = orgUsername;
     }
 
     // returns [name, numOfWinners, endDate, raffleId]
@@ -68,13 +71,12 @@ public class CreateRaffleUseCase {
             this.takenIds.add(this.generatedRaffleId);
             this.raffleInfoSoFar.add(this.generatedRaffleId);
 
-//            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.raffle);
-//
-//            try {
-//                this.dataUploader.uploadCreatedRaffle(this.raffle.getRaffleId(), packagedOrgRaffle);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.raffle);
+            try {
+                this.dataUploader.uploadCreatedRaffle(this.orgUsername, this.generatedRaffleId, packagedOrgRaffle);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             this.creationOutcome = CreationResult.SUCCESS;
             return this.raffleInfoSoFar;
         }

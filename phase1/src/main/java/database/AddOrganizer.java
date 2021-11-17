@@ -36,19 +36,27 @@ public class AddOrganizer {
 
     }
 
-    public void uploadCreatedRaffle(ArrayList<String> takenIds,
+    public void uploadCreatedRaffle(String orgUsername,
                                     String orgRaffleId,
                                     ArrayList<Object> raffleCreatedInfo) throws IOException {
+        System.out.println(orgRaffleId + "duplicate");
+        username = orgUsername;
         raffleID = orgRaffleId;
         rafflename = (String) raffleCreatedInfo.get(0);
         possiblewinners = raffleCreatedInfo.get(1).toString();
         rafflerules = (String) raffleCreatedInfo.get(2);
         enddate = raffleCreatedInfo.get(3).toString();
-        addToOuserCred(true);
+        String data2 = username + COMMA + possiblewinners + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
+                enddate + COMMA + raffleID + "\n";
+        FileWriter fw = getfile.getFile("raffleDetails");
+        fw.append(data2);
+        fw.flush();
+        fw.close();
     }
 
-    public void uploadCreatedTask(String taskID, String taskname, String link, String description) throws IOException {
-        String data = "\n" + raffleID + COMMA + taskID + COMMA + taskname + COMMA + link + COMMA + description;
+    public void uploadCreatedTask(String raffleID, String taskID, String taskname, String link, String description) throws IOException {
+
+        String data =  raffleID + COMMA + taskID + COMMA + taskname + COMMA + link + COMMA + description + "\n";
         FileWriter fw = getfile.getFile("raffleTaskDetails");
         fw.append(data);
         fw.flush();
@@ -57,15 +65,20 @@ public class AddOrganizer {
 
 
     private void addToOuserCred(boolean raffle) throws IOException {
-        FileWriter fw = getfile.getFile("OuserCred");
-        String data = "\n" + username + COMMA + password + COMMA + "firstname" + COMMA + "lastname" + COMMA +
+        FileWriter fw;
+        String data = "\n"+username + COMMA + password + COMMA +  affiliatedorg + COMMA +
                 "21112001" + COMMA + phone + COMMA + email;
-        String data2 = COMMA + possiblewinners + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
+        String data2 = "\n" + username + COMMA + possiblewinners + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
                 enddate + COMMA + raffleID;
+        System.out.println(username);
+        System.out.println(password);
         if (raffle) {
+            fw = getfile.getFile("raffleDetails");
             fw.append(data2);
         }
         else {
+            fw = getfile.getFile("OuserCred");
+            System.out.println("HiHELLO");
             fw.append(data);
         }
 

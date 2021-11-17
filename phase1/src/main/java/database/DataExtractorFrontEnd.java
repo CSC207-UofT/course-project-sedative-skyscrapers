@@ -17,7 +17,13 @@ public class DataExtractorFrontEnd {
      */
     public boolean checkUser(String username, String userType) {
         try {
-            String[] testing = de.getUserDetails(username, userType);
+            String[] testing;
+            if (userType == "O")
+                testing = de.getOrganizerDetails(username);
+            else if(userType == "P")
+                testing = de.getParticipantDetails(username);
+            else
+                return false;
             return true;
         } catch (final Exception e) {
             return false;
@@ -32,7 +38,13 @@ public class DataExtractorFrontEnd {
      */
     public boolean checkPassword(String username, String userType, String inputPassword) {
         try {
-            String[] testing = de.getUserDetails(username, userType);
+            String testing[];
+            if (userType == "O")
+                testing = de.getOrganizerDetails(username);
+            else if(userType == "P")
+                testing = de.getParticipantDetails(username);
+            else
+                return false;
             return testing[1].equals(inputPassword);
         } catch (final Exception e) {
             return false;

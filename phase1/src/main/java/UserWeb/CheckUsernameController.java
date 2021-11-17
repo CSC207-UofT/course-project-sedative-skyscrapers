@@ -24,11 +24,11 @@ public class CheckUsernameController {
      */
     public boolean userNameUsed(String username) {
         try {
-            String[] ptcInfo = dataExtractor.getUserDetails(username, "P");
+            String[] ptcInfo = dataExtractor.getParticipantDetails(username);
             return Arrays.asList(ptcInfo).contains(username);
         } catch (Exception e1) {
             try {
-                String[] orgInfo = dataExtractor.getUserDetails(username, "O");
+                String[] orgInfo = dataExtractor.getOrganizerDetails(username);
                 return Arrays.asList(orgInfo).contains(username);
             } catch (Exception e2) {
                 return false;
@@ -45,11 +45,11 @@ public class CheckUsernameController {
     public boolean participantUsernameMatchPassword(String username, String password) {
         String[] ptcInfo;
         try {
-            ptcInfo = dataExtractor.getUserDetails(username, "P");
+            ptcInfo = dataExtractor.getParticipantDetails(username);
         } catch (Exception e) {
             return false;
         }
-        String correctPassword = ptcInfo[0];
+        String correctPassword = ptcInfo[1];
         return password.equals(correctPassword);
     }
 
@@ -62,11 +62,12 @@ public class CheckUsernameController {
     public boolean organizerUsernameMatchPassword(String username, String password) {
         String[] orgInfo;
         try {
-            orgInfo = dataExtractor.getUserDetails(username, "O");
+            orgInfo = dataExtractor.getOrganizerDetails(username);
         } catch (Exception e) {
             return false;
         }
-        String correctPassword = orgInfo[0];
+        String correctPassword = orgInfo[1];
+        System.out.println(correctPassword);
         return password.equals(correctPassword);
     }
 }

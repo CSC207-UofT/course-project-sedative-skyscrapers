@@ -21,10 +21,18 @@ public class DataMiner {
     File OuserCredFile = new File((ousercredPath).getFile());
     File PuserCredFile = new File((pusercredPath).getFile());
 
+    URL rafflePath = DataMain.class.getResource("raffleDetails.csv");
+    File raffleDetailsFile = new File((rafflePath).getFile());
+
+    URL raffleWinnersPath = DataMain.class.getResource("raffleWinners.csv");
+    File raffleWinnersFile = new File((raffleWinnersPath).getFile());
+
     BufferedReader raffleBR = new BufferedReader(new FileReader(raffleUserDetailsFile));
     BufferedReader ouserBR = new BufferedReader(new FileReader(OuserCredFile));
     BufferedReader puserBR = new BufferedReader(new FileReader(PuserCredFile));
     BufferedReader raffleTaskBR = new BufferedReader(new FileReader(raffleTaskDetailsFile));
+    BufferedReader raffleDetailsBR = new BufferedReader(new FileReader(raffleDetailsFile));
+    BufferedReader raffleWinnersBR = new BufferedReader(new FileReader(raffleWinnersFile));
 
     public DataMiner() throws FileNotFoundException {
     }
@@ -53,10 +61,17 @@ public class DataMiner {
         else if ("raffleTaskDetails".equals(data_file)) {
             currentBR = raffleTaskBR;
         }
+        else if("raffleDetails".equals(data_file)) {
+            currentBR = raffleDetailsBR;
+        }
+        else if("raffeleWinners".equals(data_file))
+            currentBR = raffleWinnersBR;
 
         String line = currentBR.readLine();
-        if (line == null) { return null;}
+        if (line == null) {
+            return null;}
         data_mined = line.split(",");
+        // System.out.println(data_mined[0]);
         return data_mined;
     }
 
@@ -72,6 +87,12 @@ public class DataMiner {
         }
         else if ("raffleTaskDetails".equals(data_file)) {
             raffleTaskBR = new BufferedReader(new FileReader(raffleTaskDetailsFile));
+        }
+        else if("raffleDetails".equals(data_file)) {
+            raffleDetailsBR = new BufferedReader(new FileReader(raffleDetailsFile));
+        }
+        else if("raffleWinners".equals(data_file)) {
+            raffleDetailsBR = new BufferedReader(new FileReader(raffleWinnersFile));
         }
         else {
             raffleBR = new BufferedReader(new FileReader(raffleUserDetailsFile));

@@ -17,7 +17,7 @@ public class DataMain {
         given.add(4);   // no of winners
         given.add("these are very strict rules for raffle"); //raffleRules
         given.add(LocalDate.of(2021, 12, 25)); //raffleEndDate
-        dw.uploadCreatedRaffle(faltu, "136", given); //RaffleID
+        //dw.uploadCreatedRaffle(faltu, "136", given); //RaffleID
 //
 //        dw.uploadCreatedTask("1", "first task", "www.google.com", "this is a hardcore descrp of task");
 //        dw.uploadCreatedTask("2", "Second task", "www.google.com", "this is a hardcore descrp of task");

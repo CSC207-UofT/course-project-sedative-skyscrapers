@@ -63,7 +63,7 @@ public class UserController {
     public Participant getExistedParticipant(String username) {
         String[] ptcInfo = new String[5];
         try {
-            ptcInfo = dataExtractor.getUserDetails(username, "P");
+            ptcInfo = dataExtractor.getParticipantDetails(username);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,14 +97,20 @@ public class UserController {
         GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName,
                     phone, email);
         Organizer newOrganizer = getOrganizerUseCase.getOrganizer();
-        organizerUploader.updateOrganizerPool(username, password, orgName, phone, email);
+        try {
+            organizerUploader.updateOrganizerPool(username, password, orgName, phone, email);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
         return newOrganizer;
     }
 
     public Organizer getExistedOrganizer(String username) {
         String[] orgInfo = new String[3];
         try {
-            orgInfo = dataExtractor.getUserDetails(username, "O");
+            orgInfo = dataExtractor.getOrganizerDetails(username);
         } catch (Exception e) {
             e.printStackTrace();
         }

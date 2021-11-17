@@ -37,6 +37,13 @@ public class JoinUserToRaffle {
     }
 
     private String getRow(String raffleID, String username, String taskID) {
-        return "\n" + username + COMMA + raffleID + COMMA + taskID + COMMA + "F";
+        return username + COMMA + raffleID + COMMA + taskID + COMMA + "F"+"\n" ;
+    }
+
+    public void uploadRaffleWinners(String raffleID, ArrayList<String> usernameList) throws IOException
+    {
+        FileWriter fw = getfile.getFile("raffleWinners");
+        for(int i = 0;i< usernameList.size();i++)
+            fw.append(raffleID+COMMA+usernameList.get(i)+"\n");
     }
 }

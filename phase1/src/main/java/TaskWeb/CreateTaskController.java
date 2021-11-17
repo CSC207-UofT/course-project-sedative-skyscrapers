@@ -12,16 +12,18 @@ public class CreateTaskController {
         private final String taskName;
         private final String taskDescription;
         private final String taskLink;
+        private String raffleID;
 
-        public CreateTaskController(String taskName, String taskDescription, String taskLink){
+        public CreateTaskController(String raffleID, String taskName, String taskDescription, String taskLink){
             this.taskName = taskName;
             this.taskDescription = taskDescription;
             this.taskLink = taskLink;
+            this.raffleID = raffleID;
         }
 
         public String runCreateTask() throws IOException {
             // create an instance of createRaffleUseCase with user input
-            CreateTaskUseCase taskManager = new CreateTaskUseCase(this.taskName, this.taskDescription, this.taskLink);
+            CreateTaskUseCase taskManager = new CreateTaskUseCase(this.raffleID, this.taskName, this.taskDescription, this.taskLink);
 
             // call use case's run method to update the raffle's id
             return taskManager.runTaskCreation();

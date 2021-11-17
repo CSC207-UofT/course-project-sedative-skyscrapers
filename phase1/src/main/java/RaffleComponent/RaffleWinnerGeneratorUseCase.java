@@ -38,7 +38,7 @@ public class RaffleWinnerGeneratorUseCase {
         }
 
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
+                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(2),(String)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));

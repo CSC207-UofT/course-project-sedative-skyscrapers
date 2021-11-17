@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class LoginRaffleUseCase {
 
-    private final String orgRaffleId;
-    private final String ptcLogginInId;
+    private String orgRaffleId;
+    private String ptcLogginInId;
     private ArrayList<Object> orgRaffleInfo;
     private RaffleEntity ptcRaffle;
-    private final OrganizerRaffleEntity orgRaffle;
+    private OrganizerRaffleEntity orgRaffle;
     private LoginResult loginResult;
 //    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
@@ -48,7 +48,7 @@ public class LoginRaffleUseCase {
         }
 
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
+                (int) this.orgRaffleInfo.get(1), (LocalDate) this.orgRaffleInfo.get(3),(String)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(orgRaffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>)this.orgRaffleInfo.get(4));

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import main.java.RaffleComponent.OrgRaffleEditTaskUseCase;
+//import main.java.RaffleComponent.OrgRaffleEditTaskUseCase;
 import main.java.RaffleWeb.*;
 import main.java.RaffleWeb.RaffleLookupController;
 import main.java.TaskWeb.CreateTaskController;
@@ -63,26 +63,28 @@ public class OrganizerSystemManager {
     public void raffleCreator(String raffleName, String rules , int numWinners, LocalDate endDate, String orgUsername,
                               String[][] allTaskInfo) throws IOException {
 
-        CreateRaffleController raffleCont = new CreateRaffleController(raffleName,
+        CreateRaffleController raffleCont = new CreateRaffleController(orgUsername, raffleName,
                 numWinners, endDate);
-        String newRaffleID = raffleCont.runCreateRaffle(); // Creates the new raffle and returns the generated raffleID
+        String newRaffleID = raffleCont.runCreateRaffle().get(4).toString();
+        System.out.println(newRaffleID);// Creates the new raffle and returns the generated raffleID
         setRaffleID(newRaffleID);
         RaffleRuleSetterController rulesSetter = new RaffleRuleSetterController(raffleID, rules,
                 raffleCont.raffleInfoSoFar);
         rulesSetter.runRaffleRuleSetter();
 
-        RaffleTaskController taskCont = new RaffleTaskController(raffleID, raffleCont.raffleInfoSoFar);
+        //RaffleTaskController taskCont = new RaffleTaskController(raffleID, raffleCont.raffleInfoSoFar);
 
         ArrayList<String> taskIDs= new ArrayList<>();
         int i;
         for (i = 0; i < allTaskInfo.length; i ++){
 
-            CreateTaskController createTsk = new CreateTaskController(allTaskInfo[i][0], allTaskInfo[i][1], allTaskInfo[i][2]);
+            CreateTaskController createTsk = new CreateTaskController(newRaffleID, allTaskInfo[i][0], allTaskInfo[i][1], allTaskInfo[i][2]);
             String taskID = createTsk.runCreateTask();
+            //System.out.println(taskID);
             taskIDs.add(taskID);
         }
 
-        taskCont.runEditOrgTaskList(OrgRaffleEditTaskUseCase.TaskEditTypes.ORGANIZER_ADD, taskIDs);
+        //taskCont.runEditOrgTaskList(OrgRaffleEditTaskUseCase.TaskEditTypes.ORGANIZER_ADD, taskIDs);
         // Adds or removes the task in list..
     }
 
@@ -93,7 +95,7 @@ public class OrganizerSystemManager {
     }
 
 
-    public String getOrgRaffleID(String username){
+    public String[] getOrgRaffleID(String username){
         // Phase 1 we assume each organizer makes atmost 1 raffle.
 
         UserRaffleIDController userIDCont = new UserRaffleIDController();

@@ -3,6 +3,7 @@ package main.java.database;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GetTaskDetails {
     DataMiner data;
@@ -50,11 +51,16 @@ public class GetTaskDetails {
 
         String[] attributes = new String[0];
         try {
+            //attributes = data.get_line("raffleTaskDetails", true);
             attributes = data.get_line("raffleTaskDetails", true);
-            attributes = data.get_line("raffleTaskDetails", false);
             while (attributes != null) {
-                usedTaskIDs.add(attributes[1]);
+                System.out.println("attributes[0] = "+attributes[0]);
+                if(!(Objects.equals(attributes[0], "")))
+                    usedTaskIDs.add(attributes[1]);
+                else
+                    break;
                 attributes = data.get_line("raffleTaskDetails", false);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

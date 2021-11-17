@@ -27,7 +27,7 @@ public class RaffleRuleSetterUseCase {
 //    private DataExtractor dataAccess;
 //    private AddOrganizer dataUploader;
 
-    public RaffleRuleSetterUseCase(String raffleId, String rulesString, ArrayList<Object> raffleInfoSoFar){
+    public RaffleRuleSetterUseCase(String raffleId,String rulesString, ArrayList<Object> raffleInfoSoFar){
         this.rulesString = rulesString;
         this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId]
 
@@ -47,9 +47,13 @@ public class RaffleRuleSetterUseCase {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        System.out.println("Printing thisSOFar");
+        for(int i = 0;i< raffleInfoSoFar.size();i++)
+            System.out.println(raffleInfoSoFar.get(i));
+        System.out.println("Finished printing");
 
         this.orgRaffle = new OrganizerRaffleEntity((String)this.raffleInfoSoFar.get(0),
-                (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2));
+                (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2),(String)this.raffleInfoSoFar.get(3));
         this.orgRaffle.setRaffleId(raffleId);
         // taskIdList, ptcIdList and winnerIdList empty at this stage
 

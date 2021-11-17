@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OrganizerViewRafflePage extends JFrame {
     public static JFrame frame;
@@ -89,13 +90,17 @@ public class OrganizerViewRafflePage extends JFrame {
         findWinners.setMaximumSize(findWinners.getPreferredSize());
         findWinners.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        if(((ArrayList<String>)raffleDetails.get(6)).size()==0)
+
+
+        if((((HashMap<String,Boolean>)raffleDetails.get(6)).size())==0)
         {
 
             findWinners.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     osm.generateWinnersList(raffleID);
+                    findWinners.setText("Winners declared!");
+                    findWinners.setEnabled(false);
                 }
             });
         }
@@ -111,7 +116,7 @@ public class OrganizerViewRafflePage extends JFrame {
         winnerInfo.setMinimumSize(winnerInfo.getPreferredSize());
         winnerInfo.setMaximumSize(winnerInfo.getPreferredSize());
 
-        if(((ArrayList<String>)raffleDetails.get(6)).size()!=0)
+        if((((HashMap<String,Boolean>)raffleDetails.get(6)).size())==0)
         {
             winnerInfo.append("The winners are:");
             for(int i = 0;i<((ArrayList<String>)raffleDetails.get(6)).size();i++)

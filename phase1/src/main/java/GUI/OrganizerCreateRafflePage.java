@@ -259,6 +259,8 @@ public class OrganizerCreateRafflePage extends JFrame {
                         if(ld.isAfter(LocalDate.now())){
                             try {
                                 osm.raffleCreator(raffleNameField.getText(), raffleRules.getText(), Integer.parseInt(raffleNumWinnersField.getText()), ld, username, taskInfo);
+                                OrganizerMainPage o = new OrganizerMainPage(username);
+                                frame.setVisible(false);
                             }catch(IOException io)
                         {
                             JOptionPane.showMessageDialog(frame,"Invalid inputs","Error",JOptionPane.ERROR_MESSAGE);

@@ -6,12 +6,15 @@ import java.util.ArrayList;
 public class OrganizerRaffleEntity extends RaffleEntity {
     private ArrayList<String> participantIdList;
     private ArrayList<String> winnerIdList;
+    private String orgUsername;
 
-    public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
+    public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String username){
         super(raffleName, numberOfWinners, endDate);
+
         // participantList and winnerList not yet initialized, but rather gotten from use case
         this.participantIdList = new ArrayList<>();
         this.winnerIdList = new ArrayList<>();
+        this.orgUsername = username;
     }
 
     @Override
