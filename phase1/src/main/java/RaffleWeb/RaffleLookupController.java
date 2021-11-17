@@ -33,4 +33,8 @@ public class RaffleLookupController {
         return this.raffleInfoManager.getOrgRaffleInfo(orgRaffleId);
     }
 
+    public ArrayList<String> runLookUpRaffleWinners(String orgRaffleId){
+        return this.raffleInfoManager.getWinnersList(orgRaffleId);
+    }
+
 }
