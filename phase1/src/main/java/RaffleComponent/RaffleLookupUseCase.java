@@ -71,6 +71,11 @@ public class RaffleLookupUseCase {
         // this is for the 7 for ptcRaffle
     }
 
+    public ArrayList<String> getWinnersList(String orgRaffleId){
+        ArrayList<Object> orgRaffleInfo = this.getOrgRaffleInfo(orgRaffleId);
+        return (ArrayList<String>) orgRaffleInfo.get(6);
+    }
+
     public boolean raffleIdExists(String orgRaffleID) {
         return this.getAllOrgRaffleInfo().containsKey(orgRaffleID);
     }

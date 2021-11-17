@@ -1,9 +1,7 @@
 package main.java.RaffleComponent;
 
-import main.java.Helpers.PackageRaffleEntityInstance;
-import main.java.RaffleComponent.OrganizerRaffleEntity;
-import main.java.database.AddOrganizer;
 import main.java.database.DataExtractor;
+import main.java.database.JoinUserToRaffle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +15,8 @@ public class RaffleWinnerGeneratorUseCase {
     private OrganizerRaffleEntity orgRaffle;
 //    private PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
-//    private AddOrganizer dataUploader;
+    private JoinUserToRaffle dataUploader;
+    private ArrayList<String> validParticipantIds;
 
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
@@ -26,11 +25,14 @@ public class RaffleWinnerGeneratorUseCase {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-//        try {
-//            this.dataUploader = new AddOrganizer();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+        try {
+            this.dataUploader = new JoinUserToRaffle();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         try {
             this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(raffleId);
         } catch (IOException e) {
@@ -45,7 +47,12 @@ public class RaffleWinnerGeneratorUseCase {
         this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
         // no winners set yet
 
-//        this.dataPackager = new PackageRaffleEntityInstance();
+        try {
+            this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -65,12 +72,22 @@ public class RaffleWinnerGeneratorUseCase {
         ArrayList<String> winnersSoFar = new ArrayList<>();
         ArrayList<Integer> winningNumsSoFar = new ArrayList<>();
 
-        for (i = 0; i < this.orgRaffle.getNumberOfWinners(); i++) {
+        // check amount of winners to calculate
+        int winningEntriesToCalculate = Math.min(this.validParticipantIds.size(),
+                this.orgRaffle.getNumberOfWinners());
+
+        for (i = 0; i < winningEntriesToCalculate; i++) {
             int winningEntry = calculateWinningEntry(winningNumsSoFar);
             winningNumsSoFar.add(winningEntry);
-            winnersSoFar.add(this.orgRaffle.getParticipantIdList().get(winningEntry));  // winningEntry is the index
+            winnersSoFar.add(this.validParticipantIds.get(winningEntry));  // winningEntry is the index
         }
 
+        // upload results to database
+        try {
+            this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return winnersSoFar;  // returns arrayList of userId strings
     }
 
