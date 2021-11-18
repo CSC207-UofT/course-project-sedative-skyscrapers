@@ -55,6 +55,7 @@ public class UserRaffleIDController {
      */
     public void addRaffleIDToParticipant(String username, String raffleID) {
         try {
+
             joinUserToRaffle.joinUserToRaffle(raffleID, username);
         } catch (IOException e) {
             e.printStackTrace();

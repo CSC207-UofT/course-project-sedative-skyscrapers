@@ -39,7 +39,7 @@ public class AddOrganizer {
     public void uploadCreatedRaffle(String orgUsername,
                                     String orgRaffleId,
                                     ArrayList<Object> raffleCreatedInfo) throws IOException {
-        System.out.println(orgRaffleId + "duplicate");
+
         username = orgUsername;
         raffleID = orgRaffleId;
         rafflename = (String) raffleCreatedInfo.get(0);
@@ -70,15 +70,12 @@ public class AddOrganizer {
                 "21112001" + COMMA + phone + COMMA + email;
         String data2 = "\n" + username + COMMA + possiblewinners + COMMA + rafflename + COMMA + rafflerules + COMMA + affiliatedorg + COMMA + startdate + COMMA +
                 enddate + COMMA + raffleID;
-        System.out.println(username);
-        System.out.println(password);
         if (raffle) {
             fw = getfile.getFile("raffleDetails");
             fw.append(data2);
         }
         else {
             fw = getfile.getFile("OuserCred");
-            System.out.println("HiHELLO");
             fw.append(data);
         }
 

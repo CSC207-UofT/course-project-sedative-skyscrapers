@@ -1,8 +1,16 @@
 package main.java.RaffleComponent;
 
 import main.java.Helpers.PackageRaffleEntityInstance;
+import main.java.database.AddParticipant;
+import main.java.database.DataExtractor;
+import main.java.database.GetTaskDetails;
+import main.java.database.JoinUserToRaffle;
 
+import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CompleteTaskUseCase {
@@ -12,23 +20,49 @@ public class CompleteTaskUseCase {
     private ArrayList<Object> ptcRaffleInfo;
     private ArrayList<Object> orgRaffleInfo;
     private PackageRaffleEntityInstance dataPackager;
+    private GetTaskDetails extractor;
+    private DataExtractor dataAccess;
+    private AddParticipant taskWriter;
 
-    public CompleteTaskUseCase(String taskToComplete, String raffleId){
-        // todo uncomment: this.ptcRaffleInfo = DataAccess.getPtcRaffleById(raffleId)
-        // todo uncomment: this.orgRaffleInfo = DataAccess.getOrganizerRaffleById(orgIdFormPtcId(raffleId))
-        this.ptcRaffle = new RaffleEntity((String)ptcRaffleInfo.get(0), (Integer)ptcRaffleInfo.get(1),
-                (LocalDate)ptcRaffleInfo.get(3));
+
+    public CompleteTaskUseCase(String raffleId, String taskId) throws FileNotFoundException {
+        this.extractor = new GetTaskDetails();
+        //this.ptcRaffleInfo = extractor. // todo reads from new csv for ptcRaffle
+        String[] IDs = raffleId.split(":");
+        try {
+
+            dataAccess = new DataExtractor();
+            this.orgRaffleInfo = dataAccess.getOrgRaffleInfo(IDs[1]);
+        }
+        catch(IOException ioe)
+        {
+            ioe.getStackTrace();
+        }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            ptcRaffleInfo = dataAccess.getPtcRaffleInfo(IDs[1]);
+        }
+        catch(IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+        this.ptcRaffle = new RaffleEntity(ptcRaffleInfo.get(0).toString(), Integer.parseInt(ptcRaffleInfo.get(1).toString()),
+                LocalDate.parse(ptcRaffleInfo.get(2).toString(),dtf)); //todo normal lookup from rqffleDetails
         this.ptcRaffle.setRaffleId(raffleId);
         this.ptcRaffle.setRaffleRules((String)ptcRaffleInfo.get(2));
         this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
-        this.taskId = taskToComplete;
+        this.taskId = taskId;
         this.dataPackager = new PackageRaffleEntityInstance();
     }
 
-    public ArrayList<String> completeTask(){
+    public ArrayList<String> completeTask()throws IOException{
         ArrayList<String> completedTaskIds;
+
         if (this.ptcRaffle.getTaskIdList().contains(this.taskId)){
             this.ptcRaffle.getTaskIdList().remove(this.taskId);  // pop tasks from the tasks to do by user
+            //String[] IDs = ptcRaffle.getRaffleId().split(":");
+            JoinUserToRaffle joiner = new JoinUserToRaffle();
+            joiner.setCompletedTask(ptcRaffle.getRaffleId(),taskId);
 
             ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
             // todo uncomment: DataAccess.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(), packagedPtcRaffle)
@@ -69,4 +103,10 @@ public class CompleteTaskUseCase {
     public void setPtcRaffle(RaffleEntity ptcRaffle) {
         this.ptcRaffle = ptcRaffle;
     }
+
+    public boolean hasCompletedTask(String username,String raffleID)
+    {
+        return dataAccess.hasCompletedTask(raffleID.split(":")[1],username,this.taskId);
+    }
+
 }

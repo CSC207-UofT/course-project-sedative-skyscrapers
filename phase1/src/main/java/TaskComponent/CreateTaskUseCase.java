@@ -28,9 +28,6 @@ public class CreateTaskUseCase {
         }
         try {
             this.takenIds = this.extractor.getUsedTaskIDs();
-            for (String id: this.takenIds){
-                System.out.println(id);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

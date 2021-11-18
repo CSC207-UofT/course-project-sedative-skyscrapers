@@ -67,7 +67,6 @@ public class CheckUsernameController {
             return false;
         }
         String correctPassword = orgInfo[1];
-        System.out.println(correctPassword);
         return password.equals(correctPassword);
     }
 }

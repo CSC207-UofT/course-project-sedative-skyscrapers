@@ -6,6 +6,7 @@ import main.java.database.JoinUserToRaffle;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 // the use case for when a raffle organizer wants to decide the winners of a raffle
@@ -38,9 +39,10 @@ public class RaffleWinnerGeneratorUseCase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //System.out.println("this.orgRaffleInfo(2) = "+this.orgRaffleInfo.get(2));
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(2),(String)this.orgRaffleInfo.get(3));
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()), LocalDate.parse(this.orgRaffleInfo.get(2).toString(),dtf),(String)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
@@ -81,7 +83,7 @@ public class RaffleWinnerGeneratorUseCase {
             winningNumsSoFar.add(winningEntry);
             winnersSoFar.add(this.validParticipantIds.get(winningEntry));  // winningEntry is the index
         }
-
+        //System.out.println("winnersSoFar"+winnersSoFar.get(0));
         // upload results to database
         try {
             this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);

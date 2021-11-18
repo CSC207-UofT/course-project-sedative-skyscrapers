@@ -8,6 +8,7 @@ import main.java.database.JoinUserToRaffle;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LoginRaffleUseCase {
@@ -47,8 +48,9 @@ public class LoginRaffleUseCase {
             e.printStackTrace();
         }
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (int) this.orgRaffleInfo.get(1), (LocalDate) this.orgRaffleInfo.get(3),(String)this.orgRaffleInfo.get(3));
+                 Integer.parseInt(this.orgRaffleInfo.get(1).toString()),  LocalDate.parse(this.orgRaffleInfo.get(2).toString(),dtf),(String)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(orgRaffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>)this.orgRaffleInfo.get(4));
@@ -79,11 +81,7 @@ public class LoginRaffleUseCase {
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
 
 
-            try {
-                this.dataUploader.joinUserToRaffle(this.ptcRaffle.getRaffleId(), this.ptcLogginInId);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
 
             // todo: printing function this.dataUploader... I think this is automatic but if there's and error
             //  check with khushaal

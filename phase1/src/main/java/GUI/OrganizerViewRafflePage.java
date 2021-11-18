@@ -60,8 +60,8 @@ public class OrganizerViewRafflePage extends JFrame {
             try {
                 ArrayList<String> taskInfo = osm.getTaskInfo(((ArrayList<String>) raffleDetails.get(4)).get(i));
                 raffleInfo.append("\n\nTask Name: " + taskInfo.get(0));
-                raffleInfo.append("\nDescription:\n" + taskInfo.get(1));
-                raffleInfo.append("\nLink: " + taskInfo.get(2) + "\n");
+                raffleInfo.append("\nLink: " + taskInfo.get(1));
+                raffleInfo.append("\nDescription:\n" + taskInfo.get(2) +"\n");
             }
             catch(FileNotFoundException fnfe)
             {
@@ -92,7 +92,7 @@ public class OrganizerViewRafflePage extends JFrame {
 
 
 
-        if((((HashMap<String,Boolean>)raffleDetails.get(6)).size())==0)
+        if((((ArrayList<String>)raffleDetails.get(6)).size())==0)
         {
 
             findWinners.addActionListener(new ActionListener() {
@@ -101,6 +101,11 @@ public class OrganizerViewRafflePage extends JFrame {
                     osm.generateWinnersList(raffleID);
                     findWinners.setText("Winners declared!");
                     findWinners.setEnabled(false);
+                    raffleInfo.append("The winners are:\n");
+                    for(int i = 0;i<((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).size();i++)
+                    {
+                        raffleInfo.append("\n"+((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).get(i));
+                    }
                 }
             });
         }
@@ -108,6 +113,11 @@ public class OrganizerViewRafflePage extends JFrame {
         {
             findWinners.setText("Winners declared!");
             findWinners.setEnabled(false);
+            raffleInfo.append("\nThe winners are:\n");
+            for(int i = 0;i<((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).size();i++)
+            {
+                raffleInfo.append("\n"+((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).get(i));
+            }
         }
 
         winnerInfo = new JTextArea();
@@ -116,7 +126,7 @@ public class OrganizerViewRafflePage extends JFrame {
         winnerInfo.setMinimumSize(winnerInfo.getPreferredSize());
         winnerInfo.setMaximumSize(winnerInfo.getPreferredSize());
 
-        if((((HashMap<String,Boolean>)raffleDetails.get(6)).size())==0)
+        if((((ArrayList<String>)raffleDetails.get(6)).size())==0)
         {
             winnerInfo.append("The winners are:");
             for(int i = 0;i<((ArrayList<String>)raffleDetails.get(6)).size();i++)

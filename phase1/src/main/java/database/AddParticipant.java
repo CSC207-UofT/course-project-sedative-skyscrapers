@@ -44,4 +44,6 @@ public class AddParticipant {
         return "\n" + username + COMMA + password + COMMA + firstName + COMMA + lastName + COMMA +
                 ageDate + COMMA + phone + COMMA + email;
     }
+
+
 }

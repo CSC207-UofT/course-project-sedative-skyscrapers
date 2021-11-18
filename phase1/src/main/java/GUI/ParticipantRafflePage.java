@@ -1,6 +1,7 @@
 package main.java.GUI;
 
 import main.java.Web.OrganizerSystemManager;
+import main.java.Web.ParticipantSystemManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,10 +32,12 @@ public class ParticipantRafflePage extends JFrame {
         this.username = username;
         OrganizerSystemManager osm = new OrganizerSystemManager();
         raffleInfo = osm.getRaffleDetails(raffleID);
+        for(int i = 0;i<((ArrayList<String>)raffleInfo.get(5)).size();i++)
         if(((ArrayList<String>)raffleInfo.get(5)).contains(username))
             isEnrolled = true;
         else
             isEnrolled = false;
+        //System.out.println(isEnrolled);
         // code for checking whether the guy is enrolled.
         //this.isEnrolled = false;
         //p should be passed in the parameter
@@ -114,6 +117,9 @@ public class ParticipantRafflePage extends JFrame {
         {
 
             try{
+                ParticipantSystemManager psm = new ParticipantSystemManager();
+                psm.setRaffleID(username+":"+raffleID);
+                psm.setUsername(username);
                 ArrayList<String> taskInfo = osm.getTaskInfo(taskIDs.get(i));
                 taskNames[i] = new JTextField(taskInfo.get(0));
                 taskNames[i].setEditable(false);
@@ -121,12 +127,17 @@ public class ParticipantRafflePage extends JFrame {
                 taskNames[i].setMinimumSize(taskNames[i].getPreferredSize());
                 taskNames[i].setMaximumSize(taskNames[i].getPreferredSize());
 
-                executeButtons[i] = new JButton("Complete task");
+                if(!psm.hasCompletedTasks(taskIDs.get(i)))
+                    executeButtons[i] = new JButton("Complete task");
+                else{
+                    executeButtons[i] = new JButton("Task completed");
+                    executeButtons[i].setEnabled(false);
+                }
                 executeButtons[i].setAlignmentX(Component.RIGHT_ALIGNMENT);
                 executeButtons[i].setPreferredSize(new Dimension(rFrame.getWidth()/4,40));
                 executeButtons[i].setMinimumSize(executeButtons[i].getPreferredSize());
                 executeButtons[i].setMaximumSize(executeButtons[i].getPreferredSize());
-                executeButtons[i].addActionListener( new TaskButton(taskIDs.get(i), raffleID,executeButtons[i],rFrame));
+                executeButtons[i].addActionListener( new TaskButton(taskIDs.get(i), username+":"+raffleID,executeButtons[i],rFrame));
 
                 tasks[i] = new JTextArea(taskInfo.get(1));
                 tasks[i].append("\n"+taskInfo.get(2));
@@ -144,7 +155,7 @@ public class ParticipantRafflePage extends JFrame {
         GroupLayout.SequentialGroup sg = gl.createSequentialGroup().addComponent(raffleInfoField);
         pg.addGroup(gl.createSequentialGroup().addComponent(backButton).addComponent(joinButton));
         sg.addGroup(gl.createParallelGroup().addComponent(backButton).addComponent(joinButton));
-        if(!isEnrolled)
+        if(isEnrolled)
         {
 
             for(int i=0;i<taskNames.length;i++)
@@ -169,7 +180,8 @@ public class ParticipantRafflePage extends JFrame {
                 int option = JOptionPane.showConfirmDialog(rFrame,"Are you sure you want to join this raffle?","Confirm",JOptionPane.YES_NO_OPTION);
                 if(option == JOptionPane.YES_OPTION)
                 {
-                    //Add user to Raffle's participant
+                    ParticipantSystemManager psm = new ParticipantSystemManager();
+                    psm.storeRaffleInParticipantData(raffleID,username);
                     joinButton.setEnabled(false);
                     joinButton.setText("Joined");
                     isEnrolled = true;

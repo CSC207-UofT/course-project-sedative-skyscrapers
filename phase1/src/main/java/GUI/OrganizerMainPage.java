@@ -106,7 +106,7 @@ public class OrganizerMainPage extends JFrame {
                 .addComponent(welcomeLabel)
                 .addComponent(orgRaffleLabel);
 
-        System.out.println("User = "+username);
+
 
         String[] raffleIDs = osm.getOrgRaffleID(username);
 

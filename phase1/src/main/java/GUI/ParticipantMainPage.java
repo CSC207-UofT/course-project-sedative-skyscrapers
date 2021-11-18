@@ -25,6 +25,7 @@ public class ParticipantMainPage extends JFrame {
     public static JTextField searchField;
     public static JButton searchButton;
     public static JButton searchedButton;
+    public static JButton logout;
 
     public ParticipantMainPage(String username)
     {
@@ -164,29 +165,20 @@ public class ParticipantMainPage extends JFrame {
         searchButton.setPreferredSize(new Dimension(mpFrame.getWidth()/8, 40));
         searchButton.setMinimumSize(searchButton.getPreferredSize());
         searchButton.setMaximumSize(searchButton.getPreferredSize());
-        searchButton.addActionListener(new ActionListener() {
+
+        logout = new JButton("Logout");
+        logout.setAlignmentX(Component.LEFT_ALIGNMENT);
+        logout.setPreferredSize(new Dimension(mpFrame.getWidth()/8, 40));
+        logout.setMinimumSize(logout.getPreferredSize());
+        logout.setMaximumSize(logout.getPreferredSize());
+        logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Set<String> ids = osm.getAllRaffleID();
-                if(ids.contains(searchField.getText()))
+                int option = JOptionPane.showConfirmDialog(mpFrame,"Are you sure you want to logout?","Confirm",JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION)
                 {
-                    ArrayList<Object> raffleInfo = osm.getRaffleDetails(searchField.getText());
-                    searchedButton = new JButton(raffleInfo.get(0)+"\t\t\t"+searchField.getText()+"\t\t\t"+raffleInfo.get(3));
-                    searchedButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-                    searchedButton.setPreferredSize(new Dimension(7*mpFrame.getWidth()/8, 50));
-                    searchedButton.setMinimumSize(searchedButton.getPreferredSize());
-                    searchedButton.setMaximumSize(searchedButton.getPreferredSize());
-                    searchedButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            ParticipantRafflePage prp = new ParticipantRafflePage(searchField.getText(),username);
-                            mpFrame.setVisible(false);
-                        }
-                    });
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(mpFrame,"No such Raffle found","Error",JOptionPane.ERROR_MESSAGE);
+                    SignInPage sip = new SignInPage();
+                    mpFrame.setVisible(false);
                 }
             }
         });
@@ -207,10 +199,43 @@ public class ParticipantMainPage extends JFrame {
             pg.addComponent(userRaffles[i]);
             sg.addComponent(userRaffles[i]);
         }
-        pg.addComponent(searchLabel).addGroup(gl.createSequentialGroup().addComponent(searchField).addComponent(searchButton));
-        sg.addGap(50).addComponent(searchLabel).addGap(10).addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(searchField).addComponent(searchButton)).addGap(30);
+
+        pg.addComponent(logout).addComponent(searchLabel).addGroup(gl.createSequentialGroup().addComponent(searchField).addComponent(searchButton));
+        sg.addGap(30).addComponent(logout).addGap(50).addComponent(searchLabel).addGap(10).addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(searchField).addComponent(searchButton)).addGap(30);
         gl.setHorizontalGroup(pg);
         gl.setVerticalGroup(sg);
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Set<String> ids = osm.getAllRaffleID();
+
+                if(ids.contains(searchField.getText()))
+                {
+                    ArrayList<Object> raffleInfo = osm.getRaffleDetails(searchField.getText());
+                    searchedButton = new JButton(raffleInfo.get(0)+"\t\t\t"+searchField.getText()+"\t\t\t"+raffleInfo.get(3));
+                    searchedButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    searchedButton.setPreferredSize(new Dimension(7*mpFrame.getWidth()/8, 50));
+                    searchedButton.setMinimumSize(searchedButton.getPreferredSize());
+                    searchedButton.setMaximumSize(searchedButton.getPreferredSize());
+                    searchedButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            ParticipantRafflePage prp = new ParticipantRafflePage(searchField.getText(),username);
+                            mpFrame.setVisible(false);
+                        }
+                    });
+                    pg.addComponent(searchedButton);
+                    sg.addComponent(searchedButton);
+                    gl.setHorizontalGroup(pg);
+                    gl.setVerticalGroup(sg);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(mpFrame,"No such Raffle found","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         mpFrame.getContentPane().add(scrollPane);
         mpFrame.getContentPane().add(bigPanel);

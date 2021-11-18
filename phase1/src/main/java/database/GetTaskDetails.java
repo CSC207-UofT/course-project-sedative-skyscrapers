@@ -26,10 +26,12 @@ public class GetTaskDetails {
         String[] attributes = new String[0];
         try {
             attributes = data.get_line("raffleTaskDetails", true);
+            attributes = data.get_line("raffleTaskDetails",false);
         } catch (IOException e) {
             e.printStackTrace();
         }
         while(true) {
+
             if (attributes[1].equals(taskID)) {
                 taskDetails.add(attributes[2]);
                 taskDetails.add(attributes[3]);
@@ -54,7 +56,6 @@ public class GetTaskDetails {
             //attributes = data.get_line("raffleTaskDetails", true);
             attributes = data.get_line("raffleTaskDetails", true);
             while (attributes != null) {
-                System.out.println("attributes[0] = "+attributes[0]);
                 if(!(Objects.equals(attributes[0], "")))
                     usedTaskIDs.add(attributes[1]);
                 else

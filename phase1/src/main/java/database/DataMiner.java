@@ -45,11 +45,9 @@ public class DataMiner {
     // TODO: make getReader function
     public String[] get_line(String data_file, Boolean reset) throws IOException {
         String[] data_mined;
-
         if (reset.equals(true)) {
             reset_file(data_file);
         }
-
         BufferedReader currentBR = raffleBR;
 
         if ("OuserCred".equals(data_file)) {
@@ -64,14 +62,13 @@ public class DataMiner {
         else if("raffleDetails".equals(data_file)) {
             currentBR = raffleDetailsBR;
         }
-        else if("raffeleWinners".equals(data_file))
+        else if("raffleWinners".equals(data_file)){
             currentBR = raffleWinnersBR;
-
+        }
         String line = currentBR.readLine();
         if (line == null) {
             return null;}
         data_mined = line.split(",");
-        // System.out.println(data_mined[0]);
         return data_mined;
     }
 

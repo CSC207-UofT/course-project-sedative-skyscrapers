@@ -30,7 +30,7 @@ public class RaffleIdGenerator implements EntityIdGenerator {
 
         for (String takenId : this.takenRaffleIds){
             String[] takenIdNum = takenId.split(Character.toString(entityCode)); // get the number on its own
-            int idNumber = Integer.parseInt(takenIdNum[0]);
+            int idNumber = Integer.parseInt(takenIdNum[1]);
             numList.add(idNumber);
         }
 

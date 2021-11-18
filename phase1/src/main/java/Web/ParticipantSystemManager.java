@@ -1,5 +1,6 @@
 package main.java.Web;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,11 +46,10 @@ public class ParticipantSystemManager {
 
 
     public void storeRaffleInParticipantData(String raffleID, String username){
-
         UserRaffleIDController userRaffIDCont = new UserRaffleIDController();
         userRaffIDCont.addRaffleIDToParticipant(username, raffleID);
-        String[] ptcRaffleParts = raffleID.split(":");
-        String orgRaffleID = ptcRaffleParts[1];
+        //String[] ptcRaffleParts = raffleID.split(":");
+        String orgRaffleID =raffleID;
         LoginRaffleController loginRaffCont = new LoginRaffleController(orgRaffleID, username);
         loginRaffCont.runLoginRaffle();
     }
@@ -59,10 +59,12 @@ public class ParticipantSystemManager {
     public void completeTask(String raffleID, String taskID) throws Exception {
         // Call taskController, save task and add it to the participant raffle object. miGHT Have to call the necessary
         // controller to do this.
-        CompleteTaskController compTask = new CompleteTaskController(taskID, raffleID);
-        compTask.runCompleteTask();
+
         ExecuteCommandController executor = new ExecuteCommandController(raffleID, taskID);
         executor.runExecuteCommand();
+        CompleteTaskController compTask = new CompleteTaskController(raffleID, taskID);
+        compTask.runCompleteTask();
+
 
 
     }
@@ -105,6 +107,13 @@ public class ParticipantSystemManager {
         RaffleLookupController raffleLookupCont = new RaffleLookupController();
         // I get all raffle info as hashmap. Now I do keySets() to get set of keys.
         return raffleLookupCont.runLookupAllRaffleInfo().keySet();
+    }
+
+    public boolean hasCompletedTasks(String taskID)throws FileNotFoundException
+    {
+
+        CompleteTaskController c= new CompleteTaskController(this.raffleID,taskID);
+        return c.hasCompletedTask(this.username);
     }
 }
 

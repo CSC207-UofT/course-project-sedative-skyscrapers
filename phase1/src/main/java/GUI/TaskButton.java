@@ -24,10 +24,12 @@ public class TaskButton implements ActionListener {
         ParticipantSystemManager psm = new ParticipantSystemManager();
         try {
             psm.completeTask(raffleID, taskID);
+            button.setEnabled(false);
+            button.setText("Task Completed");
         }
         catch(Exception exc)
         {
-            JOptionPane.showMessageDialog(frame,"Error","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame,exc.getStackTrace(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }
 }

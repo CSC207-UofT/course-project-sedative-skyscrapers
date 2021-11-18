@@ -47,10 +47,8 @@ public class RaffleRuleSetterUseCase {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("Printing thisSOFar");
-        for(int i = 0;i< raffleInfoSoFar.size();i++)
-            System.out.println(raffleInfoSoFar.get(i));
-        System.out.println("Finished printing");
+
+
 
         this.orgRaffle = new OrganizerRaffleEntity((String)this.raffleInfoSoFar.get(0),
                 (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2),(String)this.raffleInfoSoFar.get(3));

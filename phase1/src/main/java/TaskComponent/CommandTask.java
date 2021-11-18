@@ -20,8 +20,6 @@ public class CommandTask implements Command {
     @Override
     public void execute() throws Exception{
 
-        CompleteTaskUseCase Completer = new CompleteTaskUseCase(theTaskID, theRaffleID);
-        Completer.completeTask(); //todo remove from system manager?
         TaskLookupUseCase Looker = new TaskLookupUseCase(theTaskID);
         Desktop d = Desktop.getDesktop();
         d.browse(new URI(Looker.getTaskInfo().get(1)));

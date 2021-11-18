@@ -34,11 +34,8 @@ public class DataExtractor {
         String userType = "OuserCred";
 
         String[] attributes = data.get_line(userType, true);
-
         //System.out.println(attributes.length);
-        System.out.println("USER_SEARCH = "+ user_search);
         while (attributes != null) {
-            System.out.println("Attribute[0] = "+attributes[0]);
             if (attributes[0].equals(user_search)) {
                 user_found = true;
                 return attributes;
@@ -60,7 +57,6 @@ public class DataExtractor {
         String userType = "PuserCred";
 
         String[] attributes = data.get_line(userType, true);
-
         //System.out.println(attributes.length);
 
         while (attributes != null) {
@@ -97,10 +93,11 @@ public class DataExtractor {
 
         String[] attributes = data.get_line("raffleDetails", true);
         while (attributes != null ) {
-            if(attributes[0] != ""){
+            if(attributes[0].equals("")){
                 attributes = data.get_line("raffleDetails", false);
                 continue;
             }
+
             String raffleID = attributes[RAFFLEID];
             boolean contains = used_raffleIDs.contains(raffleID);
             if (!contains) {
@@ -160,6 +157,7 @@ public class DataExtractor {
         ArrayList<Object> orgRaffleInfo = new ArrayList<>(Arrays.asList(getRaffleDetails(orgRaffleId)));
         orgRaffleInfo.add(getTasks(orgRaffleId));
         orgRaffleInfo.add(getUsersInRaffle(orgRaffleId));
+        //System.out.println("Getting winners");
         orgRaffleInfo.add(getWinners(orgRaffleId));
 
 
@@ -183,16 +181,15 @@ public class DataExtractor {
         int RAFFLEENDDATE = 6;
         int RAFFLEUSERNAME = 0;
 
+
         String[] raffleDetails = new String[4];
         DataMiner data2 = new DataMiner();
 
         String[] attributes = data2.get_line("raffleDetails", true);
 
-        System.out.println("Raffle ID = "+raffleID);
-
         while(attributes != null) {
             if (raffleID.equals(attributes[RAFFLEID])) {
-                System.out.println(attributes[RAFFLEUSERNAME]);
+
                 raffleDetails[0] = attributes[RAFFLENAME];
                 raffleDetails[1] = attributes[RAFFLENUMWINNERS];
                 raffleDetails[2] = attributes[RAFFLEENDDATE];
@@ -208,9 +205,13 @@ public class DataExtractor {
         ArrayList<String> tasks = new ArrayList<String>();
         //Integer currentRaffleID = -1;
         //Integer targetRaffleID = Integer.parseInt(raffleID);
-
+        if(raffleID.split(":").length == 2)
+            raffleID = raffleID.split(":")[1];
+        //System.out.println("RaffleID in getTasks() == "+raffleID);
         String[] attributes = data.get_line("raffleTaskDetails", true);
         while (attributes!=null) {
+            if(attributes[0].length()==6)
+                attributes[0] = attributes[0].substring(1,6);
             if(raffleID.equals(attributes[0]))
             {
                 tasks.add(attributes[1]);
@@ -229,18 +230,20 @@ public class DataExtractor {
         ArrayList<String> usernames = new ArrayList<String>();
 
         String[] attributes = data.get_line("raffleUserDetails", true);
-
+        attributes = data.get_line("raffleUserDetails", false);
         while (attributes != null) {
             String testing_user = attributes[USERNAME];
-            if (raffleID.equals(attributes[RAFFLEID])) {
+            if ((!attributes[0].equals(""))&&raffleID.equals(attributes[RAFFLEID])) {
                 if (!(usernames.contains(testing_user))) {
-                    if(attributes[TASKSTATUS].equals("T"))
+                    if(attributes[TASKSTATUS].equals("T")) {
                         usernames.add(testing_user);
+                    }
                 }
                 else
                 {
-                    if(attributes[TASKSTATUS].equals("F"))
+                    if(attributes[TASKSTATUS].equals("F")) {
                         usernames.remove(testing_user);
+                    }
                 }
             }
 
@@ -259,10 +262,10 @@ public class DataExtractor {
         ArrayList<String> usernames = new ArrayList<>();
 
         String[] attributes = data.get_line("raffleUserDetails", true);
-        //attributes = data.get_line("raffle", false);
 
         while (attributes != null) {
-            if (!(usernames.contains(attributes[USERNAME]))) {
+
+            if ((!(usernames.contains(attributes[USERNAME])))&&rID.equals(attributes[1])) {
                 usernames.add(attributes[USERNAME]);
             }
             attributes = data.get_line("raffleUserDetails", false);
@@ -275,9 +278,14 @@ public class DataExtractor {
     private ArrayList<String> getWinners(String rID) throws IOException {
         int USERNAME = 1;
         ArrayList<String> usernames= new ArrayList<String>();
+        //System.out.println("STart");
         String[] attributes = data.get_line("raffleWinners", true);
+        //System.out.println("Finish");
         while (attributes != null) {
+            //System.out.println("Attr[0] = " +attributes[0]);
+            //System.out.println("rID = "+rID);
             if (rID.equals(attributes[0])) {
+                //System.out.println("True");
                 usernames.add(attributes[USERNAME]);
             }
             attributes = data.get_line("raffleWinners", false);
@@ -290,9 +298,9 @@ public class DataExtractor {
         String[] attributes = new String[0];
         attributes = data.get_line("raffleUserDetails", true);
         while (attributes != null) {
-            String tempRaffle = attributes[1];
-            if ((Objects.equals(attributes[0], ptcusername)) && (!raffles.contains(tempRaffle))) {
-                raffles.add(tempRaffle);
+
+            if ((Objects.equals(attributes[0], ptcusername)) && (!raffles.contains(attributes[1]))) {
+                raffles.add(attributes[1]);
             }
             attributes = data.get_line("raffleUserDetails", false);
         }
@@ -304,8 +312,8 @@ public class DataExtractor {
             String[] raffles;
             ArrayList<String> raffleIDs = new ArrayList<>(0);
             String[] attributes = data.get_line("raffleDetails", true);
+
             while (attributes != null) {
-                //System.out.println("ATTRIBUTES[0] = "+attributes[0]);
                 if(attributes[0].equals(orgusername))
                 {
                     raffleIDs.add(attributes[7]);
@@ -322,6 +330,30 @@ public class DataExtractor {
         String[] userNotFound = new String[1];
         userNotFound[0] = "User not found";
         return userNotFound;
+    }
+
+    public boolean hasCompletedTask(String raffleID, String username,String taskID)
+    {
+
+        try {
+
+
+            String[] attributes = data.get_line("raffleUserDetails", true);
+            while (attributes != null) {
+                //System.out.println("ATTRIBUTES[0] = "+attributes[0]);
+                if(attributes[0].equals(username)&&attributes[1].equals(raffleID)&&attributes[2].equals(taskID))
+                {
+                    if(attributes[3].equals("T"))
+                        return true;
+                }
+                attributes = data.get_line("raffleUserDetails",false);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
 
