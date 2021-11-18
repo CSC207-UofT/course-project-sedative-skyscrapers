@@ -1,13 +1,11 @@
-## Giveaway Application by Sedative Skyscrapers
+Readme:
 
-## Using the program:
-	
-To run the program:
-	Go over to src/main.java/main and run this file
+Before running the code:
 
-Program Usage:
-	Follow the prompts as they are displayed to you, stick to the type of input that is asked of you to enter to avoid errors in the creation of objects according to that input (follow annotations in brackets after each prompt)
+Go to GetFileToAppend class in main.java.database package. Right click on a database and select Copy Path/Reference, then paste it in the filename parameter in each of the 6 return statements in the Constructor for FileWriter class for the respective csvs.
 
-Example (in command line):
-- Username (single word): username00
-// so you would enter a single word, all together
+While running the code:
+
+As an organizer or a participant, it is necessary to exit the program to reflect any changes made during a session. For example, if an organizer creates a raffle, the change is reflected when the organizer logs in next after exiting the program.
+
+Note: We are planning to get rid of these issues, specially the ones regarding setting up the databases by shifting to SQL.
