@@ -22,12 +22,22 @@ public class RaffleRuleSetterController {
 
     public ArrayList<Object> raffleInfoSoFar;
 
+    /**
+     * Constructor of the controller handling the RaffleRuleSetterUseCase class
+     * @param id the id of the raffle whose rules are to be set
+     * @param rulesString the string of rules representing this raffles' raffleRules attribute (input by user)
+     * @param raffleInfoSoFar the arrayList of objects to be carried through the complete raffle creation process
+     */
     public RaffleRuleSetterController(String id,String rulesString, ArrayList<Object> raffleInfoSoFar){
         this.raffleId = id;
         this.rulesString = rulesString;
         this.raffleInfoSoFar = raffleInfoSoFar;
     }
 
+    /**
+     * Manages the middle part of the flow of control in the complete raffle creation process
+     * @return the arrayList of objects to be carried through the complete raffle creation process
+     */
     public ArrayList<Object> runRaffleRuleSetter(){
         // here raffleId IS in orgAllRaffles, since this class is only accessible within a raffle's subpage
         RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.raffleId, this.rulesString,

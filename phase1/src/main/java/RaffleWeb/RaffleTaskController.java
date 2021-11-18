@@ -1,15 +1,12 @@
+// FILE UNDER MAINTENANCE TO BE REOPENED IN PHASE2
 package main.java.RaffleWeb;
 
-//import main.java.RaffleComponent.OrgRaffleEditTaskUseCase; todo fix this shit class
+//import main.java.RaffleComponent.OrgRaffleEditTaskUseCase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RaffleTaskController {
-
-//    public enum TaskEditTypes{
-//        ORGANIZER_ADD, ORGANIZER_REMOVE
-//    }
 
     private final String raffleId;  // provided by System which will never be null as long as you are inside a raffle subpage
 
@@ -23,7 +20,11 @@ public class RaffleTaskController {
 
     public ArrayList<Object> raffleInfoSoFar;
 
-
+    /**
+     * Constructor for the controller handling the OrgRaffleEditTaskUseCase
+     * @param raffleId
+     * @param raffleInfoSoFar
+     */
     public RaffleTaskController(String raffleId, ArrayList<Object> raffleInfoSoFar) {
         this.raffleId = raffleId;
         this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId, rules]

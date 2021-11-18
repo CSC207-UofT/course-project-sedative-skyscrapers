@@ -19,15 +19,19 @@ public class CompleteTaskUseCase {
     private final String taskId;
     private ArrayList<Object> ptcRaffleInfo;
     private ArrayList<Object> orgRaffleInfo;
-    private PackageRaffleEntityInstance dataPackager;
-    private GetTaskDetails extractor;
+    private final PackageRaffleEntityInstance dataPackager;
+    private final GetTaskDetails extractor;
     private DataExtractor dataAccess;
     private AddParticipant taskWriter;
 
-
+    /**
+     * Constructor for the use case handling an event of a user completing a raffle task
+     * @param taskId the id of the task completed by the user
+     * @param raffleId the id of the raffle to which the task being completed belongs to
+     */
     public CompleteTaskUseCase(String raffleId, String taskId) throws FileNotFoundException {
         this.extractor = new GetTaskDetails();
-        //this.ptcRaffleInfo = extractor. // todo reads from new csv for ptcRaffle
+        //this.ptcRaffleInfo = extractor
         String[] IDs = raffleId.split(":");
         try {
 
@@ -47,7 +51,7 @@ public class CompleteTaskUseCase {
             ioe.printStackTrace();
         }
         this.ptcRaffle = new RaffleEntity(ptcRaffleInfo.get(0).toString(), Integer.parseInt(ptcRaffleInfo.get(1).toString()),
-                LocalDate.parse(ptcRaffleInfo.get(2).toString(),dtf)); //todo normal lookup from rqffleDetails
+                LocalDate.parse(ptcRaffleInfo.get(2).toString(),dtf));
         this.ptcRaffle.setRaffleId(raffleId);
         this.ptcRaffle.setRaffleRules((String)ptcRaffleInfo.get(2));
         this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
@@ -55,6 +59,10 @@ public class CompleteTaskUseCase {
         this.dataPackager = new PackageRaffleEntityInstance();
     }
 
+    /**
+     * Informs the program that the task under this.taskId has been completed
+     * @return the arraylist containing the ids of all the raffles a participant has completed up to now
+     */
     public ArrayList<String> completeTask()throws IOException{
         ArrayList<String> completedTaskIds;
 
@@ -64,8 +72,7 @@ public class CompleteTaskUseCase {
             JoinUserToRaffle joiner = new JoinUserToRaffle();
             joiner.setCompletedTask(ptcRaffle.getRaffleId(),taskId);
 
-            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
-            // todo uncomment: DataAccess.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(), packagedPtcRaffle)
+            //ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
         }
 
         // compare orgRaffleTaskIdList to ptcRaffleTaskIdList to return completed task Ids
@@ -77,11 +84,22 @@ public class CompleteTaskUseCase {
 
     }
 
+    /**
+     * Extracts the organizer raffle's id from the participant raffleId
+     * @param ptcRaffleId participant raffle id containing the organizer raffle id
+     * @return the resulting organizer raffle id
+     */
     public String orgIdFromPtcId(String ptcRaffleId){
         String[] ptcRaffleIdParts = ptcRaffleId.split(":");
         return ptcRaffleIdParts[1];
     }
 
+    /**
+     * Contrast the tasks to be done by a user to the original set of tasks to see which tasks have been completed
+     * @param ptcTaskIds arraylist of all the taskIds that have been completed by a ptc of this raffle
+     * @param orgTaskIds arraylist of all the taskIds that are to be completed by ptcs of this raffle
+     * @return the difference between these two lists of ids
+     */
     public ArrayList<String> generateCompletedTaskIds(ArrayList<String> ptcTaskIds,  ArrayList<String> orgTaskIds){
         ArrayList<String> completedTaskIds = new ArrayList<>();
 

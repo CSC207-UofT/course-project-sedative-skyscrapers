@@ -1,7 +1,5 @@
 package main.java.RaffleComponent;
 
-import main.java.Helpers.PackageRaffleEntityInstance;
-import main.java.database.AddOrganizer;
 import main.java.database.DataExtractor;
 import main.java.database.JoinUserToRaffle;
 
@@ -13,8 +11,8 @@ import java.util.ArrayList;
 
 public class LoginRaffleUseCase {
 
-    private String orgRaffleId;
-    private String ptcLogginInId;
+    private final String orgRaffleId;
+    private final String ptcLoggingInId;
     private ArrayList<Object> orgRaffleInfo;
     private RaffleEntity ptcRaffle;
     private OrganizerRaffleEntity orgRaffle;
@@ -28,9 +26,14 @@ public class LoginRaffleUseCase {
         SUCCESS, RAFFLE_ID_NOT_RECOGNIZED
     }
 
+    /**
+     * Constructor for the use case handling the event of a participant joining a raffle
+     * @param orgRaffleId the id of the organizer raffle object to link this participant raffle object to
+     * @param ptcId the id of the participant who is to join the raffle represented by orgRaffleId
+     */
     public LoginRaffleUseCase(String orgRaffleId, String ptcId) {
         this.orgRaffleId = orgRaffleId;  // pureRaffleId provided by user
-        this.ptcLogginInId = ptcId;  // provided by system
+        this.ptcLoggingInId = ptcId;  // provided by system
 
         try {
             this.dataAccess = new DataExtractor();
@@ -61,6 +64,11 @@ public class LoginRaffleUseCase {
 
     }
 
+    /**
+     * Executes the processes to create a RaffleEntity instance based on the information of the orgRaffle
+     * to which we are attaching this participant raffle
+     * @return the newly generated participant raffle id to describe this participant raffle
+     */
     public String runRaffleLogin() {
 
         if (this.orgRaffleInfo == null){
@@ -76,15 +84,11 @@ public class LoginRaffleUseCase {
 
             // add this participant to the raffleToCopy participantIdList
             // this makes us depend on two classes (not single responsibility), but the entity is a single one
-            this.orgRaffle.getParticipantIdList().add(this.ptcLogginInId);
+            this.orgRaffle.getParticipantIdList().add(this.ptcLoggingInId);
 
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
 
 
-
-
-            // todo: printing function this.dataUploader... I think this is automatic but if there's and error
-            //  check with khushaal
             this.loginResult = LoginResult.SUCCESS;
             return this.ptcRaffle.getRaffleId();
         }
@@ -92,8 +96,12 @@ public class LoginRaffleUseCase {
         return null;
     }
 
+    /**
+     * Generates a participant raffle id based on an organizer raffle id
+     * @return the newly generated ptc raffle id
+     */
     public String generatePtcRaffleId(){
-        return this.ptcLogginInId + ":" + this.orgRaffleId;  // orgRaffleId is pure
+        return this.ptcLoggingInId + ":" + this.orgRaffleId;  // orgRaffleId is pure
     }
 
     public LoginResult getLoginResult() {

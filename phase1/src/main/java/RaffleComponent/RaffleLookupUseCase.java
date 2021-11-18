@@ -15,6 +15,11 @@ public class RaffleLookupUseCase {
 //    private final int ORG_DATA_SIZE = 7;
     private DataExtractor dataAccess;
 
+
+    /**
+     * Constructor initializing the use case in charge of extracting data from the database in
+     * order to display it to the GUI
+     */
     public RaffleLookupUseCase(){
         try {
             this.dataAccess = new DataExtractor();
@@ -23,6 +28,10 @@ public class RaffleLookupUseCase {
         }
     }
 
+    /**
+     * Fetches data from all organizer raffle objects in the database
+     * @return hashmap of format {orgRaffleId:orgRaffleInfo}
+     */
     public HashMap<String, ArrayList<Object>> getAllOrgRaffleInfo(){
         // returns {orgRaffleId: ArrayList<Object>} where ArrayList<Object> refers to a raffle's info
         HashMap<String, ArrayList<Object>> hashMapToReturn = new HashMap<>();
@@ -35,6 +44,11 @@ public class RaffleLookupUseCase {
         return hashMapToReturn;
     }
 
+    /**
+     * Fetches data from a specific participant raffle entity by id
+     * @param ptcRaffleId the id of the raffle to mine information from
+     * @return the arraylist containing the information of the ptc raffle described by ptcRaffleId
+     */
     public ArrayList<Object> getPtcRaffleInfo(String ptcRaffleId){
         ArrayList<Object> ptcRaffleInfo = null;
         try {
@@ -42,18 +56,15 @@ public class RaffleLookupUseCase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//
-//
-//        // returns [name, numOfWinners, endDate]
-//        int i;
-//        for (i = 0; i < this.PTC_DATA_SIZE; i++){
-//            ptcRaffleInfo.add(ptcRaffleInfo.get(i));
-//        }
-//        return ptcRaffleInfo;
-//        // this is for the 5 for ptcRaffle
+
         return ptcRaffleInfo;
     }
 
+    /**
+     * Fetches data from a specific organizer raffle entity by id
+     * @param orgRaffleId the id of the raffle to mine information from
+     * @return the arraylist containing the information of the org raffle described by orgRaffleId
+     */
     public ArrayList<Object> getOrgRaffleInfo(String orgRaffleId){
         ArrayList<Object> orgRaffleInfo = null;
         try {
@@ -61,16 +72,16 @@ public class RaffleLookupUseCase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//
-//        // returns [name, numOfWinners, endDate]
-//        int i;
-//        for (i = 0; i < this.ORG_DATA_SIZE; i++){
-//            orgRaffleInfo.add(orgRaffleInfo.get(i));
-//        }
+
         return orgRaffleInfo;
         // this is for the 7 for ptcRaffle
     }
 
+    /**
+     * Fetches the winnerIdList attribute of an organizer raffle entity
+     * @param orgRaffleId describes the raffle object from which to mine the winnerIdList
+     * @return the arraylist of strings referring to the usernames of the raffle's winners
+     */
     public ArrayList<String> getWinnersList(String orgRaffleId){
         ArrayList<Object> orgRaffleInfo = this.getOrgRaffleInfo(orgRaffleId);
         return (ArrayList<String>) orgRaffleInfo.get(6);

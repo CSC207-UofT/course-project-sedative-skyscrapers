@@ -6,8 +6,15 @@ import java.util.ArrayList;
 public class OrganizerRaffleEntity extends RaffleEntity {
     private ArrayList<String> participantIdList;
     private ArrayList<String> winnerIdList;
-    private String orgUsername;
+    private final String orgUsername;
 
+    /**
+     * Constructor initializing a new OrganizerRaffleEntity according to the inputs
+     * @param raffleName the name to be given to this raffle
+     * @param numberOfWinners the number of participants to be able to win this raffle
+     * @param endDate the day this raffle ends
+     * @param username the username of the organizer who has created this instance of OrganizerRaffleEntity
+     */
     public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String username){
         super(raffleName, numberOfWinners, endDate);
 
@@ -46,6 +53,7 @@ public class OrganizerRaffleEntity extends RaffleEntity {
 
     }
 
+    // getters and setters
 
     public ArrayList<String> getParticipantIdList() {
         return participantIdList;
