@@ -19,6 +19,10 @@ public class RaffleWinnerGeneratorUseCase {
     private JoinUserToRaffle dataUploader;
     private ArrayList<String> validParticipantIds;
 
+    /**
+     * Constructor for the use case handling the event of generating a list of winning participants within a raffle
+     * @param raffleId reference to the raffle object to which the winnerIdList is to be generated for
+     */
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
         try {
@@ -55,9 +59,12 @@ public class RaffleWinnerGeneratorUseCase {
             e.printStackTrace();
         }
 
-
     }
 
+    /**
+     * Executes the processes to generate, return and store this.orgRaffle 's winners
+     * @return the updated winnerIdList of this.orgRaffle
+     */
     public ArrayList<String> updateRaffleWinners(){
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
         this.orgRaffle.setWinnerList(this.generateWinners());
@@ -69,6 +76,11 @@ public class RaffleWinnerGeneratorUseCase {
         return this.orgRaffle.getWinnerList();
     }
 
+    /**
+     * Generates the winning participants from the list of valid participants of this.orgRaffle and
+     * updates the database accordingly
+     * @return the arraylist of strings consisting of the winning participants of this raffle
+     */
     public ArrayList<String> generateWinners(){
         int i;
         ArrayList<String> winnersSoFar = new ArrayList<>();
@@ -93,6 +105,11 @@ public class RaffleWinnerGeneratorUseCase {
         return winnersSoFar;  // returns arrayList of userId strings
     }
 
+    /**
+     * Generates the indexes referring to the winning participants within the valid participants of this.orgRaffle
+     * @param winningNumsSoFar the indexes who have already been identified as winners (to not be repeated)
+     * @return a single index referring to the winning entry
+     */
     public int calculateWinningEntry(ArrayList<Integer> winningNumsSoFar){
 
         int winningEntry = (int)(this.orgRaffle.getParticipantIdList().size() * Math.random());
@@ -105,6 +122,7 @@ public class RaffleWinnerGeneratorUseCase {
     }
 
     // for testing purposes only
+
     public void setOrgRaffle(OrganizerRaffleEntity orgRaffle){
         this.orgRaffle = orgRaffle;
     }

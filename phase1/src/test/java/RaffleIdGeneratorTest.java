@@ -9,8 +9,9 @@ import static org.junit.Assert.*;
 
 public class RaffleIdGeneratorTest {
 
-    // todo: test that filling up the takenIds, it still generated the one correct non-takenId
     String raffleId;
+    int highValue;
+    int lowValue;
     ArrayList<String> takenIds;
     ArrayList<Integer> takenNumList;
     RaffleIdGenerator idGenerator;
@@ -19,17 +20,27 @@ public class RaffleIdGeneratorTest {
     @Before
     public void setUp() throws Exception{
         // fill all taken Ids except for "R9999"
+        takenIds = new ArrayList<>();
         int i;
-        for(i = 1000; i < 9998; i++){
+        for(i = 1000; i < 5000; i++){
             takenIds.add(String.valueOf(RAFFLE_CODE) + i);
         }
         idGenerator = new RaffleIdGenerator(takenIds);
         takenNumList = idGenerator.takenNumList(RAFFLE_CODE);
+        highValue = 9999;
+        lowValue = 5000;
     }
 
     @Test(timeout = 60)
     public void TestCorrectRaffleId(){
-        raffleId = idGenerator.generateEntityId(RAFFLE_CODE, takenNumList);
-        assertEquals(raffleId, String.valueOf(RAFFLE_CODE) + 9999);
+        int i;
+        for (i=0; i < 100; i++){
+            raffleId = idGenerator.generateEntityId(RAFFLE_CODE, takenNumList);
+            int raffleIdNum = Integer.parseInt(raffleId.substring(1));
+            assertTrue(raffleIdNum >= lowValue);
+            assertTrue(raffleIdNum <= highValue);
+            takenNumList.add(raffleIdNum);
+        }
+
     }
 }

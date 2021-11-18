@@ -1,3 +1,8 @@
+// TESTING TEMPORARILY DISABLED IN FACE OF ISSUES ARISING FROM USE CASES ACCESSING DATABASE
+// HOWEVER THEY SHOULD PROVIDE GOOD INSIGHT IN TERMS OF HOW WE APPROACH THE TESTING OF
+// USE CASES (PRE-DATA BASE IMPLEMENTATION, CALLS TO DATABASE WITH SPECIFIC RAFFLEIDS
+// MESS THINGS UP)
+
 //package test.java;
 //
 //import main.java.RaffleComponent.OrganizerRaffleEntity;
@@ -23,7 +28,7 @@
 //        raffleId = "R1001";
 //
 //        orgRaffle = new OrganizerRaffleEntity("TestRaffle",
-//                2, LocalDate.of(2021, 12, 25));
+//                2, LocalDate.of(2021, 12, 25), "organizerName");
 //        orgRaffle.setRaffleId(raffleId);
 //
 //        helper = new UseCaseTestHelpers();

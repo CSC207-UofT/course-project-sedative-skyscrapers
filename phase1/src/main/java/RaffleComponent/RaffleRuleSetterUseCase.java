@@ -27,28 +27,16 @@ public class RaffleRuleSetterUseCase {
 //    private DataExtractor dataAccess;
 //    private AddOrganizer dataUploader;
 
+    /**
+     * Constructor for the use case handling the event of an organizer setting the rules of a raffle
+     * @param raffleId reference to the organizer raffle entity whose rules attribute is being overridden
+     * @param rulesString the string of rules for the organizer raffle instance this.orgRaffle
+     * @param raffleInfoSoFar the arraylist of object carrying the information to be passed to the next step in the raffle
+     *        creation process [name, numOfWinners, endDate, raffleId]
+     */
     public RaffleRuleSetterUseCase(String raffleId,String rulesString, ArrayList<Object> raffleInfoSoFar){
         this.rulesString = rulesString;
         this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId]
-
-//        try {
-//            this.dataAccess = new DataExtractor();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            this.dataUploader = new AddOrganizer();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(raffleId);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
 
         this.orgRaffle = new OrganizerRaffleEntity((String)this.raffleInfoSoFar.get(0),
                 (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2),(String)this.raffleInfoSoFar.get(3));
@@ -59,6 +47,12 @@ public class RaffleRuleSetterUseCase {
 
     }
 
+    /**
+     * Registers the rules onto the this.orgRaffle instance and passes it to the next step in the raffle
+     * creation process through this.raffleInfoSoFar
+     * @return the arraylist of object carrying the information to be passed to the next step in the raffle
+     *      creation process [name, numOfWinners, endDate, raffleId, rules]
+     */
     public ArrayList<Object> updateRules(){
         this.orgRaffle.setRaffleRules(this.rulesString);
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
@@ -68,6 +62,7 @@ public class RaffleRuleSetterUseCase {
     }
 
     // for testing purposes
+
     public OrganizerRaffleEntity getOrgRaffle(){
         return this.orgRaffle;
     }

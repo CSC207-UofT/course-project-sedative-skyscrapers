@@ -16,9 +16,12 @@ public class RaffleEntity {
     private final LocalDate endDate;
     private ArrayList<String> taskIdList;
 
-    // constructor for participant (this entity is going to be used as the participant raffle, ORaffle is an extension)
-
-    // constructor for both organizer and participant (they differ in the setup of raffleId)
+    /**
+     * Constructor initializing a new RaffleEntity, parent to OrganizerRaffleEntity
+     * @param raffleName the name of this raffle
+     * @param numberOfWinners the number of participants to be able to win this raffle
+     * @param endDate the day this raffle ends
+     */
     public RaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
@@ -49,6 +52,7 @@ public class RaffleEntity {
 
     }
 
+    // getters and setters
 
     public String getRaffleId() {
         return raffleId;

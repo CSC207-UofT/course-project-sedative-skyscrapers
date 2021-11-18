@@ -16,9 +16,15 @@ public class CreateRaffleController {
     private final LocalDate endDate;
     public ArrayList<Object> raffleInfoSoFar;
     private String raffleId;
-    private String username;
+    private final String username;
 
-
+    /**
+     * Constructor of the controller handling the CreateRaffleUseCase class
+     * @param orgUsername the name of the organizer creating this OrganizerRaffleEntity
+     * @param raffleName the name being given to a raffle object (input by user)
+     * @param numOfWinners the number of possible winners of the raffle object being created (input by user)
+     * @param endDate the last active date of the raffle object being created (input by user)
+     */
     public CreateRaffleController(String orgUsername, String raffleName, int numOfWinners, LocalDate endDate){
 
         this.username = orgUsername;
@@ -28,6 +34,10 @@ public class CreateRaffleController {
 
     }
 
+    /**
+     * Manages the beginning of the flow of control of the raffle creation process
+     * @return the arrayList of objects to be carried through the complete raffle creation process
+     */
     public ArrayList<Object> runCreateRaffle(){
         // create an instance of createRaffleUseCase with user input
         CreateRaffleUseCase raffleManager = new CreateRaffleUseCase(this.raffleName, this.numberOfWinners,

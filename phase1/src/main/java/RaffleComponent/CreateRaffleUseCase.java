@@ -17,18 +17,25 @@ public class CreateRaffleUseCase {
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
     private CreationResult creationOutcome;
-    private PackageRaffleEntityInstance dataPackager;
+    private final PackageRaffleEntityInstance dataPackager;
     private DataExtractor dataAccess;
     private AddOrganizer dataUploader;
     private ArrayList<Object>  raffleInfoSoFar;
     private String generatedRaffleId;
-    private String orgUsername;
+    private final String orgUsername;
 
 
     public enum CreationResult {
         SUCCESS, FAILURE
     }
 
+    /**
+     * Constructor for the use case of having an organizer create a raffle
+     * @param raffleName the string name attribute of the raffle being created
+     * @param numOfWinners the number of winners to be awarded in the raffle as dictated by the organizer
+     * @param endDate the day this raffle ends
+     * @param orgUsername the username of the organizer creating this raffle
+     */
     public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername){
         this.raffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
 
@@ -58,7 +65,11 @@ public class CreateRaffleUseCase {
         this.orgUsername = orgUsername;
     }
 
-    // returns [name, numOfWinners, endDate, raffleId]
+    /**
+     * Runs the processes to create an OrganizerRaffle instance
+     * @return the arraylist of object carrying the information to be passed to the next step in the raffle
+     * creation process [name, numOfWinners, endDate, raffleId]
+     */
     public ArrayList<Object> runRaffleCreation(){
 
         ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
@@ -81,7 +92,7 @@ public class CreateRaffleUseCase {
             return this.raffleInfoSoFar;
         }
 
-        // this case never really executes since the idGenerator makes sure there is no id repetition
+        // this case is never really executed since the idGenerator makes sure there is no id repetition
         this.creationOutcome = CreationResult.FAILURE;
         return null;
     }
