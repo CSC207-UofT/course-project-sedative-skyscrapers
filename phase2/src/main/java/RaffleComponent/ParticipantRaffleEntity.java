@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Class representing a Raffle object, which can be joined or created by Participants and Organizers respectively.
  */
-public class RaffleEntity {
+public class ParticipantRaffleEntity {
 
     private final String raffleName;
     private String raffleId;
@@ -22,7 +22,7 @@ public class RaffleEntity {
      * @param numberOfWinners the number of participants to be able to win this raffle
      * @param endDate the day this raffle ends
      */
-    public RaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
+    public ParticipantRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;

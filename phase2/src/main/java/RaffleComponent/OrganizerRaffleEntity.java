@@ -3,7 +3,14 @@ package main.java.RaffleComponent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OrganizerRaffleEntity extends RaffleEntity {
+public class OrganizerRaffleEntity {
+
+    private final String raffleName;
+    private String raffleId;
+    private final int numberOfWinners;
+    private String raffleRules;
+    private final LocalDate endDate;
+    private ArrayList<String> taskIdList;
     private ArrayList<String> participantIdList;
     private ArrayList<String> winnerIdList;
     private final String orgUsername;
@@ -16,7 +23,10 @@ public class OrganizerRaffleEntity extends RaffleEntity {
      * @param username the username of the organizer who has created this instance of OrganizerRaffleEntity
      */
     public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String username){
-        super(raffleName, numberOfWinners, endDate);
+        this.raffleName = raffleName;
+        this.numberOfWinners = numberOfWinners;
+        this.endDate = endDate;
+        this.taskIdList = new ArrayList<>();
 
         // participantList and winnerList not yet initialized, but rather gotten from use case
         this.participantIdList = new ArrayList<>();
@@ -54,6 +64,52 @@ public class OrganizerRaffleEntity extends RaffleEntity {
     }
 
     // getters and setters
+
+    public String getRaffleId() {
+        return raffleId;
+    }
+
+    public void setRaffleId(String raffleId) {
+        this.raffleId = raffleId;
+    }
+
+
+    public String getRaffleName() {
+        return raffleName;
+    }
+
+    public int getNumberOfWinners() {
+        return numberOfWinners;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getFormattedEndDate(){
+        int year = this.endDate.getYear();
+        int month = this.endDate.getMonthValue();
+        int day = this.endDate.getDayOfMonth();
+
+        return year + "/" +  month + "/" + day;
+    }
+
+    public String getRaffleRules() {
+        return raffleRules;
+    }
+
+    public void setRaffleRules(String raffleRules) {
+        this.raffleRules = raffleRules;
+    }
+
+
+    public ArrayList<String> getTaskIdList() {
+        return taskIdList;
+    }
+
+    public void setTaskIdList(ArrayList<String> taskIdList) {
+        this.taskIdList = taskIdList;
+    }
 
     public ArrayList<String> getParticipantIdList() {
         return participantIdList;
