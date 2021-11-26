@@ -3,6 +3,9 @@ package main.java.RaffleComponent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class representing an OrganizerRaffle object, which can be created by Organizers only.
+ */
 public class OrganizerRaffleEntity {
 
     private final String raffleName;
