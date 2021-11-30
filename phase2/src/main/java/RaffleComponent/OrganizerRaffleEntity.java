@@ -12,7 +12,7 @@ public class OrganizerRaffleEntity {
     private String raffleId;
     private final int numberOfWinners;
     private String raffleRules;
-    private final LocalDate endDate;
+    private LocalDate endDate;
     private ArrayList<String> taskIdList;
     private ArrayList<String> participantIdList;
     private ArrayList<String> winnerIdList;
@@ -95,6 +95,10 @@ public class OrganizerRaffleEntity {
         int day = this.endDate.getDayOfMonth();
 
         return year + "/" +  month + "/" + day;
+    }
+
+    public void setEndDate(LocalDate endDate){
+        this.endDate = endDate;
     }
 
     public String getRaffleRules() {

@@ -1,5 +1,6 @@
 package main.java.RaffleComponent;
 
+import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.database.DataExtractor;
 import main.java.database.JoinUserToRaffle;
 
@@ -11,15 +12,17 @@ import java.util.ArrayList;
 
 public class LoginRaffleUseCase {
 
+    private final String FIELD_TO_BE_CHANGED = "PtcIdList";
     private final String orgRaffleId;
     private final String ptcLoggingInId;
     private ArrayList<Object> orgRaffleInfo;
-    private RaffleEntity ptcRaffle;
-    private OrganizerRaffleEntity orgRaffle;
+    private ParticipantRaffleEntity ptcRaffle;
+    private final OrganizerRaffleEntity orgRaffle;
     private LoginResult loginResult;
-//    private PackageRaffleEntityInstance dataPackager;
-    private DataExtractor dataAccess;
-    private JoinUserToRaffle dataUploader;
+//    private final PackageRaffleEntityInstance dataPackager;
+    private DataAccessPoint dataAccess;
+    private DataProviderPoint dataUploader;
+//    private JoinUserToRaffle dataUploader;
 
 
     public enum LoginResult {
@@ -36,24 +39,31 @@ public class LoginRaffleUseCase {
         this.ptcLoggingInId = ptcId;  // provided by system
 
         try {
+            // todo this will be the name of the file khushaal provides
             this.dataAccess = new DataExtractor();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         try {
+            // todo this will be the name of the file khushaal provides
             this.dataUploader = new JoinUserToRaffle();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         try {
-            this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(orgRaffleId);
+            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+//        this.dataPackager = new PackageRaffleEntityInstance();
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                 Integer.parseInt(this.orgRaffleInfo.get(1).toString()),  LocalDate.parse(this.orgRaffleInfo.get(2).toString(),dtf),(String)this.orgRaffleInfo.get(3));
+                 Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
+                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),(String)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(orgRaffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>)this.orgRaffleInfo.get(4));
@@ -76,7 +86,7 @@ public class LoginRaffleUseCase {
             this.loginResult = LoginResult.RAFFLE_ID_NOT_RECOGNIZED;
         } else {
             // copy items from array of raffle attributes to a RaffleEntity accessible by this participant
-            this.ptcRaffle = new RaffleEntity(this.orgRaffle.getRaffleName(), this.orgRaffle.getNumberOfWinners(),
+            this.ptcRaffle = new ParticipantRaffleEntity(this.orgRaffle.getRaffleName(), this.orgRaffle.getNumberOfWinners(),
                     this.orgRaffle.getEndDate());
             this.ptcRaffle.setRaffleId(this.generatePtcRaffleId());
             this.ptcRaffle.setRaffleRules(this.orgRaffle.getRaffleRules());
@@ -84,9 +94,23 @@ public class LoginRaffleUseCase {
 
             // add this participant to the raffleToCopy participantIdList
             // this makes us depend on two classes (not single responsibility), but the entity is a single one
+            // the adding step of the observer pattern
             this.orgRaffle.getParticipantIdList().add(this.ptcLoggingInId);
 
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
+
+            try {
+                this.dataUploader.uploadLoggedInRaffle(this.ptcRaffle.getRaffleId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                this.dataUploader.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
+                        this.orgRaffle.getParticipantIdList());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
             this.loginResult = LoginResult.SUCCESS;
@@ -114,7 +138,7 @@ public class LoginRaffleUseCase {
         this.orgRaffleInfo = orgRaffleInfo;
     }
 
-    public RaffleEntity getRaffle() {
+    public ParticipantRaffleEntity getRaffle() {
         return ptcRaffle;
     }
 

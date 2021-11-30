@@ -12,12 +12,13 @@ import java.util.ArrayList;
 // the use case for when a raffle organizer wants to decide the winners of a raffle
 public class RaffleWinnerGeneratorUseCase {
 
+    private final String FIELD_TO_BE_CHANGED = "WinnerIdList";
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
 //    private PackageRaffleEntityInstance dataPackager;
-    private DataExtractor dataAccess;
-    private JoinUserToRaffle dataUploader;
-    private ArrayList<String> validParticipantIds;
+    private DataAccessPoint dataAccess;
+    private DataProviderPoint dataUploader;
+    private final ArrayList<String> validParticipantIds;
 
     /**
      * Constructor for the use case handling the event of generating a list of winning participants within a raffle
@@ -26,27 +27,31 @@ public class RaffleWinnerGeneratorUseCase {
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
         try {
+            // todo this will be the name of the file khushaal provides
             this.dataAccess = new DataExtractor();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         try {
+            // todo this will be the name of the file khushaal provides
             this.dataUploader = new JoinUserToRaffle();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
         try {
-            this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(raffleId);
+            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(raffleId);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //System.out.println("this.orgRaffleInfo(2) = "+this.orgRaffleInfo.get(2));
+        // todo: need the orgname to be returned by the database
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                Integer.parseInt(this.orgRaffleInfo.get(1).toString()), LocalDate.parse(this.orgRaffleInfo.get(2).toString(),dtf),(String)this.orgRaffleInfo.get(3));
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
+                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf));
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
@@ -54,6 +59,7 @@ public class RaffleWinnerGeneratorUseCase {
         // no winners set yet
 
         try {
+            // todo getValidParticipants method
             this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,6 +75,12 @@ public class RaffleWinnerGeneratorUseCase {
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
         this.orgRaffle.setWinnerList(this.generateWinners());
 
+        try {
+            this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(),
+                    this.FIELD_TO_BE_CHANGED, this.orgRaffle.getWinnerList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // winners not saved currently, just returned
 
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
@@ -97,11 +109,11 @@ public class RaffleWinnerGeneratorUseCase {
         }
         //System.out.println("winnersSoFar"+winnersSoFar.get(0));
         // upload results to database
-        try {
-            this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return winnersSoFar;  // returns arrayList of userId strings
     }
 

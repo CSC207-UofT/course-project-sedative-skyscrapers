@@ -6,7 +6,6 @@ import main.java.database.DataExtractor;
 import main.java.database.GetTaskDetails;
 import main.java.database.JoinUserToRaffle;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,14 +14,16 @@ import java.util.ArrayList;
 
 public class CompleteTaskUseCase {
 
-    private RaffleEntity ptcRaffle;
+    private final String FIELD_TO_BE_CHANGED = "TaskIdList";
+    private ParticipantRaffleEntity ptcRaffle;
     private final String taskId;
-    private ArrayList<Object> ptcRaffleInfo;
+    private final ArrayList<Object> ptcRaffleInfo;
     private ArrayList<Object> orgRaffleInfo;
-    private final PackageRaffleEntityInstance dataPackager;
-    private final GetTaskDetails extractor;
-    private DataExtractor dataAccess;
-    private AddParticipant taskWriter;
+//    private final PackageRaffleEntityInstance dataPackager;
+//    private final GetTaskDetails extractor;
+    private DataAccessPoint dataAccess;
+    private DataProviderPoint dataUploader;
+//    private AddParticipant taskWriter;
 
     /**
      * Constructor for the use case handling an event of a user completing a raffle task
@@ -33,30 +34,41 @@ public class CompleteTaskUseCase {
         this.extractor = new GetTaskDetails();
         //this.ptcRaffleInfo = extractor
         String[] IDs = raffleId.split(":");
+
         try {
 
-            dataAccess = new DataExtractor();
-            this.orgRaffleInfo = dataAccess.getOrgRaffleInfo(IDs[1]);
+            dataAccess = new DataExtractor();  // todo this will be the name of the file khushaal provides
+            this.orgRaffleInfo = dataAccess.getOrganizerRaffleById(IDs[1]);
         }
         catch(IOException ioe)
         {
             ioe.getStackTrace();
         }
+
+        try {
+
+            dataUploader = new DataUploader();  // todo this will be the name of the file khushaal provides
+        }
+        catch(IOException ioe)
+        {
+            ioe.getStackTrace();
+        }
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            ptcRaffleInfo = dataAccess.getPtcRaffleInfo(IDs[1]);
+            ptcRaffleInfo = dataAccess.getParticipantRaffleById(raffleId);
         }
         catch(IOException ioe)
         {
             ioe.printStackTrace();
         }
-        this.ptcRaffle = new RaffleEntity(ptcRaffleInfo.get(0).toString(), Integer.parseInt(ptcRaffleInfo.get(1).toString()),
-                LocalDate.parse(ptcRaffleInfo.get(2).toString(),dtf));
+        this.ptcRaffle = new ParticipantRaffleEntity(ptcRaffleInfo.get(0).toString(), Integer.parseInt(ptcRaffleInfo.get(1).toString()),
+                LocalDate.parse(ptcRaffleInfo.get(3).toString(),dtf));
         this.ptcRaffle.setRaffleId(raffleId);
         this.ptcRaffle.setRaffleRules((String)ptcRaffleInfo.get(2));
         this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
         this.taskId = taskId;
-        this.dataPackager = new PackageRaffleEntityInstance();
+//        this.dataPackager = new PackageRaffleEntityInstance();
     }
 
     /**
@@ -66,18 +78,18 @@ public class CompleteTaskUseCase {
     public ArrayList<String> completeTask()throws IOException{
         ArrayList<String> completedTaskIds;
 
-        if (this.ptcRaffle.getTaskIdList().contains(this.taskId)){
-            this.ptcRaffle.getTaskIdList().remove(this.taskId);  // pop tasks from the tasks to do by user
-            //String[] IDs = ptcRaffle.getRaffleId().split(":");
-            JoinUserToRaffle joiner = new JoinUserToRaffle();
-            joiner.setCompletedTask(ptcRaffle.getRaffleId(),taskId);
-
-            //ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
-        }
-
+        //String[] IDs = ptcRaffle.getRaffleId().split(":");
+        //            JoinUserToRaffle joiner = new JoinUserToRaffle();
+        //            joiner.setCompletedTask(ptcRaffle.getRaffleId(),taskId);
+        //ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
+        this.ptcRaffle.getTaskIdList().remove(this.taskId);  // pop tasks from the tasks to do by user
         // compare orgRaffleTaskIdList to ptcRaffleTaskIdList to return completed task Ids
         completedTaskIds = generateCompletedTaskIds(this.ptcRaffle.getTaskIdList(),
                 (ArrayList<String>) this.orgRaffleInfo.get(4));
+
+        // updated method
+        this.dataUploader.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(),
+                this.FIELD_TO_BE_CHANGED, this.ptcRaffle.getTaskIdList());
 
         // despite not currently completing a task, other tasks might have been previously solved, so we still compare
         return completedTaskIds;
@@ -118,7 +130,7 @@ public class CompleteTaskUseCase {
         this.orgRaffleInfo = orgRaffleInfo;
     }
 
-    public void setPtcRaffle(RaffleEntity ptcRaffle) {
+    public void setPtcRaffle(ParticipantRaffleEntity ptcRaffle) {
         this.ptcRaffle = ptcRaffle;
     }
 

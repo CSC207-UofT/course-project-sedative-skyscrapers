@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Class representing a Raffle object, which can be joined or created by Participants and Organizers respectively.
+ * Class representing a ParticipantRaffle object, which can be joined/created by Participants only.
  */
 public class ParticipantRaffleEntity {
 
@@ -13,7 +13,7 @@ public class ParticipantRaffleEntity {
     private String raffleId;
     private final int numberOfWinners;
     private String raffleRules;
-    private final LocalDate endDate;
+    private LocalDate endDate;
     private ArrayList<String> taskIdList;
 
     /**
@@ -30,10 +30,6 @@ public class ParticipantRaffleEntity {
 
 //        this.raffleID = tempId;  TO BE SET THROUGH USE CASE
     }
-
-//    public boolean checkIdsMatch(String id){
-//        return this.raffleId.equals(id);
-//    }
 
     @Override
     public String toString(){
@@ -81,6 +77,24 @@ public class ParticipantRaffleEntity {
         int day = this.endDate.getDayOfMonth();
 
         return year + "/" +  month + "/" + day;
+    }
+
+//    // observer pattern update method
+//    public ArrayList<String> updateTaskIdList(boolean editType, ArrayList<String> taskIds){
+//        // true means add tasks, false means remove tasks
+//        if (editType){
+//            this.getTaskIdList().addAll(taskIds);
+//        } else {
+//            this.getTaskIdList().removeAll(taskIds);
+//        }
+//        return this.getTaskIdList();
+//    }
+
+    // observer pattern update method
+    public LocalDate updateEndDate(LocalDate newEndDate){
+        // true means add tasks, false means remove tasks
+        this.endDate = newEndDate;
+        return this.endDate;
     }
 
 

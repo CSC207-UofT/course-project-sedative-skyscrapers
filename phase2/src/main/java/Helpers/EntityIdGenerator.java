@@ -2,18 +2,48 @@ package main.java.Helpers;
 
 import java.util.ArrayList;
 
-public interface EntityIdGenerator {
+public class EntityIdGenerator implements IEntityIdGenerator {
+    private ArrayList<String> takenRaffleIds;
+//    private String username;
 
-    String generateEntityId(char entityCode, ArrayList<Integer> takenIdNums);
-    /* method to be implemented by all use case classes which generate entity ids:
-    The way it works is that it takes the entity code (Raffle:R, Task: T, User: U)
-    and generates a random integer from 1000 to 9999, which is to become the suffix of the
-    respective entityCode in the resulting String
-     */
+    public EntityIdGenerator(ArrayList<String> takenIds){
+        this.takenRaffleIds = takenIds;
+//        this.username = userId;
+    }
 
-    ArrayList<Integer> takenNumList(char entityCode);
-    /* idea is for this to be a helper we call before making the call to generateEntityId
-    since it gives us only the Number parts of the String ids which are fed to
-    generateEntityId
-     */
+    @Override
+    public String generateEntityId(char entityCode, ArrayList<Integer> takenRaffleNums){
+        int raffleNumber = generateIdNum(takenRaffleNums);
+        String raffleCode = Character.toString(entityCode);  // String so far is just the entityCode
+
+//        return this.username + ":" + raffleCode + raffleNumber;
+        return raffleCode + raffleNumber;  // returns pure raffleId (without usernames involved)
+    }
+
+    @Override
+    public ArrayList<Integer> takenNumList(char entityCode){
+
+        ArrayList<Integer> numList = new ArrayList<>();
+
+        for (String takenId : this.takenRaffleIds){
+            String[] takenIdNum = takenId.split(Character.toString(entityCode)); // get the number on its own
+            int idNumber = Integer.parseInt(takenIdNum[1]);
+            numList.add(idNumber);
+        }
+
+        return numList;
+    }
+
+    public int generateIdNum(ArrayList<Integer> takenRaffleNums){
+        int raffleNumber = (int)(8999 * Math.random() + 1000);
+
+        while (takenRaffleNums.contains(raffleNumber)){
+            raffleNumber = (int)(8999 * Math.random() + 1000);  // recalculate
+        }
+
+        return raffleNumber;
+
+    }
+
+
 }

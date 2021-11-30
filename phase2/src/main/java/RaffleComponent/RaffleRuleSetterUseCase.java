@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class RaffleRuleSetterUseCase {
 
+    private final String FIELD_TO_BE_CHANGED = "RulesString";
     private final String rulesString;
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:
@@ -21,11 +22,12 @@ public class RaffleRuleSetterUseCase {
         winnerIds=ArrayList<String>]
     ... and we get this hashmap for all existing raffles in the program (through a method in db)
     */
-    private ArrayList<Object> raffleInfoSoFar;
+//    private ArrayList<Object> raffleInfoSoFar;
     private OrganizerRaffleEntity orgRaffle;
+    private ArrayList<Object> orgRaffleInfo;
 //    private PackageRaffleEntityInstance dataPackager;
-//    private DataExtractor dataAccess;
-//    private AddOrganizer dataUploader;
+    private DataAccessPoint dataAccess;
+    private DataProviderPoint dataUploader;
 
     /**
      * Constructor for the use case handling the event of an organizer setting the rules of a raffle
@@ -34,12 +36,32 @@ public class RaffleRuleSetterUseCase {
      * @param raffleInfoSoFar the arraylist of object carrying the information to be passed to the next step in the raffle
      *        creation process [name, numOfWinners, endDate, raffleId]
      */
-    public RaffleRuleSetterUseCase(String raffleId,String rulesString, ArrayList<Object> raffleInfoSoFar){
+    public RaffleRuleSetterUseCase(String raffleId,String rulesString){
         this.rulesString = rulesString;
-        this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId]
+//        this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId]
 
-        this.orgRaffle = new OrganizerRaffleEntity((String)this.raffleInfoSoFar.get(0),
-                (Integer)this.raffleInfoSoFar.get(1), (LocalDate)this.raffleInfoSoFar.get(2),(String)this.raffleInfoSoFar.get(3));
+        try {
+            // todo this will be the name of the file khushaal provides
+            this.dataAccess = new DataExtractor();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            // todo this will be the name of the file khushaal provides
+            this.dataUploader = new AddOrganizer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(raffleId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // todo: need the orgname to be returned by the database
+        this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
+                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
         this.orgRaffle.setRaffleId(raffleId);
         // taskIdList, ptcIdList and winnerIdList empty at this stage
 
@@ -53,12 +75,14 @@ public class RaffleRuleSetterUseCase {
      * @return the arraylist of object carrying the information to be passed to the next step in the raffle
      *      creation process [name, numOfWinners, endDate, raffleId, rules]
      */
-    public ArrayList<Object> updateRules(){
+    public void updateRules(){
         this.orgRaffle.setRaffleRules(this.rulesString);
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
 //        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
-        this.raffleInfoSoFar.add(this.rulesString); // format [name, numOfWinners, endDate, raffleId, rules]
-        return this.raffleInfoSoFar;
+//        this.raffleInfoSoFar.add(this.rulesString); // format [name, numOfWinners, endDate, raffleId, rules]
+//        return this.raffleInfoSoFar;
+        this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
+                this.orgRaffle.getRaffleRules());
     }
 
     // for testing purposes
