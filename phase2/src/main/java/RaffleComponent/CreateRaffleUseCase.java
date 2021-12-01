@@ -17,17 +17,17 @@ public class CreateRaffleUseCase {
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
     private final String orgUsername;
-    private CreationResult creationOutcome;
+//    private boolean creationOutcome;
     private final PackageRaffleEntityInstance dataPackager;
     private DataAccessPoint dataAccess;
     private DataProviderPoint dataUploader;
 //    private ArrayList<Object>  raffleInfoSoFar;
     private String generatedRaffleId;
 
-
-    public enum CreationResult {
-        SUCCESS, FAILURE
-    }
+// changed to true and false
+//    public enum CreationResult {
+//        SUCCESS, FAILURE
+//    }
 
     /**
      * Constructor for the use case of having an organizer create a raffle
@@ -41,13 +41,13 @@ public class CreateRaffleUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataUploader = new AddOrganizer();
+            this.dataUploader = new ProvideData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +72,7 @@ public class CreateRaffleUseCase {
      * @return the arraylist of object carrying the information to be passed to the next step in the raffle
      * creation process [name, numOfWinners, endDate, raffleId]
      */
-    public CreationResult runRaffleCreation(){
+    public boolean runRaffleCreation(){
 
         ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
         // generate id from use case
@@ -92,14 +92,11 @@ public class CreateRaffleUseCase {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            this.creationOutcome = CreationResult.SUCCESS;
-            return this.creationOutcome;
-//            return this.raffleInfoSoFar;
+            return true;
         }
 
         // this case is never really executed since the idGenerator makes sure there is no id repetition
-        this.creationOutcome = CreationResult.FAILURE;
-        return null;
+        return false;
     }
 
     public String getGeneratedRaffleId(){
@@ -111,9 +108,9 @@ public class CreateRaffleUseCase {
         return this.raffle;
     }
 
-    public CreationResult getCreationOutcome() {
-        return creationOutcome;
-    }
+//    public CreationResult getCreationOutcome() {
+//        return creationOutcome;
+//    }
 
     public void setTakenIds(ArrayList<String> takenIds) {
         this.takenIds = takenIds;

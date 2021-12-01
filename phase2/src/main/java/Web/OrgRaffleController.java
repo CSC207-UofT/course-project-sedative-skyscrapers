@@ -7,23 +7,6 @@ import java.util.ArrayList;
 
 public class OrgRaffleController {
 
-    // all possible attributes and inputs:
-    /*
-    String orgRaffleId provided by system
-    ArrayList<Object> raffleInfoSoFar provided by system
-    String rulesString provided by user
-    String ptcLoggingInId (username) provided by system
-    String raffleName
-    int numOfWinners
-    LocalDate endDate
-    String orgUsername
-    String taskId
-    */
-//    private final String organizerUserId;
-//    // todo: ask about this dependency: private final OrganizerRaffleEntity;
-//    private ArrayList<Object> raffleInfoSoFar;
-
-
     // common between different possible controllers
     private String orgRaffleId;
 
@@ -46,6 +29,11 @@ public class OrgRaffleController {
     private ArrayList<String> taskIds;  // specific ids to be removed/added
     private LocalDate newEndDate;
 
+    // returning attributes
+    private boolean creationResult;
+    private ArrayList<String> winnersGenerated;
+    private LocalDate updatedEnddate;
+
     public enum OrgRaffleAction {
         CREATE, SET_RULES, GENERATE_WINNERS, EDIT_TASKS, EDIT_ENDDATE
     }
@@ -62,45 +50,50 @@ public class OrgRaffleController {
         this.newEndDate = null;
     }
 
-    public void runRaffleController(OrgRaffleAction actionToProcess){
+    public boolean runRaffleController(OrgRaffleAction actionToProcess){
 
-        switch (actionToProcess) {
+        return switch (actionToProcess) {
             case CREATE -> this.runRaffleCreation();
             case SET_RULES -> this.runRaffleRuleSetter();
             case GENERATE_WINNERS -> this.runRaffleWinnerGenerator();
             case EDIT_TASKS -> this.runEditOrgTaskList();
             case EDIT_ENDDATE -> this.runEditEndDate();
-        }
+        };
 
     }
 
-    public void runRaffleCreation(){
+    public boolean runRaffleCreation(){
         CreateRaffleUseCase raffleManager = new CreateRaffleUseCase(this.raffleName, this.numOfWinners,
                 this.endDate, this.orgUsername);
-        raffleManager.runRaffleCreation();
+        boolean result = raffleManager.runRaffleCreation();
         this.orgRaffleId = raffleManager.getGeneratedRaffleId();
+        return result;
     }
 
-    public void runRaffleRuleSetter(){
+    public boolean runRaffleRuleSetter(){
         RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.orgRaffleId,
                 this.rulesString); // no longer need raffleInfoSoFar
-        raffleManager.updateRules(); // updates the rules in the raffleManager raffle
+        return raffleManager.updateRules(); // updates the rules in the raffleManager raffle
     }
 
-    public void runRaffleWinnerGenerator(){
+    public boolean runRaffleWinnerGenerator(){
         RaffleWinnerGeneratorUseCase raffleManager3 = new RaffleWinnerGeneratorUseCase(this.orgRaffleId);
-        raffleManager3.updateRaffleWinners();
+        boolean result = raffleManager3.updateRaffleWinners();
+        this.winnersGenerated = raffleManager3.getOrgRaffle().getWinnerList();
+        return result;
     }
 
-    public void runEditOrgTaskList(){
+    public boolean runEditOrgTaskList(){
         OrgRaffleAddTaskUseCase raffleManager4 = new OrgRaffleAddTaskUseCase(this.orgRaffleId, this.taskIds);
-        raffleManager4.updateTaskList();
+        return raffleManager4.updateTaskList();
     }
 
-    public void runEditEndDate(){
+    public boolean runEditEndDate(){
         RaffleEndDateModifierUseCase raffleManager5 = new RaffleEndDateModifierUseCase(this.orgRaffleId,
                 this.newEndDate);
-        raffleManager5.updateEndDate();
+        boolean result = raffleManager5.updateEndDate();
+        this.newEndDate = raffleManager5.getOrgRaffle().getEndDate();
+        return result;
     }
 
     // setters for builder pattern

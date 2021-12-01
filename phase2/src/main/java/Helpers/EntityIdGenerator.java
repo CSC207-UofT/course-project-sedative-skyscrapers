@@ -3,7 +3,7 @@ package main.java.Helpers;
 import java.util.ArrayList;
 
 public class EntityIdGenerator implements IEntityIdGenerator {
-    private ArrayList<String> takenRaffleIds;
+    private final ArrayList<String> takenRaffleIds;
 //    private String username;
 
     public EntityIdGenerator(ArrayList<String> takenIds){

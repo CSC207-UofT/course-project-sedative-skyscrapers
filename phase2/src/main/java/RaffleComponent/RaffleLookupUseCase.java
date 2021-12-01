@@ -13,7 +13,7 @@ public class RaffleLookupUseCase {
 //    private final String orgRaffleId;
 //    private final int PTC_DATA_SIZE = 5;
 //    private final int ORG_DATA_SIZE = 7;
-    private DataExtractor dataAccess;
+    private DataAccessPoint dataAccess;
 
 
     /**
@@ -22,7 +22,7 @@ public class RaffleLookupUseCase {
      */
     public RaffleLookupUseCase(){
         try {
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -34,8 +34,23 @@ public class RaffleLookupUseCase {
      */
     public HashMap<String, ArrayList<Object>> getAllOrgRaffleInfo(){
         // returns {orgRaffleId: ArrayList<Object>} where ArrayList<Object> refers to a raffle's info
+
+        try{
+            ArrayList<String> orgRaffleIds = this.dataAccess.getTakenRaffleIds();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
         HashMap<String, ArrayList<Object>> hashMapToReturn = new HashMap<>();
 
+        for (String orgRaffleId : orgRaffleIds){
+            try{
+                ArrayList<Object> raffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            hashMapToReturn.put(orgRaffleId, raffleInfo);
+        }
         try {
             hashMapToReturn = this.dataAccess.getAllOrgRaffleInfo();
         } catch (IOException e) {
@@ -50,9 +65,9 @@ public class RaffleLookupUseCase {
      * @return the arraylist containing the information of the ptc raffle described by ptcRaffleId
      */
     public ArrayList<Object> getPtcRaffleInfo(String ptcRaffleId){
-        ArrayList<Object> ptcRaffleInfo = null;
+        ArrayList<Object> ptcRaffleInfo;
         try {
-            ptcRaffleInfo = this.dataAccess.getPtcRaffleInfo(ptcRaffleId);
+            ptcRaffleInfo = this.dataAccess.getParticipantRaffleById(ptcRaffleId);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +83,7 @@ public class RaffleLookupUseCase {
     public ArrayList<Object> getOrgRaffleInfo(String orgRaffleId){
         ArrayList<Object> orgRaffleInfo = null;
         try {
-            orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(orgRaffleId);
+            orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
         } catch (IOException e) {
             e.printStackTrace();
         }

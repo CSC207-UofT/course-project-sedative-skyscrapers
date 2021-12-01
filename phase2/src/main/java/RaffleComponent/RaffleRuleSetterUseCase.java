@@ -42,13 +42,13 @@ public class RaffleRuleSetterUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataUploader = new AddOrganizer();
+            this.dataUploader = new ProvideData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class RaffleRuleSetterUseCase {
      * @return the arraylist of object carrying the information to be passed to the next step in the raffle
      *      creation process [name, numOfWinners, endDate, raffleId, rules]
      */
-    public void updateRules(){
+    public boolean updateRules(){
         this.orgRaffle.setRaffleRules(this.rulesString);
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
 //        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
@@ -83,6 +83,8 @@ public class RaffleRuleSetterUseCase {
 //        return this.raffleInfoSoFar;
         this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
                 this.orgRaffle.getRaffleRules());
+        // any string (even the empty string is considered a valid set of rules, in case users don't need rules)
+        return true;
     }
 
     // for testing purposes

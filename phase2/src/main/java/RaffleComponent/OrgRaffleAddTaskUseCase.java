@@ -38,7 +38,7 @@ public class OrgRaffleAddTaskUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class OrgRaffleAddTaskUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataUploader = new AddOrganizer();
+            this.dataUploader = new ProvideData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,22 +72,30 @@ public class OrgRaffleAddTaskUseCase {
 //        this.dataPackager = new PackageRaffleEntityInstance();
     }
 
-    public void updateTaskList(){
+    public boolean updateTaskList(){
 //        if (this.editToPerform.equals(TaskEditTypes.ORGANIZER_ADD)){
 //            OrgTaskEditOutcome result = this.addTasks();
 //        } else {
 //            OrgTaskEditOutcome result = this.removeTasks();
 //        }
         // add the taskIds to the list of Ids in this task
-        this.orgRaffle.getTaskIdList().addAll(this.taskIds);  // taskIds being set for the first time
+        if (!this.taskIds.isEmpty()){
+            this.orgRaffle.getTaskIdList().addAll(this.taskIds);  // taskIds being set for the first time
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
 
-        try {
-            this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
-                    this.orgRaffle.getTaskIdList());
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
+                        this.orgRaffle.getTaskIdList());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return true;
         }
+
+        // no task ids provided
+        return false;
+
 
         // tasks are set just at the start of the raffle, so they are copied by users joining in as their final form,
         // observer pattern no longer present here

@@ -28,14 +28,14 @@ public class RaffleWinnerGeneratorUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataUploader = new JoinUserToRaffle();
+            this.dataUploader = new Providedata();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +59,6 @@ public class RaffleWinnerGeneratorUseCase {
         // no winners set yet
 
         try {
-            // todo getValidParticipants method
             this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,21 +70,23 @@ public class RaffleWinnerGeneratorUseCase {
      * Executes the processes to generate, return and store this.orgRaffle 's winners
      * @return the updated winnerIdList of this.orgRaffle
      */
-    public ArrayList<String> updateRaffleWinners(){
+    public boolean updateRaffleWinners(){
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
-        this.orgRaffle.setWinnerList(this.generateWinners());
+        if (!this.generateWinners().isEmpty()){
+            this.orgRaffle.setWinnerList(this.generateWinners());
 
-        try {
-            this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(),
-                    this.FIELD_TO_BE_CHANGED, this.orgRaffle.getWinnerList());
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(),
+                        this.FIELD_TO_BE_CHANGED, this.orgRaffle.getWinnerList());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return true;
         }
-        // winners not saved currently, just returned
 
-//        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
-//        // DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
-        return this.orgRaffle.getWinnerList();
+        // else
+        return false;
     }
 
     /**

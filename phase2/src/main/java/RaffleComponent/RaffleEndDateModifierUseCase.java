@@ -39,13 +39,13 @@ public class RaffleEndDateModifierUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataUploader = new AddOrganizer();
+            this.dataUploader = new ProvideData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +72,7 @@ public class RaffleEndDateModifierUseCase {
      * @return the arraylist of object carrying the information to be passed to the next step in the raffle
      *      creation process [name, numOfWinners, endDate, raffleId, rules]
      */
-    public void updateEndDate(){
+    public boolean updateEndDate(){
         this.orgRaffle.setEndDate(this.newEndDate);
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
 //        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
@@ -82,6 +82,7 @@ public class RaffleEndDateModifierUseCase {
                 this.orgRaffle.getRaffleRules());
 
         this.updatePtcRaffles();
+        return true;
     }
 
     public void updatePtcRaffles(){

@@ -10,14 +10,12 @@ import java.util.ArrayList;
 
 public class PtcRaffleController {
 
-
-    // todo: ask about this dependency: private final OrganizerRaffleEntity;
-    // private ArrayList<Object> raffleInfoSoFar;
-
     private final String participantUserId;
     private final String orgRaffleId;
     private String ptcRaffleId;
     private final String taskId;
+
+    private ArrayList<String> ptcCompletedTasks;
 
     public enum PtcRaffleAction{
         LOGIN, COMPLETE_TASK
@@ -32,48 +30,44 @@ public class PtcRaffleController {
     }
 
     // each of orgRaffleId or taskId can be introduced as null if actionToProcess is not related to them
-    public void runRaffleController(PtcRaffleAction actionToProcess){
+    public boolean runRaffleController(PtcRaffleAction actionToProcess){
 
         switch (actionToProcess){
             case LOGIN:
                 if (this.orgRaffleId != null || this.ptcRaffleId == null) {
                     // a raffle must be joined before giving this.ptcRaffleId a non-null value
-                    this.ptcRaffleId = this.runLogin();
+                    return this.runLogin();
                 }
                 // else case is handled by the system, technically there should never be such error
-                break;
 
             case COMPLETE_TASK:
                 if (taskId != null || this.ptcRaffleId != null){
-                    try {
-                        this.runCompleteTask();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    return this.runCompleteTask();
                 }
                 // else case is handled by the system, technically there should never be such error
-                break;
         }
+
+        // if neither of the two cases are to be executed return false by default
+        return false;
     }
 
-    public String runLogin(){
+    public boolean runLogin(){
         // if raffleId is valid, then it is passed onto the use case, otherwise, use case takes care of null input
         LoginRaffleUseCase loginRaffleManager = new LoginRaffleUseCase(this.orgRaffleId, this.participantUserId);
-        return loginRaffleManager.runRaffleLogin();
+
+        boolean result = loginRaffleManager.runRaffleLogin();
+        this.ptcRaffleId = loginRaffleManager.getPtcRaffle().getRaffleId();
+        return result;
     }
 
     // ptcRaffles can only complete a task to pop it, but cannot add one on their own without it happening
     // through the subscription system to an orgRaffle
-    public void runCompleteTask() throws FileNotFoundException {
+    public boolean runCompleteTask(){
 
         CompleteTaskUseCase raffleManager = new CompleteTaskUseCase(this.ptcRaffleId, this.taskId);
-        try {
-            raffleManager.completeTask();
-        }
-        catch(IOException ioe)
-        {
-            ioe.printStackTrace();
-        }
+        boolean result = raffleManager.completeTask();
+        this.ptcCompletedTasks = raffleManager.getPtcCompletedTasks();
+        return result;
     }
 
 }

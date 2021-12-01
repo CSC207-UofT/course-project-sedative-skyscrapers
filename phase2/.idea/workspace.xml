@@ -4,27 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="Refactoring(Raffle Controllers): merging of raffle controllers into proper structure">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Helpers/IEntityIdGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" afterDir="false" />
+    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/EntityIdGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/EntityIdGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/PackageRaffleEntityInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/PackageRaffleEntityInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/PackageRaffleObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/PackageRaffleObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/RaffleIdGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/TaskIdGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/TaskIdGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleEditTaskUseCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrganizerRaffleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrganizerRaffleEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/ParticipantRaffleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/ParticipantRaffleEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleLookupUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleLookupUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TaskComponent/ExecuteCommandUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TaskComponent/ExecuteCommandUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/RaffleIdGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RaffleIdGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/OrgRaffleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/OrgRaffleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/PtcRaffleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/PtcRaffleController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +67,9 @@
       <workItem from="1638024600679" duration="13889000" />
       <workItem from="1638054106537" duration="5149000" />
       <workItem from="1638113442801" duration="3671000" />
-      <workItem from="1638226723119" duration="4412000" />
+      <workItem from="1638226723119" duration="7203000" />
+      <workItem from="1638393932812" duration="294000" />
+      <workItem from="1638394249271" duration="4409000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
       <created>1637956673104</created>
@@ -91,7 +85,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638231608046</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases">
+      <created>1638232101940</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638232101940</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +113,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles" />
     <MESSAGE value="Refactoring(Raffle Controllers): merging of raffle controllers into proper structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring(Raffle Controllers): merging of raffle controllers into proper structure" />
+    <MESSAGE value="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases" />
   </component>
 </project>

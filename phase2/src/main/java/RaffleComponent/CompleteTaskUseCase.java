@@ -23,6 +23,7 @@ public class CompleteTaskUseCase {
 //    private final GetTaskDetails extractor;
     private DataAccessPoint dataAccess;
     private DataProviderPoint dataUploader;
+    private ArrayList<String> ptcCompletedTasks;
 //    private AddParticipant taskWriter;
 
     /**
@@ -30,14 +31,18 @@ public class CompleteTaskUseCase {
      * @param taskId the id of the task completed by the user
      * @param raffleId the id of the raffle to which the task being completed belongs to
      */
-    public CompleteTaskUseCase(String raffleId, String taskId) throws FileNotFoundException {
-        this.extractor = new GetTaskDetails();
+    public CompleteTaskUseCase(String raffleId, String taskId){
+//        this.extractor = new GetTaskDetails();  // todo, talk about how this extractor should be outside,
+//         managed by system manager, this raffle use case should not be doing anything other than notifying
+//         the controller of the tasks that this user has completed, which notified the system manager, which
+//         then hands this over to the task controller to set those the tasks ids given by this use case to the
+//         task use case to set them as complete in the db over there too. THIS IS A MUST FOR CLEAN ARCH
         //this.ptcRaffleInfo = extractor
         String[] IDs = raffleId.split(":");
 
         try {
 
-            dataAccess = new DataExtractor();  // todo this will be the name of the file khushaal provides
+            dataAccess = new AccessData();  // todo this will be the name of the file khushaal provides
             this.orgRaffleInfo = dataAccess.getOrganizerRaffleById(IDs[1]);
         }
         catch(IOException ioe)
@@ -47,7 +52,7 @@ public class CompleteTaskUseCase {
 
         try {
 
-            dataUploader = new DataUploader();  // todo this will be the name of the file khushaal provides
+            dataUploader = new ProvideData();  // todo this will be the name of the file khushaal provides
         }
         catch(IOException ioe)
         {
@@ -75,24 +80,35 @@ public class CompleteTaskUseCase {
      * Informs the program that the task under this.taskId has been completed
      * @return the arraylist containing the ids of all the raffles a participant has completed up to now
      */
-    public ArrayList<String> completeTask()throws IOException{
+    public boolean completeTask(){
         ArrayList<String> completedTaskIds;
 
         //String[] IDs = ptcRaffle.getRaffleId().split(":");
         //            JoinUserToRaffle joiner = new JoinUserToRaffle();
         //            joiner.setCompletedTask(ptcRaffle.getRaffleId(),taskId);
         //ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
-        this.ptcRaffle.getTaskIdList().remove(this.taskId);  // pop tasks from the tasks to do by user
-        // compare orgRaffleTaskIdList to ptcRaffleTaskIdList to return completed task Ids
-        completedTaskIds = generateCompletedTaskIds(this.ptcRaffle.getTaskIdList(),
-                (ArrayList<String>) this.orgRaffleInfo.get(4));
+        if (this.taskId != null) {
+            this.ptcRaffle.getTaskIdList().remove(this.taskId);  // pop tasks from the tasks to do by user
+            // compare orgRaffleTaskIdList to ptcRaffleTaskIdList to return completed task Ids
+            completedTaskIds = generateCompletedTaskIds(this.ptcRaffle.getTaskIdList(),
+                    (ArrayList<String>) this.orgRaffleInfo.get(4));
 
-        // updated method
-        this.dataUploader.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(),
-                this.FIELD_TO_BE_CHANGED, this.ptcRaffle.getTaskIdList());
+            // updated method
+            try {
+                this.dataUploader.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(),
+                        this.FIELD_TO_BE_CHANGED, this.ptcRaffle.getTaskIdList());
+            }
+            catch(IOException ioe)
+            {
+                ioe.printStackTrace();
+            }
 
-        // despite not currently completing a task, other tasks might have been previously solved, so we still compare
-        return completedTaskIds;
+            // despite not currently completing a task, other tasks might have been previously solved, so we still compare
+            this.ptcCompletedTasks = completedTaskIds;
+            return true;
+        }
+        // taskId not provided
+        return false;
 
     }
 
@@ -123,6 +139,10 @@ public class CompleteTaskUseCase {
         }
 
         return completedTaskIds;
+    }
+
+    public ArrayList<String> getPtcCompletedTasks() {
+        return ptcCompletedTasks;
     }
 
     // for testing purposes

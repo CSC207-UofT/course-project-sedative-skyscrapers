@@ -18,16 +18,16 @@ public class LoginRaffleUseCase {
     private ArrayList<Object> orgRaffleInfo;
     private ParticipantRaffleEntity ptcRaffle;
     private final OrganizerRaffleEntity orgRaffle;
-    private LoginResult loginResult;
+//    private LoginResult loginResult;
 //    private final PackageRaffleEntityInstance dataPackager;
     private DataAccessPoint dataAccess;
     private DataProviderPoint dataUploader;
 //    private JoinUserToRaffle dataUploader;
 
 
-    public enum LoginResult {
-        SUCCESS, RAFFLE_ID_NOT_RECOGNIZED
-    }
+//    public enum LoginResult {
+//        SUCCESS, RAFFLE_ID_NOT_RECOGNIZED
+//    }
 
     /**
      * Constructor for the use case handling the event of a participant joining a raffle
@@ -40,14 +40,14 @@ public class LoginRaffleUseCase {
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataAccess = new DataExtractor();
+            this.dataAccess = new AccessData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         try {
             // todo this will be the name of the file khushaal provides
-            this.dataUploader = new JoinUserToRaffle();
+            this.dataUploader = new ProvideData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,12 +79,9 @@ public class LoginRaffleUseCase {
      * to which we are attaching this participant raffle
      * @return the newly generated participant raffle id to describe this participant raffle
      */
-    public String runRaffleLogin() {
+    public boolean runRaffleLogin() {
 
-        if (this.orgRaffleInfo == null){
-            // no raffle object corresponding to such id in the database
-            this.loginResult = LoginResult.RAFFLE_ID_NOT_RECOGNIZED;
-        } else {
+        if (this.orgRaffleInfo != null){
             // copy items from array of raffle attributes to a RaffleEntity accessible by this participant
             this.ptcRaffle = new ParticipantRaffleEntity(this.orgRaffle.getRaffleName(), this.orgRaffle.getNumberOfWinners(),
                     this.orgRaffle.getEndDate());
@@ -111,13 +108,10 @@ public class LoginRaffleUseCase {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-            this.loginResult = LoginResult.SUCCESS;
-            return this.ptcRaffle.getRaffleId();
+            return true;
         }
 
-        return null;
+        return false;
     }
 
     /**
@@ -128,9 +122,9 @@ public class LoginRaffleUseCase {
         return this.ptcLoggingInId + ":" + this.orgRaffleId;  // orgRaffleId is pure
     }
 
-    public LoginResult getLoginResult() {
-        return loginResult;
-    }
+//    public LoginResult getLoginResult() {
+//        return loginResult;
+//    }
 
     // for testing purposes
 
@@ -138,7 +132,7 @@ public class LoginRaffleUseCase {
         this.orgRaffleInfo = orgRaffleInfo;
     }
 
-    public ParticipantRaffleEntity getRaffle() {
+    public ParticipantRaffleEntity getPtcRaffle() {
         return ptcRaffle;
     }
 
