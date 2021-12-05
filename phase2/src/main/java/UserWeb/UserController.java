@@ -1,42 +1,31 @@
 package main.java.UserWeb;
 
-import main.java.database.*;
-import main.java.UserComponent.GetOrganizerUseCase;
-import main.java.UserComponent.GetParticipantUseCase;
-import main.java.UserComponent.Organizer;
-import main.java.UserComponent.Participant;
+import main.java.UserComponent.AddUserRaffleIdUseCase;
+import main.java.UserComponent.CheckUserUsernameUseCase;
+import main.java.UserComponent.CreateUserUseCase;
+import main.java.UserComponent.LookUpUser;
+import src.main.java.UserComponent.GetUserRaffleIdUseCase;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
-
-//User Controller
 public class UserController {
-    private DataExtractor dataExtractor;
-    private AddParticipant participantUploader;
-    private AddOrganizer organizerUploader;
+    private final CreateUserUseCase userCreator;
+    private final GetUserRaffleIdUseCase userRaffleIdGetter;
+    private final AddUserRaffleIdUseCase userRaffleIdAdder;
+    private final CheckUserUsernameUseCase usernameChecker;
+    private final LookUpUser userLookUp;
 
     public UserController() {
-        try {
-            this.dataExtractor = new DataExtractor();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.participantUploader = new AddParticipant();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.organizerUploader = new AddOrganizer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.userCreator = new CreateUserUseCase();
+        this.userRaffleIdGetter = new GetUserRaffleIdUseCase();
+        this.userRaffleIdAdder = new AddUserRaffleIdUseCase();
+        this.usernameChecker = new CheckUserUsernameUseCase();
+        this.userLookUp = new LookUpUser();
     }
 
     /**
-     * Create a new Participant object and upload the new participant's information to database
+     * Store the new participant into the database
      * @param username username
      * @param password password
      * @param firstName first name
@@ -44,39 +33,29 @@ public class UserController {
      * @param dateOfBirth date of birth
      * @param phone phone
      * @param email email
-     * @return a Participant object
      */
-    public Participant createNewParticipant(String username, String password, String firstName, String lastName,
+    public void createNewParticipant(String username, String password, String firstName, String lastName,
                                             LocalDate dateOfBirth, String phone, String email) {
-        GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
-                    lastName, dateOfBirth, phone, email);
-        Participant newParticipant = getParticipantUseCase.getParticipant();
-        try {
-            participantUploader.updateParticipantPool(username, password, firstName, lastName, dateOfBirth.toString(),
-                    phone, email);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return newParticipant;
+        userCreator.storeParticipant(username, password, firstName, lastName, dateOfBirth.toString(), phone, email);
     }
 
-    public Participant getExistedParticipant(String username) {
-        String[] ptcInfo = new String[5];
-        try {
-            ptcInfo = dataExtractor.getParticipantDetails(username);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String password = ptcInfo[0];
-        String firstName = ptcInfo[1];
-        String lastName = ptcInfo[2];
-        LocalDate doB = LocalDate.parse(ptcInfo[3]);
-        String phone = ptcInfo[4];
-        String email = ptcInfo[5];
-        GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
-                lastName, doB, phone, email);
-        return getParticipantUseCase.getParticipant();
-    }
+//    public Participant getExistedParticipant(String username) {
+//        String[] ptcInfo = new String[5];
+//        try {
+//            ptcInfo = dataExtractor.getParticipantDetails(username);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String password = ptcInfo[0];
+//        String firstName = ptcInfo[1];
+//        String lastName = ptcInfo[2];
+//        LocalDate doB = LocalDate.parse(ptcInfo[3]);
+//        String phone = ptcInfo[4];
+//        String email = ptcInfo[5];
+//        GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
+//                lastName, doB, phone, email);
+//        return getParticipantUseCase.getParticipant();
+//    }
 
 //    //phase2 extension
 //    public void updateParticipantPool() {
@@ -84,41 +63,97 @@ public class UserController {
 //    }
 
     /**
-     * Create a new Organizer object and upload the new organizer's information to database
+     * Store the new organizer to the database
      * @param username username
      * @param password password
-     * @param orgName affiliated organization name
+     * @param orgName name of affiliated organization
      * @param phone phone
      * @param email email
-     * @return an Organizer object
      */
-    public Organizer createNewOrganizer(String username, String password, String orgName, String phone,
+    public void createNewOrganizer(String username, String password, String orgName, String phone,
                                         String email) {
-        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName,
-                    phone, email);
-        Organizer newOrganizer = getOrganizerUseCase.getOrganizer();
-        try {
-            organizerUploader.updateOrganizerPool(username, password, orgName, phone, email);
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-        return newOrganizer;
+        userCreator.storeOrganizer(username, password, orgName, phone, email);
     }
 
-    public Organizer getExistedOrganizer(String username) {
-        String[] orgInfo = new String[3];
-        try {
-            orgInfo = dataExtractor.getOrganizerDetails(username);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String password = orgInfo[0];
-        String orgName = orgInfo[1];
-        String phone = orgInfo[2];
-        String email = orgInfo[3];
-        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName, phone, email);
-        return getOrganizerUseCase.getOrganizer();
+
+//    public Organizer getExistedOrganizer(String username) {
+//        String[] orgInfo = new String[3];
+//        try {
+//            orgInfo = dataExtractor.getOrganizerDetails(username);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String password = orgInfo[0];
+//        String orgName = orgInfo[1];
+//        String phone = orgInfo[2];
+//        String email = orgInfo[3];
+//        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName, phone, email);
+//        return getOrganizerUseCase.getOrganizer();
+//    }
+
+    /**
+     * Get a list of raffleIDs of the raffles that the participant is a part of
+     * @param username participant username
+     * @return a list of raffleIDs
+     */
+    public ArrayList<String> getParticipantRaffleID(String username) {
+        return this.userRaffleIdGetter.getPtcRaffleIdsFromDatabase(username);
     }
-}
+
+    /**
+     * Get the raffleID of the raffle that the organizer created
+     * @param username organizer username
+     * @return a raffleID String
+     */
+    public String[] getOrganizerRaffleID(String username) {
+        return this.userRaffleIdGetter.getOrgRafflesIdsFromDatabase(username);
+    }
+
+    /**
+     * Upload the raffleID of the raffle the participant joined to database
+     * @param username participant username
+     * @param raffleID the raffleID of the raffle the participant joined
+     */
+    public void addRaffleIDToParticipant(String username, String raffleID) {
+        this.userRaffleIdAdder.addRaffleIdToPtc(username, raffleID);
+    }
+
+    /**
+     * Check whether a username is already registered
+     * @param username username that a user trying to register
+     * @return false if the username is not registered yet, true if the username is already used
+     */
+    public boolean userNameUsed(String username) {
+        return usernameChecker.checkUserNameUsed(username);
+    }
+
+    /**
+     * Check whether the participant username is already registered and match the password
+     * @param username username of the participant
+     * @param password password of the organizer
+     * @return true if the username is registered as a participant and matches the password, false otherwise
+     */
+    public boolean participantUsernameMatchPassword(String username, String password) {
+        return usernameChecker.checkPtcUsernameMatchPassword(username, password);
+    }
+
+    /**
+     * Check whether the organizer username is already registered and match the password
+     * @param username username of the organizer
+     * @param password password of the organizer
+     * @return true if the username is registered as an organizer and matches the password, false otherwise
+     */
+    public boolean organizerUsernameMatchPassword(String username, String password) {
+        return this.usernameChecker.checkOrgUsernameMatchPassword(username, password);
+    }
+
+    public String getUserUserId(String username, String userType) {
+        if (userType.equals("O")) {
+            return userLookUp.getOrgUserId(username);
+        } else if (userType.equals("P")){
+            return userLookUp.getPtcUserId(username);
+        }
+        return null;
+    }
+
+    }
