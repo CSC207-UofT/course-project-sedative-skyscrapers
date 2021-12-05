@@ -1,7 +1,7 @@
 package main.java.DatabaseRe.Mediators.Getters;
 
-import main.java.DatabaseRe.Mediators.Query;
-import main.java.DatabaseRe.Mediators.QueryTools;
+import main.java.DatabaseRe.Mediators.SelectQueries;
+import main.java.DatabaseRe.Mediators.DataTools;
 import main.java.DatabaseRe.TalkToDatabase.SelectQuery;
 
 import java.sql.ResultSet;
@@ -11,19 +11,19 @@ import java.util.ArrayList;
 public class TaskGetter {
 
     SelectQuery selectQuery = new SelectQuery();
-    QueryTools queryTools = new QueryTools();
+    DataTools dataTools = new DataTools();
 
     public TaskGetter() throws SQLException {
     }
 
     public ArrayList<String> getTaskIDsInRaffle(String orgRaffleId) throws SQLException {
-        String query = Query.getTasksInRafflesQuery(orgRaffleId);
+        String query = SelectQueries.getTasksInRafflesQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return queryTools.getStrings(results, "taskID");
+        return dataTools.getStrings(results, "taskID");
     }
 
     public boolean getTaskStatus(String ptcRaffleId, String taskId) throws SQLException {
-        String query = Query.getTaskStatusQuery(ptcRaffleId, taskId);
+        String query = SelectQueries.getTaskStatusQuery(ptcRaffleId, taskId);
         ResultSet results = selectQuery.getResultSet(query);
         results.next();
         return results.getBoolean("taskStatus");
