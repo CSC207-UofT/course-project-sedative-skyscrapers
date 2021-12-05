@@ -65,4 +65,10 @@ public abstract class SelectQueries {
         return "SELECT ParticipantUsernames.* FROM `innodb`.`ParticipantUsernames` WHERE " +
                 "ParticipantUsernames.PuserID = \""+ userID +"\";";
     }
+
+    public static String getOrganizerOfRaffle(String orgRaffleId) {
+        return "SELECT OrganizersRaffles.* " +
+                "    FROM innodb.OrganizersRaffles " +
+                "    WHERE OrganizersRaffles.raffleID = \""+orgRaffleId+"\";";
+    }
 }

@@ -1,8 +1,22 @@
 package main.java.DatabaseRe;
 
+import main.java.DatabaseRe.Mediators.Getters.RaffleGetter;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class FakeMain {
     public static void main(String[] args) throws Exception {
+//
+//        RaffleGetter raffleGetter = new RaffleGetter();
+//        System.out.print(raffleGetter.getOrganizer("R012"));
+
 //        ProvideData provideData = new ProvideData();
+//        LocalDate date = LocalDate.of(2025, 12, 12);
+//        provideData.changeRaffleEndDate("O12", date);
+//        ArrayList<String> raffles = new ArrayList<>();
+//        raffles.add("T02");
+//        provideData.deleteTask(raffles);
 //        provideData.changeOrganizerDetail("Khushaal", "organization", "Congress Communist");
 //        ArrayList<String> raffles = new ArrayList<>();
 //        raffles.add("R01");
