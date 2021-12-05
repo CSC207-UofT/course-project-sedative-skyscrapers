@@ -2,8 +2,8 @@ package main.java.DatabaseRe;
 
 public class FakeMain {
     public static void main(String[] args) throws Exception {
-        ProvideData provideData = new ProvideData();
-        provideData.setTaskStatus("P01", "T02", true);
+//        ProvideData provideData = new ProvideData();
+//        provideData.changeOrganizerDetail("Khushaal", "organization", "Congress Communist");
 //        ArrayList<String> raffles = new ArrayList<>();
 //        raffles.add("R01");
 //        provideData.addParticipant("0989", "chutiya123", "bhosadika123", "gand", "land", "2009-11-21", "9090987878", "janam@chutiya.com", raffles);
