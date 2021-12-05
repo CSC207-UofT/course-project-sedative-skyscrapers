@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="refactoring(RaffleUseCases): de-cluttering of use case code">
+    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="refactoring(RaffleUseCases): update for database usage (pending final touches)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrganizerRaffleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrganizerRaffleEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleLookupUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/RaffleDataHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/RaffleLookupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleWeb/RaffleLookupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/OrgRaffleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/OrgRaffleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilderInterface.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +74,7 @@
       <workItem from="1638634739019" duration="7932000" />
       <workItem from="1638666831863" duration="4416000" />
       <workItem from="1638715855399" duration="2933000" />
-      <workItem from="1638718893617" duration="3769000" />
+      <workItem from="1638718893617" duration="7581000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
       <created>1637956673104</created>
@@ -110,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638398741194</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactoring(RaffleUseCases): update for database usage (pending final touches)">
+      <created>1638723779875</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638723779875</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +134,7 @@
     <MESSAGE value="Refactoring(Raffle Controllers): merging of raffle controllers into proper structure" />
     <MESSAGE value="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases" />
     <MESSAGE value="refactoring(RaffleUseCases): de-cluttering of use case code" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring(RaffleUseCases): de-cluttering of use case code" />
+    <MESSAGE value="refactoring(RaffleUseCases): update for database usage (pending final touches)" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring(RaffleUseCases): update for database usage (pending final touches)" />
   </component>
 </project>

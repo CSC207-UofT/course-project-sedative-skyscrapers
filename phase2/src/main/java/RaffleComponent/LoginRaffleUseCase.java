@@ -104,12 +104,7 @@ public class LoginRaffleUseCase {
 
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
 
-            // todo: change this so that it isnt an array, we only need to add a single participant at a time
-            try {
-                this.dataUploader.addParticipantsToRaffle(this.ptcLoggingInId, this.orgRaffleId);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.dataUploader.addRaffleIDtoOrganizer(this.ptcLoggingInId, this.orgRaffleId);
 
 //            try {
 //                this.dataUploader.uploadModifiedRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,

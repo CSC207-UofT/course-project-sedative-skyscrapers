@@ -94,7 +94,6 @@ public class CreateRaffleUseCase {
                     this.orgRaffle.getNumberOfWinners(),
                     this.orgRaffle.getRaffleRules(),
                     this.orgRaffle.getEndDate());
-            // TODO: khushaal, this should be a LocalDate type, not a Date type
 
             // not added because empty
 //            this.orgRaffle.getTaskIdList(),

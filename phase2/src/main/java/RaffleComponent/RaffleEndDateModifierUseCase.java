@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 public class RaffleEndDateModifierUseCase {
 
-    private final String FIELD_TO_BE_CHANGED = "EndDate";
     private final LocalDate newEndDate;
     /* orgAllRaffles is a hashmap from raffleId to an array of objects that are contained in an orgRaffle object
     EG:
@@ -60,7 +59,6 @@ public class RaffleEndDateModifierUseCase {
 //            e.printStackTrace();
 //        }
 
-        // todo: need the orgname to be returned by the database
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                 (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3),
                 (String)this.orgRaffleInfo.get(6));
@@ -83,9 +81,7 @@ public class RaffleEndDateModifierUseCase {
 //        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
 //        this.raffleInfoSoFar.add(this.rulesString); // format [name, numOfWinners, endDate, raffleId, rules]
 //        return this.raffleInfoSoFar;
-        // todo: need a method like updateRaffleRules but for the endDate
-        this.dataUploader.uploadModifiedRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
-                this.orgRaffle.getEndDate());
+        this.dataUploader.changeRaffleEndDate(this.orgRaffle.getRaffleId(), this.orgRaffle.getEndDate());
 
         this.updatePtcRaffles();
         return true;
@@ -108,13 +104,7 @@ public class RaffleEndDateModifierUseCase {
 //                e.printStackTrace();
 //            }
             if (ptcRaffleInfo != null) {
-                try {
-                    // todo: need a method like updateRaffleRules but for the endDate
-                    this.dataUploader.uploadModifiedRaffle(ptcRaffleId, this.FIELD_TO_BE_CHANGED,
-                            updatedEndDate(ptcRaffleInfo));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                this.dataUploader.changeRaffleEndDate(ptcRaffleId, updatedEndDate(ptcRaffleInfo));
             }
         }
     }

@@ -1,6 +1,7 @@
 package main.java.RaffleComponent;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,13 +10,14 @@ public interface DataProviderPoint {
      * Adds a newly created raffle to the database by an organizer.
      */
     void addRaffle(String orgRaffleId, String organizerUsername, String raffleName,
-                   Integer numberOfWinners, String raffleRules, Date endDate);
+                   Integer numberOfWinners, String raffleRules, LocalDate endDate);
 
     /**
      * Adds the list of taskIDs to a raffle.
      */
     void addTasks(String raffleID, ArrayList<String> taskIDs);
 
+    void deleteTask(ArrayList<String> taskIdsToDelete);
     /**
      * Adds the list of participants to the Raffle.
      * Note: The participant must already exist.
@@ -31,6 +33,11 @@ public interface DataProviderPoint {
      *  Updates the raffle rules of <raffleId>
      */
     void updateRaffleRules(String raffleId, String newRaffleRules);
+
+    /**
+     * Updates the raffle endDate of <raffleId>
+     */
+    void changeRaffleEndDate(String raffleID, LocalDate newDate);
 
     /**
      *  Adds the details of the task

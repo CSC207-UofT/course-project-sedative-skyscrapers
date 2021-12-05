@@ -106,7 +106,8 @@ public class CompleteTaskUseCase {
             //  for this instance to be able to edit just the TaskIdList, so separate the functionality into two I
             //  guess, and let me both create the tasks at time for raffle creation, and delete the ids from taskIdList
             //  for when a use completes a task
-            this.dataUploader.addTasks(this.ptcRaffle.getRaffleId(), this.ptcRaffle.getTaskIdList());
+//            this.dataUploader.deleteTask(this.ptcRaffle.getRaffleId(), this.ptcRaffle.getTaskIdList());
+            this.dataUploader.deleteTask(this.ptcRaffle.getTaskIdList());
 
             // despite not currently completing a task, other tasks might have been previously solved, so we still compare
             this.ptcCompletedTasks = completedTaskIds;
