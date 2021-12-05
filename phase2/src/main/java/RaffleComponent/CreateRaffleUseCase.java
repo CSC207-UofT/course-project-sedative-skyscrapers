@@ -1,33 +1,33 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.PackageRaffleEntityInstance;
-import main.java.Helpers.RaffleIdGenerator;
-import main.java.database.AddOrganizer;
-import main.java.database.DataExtractor;
+import main.java.Helpers.EntityIdGenerator;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CreateRaffleUseCase {
 
-    private final OrganizerRaffleEntity raffle;
-    private final RaffleIdGenerator idGenerator;
+    private final OrganizerRaffleEntity orgRaffle;
+    private final EntityIdGenerator idGenerator;
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
-    private CreationResult creationOutcome;
-    private final PackageRaffleEntityInstance dataPackager;
-    private DataExtractor dataAccess;
-    private AddOrganizer dataUploader;
-    private ArrayList<Object>  raffleInfoSoFar;
-    private String generatedRaffleId;
     private final String orgUsername;
+//    private boolean creationOutcome;
+//    private final PackageRaffleEntityInstance dataPackager;
+    private DataAccessPoint dataAccess;
+    private DataProviderPoint dataUploader;
+//    private ArrayList<Object>  raffleInfoSoFar;
+    private String generatedRaffleId;
 
-
-    public enum CreationResult {
-        SUCCESS, FAILURE
-    }
+// changed to true and false
+//    public enum CreationResult {
+//        SUCCESS, FAILURE
+//    }
 
     /**
      * Constructor for the use case of having an organizer create a raffle
@@ -37,31 +37,37 @@ public class CreateRaffleUseCase {
      * @param orgUsername the username of the organizer creating this raffle
      */
     public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername){
-        this.raffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
+        this.orgRaffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
 
         try {
-            this.dataAccess = new DataExtractor();
-        } catch (FileNotFoundException e) {
+            this.dataAccess = new AccessData();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            this.dataUploader = new AddOrganizer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.takenIds = this.dataAccess.getUsedRaffleIDs();
-        } catch (IOException e) {
+            this.dataUploader = new ProvideData();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        this.idGenerator = new RaffleIdGenerator(this.takenIds);
-       this.dataPackager = new PackageRaffleEntityInstance();
-        this.raffleInfoSoFar = new ArrayList<>();
-        this.raffleInfoSoFar.add(raffleName);
-        this.raffleInfoSoFar.add(numOfWinners);
-        this.raffleInfoSoFar.add(endDate);
-        this.raffleInfoSoFar.add(orgUsername);
+        try {
+            this.takenIds = this.dataAccess.getTakenRaffleIds();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        try {
+//            this.takenIds = this.dataAccess.getTakenRaffleIds();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        this.idGenerator = new EntityIdGenerator(this.takenIds);
+//        this.dataPackager = new PackageRaffleEntityInstance();
+//        this.raffleInfoSoFar = new ArrayList<>();
+//        this.raffleInfoSoFar.add(raffleName);
+//        this.raffleInfoSoFar.add(numOfWinners);
+//        this.raffleInfoSoFar.add(endDate);
+//        this.raffleInfoSoFar.add(orgUsername);
         this.orgUsername = orgUsername;
     }
 
@@ -70,31 +76,35 @@ public class CreateRaffleUseCase {
      * @return the arraylist of object carrying the information to be passed to the next step in the raffle
      * creation process [name, numOfWinners, endDate, raffleId]
      */
-    public ArrayList<Object> runRaffleCreation(){
+    public boolean runRaffleCreation(){
 
         ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
         // generate id from use case
         this.generatedRaffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
 
         if (!this.takenIds.contains(this.generatedRaffleId)){
-            this.raffle.setRaffleId(this.generatedRaffleId);  // always true based on RaffleIdGenerator
+            this.orgRaffle.setRaffleId(this.generatedRaffleId);  // always true based on RaffleIdGenerator
             // update  takenIds
             this.takenIds.add(this.generatedRaffleId);
-            this.raffleInfoSoFar.add(this.generatedRaffleId);
+//            this.raffleInfoSoFar.add(this.generatedRaffleId);
 
-            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.raffle);
-            try {
-                this.dataUploader.uploadCreatedRaffle(this.orgUsername, this.generatedRaffleId, packagedOrgRaffle);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            this.creationOutcome = CreationResult.SUCCESS;
-            return this.raffleInfoSoFar;
+//            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
+            this.dataUploader.addRaffle(this.orgRaffle.getRaffleId(), this.orgUsername,
+                    this.orgRaffle.getRaffleName(),
+                    this.orgRaffle.getNumberOfWinners(),
+                    this.orgRaffle.getRaffleRules(),
+                    this.orgRaffle.getEndDate());
+
+            // not added because empty
+//            this.orgRaffle.getTaskIdList(),
+//            this.orgRaffle.getParticipantIdList(),
+//            this.orgRaffle.getWinnerList()
+
+            return true;
         }
 
         // this case is never really executed since the idGenerator makes sure there is no id repetition
-        this.creationOutcome = CreationResult.FAILURE;
-        return null;
+        return false;
     }
 
     public String getGeneratedRaffleId(){
@@ -102,13 +112,13 @@ public class CreateRaffleUseCase {
     }
 
     // for testing purposes
-    public RaffleEntity getRaffle() {
-        return this.raffle;
+    public OrganizerRaffleEntity getOrgRaffle() {
+        return this.orgRaffle;
     }
 
-    public CreationResult getCreationOutcome() {
-        return creationOutcome;
-    }
+//    public CreationResult getCreationOutcome() {
+//        return creationOutcome;
+//    }
 
     public void setTakenIds(ArrayList<String> takenIds) {
         this.takenIds = takenIds;

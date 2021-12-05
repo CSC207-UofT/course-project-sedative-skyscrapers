@@ -1,10 +1,14 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.database.DataExtractor;
 import main.java.database.JoinUserToRaffle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,9 +19,9 @@ public class RaffleWinnerGeneratorUseCase {
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
 //    private PackageRaffleEntityInstance dataPackager;
-    private DataExtractor dataAccess;
-    private JoinUserToRaffle dataUploader;
-    private ArrayList<String> validParticipantIds;
+    private DataAccessPoint dataAccess;
+    private DataProviderPoint dataUploader;
+    private final ArrayList<String> validParticipantIds;
 
     /**
      * Constructor for the use case handling the event of generating a list of winning participants within a raffle
@@ -26,38 +30,35 @@ public class RaffleWinnerGeneratorUseCase {
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
         try {
-            this.dataAccess = new DataExtractor();
-        } catch (FileNotFoundException e) {
+            this.dataAccess = new AccessData();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
-            this.dataUploader = new JoinUserToRaffle();
-        } catch (IOException e) {
+            this.dataUploader = new ProvideData();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         try {
-            this.orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(raffleId);
-        } catch (IOException e) {
+            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(raffleId);
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //System.out.println("this.orgRaffleInfo(2) = "+this.orgRaffleInfo.get(2));
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                Integer.parseInt(this.orgRaffleInfo.get(1).toString()), LocalDate.parse(this.orgRaffleInfo.get(2).toString(),dtf),(String)this.orgRaffleInfo.get(3));
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
+                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),
+                (String)this.orgRaffleInfo.get(6));
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
         this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
         // no winners set yet
 
-        try {
-            this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
 
     }
 
@@ -65,15 +66,22 @@ public class RaffleWinnerGeneratorUseCase {
      * Executes the processes to generate, return and store this.orgRaffle 's winners
      * @return the updated winnerIdList of this.orgRaffle
      */
-    public ArrayList<String> updateRaffleWinners(){
+    public boolean updateRaffleWinners(){
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
-        this.orgRaffle.setWinnerList(this.generateWinners());
+        if (!this.generateWinners().isEmpty()){
+            this.orgRaffle.setWinnerList(this.generateWinners());
 
-        // winners not saved currently, just returned
+            try {
+                this.dataUploader.addWinnersToRaffle(this.orgRaffle.getRaffleId(), this.orgRaffle.getWinnerList());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-//        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
-//        // DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
-        return this.orgRaffle.getWinnerList();
+            return true;
+        }
+
+        // else
+        return false;
     }
 
     /**
@@ -97,11 +105,11 @@ public class RaffleWinnerGeneratorUseCase {
         }
         //System.out.println("winnersSoFar"+winnersSoFar.get(0));
         // upload results to database
-        try {
-            this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return winnersSoFar;  // returns arrayList of userId strings
     }
 

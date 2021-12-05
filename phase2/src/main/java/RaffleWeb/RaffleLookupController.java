@@ -1,6 +1,6 @@
 package main.java.RaffleWeb;
 
-import main.java.RaffleComponent.RaffleLookupUseCase;
+import main.java.Web.RaffleDataHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,14 +9,14 @@ public class RaffleLookupController {
     // in charge of passing DB data to the GUI
 
 //    private final String orgRaffleId;
-    private final RaffleLookupUseCase raffleInfoManager;
+    private final RaffleDataHelper raffleInfoManager;
 
     /**
      * Constructor of the controller handling the data extraction and transportation to the GUI from the database
      */
     public RaffleLookupController() {
 //        this.orgRaffleId = orgRaffleId;
-        this.raffleInfoManager = new RaffleLookupUseCase();
+        this.raffleInfoManager = new RaffleDataHelper();
     }
 
     /**

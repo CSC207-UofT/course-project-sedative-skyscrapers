@@ -1,8 +1,7 @@
 package main.java.Helpers;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class TaskIdGenerator implements EntityIdGenerator{
+public class TaskIdGenerator implements IEntityIdGenerator {
     private ArrayList<String> takenTaskIds;
 
     public TaskIdGenerator(ArrayList<String> takenIds){

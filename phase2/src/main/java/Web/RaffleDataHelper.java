@@ -1,29 +1,29 @@
-package main.java.RaffleComponent;
+package main.java.Web;
 
+import main.java.DatabaseRe.AccessData;
 import main.java.database.AddOrganizer;
 import main.java.database.DataExtractor;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RaffleLookupUseCase {
+public class RaffleDataHelper {
 
-//    private final String orgRaffleId;
-//    private final int PTC_DATA_SIZE = 5;
-//    private final int ORG_DATA_SIZE = 7;
-    private DataExtractor dataAccess;
+    private AccessData dataAccess;
 
 
     /**
      * Constructor initializing the use case in charge of extracting data from the database in
      * order to display it to the GUI
      */
-    public RaffleLookupUseCase(){
+    public RaffleDataHelper(){
         try {
-            this.dataAccess = new DataExtractor();
-        } catch (FileNotFoundException e) {
+            this.dataAccess = new AccessData();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -34,12 +34,22 @@ public class RaffleLookupUseCase {
      */
     public HashMap<String, ArrayList<Object>> getAllOrgRaffleInfo(){
         // returns {orgRaffleId: ArrayList<Object>} where ArrayList<Object> refers to a raffle's info
+
+        ArrayList<String> orgRaffleIds = null;
+        try {
+            orgRaffleIds = this.dataAccess.getTakenRaffleIds();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         HashMap<String, ArrayList<Object>> hashMapToReturn = new HashMap<>();
 
-        try {
-            hashMapToReturn = this.dataAccess.getAllOrgRaffleInfo();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (orgRaffleIds != null) {
+            for (String orgRaffleId : orgRaffleIds) {
+                ArrayList<Object> raffleInfo = null;
+                raffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
+                hashMapToReturn.put(orgRaffleId, raffleInfo);
+            }
         }
         return hashMapToReturn;
     }
@@ -51,11 +61,7 @@ public class RaffleLookupUseCase {
      */
     public ArrayList<Object> getPtcRaffleInfo(String ptcRaffleId){
         ArrayList<Object> ptcRaffleInfo = null;
-        try {
-            ptcRaffleInfo = this.dataAccess.getPtcRaffleInfo(ptcRaffleId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ptcRaffleInfo = this.dataAccess.getParticipantRaffleById(ptcRaffleId);
 
         return ptcRaffleInfo;
     }
@@ -67,11 +73,7 @@ public class RaffleLookupUseCase {
      */
     public ArrayList<Object> getOrgRaffleInfo(String orgRaffleId){
         ArrayList<Object> orgRaffleInfo = null;
-        try {
-            orgRaffleInfo = this.dataAccess.getOrgRaffleInfo(orgRaffleId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
 
         return orgRaffleInfo;
         // this is for the 7 for ptcRaffle

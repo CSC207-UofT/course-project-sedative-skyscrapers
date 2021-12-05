@@ -5,15 +5,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Class representing a Raffle object, which can be joined or created by Participants and Organizers respectively.
+ * Class representing a ParticipantRaffle object, which can be joined/created by Participants only.
  */
-public class RaffleEntity {
+public class ParticipantRaffleEntity {
 
     private final String raffleName;
     private String raffleId;
     private final int numberOfWinners;
     private String raffleRules;
-    private final LocalDate endDate;
+    private LocalDate endDate;
     private ArrayList<String> taskIdList;
 
     /**
@@ -22,7 +22,7 @@ public class RaffleEntity {
      * @param numberOfWinners the number of participants to be able to win this raffle
      * @param endDate the day this raffle ends
      */
-    public RaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
+    public ParticipantRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;
@@ -30,10 +30,6 @@ public class RaffleEntity {
 
 //        this.raffleID = tempId;  TO BE SET THROUGH USE CASE
     }
-
-//    public boolean checkIdsMatch(String id){
-//        return this.raffleId.equals(id);
-//    }
 
     @Override
     public String toString(){
@@ -81,6 +77,24 @@ public class RaffleEntity {
         int day = this.endDate.getDayOfMonth();
 
         return year + "/" +  month + "/" + day;
+    }
+
+//    // observer pattern update method
+//    public ArrayList<String> updateTaskIdList(boolean editType, ArrayList<String> taskIds){
+//        // true means add tasks, false means remove tasks
+//        if (editType){
+//            this.getTaskIdList().addAll(taskIds);
+//        } else {
+//            this.getTaskIdList().removeAll(taskIds);
+//        }
+//        return this.getTaskIdList();
+//    }
+
+    // observer pattern update method
+    public LocalDate updateEndDate(LocalDate newEndDate){
+        // true means add tasks, false means remove tasks
+        this.endDate = newEndDate;
+        return this.endDate;
     }
 
 

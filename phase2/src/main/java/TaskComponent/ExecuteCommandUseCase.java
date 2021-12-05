@@ -1,7 +1,5 @@
 package main.java.TaskComponent;
 
-import main.java.RaffleComponent.RaffleEntity;
-
 public class ExecuteCommandUseCase {
     private String ptcRaffleID;
     private String taskCompletedID;
