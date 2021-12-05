@@ -7,6 +7,7 @@ import main.java.DatabaseRe.Mediators.DataTools;
 import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 import main.java.DatabaseRe.Mediators.Modifiers.RaffleModifier;
 import main.java.DatabaseRe.Mediators.Modifiers.TaskModifier;
+import main.java.DatabaseRe.Mediators.Modifiers.UserModifier;
 import main.java.RaffleComponent.DataProviderPoint;
 
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ public class ProvideData implements DataProviderPoint {
     UserAdder userAdder = new UserAdder();
     RaffleModifier raffleModifier = new RaffleModifier();
     UserGetter userGetter = new UserGetter();
+    UserModifier userModifier = new UserModifier();
 
     public ProvideData() throws SQLException {
     }
@@ -178,19 +180,28 @@ public class ProvideData implements DataProviderPoint {
     /**
      * Updates the information about organizer.
      *
-     * @param detailToBeChanged can take values: "affiliatedOrg", "password", "phone", "email", "username"
+     * @param detailToBeChanged can take values: "organization", "password", "mobile", "email", "username"
      */
     @Override
     public void changeOrganizerDetail(String username, String detailToBeChanged, String newValue) {
+        try {
+            userModifier.changeOrgDetail(username, detailToBeChanged, newValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Updates the information about participant.
      *
-     * @param detailToBeChanged can take values: "username", "password", "phone", "email"
+     * @param detailToBeChanged can take values: "username", "password", "mobile", "email", "firstName", "lastName"
      */
     @Override
     public void changeParticipantDetail(String username, String detailToBeChanged, String newValue) {
-
+        try {
+            userModifier.changeParticipantDetail(username, detailToBeChanged, newValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
