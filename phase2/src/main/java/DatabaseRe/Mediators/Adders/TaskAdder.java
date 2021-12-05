@@ -30,10 +30,14 @@ public class TaskAdder {
         }
     }
 
-    public void addTaskIds(String orgRaffleId, ArrayList<String> taskIDs) throws SQLException {
+    public void addTaskIds(String orgRaffleId, ArrayList<String> taskIDs) {
         for (String taskID : taskIDs) {
             String query = InsertQueries.addTaskIdToRaffle(orgRaffleId, taskID);
-            InsertUpdateQuery.run(query);
+            try {
+                InsertUpdateQuery.run(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

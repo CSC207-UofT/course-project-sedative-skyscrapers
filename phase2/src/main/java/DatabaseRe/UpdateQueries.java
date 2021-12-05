@@ -3,6 +3,7 @@ package main.java.DatabaseRe;
 import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class UpdateQueries {
     static UserGetter userGetter;
@@ -60,6 +61,23 @@ public class UpdateQueries {
                 "`"+ detailToBeChanged +"` =\"" + newValue + "\" " +
                 "WHERE `PuserID` = \"" + userID + "\";";
     }
+
+    public static String deleteTask(String taskID) {
+        return "DELETE FROM `innodb`.`TaskStatus` " +
+                "WHERE taskID = \"" + taskID + "\";";
+
+    }
+
+    public static String deleteTaskFromStatus(String taskID) {
+        return "DELETE FROM `innodb`.`TasksInRaffle` " +
+                "WHERE taskID = \"" + taskID + "\";";
+    }
+
+    public static String raffleEndDate(String raffleID, LocalDate newData) {
+        return "UPDATE `innodb`.`RaffleDetails` " +
+                "SET " +
+                "`endDate` = \""+ newData.toString() +"\" " +
+                "WHERE `raffleID` = \"" + raffleID + "\";";    }
 }
 
 

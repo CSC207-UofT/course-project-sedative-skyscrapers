@@ -11,6 +11,7 @@ import main.java.DatabaseRe.Mediators.Modifiers.UserModifier;
 import main.java.RaffleComponent.DataProviderPoint;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,14 +32,11 @@ public class ProvideData implements DataProviderPoint {
      */
     @Override
     public void addRaffle(String orgRaffleId, String organizerUsername,
-                          String raffleName, Integer numberOfWinners, String raffleRules, Date endDate) {
-        try {
-            raffleAdder.addRaffleDetails(orgRaffleId, raffleName, numberOfWinners, raffleRules, endDate);
-            addRaffleIDtoOrganizer(organizerUsername, orgRaffleId);
+                          String raffleName, Integer numberOfWinners, String raffleRules, LocalDate endDate) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        raffleAdder.addRaffleDetails(orgRaffleId, raffleName, numberOfWinners, raffleRules, endDate);
+        addRaffleIDtoOrganizer(organizerUsername, orgRaffleId);
+
     }
 
     /**
@@ -46,11 +44,16 @@ public class ProvideData implements DataProviderPoint {
      */
     @Override
     public void addTasks(String raffleID, ArrayList<String> taskIDs) {
-        try {
-            taskAdder.addTaskIds(raffleID, taskIDs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        taskAdder.addTaskIds(raffleID, taskIDs);
+    }
+
+    /**
+     * Deletes the tasks provided from the raffle
+     * Note: all the particpants in the task will also be removed from the tasks
+     */
+    @Override
+    public void deleteTask(ArrayList<String> taskIDs) {
+        taskModifier.removeTaskIds(taskIDs);
     }
 
     /**
@@ -203,5 +206,13 @@ public class ProvideData implements DataProviderPoint {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Changes the endDate of the Raffle
+     */
+    @Override
+    public void changeRaffleEndDate(String raffleID, LocalDate newData) {
+        raffleModifier.changeEndDate(raffleID, newData);
     }
 }

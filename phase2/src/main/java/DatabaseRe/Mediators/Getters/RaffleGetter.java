@@ -56,4 +56,9 @@ public class RaffleGetter {
     }
 
 
+    public Object getOrganizer(String orgRaffleId) throws SQLException {
+        String query = SelectQueries.getOrganizerOfRaffle(orgRaffleId);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        return dataTools.getStrings(resultSet, "OuserID");
+    }
 }
