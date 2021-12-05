@@ -1,5 +1,6 @@
 package main.java.DatabaseRe.Mediators;
 
+import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 import main.java.DatabaseRe.TalkToDatabase.ConfigConstants;
 
 import java.sql.ResultSet;
@@ -13,9 +14,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class QueryTools {
+public class DataTools {
     static String pattern = "MM/dd/yyyy HH:mm:ss";
     static DateFormat df = new SimpleDateFormat(pattern);
+    static UserGetter userGetter;
+
+    static {
+        try {
+            userGetter = new UserGetter();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ArrayList<String> getStrings(ResultSet results, String columnName) throws SQLException {
         ArrayList<String> strings = new ArrayList<>();
@@ -79,4 +89,20 @@ public class QueryTools {
         }
         return convertedStrings;
     }
+
+    public static ArrayList<String> getUserIds (ArrayList<String> usernames, boolean organizer) throws SQLException {
+        ArrayList<String> ptcIDs= new ArrayList<String>();
+        for (String participantUsername : usernames) {
+            String ptcID = null;
+            try {
+                ptcID = userGetter.getUserID(participantUsername, organizer);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            ptcIDs.add(ptcID);
+        }
+        return (ptcIDs);
+    }
+
+
 }

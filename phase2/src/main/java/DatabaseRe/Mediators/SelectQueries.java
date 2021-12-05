@@ -3,7 +3,7 @@ package main.java.DatabaseRe.Mediators;
 /**
  * Query class contains the queries that need to be made to the database
  */
-public abstract class Query {
+public abstract class SelectQueries {
     public static String usedRaffleIDs = "select raffleID from innodb.RaffleDetails;";
     public static String usedOrganizerIdsQuery = "SELECT OuserID FROM innodb.OrganizerUsernames;";
     public static String usedParticipantIdsQuery = "SELECT PuserID FROM innodb.ParticipantUsernames;";
@@ -59,5 +59,10 @@ public abstract class Query {
         return "SELECT `TaskStatus`.`taskStatus`" +
                 "FROM `innodb`.`TaskStatus`" +
                 "WHERE PuserID=\"" + ptcRaffleId + "\" AND taskID=\"" + taskId + "\";";
+    }
+
+    public static String getPusername(String userID) {
+        return "SELECT ParticipantUsernames.* FROM `innodb`.`ParticipantUsernames` WHERE " +
+                "ParticipantUsernames.PuserID = \""+ userID +"\";";
     }
 }

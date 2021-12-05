@@ -133,6 +133,7 @@ public class AccessData implements DataAccessPoint {
     }
 
     @Override
+    // TODO: make this function clean
     public ArrayList<String> getValidParticipants(String orgRaffleId) {
         try {
             ArrayList<String> tasks = taskGetter.getTaskIDsInRaffle(orgRaffleId);

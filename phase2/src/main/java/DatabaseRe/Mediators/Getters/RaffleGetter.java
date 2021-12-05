@@ -1,7 +1,7 @@
 package main.java.DatabaseRe.Mediators.Getters;
 
-import main.java.DatabaseRe.Mediators.Query;
-import main.java.DatabaseRe.Mediators.QueryTools;
+import main.java.DatabaseRe.Mediators.SelectQueries;
+import main.java.DatabaseRe.Mediators.DataTools;
 import main.java.DatabaseRe.TalkToDatabase.SelectQuery;
 
 import java.sql.ResultSet;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class RaffleGetter {
     SelectQuery selectQuery = new SelectQuery();
-    QueryTools queryTools = new QueryTools();
+    DataTools dataTools = new DataTools();
 
 
     public RaffleGetter() throws SQLException {
@@ -22,9 +22,9 @@ public class RaffleGetter {
      * @return An array of strings containing raffle details in format: [raflleName, noOfWinners, rafflRules, endDate]
      */
     public ArrayList<Object> getDetails(String orgRaffleId) throws SQLException, ParseException {
-        String query = Query.getDetailsQuery(orgRaffleId);
+        String query = SelectQueries.getDetailsQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return (QueryTools.getRow(results));
+        return (DataTools.getRow(results));
     }
 
     /** gets the raffleIDs that are already used by in the system
@@ -32,7 +32,7 @@ public class RaffleGetter {
      */
     public ArrayList<String> getUsedRaffleIds() throws SQLException {
         ArrayList<String> usedIDs = new ArrayList<>();
-        String query = Query.usedRaffleIDs;
+        String query = SelectQueries.usedRaffleIDs;
         ResultSet results = selectQuery.getResultSet(query);
 
         while (results.next()) {
@@ -43,16 +43,16 @@ public class RaffleGetter {
     }
 
     public Object getWinners(String orgRaffleId) throws SQLException {
-        String query = Query.getWinnersQuery(orgRaffleId);
+        String query = SelectQueries.getWinnersQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return queryTools.getStrings(results, "PuserID");
+        return dataTools.getStrings(results, "PuserID");
     }
 
     public ArrayList<String> getTaskDetails(String taskId) throws SQLException, ParseException {
-        String query = Query.getTaskQuery(taskId);
+        String query = SelectQueries.getTaskQuery(taskId);
         ResultSet results = selectQuery.getResultSet(query);
-        ArrayList<Object> raffleDetails = QueryTools.getRow(results);
-        return QueryTools.convertToString(raffleDetails);
+        ArrayList<Object> raffleDetails = DataTools.getRow(results);
+        return DataTools.convertToString(raffleDetails);
     }
 
 
