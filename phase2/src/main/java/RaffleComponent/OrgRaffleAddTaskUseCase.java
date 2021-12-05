@@ -1,10 +1,14 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.database.AddOrganizer;
 import main.java.database.DataExtractor;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -37,23 +41,26 @@ public class OrgRaffleAddTaskUseCase {
 //        this.editToPerform = editToPerform;
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataAccess = new AccessData();
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
             this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(raffleId);
-        } catch (IOException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+//        try {
+//            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(raffleId);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataUploader = new ProvideData();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -61,12 +68,14 @@ public class OrgRaffleAddTaskUseCase {
         // at the moment of task adding, no participant can join the raffle yet
 
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
+                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3),
+                (String)this.orgRaffleInfo.get(6));
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
 
          this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
          this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
+         this.orgRaffle.setOrgUsername((String)this.orgRaffleInfo.get(6));
         // no winners set yet
 
 //        this.dataPackager = new PackageRaffleEntityInstance();
@@ -83,12 +92,7 @@ public class OrgRaffleAddTaskUseCase {
             this.orgRaffle.getTaskIdList().addAll(this.taskIds);  // taskIds being set for the first time
 //        ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
 
-            try {
-                this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
-                        this.orgRaffle.getTaskIdList());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.dataUploader.addTasks(this.orgRaffle.getRaffleId(), this.orgRaffle.getTaskIdList());
 
             return true;
         }

@@ -1,18 +1,21 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.database.DataExtractor;
 import main.java.database.JoinUserToRaffle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LoginRaffleUseCase {
 
-    private final String FIELD_TO_BE_CHANGED = "PtcIdList";
     private final String orgRaffleId;
     private final String ptcLoggingInId;
     private ArrayList<Object> orgRaffleInfo;
@@ -39,33 +42,38 @@ public class LoginRaffleUseCase {
         this.ptcLoggingInId = ptcId;  // provided by system
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataAccess = new AccessData();
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataUploader = new ProvideData();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
             this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
-        } catch (IOException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+//        try {
+//            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 //        this.dataPackager = new PackageRaffleEntityInstance();
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                  Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
-                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),(String)this.orgRaffleInfo.get(3));
+                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),(String)this.orgRaffleInfo.get(6));
+        // todo, this 6 is assuming orgUsername is passed
         this.orgRaffle.setRaffleId(orgRaffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
+        // todo: watch out for possible null here, Im not sure if database took care of this appropriately
         this.orgRaffle.setTaskIdList((ArrayList<String>)this.orgRaffleInfo.get(4));
         this.orgRaffle.setParticipantIdList((ArrayList<String>)this.orgRaffleInfo.get(5));
         // winnerList automatically set by constructor to empty, as it should stay while participants can log in
@@ -96,18 +104,19 @@ public class LoginRaffleUseCase {
 
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
 
+            // todo: change this so that it isnt an array, we only need to add a single participant at a time
             try {
-                this.dataUploader.uploadLoggedInRaffle(this.ptcRaffle.getRaffleId());
+                this.dataUploader.addParticipantsToRaffle(this.ptcLoggingInId, this.orgRaffleId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            try {
-                this.dataUploader.uploadModifiedPtcRaffle(this.ptcRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
-                        this.orgRaffle.getParticipantIdList());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                this.dataUploader.uploadModifiedRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
+//                        this.orgRaffle.getParticipantIdList());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             return true;
         }
 

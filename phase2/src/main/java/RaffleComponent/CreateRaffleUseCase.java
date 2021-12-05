@@ -1,24 +1,24 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.Helpers.EntityIdGenerator;
-import main.java.database.AddOrganizer;
-import main.java.database.DataExtractor;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CreateRaffleUseCase {
 
-    private final OrganizerRaffleEntity raffle;
+    private final OrganizerRaffleEntity orgRaffle;
     private final EntityIdGenerator idGenerator;
     private static final char entityCode = 'R';
     private ArrayList<String> takenIds;
     private final String orgUsername;
 //    private boolean creationOutcome;
-    private final PackageRaffleEntityInstance dataPackager;
+//    private final PackageRaffleEntityInstance dataPackager;
     private DataAccessPoint dataAccess;
     private DataProviderPoint dataUploader;
 //    private ArrayList<Object>  raffleInfoSoFar;
@@ -37,28 +37,32 @@ public class CreateRaffleUseCase {
      * @param orgUsername the username of the organizer creating this raffle
      */
     public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername){
-        this.raffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
+        this.orgRaffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataAccess = new AccessData();
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataUploader = new ProvideData();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         try {
             this.takenIds = this.dataAccess.getTakenRaffleIds();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+//        try {
+//            this.takenIds = this.dataAccess.getTakenRaffleIds();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         this.idGenerator = new EntityIdGenerator(this.takenIds);
-        this.dataPackager = new PackageRaffleEntityInstance();
+//        this.dataPackager = new PackageRaffleEntityInstance();
 //        this.raffleInfoSoFar = new ArrayList<>();
 //        this.raffleInfoSoFar.add(raffleName);
 //        this.raffleInfoSoFar.add(numOfWinners);
@@ -79,19 +83,24 @@ public class CreateRaffleUseCase {
         this.generatedRaffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
 
         if (!this.takenIds.contains(this.generatedRaffleId)){
-            this.raffle.setRaffleId(this.generatedRaffleId);  // always true based on RaffleIdGenerator
+            this.orgRaffle.setRaffleId(this.generatedRaffleId);  // always true based on RaffleIdGenerator
             // update  takenIds
             this.takenIds.add(this.generatedRaffleId);
 //            this.raffleInfoSoFar.add(this.generatedRaffleId);
 
-            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.raffle);
-            try {
-                // todo revisit this uploading method with khushaal, what about the raffle Id?
-                //  might change the packaging method to not include the empty arrayLists
-                this.dataUploader.uploadCreatedRaffle(this.orgUsername, packagedOrgRaffle);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            ArrayList<Object> packagedOrgRaffle = this.dataPackager.packageOrganizerRaffle(this.orgRaffle);
+            this.dataUploader.addRaffle(this.orgRaffle.getRaffleId(), this.orgUsername,
+                    this.orgRaffle.getRaffleName(),
+                    this.orgRaffle.getNumberOfWinners(),
+                    this.orgRaffle.getRaffleRules(),
+                    this.orgRaffle.getEndDate());
+            // TODO: khushaal, this should be a LocalDate type, not a Date type
+
+            // not added because empty
+//            this.orgRaffle.getTaskIdList(),
+//            this.orgRaffle.getParticipantIdList(),
+//            this.orgRaffle.getWinnerList()
+
             return true;
         }
 
@@ -104,8 +113,8 @@ public class CreateRaffleUseCase {
     }
 
     // for testing purposes
-    public OrganizerRaffleEntity getRaffle() {
-        return this.raffle;
+    public OrganizerRaffleEntity getOrgRaffle() {
+        return this.orgRaffle;
     }
 
 //    public CreationResult getCreationOutcome() {

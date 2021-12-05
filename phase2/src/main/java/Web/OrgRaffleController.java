@@ -32,7 +32,7 @@ public class OrgRaffleController {
     // returning attributes
     private boolean creationResult;
     private ArrayList<String> winnersGenerated;
-    private LocalDate updatedEnddate;
+    private LocalDate updatedEndDate;
 
     public enum OrgRaffleAction {
         CREATE, SET_RULES, GENERATE_WINNERS, EDIT_TASKS, EDIT_ENDDATE

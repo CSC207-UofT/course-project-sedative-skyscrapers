@@ -1,10 +1,14 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.database.DataExtractor;
 import main.java.database.JoinUserToRaffle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,7 +16,6 @@ import java.util.ArrayList;
 // the use case for when a raffle organizer wants to decide the winners of a raffle
 public class RaffleWinnerGeneratorUseCase {
 
-    private final String FIELD_TO_BE_CHANGED = "WinnerIdList";
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
 //    private PackageRaffleEntityInstance dataPackager;
@@ -27,42 +30,35 @@ public class RaffleWinnerGeneratorUseCase {
     public RaffleWinnerGeneratorUseCase(String raffleId) {
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataAccess = new AccessData();
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
-            // todo this will be the name of the file khushaal provides
-            this.dataUploader = new Providedata();
-        } catch (IOException e) {
+            this.dataUploader = new ProvideData();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
             this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(raffleId);
-        } catch (IOException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //System.out.println("this.orgRaffleInfo(2) = "+this.orgRaffleInfo.get(2));
-        // todo: need the orgname to be returned by the database
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                 Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
-                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf));
+                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),
+                (String)this.orgRaffleInfo.get(6));
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
         this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
         this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
         // no winners set yet
 
-        try {
-            this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
 
     }
 
@@ -76,9 +72,8 @@ public class RaffleWinnerGeneratorUseCase {
             this.orgRaffle.setWinnerList(this.generateWinners());
 
             try {
-                this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(),
-                        this.FIELD_TO_BE_CHANGED, this.orgRaffle.getWinnerList());
-            } catch (IOException e) {
+                this.dataUploader.addWinnersToRaffle(this.orgRaffle.getRaffleId(), this.orgRaffle.getWinnerList());
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 

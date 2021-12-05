@@ -1,10 +1,14 @@
 package main.java.RaffleComponent;
 
+import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.ProvideData;
 import main.java.database.AddOrganizer;
 import main.java.database.DataExtractor;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -29,36 +33,37 @@ public class RaffleEndDateModifierUseCase {
     /**
      * Constructor for the use case handling the event of an organizer setting the rules of a raffle
      * @param orgRaffleId reference to the organizer raffle entity whose rules attribute is being overridden
-     * @param rulesString the string of rules for the organizer raffle instance this.orgRaffle
-     * @param raffleInfoSoFar the arraylist of object carrying the information to be passed to the next step in the raffle
-     *        creation process [name, numOfWinners, endDate, raffleId]
      */
     public RaffleEndDateModifierUseCase(String orgRaffleId, LocalDate newEndDate){
         this.newEndDate = newEndDate;
 //        this.raffleInfoSoFar = raffleInfoSoFar;  // format [name, numOfWinners, endDate, raffleId]
 
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataAccess = new AccessData();
-        } catch (FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            // todo this will be the name of the file khushaal provides
             this.dataUploader = new ProvideData();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
             this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
-        } catch (IOException e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+//        try {
+//            this.orgRaffleInfo = this.dataAccess.getOrganizerRaffleById(orgRaffleId);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         // todo: need the orgname to be returned by the database
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3));
+                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3),
+                (String)this.orgRaffleInfo.get(6));
         this.orgRaffle.setRaffleId(orgRaffleId);
         // taskIdList, ptcIdList and winnerIdList empty at this stage
 
@@ -78,8 +83,9 @@ public class RaffleEndDateModifierUseCase {
 //        DataAccess.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), packagedOrgRaffle)
 //        this.raffleInfoSoFar.add(this.rulesString); // format [name, numOfWinners, endDate, raffleId, rules]
 //        return this.raffleInfoSoFar;
-        this.dataUploader.uploadModifiedOrgRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
-                this.orgRaffle.getRaffleRules());
+        // todo: need a method like updateRaffleRules but for the endDate
+        this.dataUploader.uploadModifiedRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,
+                this.orgRaffle.getEndDate());
 
         this.updatePtcRaffles();
         return true;
@@ -90,17 +96,25 @@ public class RaffleEndDateModifierUseCase {
             // create ptcRaffleObject
             String ptcRaffleId = participant + ":" + this.orgRaffle.getRaffleId();
 
+            ArrayList<Object> ptcRaffleInfo = null;
             try {
-                ArrayList<Object> ptcRaffleInfo = this.dataAccess.getParticipantRaffleById(ptcRaffleId);
-            } catch (IOException e) {
+                ptcRaffleInfo = this.dataAccess.getParticipantRaffleById(ptcRaffleId);
+            } catch (SQLException | ParseException e) {
                 e.printStackTrace();
             }
-
-            try {
-                this.dataUploader.uploadModifiedPtcRaffle(ptcRaffleId, this.FIELD_TO_BE_CHANGED,
-                        updatedEndDate(ptcRaffleInfo));
-            } catch (IOException e) {
-                e.printStackTrace();
+//            try {
+//                ArrayList<Object> ptcRaffleInfo = this.dataAccess.getParticipantRaffleById(ptcRaffleId);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            if (ptcRaffleInfo != null) {
+                try {
+                    // todo: need a method like updateRaffleRules but for the endDate
+                    this.dataUploader.uploadModifiedRaffle(ptcRaffleId, this.FIELD_TO_BE_CHANGED,
+                            updatedEndDate(ptcRaffleInfo));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

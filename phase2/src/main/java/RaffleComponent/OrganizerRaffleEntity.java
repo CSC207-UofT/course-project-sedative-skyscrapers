@@ -16,7 +16,7 @@ public class OrganizerRaffleEntity {
     private ArrayList<String> taskIdList;
     private ArrayList<String> participantIdList;
     private ArrayList<String> winnerIdList;
-    private final String orgUsername;
+    private String orgUsername;
 
     /**
      * Constructor initializing a new OrganizerRaffleEntity according to the inputs
@@ -132,5 +132,9 @@ public class OrganizerRaffleEntity {
 
     public void setParticipantIdList(ArrayList<String> participantIdList) {
         this.participantIdList = participantIdList;
+    }
+
+    public void setOrgUsername(String orgUsername) {
+        this.orgUsername = orgUsername;
     }
 }
