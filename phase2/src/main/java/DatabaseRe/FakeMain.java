@@ -1,16 +1,34 @@
 package main.java.DatabaseRe;
 
-import java.sql.SQLException;
-import java.text.ParseException;
-
 public class FakeMain {
-    public static void main(String[] args) throws SQLException, ParseException {
-        AccessData accessData = new AccessData();
-//        System.out.print(accessData.getOrganizerRaffleById("R02"));
-//        System.out.print(accessData.getTaskById("T02"));
-//        System.out.print(accessData.getOrganizerInfo("chutiyanfkljf"));
-//        System.out.print(accessData.getParticipantInfo("Sharma Ji"));
-//        System.out.print(accessData.getOrganizerRaffleIds("CHUsTIYE"));
-          System.out.print(accessData.getValidParticipants("R01"));
+    public static void main(String[] args) throws Exception {
+//        ProvideData provideData = new ProvideData();
+//        provideData.changeOrganizerDetail("Khushaal", "organization", "Congress Communist");
+//        ArrayList<String> raffles = new ArrayList<>();
+//        raffles.add("R01");
+//        provideData.addParticipant("0989", "chutiya123", "bhosadika123", "gand", "land", "2009-11-21", "9090987878", "janam@chutiya.com", raffles);
+//        provideData.updateRaffleRules("R01", "do you mean it?");
+//
+//        TaskAdder taskAdder = new TaskAdder();
+//        //        UserAdder userAdder = new UserAdder();
+//        ArrayList<String> ptcs = new ArrayList<>();
+//        ptcs.add("P01");
+//        ptcs.add("P02");
+//        taskAdder.assignParticipantsTaskStatus("R01", ptcs);
+//        userAdder.winnersToRaffle("R03", ptcs);
+//        RaffleAdder raffleAdder = new RaffleAdder();
+//        UserGetter userGetter = new UserGetter();
+//        System.out.print(userGetter.checkParticipantID("P01"));
+//        ProvideData provideData = new ProvideData();
+
+//        ArrayList<String> places = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
+//        taskAdder.addTaskIds("R04", places);
+//        System.out.println("Bhosadike khatam ho gaya program.");
+//        int year = 2023;
+//        int month = 12;
+//        Date date = new Date(year - 1900, month - 1, 21);
+//        System.out.print(date.toString());
+//        raffleAdder.addRaffleDetails("R04", "melt", 12,
+//                "These are super important rules", date);
     }
 }
