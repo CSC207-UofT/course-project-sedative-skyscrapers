@@ -36,6 +36,7 @@ public class AccessData implements DataAccessPoint {
             raffleDetails.add(taskGetter.getTaskIDsInRaffle(orgRaffleId));
             raffleDetails.add(userGetter.getParticipantsInRaffle(orgRaffleId));
             raffleDetails.add(raffleGetter.getWinners(orgRaffleId));
+            raffleDetails.add(raffleGetter.getOrganizer(orgRaffleId));
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }

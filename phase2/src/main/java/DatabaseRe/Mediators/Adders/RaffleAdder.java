@@ -5,8 +5,8 @@ import main.java.DatabaseRe.Mediators.InsertQueries;
 import main.java.DatabaseRe.TalkToDatabase.InsertUpdateQuery;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RaffleAdder {
     static UserGetter userGetter;
@@ -22,8 +22,8 @@ public class RaffleAdder {
     public RaffleAdder() throws SQLException {
     }
 
-    public static void addParticipantsToRaffle(String orgRaffleId, ArrayList<String> ptcIDs) throws Exception {
-        for (String ptcID: ptcIDs) {
+    public static void addParticipantsToRaffle(String orgRaffleId, ArrayList<String> partID) throws Exception {
+        for (String ptcID: partID) {
             boolean userExists = userGetter.checkParticipantID(ptcID);
             if (userExists) {
                 String query = InsertQueries.participantToRaffle(orgRaffleId, ptcID);
@@ -37,9 +37,13 @@ public class RaffleAdder {
 
 
     public void addRaffleDetails(String orgRaffleId, String raffleName, Integer numberOfWinners,
-                                 String raffleRules, Date endDate) throws SQLException {
+                                 String raffleRules, LocalDate endDate)  {
         String query = InsertQueries.raffleDetails(orgRaffleId, raffleName, numberOfWinners, raffleRules, endDate);
-        InsertUpdateQuery.run(query);
+        try {
+            InsertUpdateQuery.run(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

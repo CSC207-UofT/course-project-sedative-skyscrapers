@@ -1,11 +1,12 @@
 package main.java.DatabaseRe.Mediators;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class InsertQueries {
 
     public static String raffleDetails(String orgRaffleId, String raffleName, Integer numberOfWinners,
-                                       String raffleRules, Date endDate) {
+                                       String raffleRules, LocalDate endDate) {
         String date = endDate.toString();
         return "INSERT INTO `innodb`.`RaffleDetails` (`raffleID`,`noOfWinners`,`raffleName`,`raffleRules`," +
                 "`startDate`,`endDate`) VALUES (\"" + orgRaffleId + "\", " + String.valueOf(numberOfWinners) + ", " +
