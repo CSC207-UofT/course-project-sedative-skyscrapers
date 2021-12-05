@@ -2,6 +2,7 @@ package main.java.UserComponent;
 import java.time.LocalDate;
 
 public class Participant {
+    private final String userId;
     private final String username;
     private final String password;
     private final String firstName;
@@ -10,7 +11,8 @@ public class Participant {
     private String phone;
     private String email;
 
-    public Participant(String username, String password, String firstName, String lastName) {
+    public Participant(String userId, String username, String password, String firstName, String lastName) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -18,6 +20,10 @@ public class Participant {
         this.dateOfBirth = null;
         this.phone = null;
         this.email = null;
+    }
+
+    public String getUserId(){
+        return this.userId;
     }
 
     public String getUsername() {
@@ -46,38 +52,4 @@ public class Participant {
                 this.lastName + "\n date of birth: " + this.dateOfBirth + "\nphone: " + this.phone + "\nemail: " +
                 this.email;
     }
-
-//    public static class ParticipantBuilder {
-//        private final String userName; //required
-//        private final String firstName; //required
-//        private final String lastName; //required
-//        private Date dateOfBirth; //optional
-//        private String phone; //optional
-//        private String email; //optional
-//
-//        public ParticipantBuilder(String userName, String firstName, String lastNme) {
-//            this.userName = userName;
-//            this.firstName = firstName;
-//            this.lastName = lastNme;
-//        }
-//
-//        public ParticipantBuilder dateOfBirth(Date dateOfBirth) {
-//            this.dateOfBirth = dateOfBirth;
-//            return this;
-//        }
-//
-//        public ParticipantBuilder phone(String phone) {
-//            this.phone = phone;
-//            return this;
-//        }
-//
-//        public ParticipantBuilder email(String email) {
-//            this.email = email;
-//            return this;
-//        }
-//
-//        public Participant build() {
-//            return new Participant(this);
-//        }
-//    }
 }
