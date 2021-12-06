@@ -26,10 +26,19 @@ public class CheckUserUsernameUseCase {
     }
 
     public boolean checkPtcUsernameMatchPassword(String username, String password){
-        return userLookUp.getPtcPassword(username).equals(password);
+        String pw = userLookUp.getPtcPassword(username);
+        if (pw == null){
+            return false;
+        }
+        return pw.equals(password);
     }
 
     public boolean checkOrgUsernameMatchPassword(String username, String password){
-        return userLookUp.getOrgPassword(username).equals(password);
+        String pw = userLookUp.getOrgPassword(username);
+        System.out.println("pw" + pw);
+        if (pw == null){
+            return false;
+        }
+        return pw.equals(password);
     }
 }

@@ -28,6 +28,10 @@ public class LookUpUser {
 
     public Participant getPtc(String username){
         ArrayList<String> ptcInfo = getPtcInfo(username);
+
+        if (ptcInfo.isEmpty()){
+            return null;
+        }
         String ptcUserId = ptcInfo.get(0);
         String ptcUsername = ptcInfo.get(1);
         String password = ptcInfo.get(2);
@@ -42,11 +46,19 @@ public class LookUpUser {
     }
 
     public String getPtcUserId(String username){
-        return getPtc(username).getUserId();
+        Participant ptc = getPtc(username);
+        if (ptc != null){
+            return ptc.getUserId();
+        }
+        return null;
     }
 
     public String getPtcPassword(String username){
-        return getPtc(username).getPassword();
+        Participant ptc = getPtc(username);
+        if (ptc != null){
+            return ptc.getPassword();
+        }
+        return null;
     }
 
     public ArrayList<String> getOrgInfo(String username){
@@ -55,23 +67,33 @@ public class LookUpUser {
 
     public Organizer getOrg(String username){
         ArrayList<String> orgInfo = getOrgInfo(username);
+        if (orgInfo.isEmpty()){
+            return null;
+        }
         String orgUserId = orgInfo.get(0);
-        String orgUsername = orgInfo.get(1);
-        String password = orgInfo.get(2);
-        String organization = orgInfo.get(3);
+        String password = orgInfo.get(1);
+        String organization = orgInfo.get(2);
         String phone = orgInfo.get(4);
         String email = orgInfo.get(5);
-        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(orgUserId, orgUsername, password,
+        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(orgUserId, username, password,
                 organization, phone, email);
         return getOrganizerUseCase.getOrganizer();
     }
 
     public String getOrgUserId(String username){
-        return getOrg(username).getUserId();
+        Organizer org = getOrg(username);
+        if (org != null){
+            return org.getUserId();
+        }
+        return null;
     }
 
     public String getOrgPassword(String username){
-        return getOrg(username).getPassword();
+        Organizer org = getOrg(username);
+        if (org != null){
+            return org.getPassword();
+        }
+        return null;
     }
 
     public ArrayList<String> getOrgId(String organization){

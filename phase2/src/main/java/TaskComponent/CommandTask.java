@@ -20,6 +20,7 @@ public class CommandTask implements Command {
 
         TaskLookupUseCase Looker = new TaskLookupUseCase(theTaskID);
         Desktop d = Desktop.getDesktop();
+        System.out.println(theTaskID + " " +theRaffleID);
         d.browse(new URI(Looker.getTaskInfo().get(1))); // extracts the taskLink from the task info
 
     }

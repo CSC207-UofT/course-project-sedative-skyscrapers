@@ -21,7 +21,7 @@ public class OrganizerRafflePresenter {
     public String getRaffleDetails()
     {
         ArrayList<Object> details = o.getRaffleDetails(raffleID);
-        String s = "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nNumber of Winners: "+details.get(1)+"\nEnd Date: "+((LocalDate)details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nParticipants:";
+        String s = "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nNumber of Winners: "+details.get(1)+"\nEnd Date: "+((java.util.Date)details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nParticipants:";
         for(int i = 0;i<((ArrayList<String>)details.get(5)).size();i++)
             s += "\n"+(i+1)+". "+((ArrayList<String>)details.get(5)).get(i);
         s += "\nTask Details:\n";

@@ -6,13 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="refactoring(RaffleUseCases): update for database usage (pending final touches)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilderInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/phase2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/phase2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/UserGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/UserGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/OrganizerRafflePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/OrganizerRafflePresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TaskComponent/CommandTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TaskComponent/CommandTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TaskComponent/TaskLookupUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/TaskComponent/TaskLookupUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserComponent/CheckUserUsernameUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserComponent/CheckUserUsernameUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserComponent/LookUpUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserComponent/LookUpUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,14 +47,34 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/DatabaseRe/lib/mysql-connector-java-8.0.27.jar" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.Main" />
+      <module name="phase2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -75,6 +99,8 @@
       <workItem from="1638666831863" duration="4416000" />
       <workItem from="1638715855399" duration="2933000" />
       <workItem from="1638718893617" duration="7581000" />
+      <workItem from="1638782753799" duration="12453000" />
+      <workItem from="1638795737984" duration="1587000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
       <created>1637956673104</created>

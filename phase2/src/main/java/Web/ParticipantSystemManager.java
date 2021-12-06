@@ -101,7 +101,7 @@ public class ParticipantSystemManager {
     // todo: Let varun loop thorugh and make arraylist of emails and pass that array list to generateWinenrs func.
     public String generateEmail(String username){
         UserController userCont = new UserController();
-        return userCont.getExistedParticipantInfo(username).get(7);
+        return userCont.getExistedParticipantInfo(username).get(4);
     }
 
     public boolean isValidUsername(String username){

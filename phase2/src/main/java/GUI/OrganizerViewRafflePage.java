@@ -68,8 +68,8 @@ public class OrganizerViewRafflePage extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
                 OrganizerMainPage omp = new OrganizerMainPage(username);
+                frame.setVisible(false);
             }
         });
 

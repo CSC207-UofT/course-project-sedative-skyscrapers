@@ -81,7 +81,8 @@ public class UserGetter {
             return dataTools.getStrings(results, columnName).get(0);
         }
         catch (IndexOutOfBoundsException e) {
-            throw new Exception("The user does not exists");
+//            throw new Exception("The user does not exists");
+            return "";
         }
     }
 

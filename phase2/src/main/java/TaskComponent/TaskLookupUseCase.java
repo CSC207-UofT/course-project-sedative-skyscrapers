@@ -15,7 +15,7 @@ public class TaskLookupUseCase {
         this.extractor = new AccessData();
     }
 
-    public ArrayList<String> getTaskInfo() throws FileNotFoundException{
+    public ArrayList<String> getTaskInfo() {
         return extractor.getTaskById(this.taskID);
     }
 
