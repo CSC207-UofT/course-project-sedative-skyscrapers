@@ -1,6 +1,7 @@
 package main.java.DatabaseRe.Mediators;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class InsertQueries {
@@ -77,5 +78,14 @@ public abstract class InsertQueries {
                 "\""+ phone  + "\" ," +
                 "\""+ email + "\" " +
                 ");";
+    }
+
+    public static String addTaskDetails(String taskId, ArrayList<String> taskInfo) {
+        return "INSERT INTO `innodb`.`TaskDetails`(`taskID`,`taskName`,`link`,`descrp`) " +
+                "VALUES " +
+                "(\""+ taskId+"\", " +
+                "\""+taskInfo.get(0) +"+\"," +
+                "\""+taskInfo.get(1) +"\"," +
+                "\""+taskInfo.get(2) +"\");";
     }
 }

@@ -103,7 +103,7 @@ public class ProvideData implements DataProviderPoint {
      * Adds the details of the task
      * Note: The task must already exist.
      *
-     * @param taskInfo contains the information in the format:
+     * @param taskInfo contains the information in the format: [taskName, link, description]
      */
     @Override
     public void addDetailsOfTask(String taskId, ArrayList<String> taskInfo) {
