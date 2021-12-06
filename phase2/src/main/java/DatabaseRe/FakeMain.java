@@ -44,11 +44,12 @@ public class FakeMain {
 //        System.out.print(date.toString());
 //        raffleAdder.addRaffleDetails("R04", "melt", 12,
 //                "These are super important rules", date);
-        AccessData accessData = new AccessData();
-        System.out.println("This is how you see participant info");
-        System.out.print(accessData.getParticipantInfo("chutiya"));
-        System.out.println("\nThis is how you see organizer info");
-        System.out.print(accessData.getOrganizerInfo("chutiya"));
+//        AccessData accessData = new AccessData();
+//        System.out.print(accessData.getOrgIDByOrganization("organization"));
+//        System.out.println("This is how you see participant info");
+//        System.out.print(accessData.getParticipantInfo("chutiya"));
+//        System.out.println("\nThis is how you see organizer info");
+//        System.out.print(accessData.getOrganizerInfo("chutiya"));
 
     }
 }

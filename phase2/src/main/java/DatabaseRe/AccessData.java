@@ -170,5 +170,15 @@ public class AccessData implements DataAccessPoint {
         return null;
     }
 
+    @Override
+    public ArrayList<String> getOrgIDByOrganization(String organization) {
+        try {
+            return userGetter.getOrgIDfromOrganization(organization);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }
