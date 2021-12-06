@@ -180,5 +180,15 @@ public class AccessData implements DataAccessPoint {
         return null;
     }
 
+    @Override
+    public ArrayList<String> getTakenTaskIds() {
+        try {
+            return taskGetter.getUsedTaskIDs();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

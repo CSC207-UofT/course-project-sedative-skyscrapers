@@ -28,4 +28,10 @@ public class TaskGetter {
         results.next();
         return results.getBoolean("taskStatus");
     }
+
+    public ArrayList<String> getUsedTaskIDs() throws SQLException {
+        String query = SelectQueries.usedTaskIDs;
+        ResultSet results = selectQuery.getResultSet(query);
+        return dataTools.getStrings(results, "taskID");
+    }
 }
