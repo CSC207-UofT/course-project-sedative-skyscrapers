@@ -2,14 +2,17 @@ package main.java.UserComponent;
 
 import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
+
 import main.java.Helpers.EntityIdGenerator;
+import main.java.RaffleComponent.DataAccessPoint;
+import main.java.RaffleComponent.DataProviderPoint;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CreateUserUseCase {
     private DataAccessPoint DataAccess;
-    private final DataProviderPoint DataProvider;
+    private DataProviderPoint DataProvider;
 
     public CreateUserUseCase(){
         try {
@@ -31,7 +34,7 @@ public class CreateUserUseCase {
         ArrayList<Integer> takenPtcUserNums = userIdGenerator.takenNumList("P".charAt(0));
         String ptcUserId = userIdGenerator.generateEntityId("P".charAt(0), takenPtcUserNums);
         DataProvider.addParticipant(ptcUserId, username, password, firstName, lastName, dateOfBirth, phone,
-                email);
+                email,new ArrayList<String>(0));
     }
 
     public void storeOrganizer(String username, String password, String organization, String phone,
@@ -40,6 +43,6 @@ public class CreateUserUseCase {
         EntityIdGenerator userIdGenerator = new EntityIdGenerator(allTakenOrgIds);
         ArrayList<Integer> takenOrgUserNums = userIdGenerator.takenNumList("O".charAt(0));
         String orgUserId = userIdGenerator.generateEntityId("O".charAt(0), takenOrgUserNums);
-        DataProvider.addOrganizer(orgUserId, username, password, organization, password, phone, email);
+        DataProvider.addOrganizer(orgUserId, username, password, organization, phone, email);
     }
 }

@@ -1,5 +1,7 @@
 package main.java.GUI;
 
+import main.java.Presenters.OrganizerPresenter;
+import main.java.Presenters.ParticipantRafflePresenter;
 import main.java.Web.OrganizerSystemManager;
 
 import javax.swing.*;
@@ -10,19 +12,22 @@ import java.util.ArrayList;
 
 //OrganizerMainPage
 public class OrganizerMainPage extends JFrame {
-    public String username;
-    public static JLabel welcomeLabel;
-    public static JFrame orgFrame;
-    public static JPanel orgPanel;
-    public static JPanel bigPanel;
-    public static JScrollPane scrollPane;
-    public JButton[] orgRaffle;
-    public static JLabel orgRaffleLabel;
-    public static JButton createRaffle;
-    public static JButton logout;
+    private String username;
+    private JLabel welcomeLabel;
+    private JFrame orgFrame;
+    private JPanel orgPanel;
+    private JPanel bigPanel;
+    private JScrollPane scrollPane;
+    private JButton[] orgRaffle;
+    private JLabel orgRaffleLabel;
+    private JButton createRaffle;
+    private JButton logout;
+    private JButton exitButton;
+    private OrganizerPresenter op;
 
     public OrganizerMainPage(String username) {
         this.username = username;
+        op = new OrganizerPresenter(username);
         initComponents();
     }
 
@@ -33,16 +38,16 @@ public class OrganizerMainPage extends JFrame {
 
         bigPanel = new JPanel();
         bigPanel.setBounds(0, 0, orgFrame.getWidth(), orgFrame.getHeight());
-        bigPanel.setBackground(new Color(0, 240, 100, 100));
+        bigPanel.setBackground(new Color(0,240,100,100));
 
         orgPanel = new JPanel();
         GroupLayout gl = new GroupLayout(orgPanel);
         orgPanel.setLayout(gl);
-        orgPanel.setBackground(new Color(255,255,255));
+        orgPanel.setBackground(new Color(160,160,160,150));
 
         scrollPane = new JScrollPane(orgPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(0,orgFrame.getHeight()/6,orgFrame.getWidth(),(4*orgFrame.getHeight()/6));
-        scrollPane.setBackground(new Color(255,255,255));
+        scrollPane.setBounds(0,orgFrame.getHeight()/10,orgFrame.getWidth(),(6*orgFrame.getHeight()/8));
+        scrollPane.setBackground(new Color(160,160,160,150));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         welcomeLabel = new JLabel("Welcome!", SwingConstants.CENTER);
@@ -58,7 +63,7 @@ public class OrganizerMainPage extends JFrame {
         orgRaffleLabel.setPreferredSize(new Dimension(7 * orgFrame.getWidth() / 8, 40));
         orgRaffleLabel.setMinimumSize(orgRaffleLabel.getPreferredSize());
         orgRaffleLabel.setMaximumSize(orgRaffleLabel.getPreferredSize());
-        orgRaffleLabel.setFont(new Font("Apple Chancery", Font.PLAIN, 28));
+        orgRaffleLabel.setFont(new Font("Apple Chancery", Font.PLAIN, 32));
         orgRaffleLabel.setForeground(new Color(0, 0, 0));
 
         OrganizerSystemManager osm = new OrganizerSystemManager();
@@ -73,6 +78,20 @@ public class OrganizerMainPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 OrganizerCreateRafflePage o = new OrganizerCreateRafflePage(username);
                 orgFrame.setVisible(false);
+            }
+        });
+
+        exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        exitButton.setPreferredSize(new Dimension(orgFrame.getWidth()/6,50));
+        exitButton.setMinimumSize(exitButton.getPreferredSize());
+        exitButton.setMaximumSize(exitButton.getPreferredSize());
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int option = JOptionPane.showConfirmDialog(orgFrame,"Are you sure you want to exit?","Confirm exit",JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION)
+                    System.exit(0);
             }
         });
 
@@ -104,11 +123,13 @@ public class OrganizerMainPage extends JFrame {
 
         GroupLayout.SequentialGroup sg = gl.createSequentialGroup()
                 .addComponent(welcomeLabel)
-                .addComponent(orgRaffleLabel);
+                .addGap(50)
+                .addComponent(orgRaffleLabel)
+                .addGap(30);
 
 
 
-        String[] raffleIDs = osm.getOrgRaffleID(username);
+        String[] raffleIDs = op.getAllRaffleIDs();
 
         orgRaffle = new JButton[raffleIDs.length];
 
@@ -117,11 +138,12 @@ public class OrganizerMainPage extends JFrame {
             for(int i = 0;i< raffleIDs.length;i++)
             {
                 ArrayList<Object> raffleInfo = osm.getRaffleDetails(raffleIDs[i]);
-                orgRaffle[i] = new JButton( username + "\t\t\t" + raffleInfo.get(0) + "\t\t\t" + raffleIDs[i] + "\t\t\t" + raffleInfo.get(2).toString());
+                orgRaffle[i] = new JButton( op.formatRaffleDetails(raffleIDs[i],i));
                 orgRaffle[i].setAlignmentX(Component.LEFT_ALIGNMENT);
                 orgRaffle[i].setPreferredSize(new Dimension(7 * orgFrame.getWidth() / 8, 50));
                 orgRaffle[i].setMinimumSize(orgRaffle[i].getPreferredSize());
                 orgRaffle[i].setMaximumSize(orgRaffle[i].getPreferredSize());
+                orgRaffle[i].setFont(new Font("Calibri",Font.ITALIC,14));
                 orgRaffle[i].addActionListener(new RaffleButton(raffleIDs[i],orgFrame,false,username));
                 pg.addComponent(orgRaffle[i]);
                 sg.addComponent(orgRaffle[i]);
@@ -129,8 +151,8 @@ public class OrganizerMainPage extends JFrame {
 
         }
 
-        pg.addGroup(gl.createSequentialGroup().addComponent(logout).addComponent(createRaffle));
-        sg.addGroup(gl.createParallelGroup().addComponent(logout).addComponent(createRaffle));
+        pg.addGroup(gl.createSequentialGroup().addComponent(logout).addComponent(createRaffle).addComponent(exitButton));
+        sg.addGap(70).addGroup(gl.createParallelGroup().addComponent(logout).addComponent(createRaffle).addComponent(exitButton));
 
         gl.setHorizontalGroup(pg);
         gl.setVerticalGroup(sg);

@@ -61,13 +61,20 @@ public class OrgRaffleController {
 
     public boolean runRaffleController(OrgRaffleAction actionToProcess){
 
-        return switch (actionToProcess) {
-            case CREATE -> this.runRaffleCreation();
-            case SET_RULES -> this.runRaffleRuleSetter();
-            case GENERATE_WINNERS -> this.runRaffleWinnerGenerator();
-            case EDIT_TASKS -> this.runEditOrgTaskList();
-            case EDIT_ENDDATE -> this.runEditEndDate();
-        };
+        switch (actionToProcess) {
+            case CREATE:
+                return this.runRaffleCreation();
+            case SET_RULES:
+                return this.runRaffleRuleSetter();
+            case GENERATE_WINNERS:
+                return this.runRaffleWinnerGenerator();
+            case EDIT_TASKS:
+                return this.runEditOrgTaskList();
+            case EDIT_ENDDATE:
+                return this.runEditEndDate();
+            default:
+                return false;
+        }
 
     }
 

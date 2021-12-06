@@ -1,6 +1,6 @@
 package main.java.GUI;
 
-import main.java.Web.OrganizerSystemManager;
+import main.java.Presenters.ParticipantRafflePresenter;
 import main.java.Web.ParticipantSystemManager;
 
 import javax.swing.*;
@@ -8,40 +8,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class ParticipantRafflePage extends JFrame {
-    public static JFrame rFrame;
-    public static JScrollPane rScrollPane;
-    public static JPanel rPanel;
-    public boolean isEnrolled;
-    public String raffleID;
-    public static JTextArea raffleInfoField;
-    public static JButton joinButton;
-    public JTextArea[] tasks;
-    public JTextField[] taskNames;
-    public JButton[] executeButtons;
-    public JButton backButton;
-    public static JPanel bigPanel;
-    public String username;
-    public ArrayList<Object> raffleInfo;
+    private JFrame rFrame;
+    private JScrollPane rScrollPane;
+    private JPanel rPanel;
+    private boolean isEnrolled;
+    private String raffleID;
+    private JScrollPane infoScrollPane;
+    private JTextArea raffleInfoField;
+    private JButton joinButton;
+    private JTextArea[] tasks;
+    private JTextField[] taskNames;
+    private JButton[] executeButtons;
+    private JButton backButton;
+    private JPanel bigPanel;
+    private String username;
+    private JScrollPane[] taskDetailsScrollPane;
+    private JButton exitButton;
+    private ParticipantRafflePresenter prp;
 
     public ParticipantRafflePage(String raffleID,String username)
     {
         this.raffleID = raffleID;
         this.username = username;
-        OrganizerSystemManager osm = new OrganizerSystemManager();
-        raffleInfo = osm.getRaffleDetails(raffleID);
-        for(int i = 0;i<((ArrayList<String>)raffleInfo.get(5)).size();i++)
-        if(((ArrayList<String>)raffleInfo.get(5)).contains(username))
-            isEnrolled = true;
-        else
-            isEnrolled = false;
-        //System.out.println(isEnrolled);
-        // code for checking whether the guy is enrolled.
-        //this.isEnrolled = false;
-        //p should be passed in the parameter
-        // this.p = p;
+        prp = new ParticipantRafflePresenter(username, raffleID);
+        isEnrolled = prp.isEnrolled();
         initComponents();
     }
     private void initComponents()
@@ -60,22 +53,24 @@ public class ParticipantRafflePage extends JFrame {
         rPanel.setBackground(new Color(255,255,255));
 
         rScrollPane = new JScrollPane(rPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        rScrollPane.setBounds(0,rFrame.getHeight()/6,rFrame.getWidth(),(4*rFrame.getHeight()/6));
-        rScrollPane.setBackground(new Color(255,255,255));
+        rScrollPane.setBounds(0,rFrame.getHeight()/6,rFrame.getWidth()-20,(4*rFrame.getHeight()/6));
         rScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        rScrollPane.setBackground(new Color(255,255,255));
 
-
-        OrganizerSystemManager osm = new OrganizerSystemManager();
-        //Function to
-        raffleInfoField = new JTextArea("Raffle Name: "+raffleInfo.get(0));
+        raffleInfoField = new JTextArea(prp.getBasicRaffleDetails());
         raffleInfoField.setEditable(false);
         raffleInfoField.setLineWrap(true);
-        raffleInfoField.append("Raffle Rules:");
-        raffleInfoField.append("\n"+raffleInfo.get(2));
-        raffleInfoField.setPreferredSize(new Dimension(3*rFrame.getWidth()/4,100));
+        raffleInfoField.setPreferredSize(new Dimension(rScrollPane.getWidth(),100));
         raffleInfoField.setMinimumSize(raffleInfoField.getPreferredSize());
         raffleInfoField.setMaximumSize(raffleInfoField.getPreferredSize());
-        raffleInfoField.setFont(new Font("Calibri",Font.PLAIN,20));
+        raffleInfoField.setFont(new Font("Chalkboard",Font.PLAIN,28));
+
+        infoScrollPane = new JScrollPane(raffleInfoField,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setPreferredSize(new Dimension(rScrollPane.getWidth(),130));
+        infoScrollPane.setMinimumSize(infoScrollPane.getPreferredSize());
+        infoScrollPane.setMaximumSize(infoScrollPane.getPreferredSize());
+        infoScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        infoScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         if(!isEnrolled)
             joinButton = new JButton("Join this raffle!");
@@ -88,12 +83,29 @@ public class ParticipantRafflePage extends JFrame {
         joinButton.setPreferredSize(new Dimension(rFrame.getWidth()/6,30));
         joinButton.setMinimumSize(joinButton.getPreferredSize());
         joinButton.setMaximumSize(joinButton.getPreferredSize());
+        joinButton.setFont(new Font("Chalkboard", Font.PLAIN,14));
+
+        exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        exitButton.setPreferredSize(new Dimension(rFrame.getWidth()/6,30));
+        exitButton.setMinimumSize(exitButton.getPreferredSize());
+        exitButton.setMaximumSize(exitButton.getPreferredSize());
+        exitButton.setFont(new Font("Chalkboard", Font.PLAIN,14));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int option = JOptionPane.showConfirmDialog(rFrame,"Are you sure you want to exit?","Confirm exit",JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION)
+                    System.exit(0);
+            }
+        });
 
         backButton = new JButton("Go back");
         backButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         backButton.setPreferredSize(new Dimension(rFrame.getWidth()/6,30));
         backButton.setMinimumSize(backButton.getPreferredSize());
         backButton.setMaximumSize(backButton.getPreferredSize());
+        backButton.setFont(new Font("Chalkboard", Font.PLAIN,14));
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,74 +116,83 @@ public class ParticipantRafflePage extends JFrame {
                     rFrame.setVisible(false);
                     ParticipantMainPage p = new ParticipantMainPage(username);
                 }
-
             }
         });
+        String[] details = new String[0];
+        try {
+            details = prp.getTaskIDs();
+        }catch(IOException ioe)
+        {
+            JOptionPane.showMessageDialog(rFrame,"Cannot load any tasks for the raffle. Go back to the main page and try again","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        this.taskNames = new JTextField[details.length];
+        this.executeButtons = new JButton[details.length];
+        this.tasks = new JTextArea[details.length];
+        this.taskDetailsScrollPane = new JScrollPane[details.length];
 
-        ArrayList<String> taskIDs = (ArrayList<String>)raffleInfo.get(4);
-        this.taskNames = new JTextField[taskIDs.size()];
-        this.executeButtons = new JButton[taskIDs.size()];
-        this.tasks = new JTextArea[taskIDs.size()];
-
-        for(int i=0;i<taskIDs.size();i++)
+        for(int i=0;i<details.length;i++)
         {
 
             try{
-                ParticipantSystemManager psm = new ParticipantSystemManager();
-                psm.setRaffleID(username+":"+raffleID);
-                psm.setUsername(username);
-                ArrayList<String> taskInfo = osm.getTaskInfo(taskIDs.get(i));
-                taskNames[i] = new JTextField(taskInfo.get(0));
+                String[] taskDetails = prp.formatTaskDetails(details[i]);
+                taskNames[i] = new JTextField(taskDetails[0]);
                 taskNames[i].setEditable(false);
-                taskNames[i].setPreferredSize(new Dimension(rFrame.getWidth()/2,40));
+                taskNames[i].setPreferredSize(new Dimension(3*rScrollPane.getWidth()/4,40));
                 taskNames[i].setMinimumSize(taskNames[i].getPreferredSize());
                 taskNames[i].setMaximumSize(taskNames[i].getPreferredSize());
+                taskNames[i].setFont(new Font("Chalkboard",Font.PLAIN,22));
 
-                if(!psm.hasCompletedTasks(taskIDs.get(i)))
+                if(!prp.hasCompletedTask(details[i]))
                     executeButtons[i] = new JButton("Complete task");
                 else{
                     executeButtons[i] = new JButton("Task completed");
                     executeButtons[i].setEnabled(false);
                 }
                 executeButtons[i].setAlignmentX(Component.RIGHT_ALIGNMENT);
-                executeButtons[i].setPreferredSize(new Dimension(rFrame.getWidth()/4,40));
+                executeButtons[i].setPreferredSize(new Dimension(rScrollPane.getWidth()/4,40));
                 executeButtons[i].setMinimumSize(executeButtons[i].getPreferredSize());
                 executeButtons[i].setMaximumSize(executeButtons[i].getPreferredSize());
-                executeButtons[i].addActionListener( new TaskButton(taskIDs.get(i), username+":"+raffleID,executeButtons[i],rFrame));
+                executeButtons[i].setFont(new Font("Chalkboard", Font.PLAIN,14));
+                executeButtons[i].addActionListener( new TaskButton(details[i], username+":"+raffleID,executeButtons[i],rFrame));
 
-                tasks[i] = new JTextArea(taskInfo.get(1));
-                tasks[i].append("\n"+taskInfo.get(2));
+                tasks[i] = new JTextArea(taskDetails[1]);
                 tasks[i].setEditable(false);
+                tasks[i].setLineWrap(true);
+                tasks[i].setPreferredSize(new Dimension(rScrollPane.getWidth(),50));
+                tasks[i].setMinimumSize(tasks[i].getPreferredSize());
+                tasks[i].setMaximumSize(tasks[i].getPreferredSize());
+                tasks[i].setAlignmentX(SwingConstants.CENTER);
+                tasks[i].setFont(new Font("Chalkboard",Font.PLAIN,22));
+
+                taskDetailsScrollPane[i] = new JScrollPane(tasks[i]);
+                taskDetailsScrollPane[i].setPreferredSize(new Dimension(rScrollPane.getWidth(),100));
+                taskDetailsScrollPane[i].setMinimumSize(taskDetailsScrollPane[i].getPreferredSize());
+                taskDetailsScrollPane[i].setMaximumSize(taskDetailsScrollPane[i].getPreferredSize());
+                taskDetailsScrollPane[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+                taskDetailsScrollPane[i].setBorder(BorderFactory.createEmptyBorder());
             }
-            catch(FileNotFoundException fnle)
+            catch(Exception e)
             {
                 JOptionPane.showMessageDialog(rFrame,"No tasks found","Error",JOptionPane.ERROR_MESSAGE);
             }
-
-
-
         }
-        GroupLayout.ParallelGroup pg = gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(raffleInfoField);
-        GroupLayout.SequentialGroup sg = gl.createSequentialGroup().addComponent(raffleInfoField);
-        pg.addGroup(gl.createSequentialGroup().addComponent(backButton).addComponent(joinButton));
-        sg.addGroup(gl.createParallelGroup().addComponent(backButton).addComponent(joinButton));
+        GroupLayout.ParallelGroup pg = gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(infoScrollPane);
+        GroupLayout.SequentialGroup sg = gl.createSequentialGroup().addComponent(infoScrollPane);
+        pg.addGroup(gl.createSequentialGroup().addComponent(backButton).addComponent(joinButton).addComponent(exitButton));
+        sg.addGap(30).addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(backButton).addComponent(joinButton).addComponent(exitButton));
         if(isEnrolled)
         {
-
             for(int i=0;i<taskNames.length;i++)
             {
                 pg.addGroup(gl.createSequentialGroup().addComponent(taskNames[i]).addComponent(executeButtons[i]));
-                pg.addComponent(tasks[i]);
-                sg.addGroup(gl.createParallelGroup().addComponent(taskNames[i]).addComponent(executeButtons[i]));
-                sg.addComponent(tasks[i]);
+                pg.addComponent(taskDetailsScrollPane[i]);
+                sg.addGap(30).addGroup(gl.createParallelGroup().addComponent(taskNames[i]).addComponent(executeButtons[i]));
+                sg.addComponent(taskDetailsScrollPane[i]);
             }
         }
 
         gl.setHorizontalGroup(pg);
         gl.setVerticalGroup(sg);
-
-
-
 
         joinButton.addActionListener(new ActionListener() {
             @Override
@@ -181,19 +202,23 @@ public class ParticipantRafflePage extends JFrame {
                 if(option == JOptionPane.YES_OPTION)
                 {
                     ParticipantSystemManager psm = new ParticipantSystemManager();
-                    psm.storeRaffleInParticipantData(raffleID,username);
+                    try {
+                        psm.storeRaffleInParticipantData(raffleID, username);
+                    }catch(Exception exp)
+                    {
+                        JOptionPane.showMessageDialog(rFrame,"Cannot store. Try again","Error",JOptionPane.ERROR_MESSAGE);
+                    }
                     joinButton.setEnabled(false);
                     joinButton.setText("Joined");
                     isEnrolled = true;
                     for(int i=0;i<taskNames.length;i++)
                     {
                         pg.addGroup(gl.createSequentialGroup().addComponent(taskNames[i]).addComponent(executeButtons[i]));
-                        pg.addComponent(tasks[i]);
-                        sg.addGroup(gl.createParallelGroup().addComponent(taskNames[i]).addComponent(executeButtons[i]));
-                        sg.addComponent(tasks[i]);
+                        pg.addComponent(taskDetailsScrollPane[i]);
+                        sg.addGap(30).addGroup(gl.createParallelGroup().addComponent(taskNames[i]).addComponent(executeButtons[i]));
+                        sg.addComponent(taskDetailsScrollPane[i]);
                     }
                 }
-
             }
         });
 
@@ -201,12 +226,6 @@ public class ParticipantRafflePage extends JFrame {
         rFrame.getContentPane().add(bigPanel);
         rFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         rFrame.setVisible(true);
-
     }
-
-
-
-
-
 }
 

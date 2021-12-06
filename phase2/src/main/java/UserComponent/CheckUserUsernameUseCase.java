@@ -4,6 +4,7 @@ import main.java.DatabaseRe.AccessData;
 import main.java.UserComponent.LookUpUser;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import main.java.RaffleComponent.DataAccessPoint;
 
 public class CheckUserUsernameUseCase {
     private DataAccessPoint dataAccess;
@@ -19,9 +20,9 @@ public class CheckUserUsernameUseCase {
     }
 
     public boolean checkUserNameUsed(String username){
-        if (dataAccess.getParticipantInfo(username)){
+        if (dataAccess.getTakenParticipantIds().contains(username)){
             return true;
-        } else return dataAccess.getOrganizerInfo(username);
+        } else return dataAccess.getTakenOrganizerIds().contains(username);
     }
 
     public boolean checkPtcUsernameMatchPassword(String username, String password){

@@ -87,7 +87,7 @@ public interface DataProviderPoint {
     /**
      *  Changes the endDate of the Raffle
      */
-    void changeRaffleEndDate(String raffleID, LocalDate newData);
+
 }
 
 

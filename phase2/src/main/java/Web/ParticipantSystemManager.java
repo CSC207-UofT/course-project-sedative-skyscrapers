@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import main.java.RaffleWeb.*;
 import main.java.TaskComponent.Task;
 import main.java.TaskWeb.ExecuteCommandController;
 
@@ -46,14 +45,14 @@ public class ParticipantSystemManager {
         userCont.createNewParticipant(username, password, firstName, lastName, DOB, phone, email);
     }
     // todo: Have varun call org sys man method for getting raffleInfo and accessing the taskID index and pass this to this method.
-    public void storeRaffleInParticipantData(String taskID, String raffleID, String username) throws Exception {
+    public void storeRaffleInParticipantData(String raffleID, String username) throws Exception {
         UserController userCont = new UserController();
         userCont.addRaffleIDToParticipant(username, raffleID);
         String ptcUserID = userCont.getUserUserId(username, "P");
         //String[] ptcRaffleParts = raffleID.split(":");
         String ptcRaffleID = username + ":" + raffleID;
 
-        PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, taskID);
+        PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, null);
         ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.LOGIN);
 
         // old code:

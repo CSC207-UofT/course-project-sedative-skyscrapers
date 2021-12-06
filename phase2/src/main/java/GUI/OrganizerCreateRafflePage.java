@@ -18,30 +18,31 @@ import java.util.Date;
 
 //Create raffles
 public class OrganizerCreateRafflePage extends JFrame {
-    public static JFrame frame;
-    public static JPanel bigPanel;
-    public static JPanel smallPanel;
-    public static JScrollPane scrollPane;
-    public static JLabel raffleNameLabel;
-    public static JTextField raffleNameField;
-    public static JLabel raffleNumWinnersLabel;
-    public static JTextField raffleNumWinnersField;
-    public static JLabel raffleEndDateLabel;
-    public static JFormattedTextField raffleEndDateField;
+    public JFrame frame;
+    public JPanel bigPanel;
+    public JPanel smallPanel;
+    public JScrollPane scrollPane;
+    public JLabel raffleNameLabel;
+    public JTextField raffleNameField;
+    public  JLabel raffleNumWinnersLabel;
+    public JTextField raffleNumWinnersField;
+    public JLabel raffleEndDateLabel;
+    public JFormattedTextField raffleEndDateField;
     public ArrayList<JLabel> taskNameLabel;
     public ArrayList<JLabel> taskDescriptionLabel;
     public ArrayList<JLabel> taskLinkLabel;
     public ArrayList<JTextField> taskNameField;
     public ArrayList<JTextArea> taskDescriptionField;
     public ArrayList<JTextField> taskLinkField;
-    public static JButton addTask;
-    public static JButton deleteTask;
-    public static JComboBox<Integer> deleteTaskField;
-    public static JButton createRaffle;
+    public JButton addTask;
+    public JButton deleteTask;
+    public JComboBox<Integer> deleteTaskField;
+    public JButton createRaffle;
     public String username;
-    public static JTextArea raffleRules;
-    public static JLabel raffleRulesLabel;
-    public static JButton backButton;
+    public JTextArea raffleRules;
+    public JLabel raffleRulesLabel;
+    public JButton backButton;
+    public JButton exitButton;
 
     public OrganizerCreateRafflePage(String username)
     {
@@ -64,7 +65,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         smallPanel.setBackground(new Color(255,255,255));
 
         scrollPane = new JScrollPane(smallPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(0,frame.getHeight()/6,frame.getWidth(),(4*frame.getHeight()/6));
+        scrollPane.setBounds(0,frame.getHeight()/10,frame.getWidth(),(6*frame.getHeight()/8));
         scrollPane.setBackground(new Color(255,255,255));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
@@ -73,52 +74,16 @@ public class OrganizerCreateRafflePage extends JFrame {
         raffleNameLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
         raffleNameLabel.setMinimumSize(raffleNameLabel.getPreferredSize());
         raffleNameLabel.setMaximumSize(raffleNameLabel.getPreferredSize());
-        raffleNameLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        raffleNameLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         raffleNameLabel.setForeground(new Color(0,0,0));
 
-        raffleNameField = new JTextField("Enter Raffle Name");
+        raffleNameField = new JTextField("");
         raffleNameField.setAlignmentX(Component.LEFT_ALIGNMENT);
         raffleNameField.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
         raffleNameField.setMinimumSize(raffleNameField.getPreferredSize());
         raffleNameField.setMaximumSize(raffleNameField.getPreferredSize());
-        raffleNameField.setFont(new Font("TimesRoman",Font.ITALIC,14));
-        raffleNameField.setForeground(new Color(0,0,0,80));
-        raffleNameField.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if(raffleNameField.getText().equals("Enter Raffle Name"))
-                {
-                    raffleNameField.setText("");
-                    raffleNameField.setFont(new Font("Calibri",Font.PLAIN,18));
-                    raffleNameField.setForeground(new Color(0,0,0));
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if(raffleNameField.getText().equals(""))
-                {
-                    raffleNameField.setText("Enter Raffle Name");
-                    raffleNameField.setFont(new Font("TimesRoman",Font.ITALIC,14));
-                    raffleNameField.setForeground(new Color(0,0,0,80));
-                }
-            }
-        });
+        raffleNameField.setFont(new Font("Chalkboard",Font.PLAIN,18));
+        raffleNameField.setForeground(new Color(0,0,0));
 
         OrganizerSystemManager osm = new OrganizerSystemManager();
 
@@ -126,7 +91,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         raffleRulesLabel.setPreferredSize(new Dimension(scrollPane.getWidth()/2,30));
         raffleRulesLabel.setMinimumSize(raffleRulesLabel.getPreferredSize());
         raffleRulesLabel.setMaximumSize(raffleRulesLabel.getPreferredSize());
-        raffleRulesLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        raffleRulesLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         raffleRulesLabel.setForeground(new Color(0,0,0));
 
         raffleRules = new JTextArea();
@@ -135,14 +100,14 @@ public class OrganizerCreateRafflePage extends JFrame {
         raffleRules.setPreferredSize(new Dimension(3*frame.getWidth()/4,100));
         raffleRules.setMinimumSize(raffleRules.getPreferredSize());
         raffleRules.setMaximumSize(raffleRules.getPreferredSize());
-        raffleRules.setFont(new Font("Calibri",Font.PLAIN,20));
+        raffleRules.setFont(new Font("Chalkboard",Font.PLAIN,20));
 
         raffleNumWinnersLabel = new JLabel("Number of Winners:",SwingConstants.LEFT);
         raffleNumWinnersLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         raffleNumWinnersLabel.setPreferredSize(new Dimension(scrollPane.getWidth()/2,30));
         raffleNumWinnersLabel.setMinimumSize(raffleNumWinnersLabel.getPreferredSize());
         raffleNumWinnersLabel.setMaximumSize(raffleNumWinnersLabel.getPreferredSize());
-        raffleNumWinnersLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        raffleNumWinnersLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         raffleNumWinnersLabel.setForeground(new Color(0,0,0));
 
         raffleNumWinnersField = new JTextField("1");
@@ -150,7 +115,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         raffleNumWinnersField.setPreferredSize(new Dimension(scrollPane.getWidth()/2,40));
         raffleNumWinnersField.setMinimumSize(raffleNumWinnersField.getPreferredSize());
         raffleNumWinnersField.setMaximumSize(raffleNumWinnersField.getPreferredSize());
-        raffleNumWinnersField.setFont(new Font("Calibri",Font.PLAIN,18));
+        raffleNumWinnersField.setFont(new Font("Chalkboard",Font.PLAIN,18));
         raffleNumWinnersField.setForeground(new Color(0,0,0));
 
         raffleEndDateLabel = new JLabel("End Date:",SwingConstants.LEFT);
@@ -158,7 +123,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         raffleEndDateLabel.setPreferredSize(new Dimension(scrollPane.getWidth()/2,30));
         raffleEndDateLabel.setMinimumSize(raffleEndDateLabel.getPreferredSize());
         raffleEndDateLabel.setMaximumSize(raffleEndDateLabel.getPreferredSize());
-        raffleEndDateLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        raffleEndDateLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         raffleEndDateLabel.setForeground(new Color(0,0,0));
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -169,7 +134,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         raffleEndDateField.setPreferredSize(new Dimension(scrollPane.getWidth()/2,40));
         raffleEndDateField.setMinimumSize(raffleEndDateField.getPreferredSize());
         raffleEndDateField.setMaximumSize(raffleEndDateField.getPreferredSize());
-        raffleEndDateField.setFont(new Font("Calibri",Font.PLAIN,18));
+        raffleEndDateField.setFont(new Font("Chalkboard",Font.PLAIN,18));
         raffleEndDateField.setForeground(new Color(0,0,0));
 
         taskNameLabel = new ArrayList<JLabel>(0);
@@ -184,7 +149,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         tNameLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
         tNameLabel.setMinimumSize(tNameLabel.getPreferredSize());
         tNameLabel.setMaximumSize(tNameLabel.getPreferredSize());
-        tNameLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        tNameLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         tNameLabel.setForeground(new Color(0,0,0));
         taskNameLabel.add(tNameLabel);
 
@@ -193,7 +158,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         tDescriptionLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
         tDescriptionLabel.setMinimumSize(tDescriptionLabel.getPreferredSize());
         tDescriptionLabel.setMaximumSize(tDescriptionLabel.getPreferredSize());
-        tDescriptionLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        tDescriptionLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         tDescriptionLabel.setForeground(new Color(0,0,0));
         taskDescriptionLabel.add(tDescriptionLabel);
 
@@ -202,7 +167,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         tLinkLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
         tLinkLabel.setMinimumSize(tLinkLabel.getPreferredSize());
         tLinkLabel.setMaximumSize(tLinkLabel.getPreferredSize());
-        tLinkLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+        tLinkLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
         tLinkLabel.setForeground(new Color(0,0,0));
         taskLinkLabel.add(tLinkLabel);
 
@@ -211,7 +176,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         tNameField.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
         tNameField.setMinimumSize(tNameField.getPreferredSize());
         tNameField.setMaximumSize(tNameField.getPreferredSize());
-        tNameField.setFont(new Font("Calibri",Font.PLAIN,18));
+        tNameField.setFont(new Font("Chalkboard",Font.PLAIN,18));
         tNameField.setForeground(new Color(0,0,0));
         taskNameField.add(tNameField);
 
@@ -220,7 +185,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         tLinkField.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
         tLinkField.setMinimumSize(tLinkField.getPreferredSize());
         tLinkField.setMaximumSize(tLinkField.getPreferredSize());
-        tLinkField.setFont(new Font("Calibri",Font.PLAIN,18));
+        tLinkField.setFont(new Font("Chalkboard",Font.PLAIN,18));
         tLinkField.setForeground(new Color(0,0,0));
         taskLinkField.add(tLinkField);
 
@@ -230,7 +195,7 @@ public class OrganizerCreateRafflePage extends JFrame {
         tArea.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
         tArea.setMinimumSize(tArea.getPreferredSize());
         tArea.setMaximumSize(tArea.getPreferredSize());
-        tArea.setFont(new Font("Calibri",Font.PLAIN,18));
+        tArea.setFont(new Font("Chalkboard",Font.PLAIN,18));
         tArea.setForeground(new Color(0,0,0));
         taskDescriptionField.add(tArea);
 
@@ -239,35 +204,34 @@ public class OrganizerCreateRafflePage extends JFrame {
         createRaffle.setPreferredSize(new Dimension(scrollPane.getWidth()/6,40));
         createRaffle.setMinimumSize(createRaffle.getPreferredSize());
         createRaffle.setMaximumSize(createRaffle.getPreferredSize());
+        createRaffle.setFont(new Font("Chalkboard",Font.PLAIN,14));
         createRaffle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int option = JOptionPane.showConfirmDialog(frame,"Are you sure you want to create the raffle?","Confirm Message",JOptionPane.OK_CANCEL_OPTION);
                 if(option == JOptionPane.YES_OPTION)
                 {
-
-                        String[][] taskInfo = new String[taskNameField.size()][3];
-                        for(int i=0;i<taskNameField.size();i++)
-                        {
-                            taskInfo[i][0] = taskNameField.get(i).getText();
-                            taskInfo[i][1] = taskDescriptionField.get(i).getText();
-                            taskInfo[i][2] = taskLinkField.get(i).getText();
-                        }
-                        OrganizerSystemManager osm = new OrganizerSystemManager();
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                        LocalDate ld = LocalDate.parse(raffleEndDateField.getText(),dtf);
-                        if(ld.isAfter(LocalDate.now())){
-                            try {
-                                osm.raffleCreator(raffleNameField.getText(), raffleRules.getText(), Integer.parseInt(raffleNumWinnersField.getText()), ld, username, taskInfo);
-                                OrganizerMainPage o = new OrganizerMainPage(username);
-                                frame.setVisible(false);
-                            }catch(IOException io)
+                    String[][] taskInfo = new String[taskNameField.size()][3];
+                    for(int i=0;i<taskNameField.size();i++)
+                    {
+                        taskInfo[i][0] = taskNameField.get(i).getText();
+                        taskInfo[i][1] = taskDescriptionField.get(i).getText();
+                        taskInfo[i][2] = taskLinkField.get(i).getText();
+                    }
+                    OrganizerSystemManager osm = new OrganizerSystemManager();
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate ld = LocalDate.parse(raffleEndDateField.getText(),dtf);
+                    if(ld.isAfter(LocalDate.now())){
+                        try {
+                            osm.raffleCreator(raffleNameField.getText(), raffleRules.getText(), Integer.parseInt(raffleNumWinnersField.getText()), ld, username, taskInfo);
+                            OrganizerMainPage o = new OrganizerMainPage(username);
+                            frame.setVisible(false);
+                        }catch(Exception io)
                         {
                             JOptionPane.showMessageDialog(frame,"Invalid inputs","Error",JOptionPane.ERROR_MESSAGE);
                         }}
-
-                        else
-                            JOptionPane.showMessageDialog(frame,"End date cannot be before today's date","Error",JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(frame,"End date cannot be before today's date","Error",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -278,11 +242,27 @@ public class OrganizerCreateRafflePage extends JFrame {
         addTask.setMinimumSize(addTask.getPreferredSize());
         addTask.setMaximumSize(addTask.getPreferredSize());
 
+        exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        exitButton.setPreferredSize(new Dimension(scrollPane.getWidth()/6,40));
+        exitButton.setMinimumSize(exitButton.getPreferredSize());
+        exitButton.setMaximumSize(exitButton.getPreferredSize());
+        exitButton.setFont(new Font("Chalkboard",Font.PLAIN,14));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int option = JOptionPane.showConfirmDialog(frame,"Are you sure you want to exit?","Confirm exit",JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION)
+                    System.exit(0);
+            }
+        });
+
         backButton = new JButton("Back");
         backButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         backButton.setPreferredSize(new Dimension(scrollPane.getWidth()/6,40));
         backButton.setMinimumSize(backButton.getPreferredSize());
         backButton.setMaximumSize(backButton.getPreferredSize());
+        backButton.setFont(new Font("Chalkboard",Font.PLAIN,14));
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -301,12 +281,14 @@ public class OrganizerCreateRafflePage extends JFrame {
         deleteTaskField.setPreferredSize(new Dimension(scrollPane.getWidth()/6,40));
         deleteTaskField.setMinimumSize(deleteTaskField.getPreferredSize());
         deleteTaskField.setMaximumSize(deleteTaskField.getPreferredSize());
+        deleteTaskField.setFont(new Font("Chalkboard",Font.PLAIN,14));
 
         deleteTask = new JButton("Delete from Combo Box");
         deleteTask.setAlignmentX(Component.LEFT_ALIGNMENT);
         deleteTask.setPreferredSize(new Dimension(scrollPane.getWidth()/6,40));
         deleteTask.setMinimumSize(deleteTask.getPreferredSize());
         deleteTask.setMaximumSize(deleteTask.getPreferredSize());
+        deleteTask.setFont(new Font("Chalkboard",Font.PLAIN,14));
         deleteTask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -325,14 +307,12 @@ public class OrganizerCreateRafflePage extends JFrame {
                     taskDescriptionField.remove(index);
                     taskLinkLabel.remove(index);
                     taskLinkField.remove(index);
-
                     for(int i=0;i<taskNameLabel.size();i++)
                     {
                         taskNameLabel.get(i).setText("Name for Task "+(i+1));
                         taskDescriptionLabel.get(i).setText("Description for Task "+(i+1));
                         taskLinkLabel.get(i).setText("Link for Task "+(i+1));
                     }
-
                     deleteTaskField.removeItemAt(taskNameLabel.size());
                 }
             }
@@ -358,6 +338,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                         .addComponent(deleteTask)
                         .addComponent(createRaffle)
                         .addComponent(backButton)
+                        .addComponent(exitButton)
                 )
 
                 .addComponent(taskNameLabel.get(0))
@@ -387,8 +368,8 @@ public class OrganizerCreateRafflePage extends JFrame {
                         .addComponent(deleteTask)
                         .addComponent(createRaffle)
                         .addComponent(backButton)
+                        .addComponent(exitButton)
                 )
-                .addGap(30)
                 .addComponent(taskNameLabel.get(0))
                 .addComponent(taskNameField.get(0))
                 .addComponent(taskDescriptionLabel.get(0))
@@ -406,7 +387,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                 tNameLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
                 tNameLabel.setMinimumSize(tNameLabel.getPreferredSize());
                 tNameLabel.setMaximumSize(tNameLabel.getPreferredSize());
-                tNameLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+                tNameLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
                 tNameLabel.setForeground(new Color(0,0,0));
                 taskNameLabel.add(tNameLabel);
 
@@ -415,7 +396,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                 tDescriptionLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
                 tDescriptionLabel.setMinimumSize(tDescriptionLabel.getPreferredSize());
                 tDescriptionLabel.setMaximumSize(tDescriptionLabel.getPreferredSize());
-                tDescriptionLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+                tDescriptionLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
                 tDescriptionLabel.setForeground(new Color(0,0,0));
                 taskDescriptionLabel.add(tDescriptionLabel);
 
@@ -424,7 +405,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                 tLinkLabel.setPreferredSize(new Dimension(scrollPane.getWidth(),30));
                 tLinkLabel.setMinimumSize(tLinkLabel.getPreferredSize());
                 tLinkLabel.setMaximumSize(tLinkLabel.getPreferredSize());
-                tLinkLabel.setFont(new Font("Calibri",Font.PLAIN,18));
+                tLinkLabel.setFont(new Font("Chalkboard",Font.PLAIN,18));
                 tLinkLabel.setForeground(new Color(0,0,0));
                 taskLinkLabel.add(tLinkLabel);
 
@@ -433,7 +414,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                 tNameField.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
                 tNameField.setMinimumSize(tNameField.getPreferredSize());
                 tNameField.setMaximumSize(tNameField.getPreferredSize());
-                tNameField.setFont(new Font("Calibri",Font.PLAIN,18));
+                tNameField.setFont(new Font("Chalkboard",Font.PLAIN,18));
                 tNameField.setForeground(new Color(0,0,0));
                 taskNameField.add(tNameField);
 
@@ -442,7 +423,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                 tLinkField.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
                 tLinkField.setMinimumSize(tLinkField.getPreferredSize());
                 tLinkField.setMaximumSize(tLinkField.getPreferredSize());
-                tLinkField.setFont(new Font("Calibri",Font.PLAIN,18));
+                tLinkField.setFont(new Font("Chalkboard",Font.PLAIN,18));
                 tLinkField.setForeground(new Color(0,0,0));
                 taskLinkField.add(tLinkField);
 
@@ -452,11 +433,11 @@ public class OrganizerCreateRafflePage extends JFrame {
                 tArea.setPreferredSize(new Dimension(scrollPane.getWidth(),40));
                 tArea.setMinimumSize(tArea.getPreferredSize());
                 tArea.setMaximumSize(tArea.getPreferredSize());
-                tArea.setFont(new Font("Calibri",Font.PLAIN,18));
+                tArea.setFont(new Font("Chalkboard",Font.PLAIN,18));
                 tArea.setForeground(new Color(0,0,0));
                 taskDescriptionField.add(tArea);
 
-                        pg.addComponent(taskNameLabel.get(taskNameLabel.size()-1))
+                pg.addComponent(taskNameLabel.get(taskNameLabel.size()-1))
                         .addComponent(taskNameField.get(taskNameField.size()-1))
                         .addComponent(taskDescriptionLabel.get(taskDescriptionLabel.size()-1))
                         .addComponent(taskDescriptionField.get(taskDescriptionField.size()-1))
@@ -473,7 +454,6 @@ public class OrganizerCreateRafflePage extends JFrame {
                         .addGap(30);
                 gl.setHorizontalGroup(pg);
                 gl.setVerticalGroup(sg);
-
                 deleteTaskField.addItem(taskNameField.size());
             }
         });

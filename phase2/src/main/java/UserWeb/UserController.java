@@ -4,7 +4,7 @@ import main.java.UserComponent.AddUserRaffleIdUseCase;
 import main.java.UserComponent.CheckUserUsernameUseCase;
 import main.java.UserComponent.CreateUserUseCase;
 import main.java.UserComponent.LookUpUser;
-import src.main.java.UserComponent.GetUserRaffleIdUseCase;
+import main.java.UserComponent.GetUserRaffleIdUseCase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
