@@ -1,6 +1,7 @@
 package main.java.UserComponent;
 
 import main.java.DatabaseRe.AccessData;
+import main.java.RaffleComponent.DataAccessPoint;
 import main.java.UserComponent.Participant;
 import main.java.UserComponent.GetParticipantUseCase;
 import main.java.UserComponent.Organizer;

@@ -2,6 +2,7 @@ package main.java.TaskWeb;
 import main.java.TaskComponent.CreateTaskUseCase;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class CreateTaskController {
 
@@ -21,7 +22,7 @@ public class CreateTaskController {
             this.raffleID = raffleID;
         }
 
-        public String runCreateTask() throws IOException {
+        public String runCreateTask() throws SQLException {
             // create an instance of createRaffleUseCase with user input
             CreateTaskUseCase taskManager = new CreateTaskUseCase(this.raffleID, this.taskName, this.taskDescription, this.taskLink);
 

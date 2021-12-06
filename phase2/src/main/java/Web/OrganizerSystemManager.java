@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Set;
 
-import main.java.RaffleWeb.RaffleLookupController;
+
 import main.java.TaskWeb.TaskLookupController;
 import main.java.UserWeb.UserController;
 import main.java.Helpers.SendEmail;
@@ -140,8 +140,11 @@ public class OrganizerSystemManager {
 
 
     public ArrayList<Object> getRaffleDetails(String raffleID){
-        RaffleLookupController raffleLookCont = new RaffleLookupController();
-        return raffleLookCont.runLookupOrgRaffleInfo(raffleID);
+        RaffleDataHelper raffData = new RaffleDataHelper();
+        return raffData.getOrgRaffleInfo(raffleID);
+
+//        RaffleLookupController raffleLookCont = new RaffleLookupController();
+//        return raffleLookCont.runLookupOrgRaffleInfo(raffleID);
 
     }
 
@@ -159,9 +162,11 @@ public class OrganizerSystemManager {
 
     // Pass the searched raffleID as get that raffle details.
     public Set<String> getAllRaffleID(){
-        RaffleLookupController raffleLookupCont = new RaffleLookupController();
-        // I get all raffle info as hashmap. Now I do keySets() to get set of keys.
-        return raffleLookupCont.runLookupAllRaffleInfo().keySet();
+        RaffleDataHelper raffData = new RaffleDataHelper();
+        return raffData.getAllOrgRaffleInfo().keySet();
+//        RaffleLookupController raffleLookupCont = new RaffleLookupController();
+//        // I get all raffle info as hashmap. Now I do keySets() to get set of keys.
+//        return raffleLookupCont.runLookupAllRaffleInfo().keySet();
 
     }
 

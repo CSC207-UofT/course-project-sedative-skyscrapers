@@ -1,5 +1,7 @@
 package main.java.GUI;
 
+import main.java.Presenters.OrganizerRafflePresenter;
+import main.java.Presenters.ParticipantRafflePresenter;
 import main.java.Web.OrganizerSystemManager;
 
 import javax.swing.*;
@@ -11,21 +13,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrganizerViewRafflePage extends JFrame {
-    public static JFrame frame;
-    public static JPanel bigPanel;
-    public static JTextArea raffleInfo;
-    public static JButton findWinners;
-    public static JButton backButton;
-    public static JTextArea winnerInfo;
-    public static JPanel smallPanel;
-    public static JScrollPane scrollPane;
-    public String raffleID;
-    public String username;
+    private JFrame frame;
+    private JPanel bigPanel;
+    private JTextArea raffleInfo;
+    private JButton findWinners;
+    private JButton backButton;
+    private JPanel smallPanel;
+    private JScrollPane scrollPane;
+    private String raffleID;
+    private String username;
+    private boolean winnersGenerated;
+    private OrganizerRafflePresenter o;
 
     public OrganizerViewRafflePage(String raffleID, String username)
     {
         this.raffleID = raffleID;
         this.username = username;
+        o = new OrganizerRafflePresenter(username,raffleID);
+        this.winnersGenerated = o.winnersGenerated();
         initComponents();
     }
     private void initComponents()
@@ -37,7 +42,7 @@ public class OrganizerViewRafflePage extends JFrame {
 
         bigPanel = new JPanel();
         bigPanel.setBounds(0,0,frame.getWidth(),frame.getHeight());
-        bigPanel.setBackground(new Color(0,240,100,100));
+        bigPanel.setBackground(new Color(0,120,60,120));
 
         smallPanel = new JPanel();
         GroupLayout gl = new GroupLayout(smallPanel);
@@ -45,31 +50,15 @@ public class OrganizerViewRafflePage extends JFrame {
         smallPanel.setBackground(new Color(255,255,255));
 
         scrollPane = new JScrollPane(smallPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(0,frame.getHeight()/6,frame.getWidth(),(4*frame.getHeight()/6));
+        scrollPane.setBounds(0,frame.getHeight()/10,frame.getWidth(),(6*frame.getHeight()/8));
         scrollPane.setBackground(new Color(255,255,255));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         OrganizerSystemManager osm = new OrganizerSystemManager();
         ArrayList<Object> raffleDetails = osm.getRaffleDetails(raffleID);
-        raffleInfo = new JTextArea("Raffle Name: "+raffleDetails.get(0));
-        raffleInfo.append("\nNumber of Winners: "+raffleDetails.get(1));
-        raffleInfo.append("\nRaffle rules: \n"+raffleDetails.get(2));
-        raffleInfo.append("\nEnd Date: "+raffleDetails.get(3));
-        for(int i=0;i<((ArrayList<String>)raffleDetails.get(4)).size();i++)
-        {
-            try {
-                ArrayList<String> taskInfo = osm.getTaskInfo(((ArrayList<String>) raffleDetails.get(4)).get(i));
-                raffleInfo.append("\n\nTask Name: " + taskInfo.get(0));
-                raffleInfo.append("\nLink: " + taskInfo.get(1));
-                raffleInfo.append("\nDescription:\n" + taskInfo.get(2) +"\n");
-            }
-            catch(FileNotFoundException fnfe)
-            {
-                JOptionPane.showMessageDialog(frame,"No tasks found","Error",JOptionPane.ERROR_MESSAGE);
-            }
-
-        }
+        raffleInfo = new JTextArea(o.getRaffleDetails());
         raffleInfo.setEditable(false);
+        raffleInfo.setFont(new Font("Chalkboard",Font.PLAIN,22));
 
         backButton = new JButton("Back");
         backButton.setPreferredSize(new Dimension(frame.getWidth()/4,40));
@@ -92,20 +81,16 @@ public class OrganizerViewRafflePage extends JFrame {
 
 
 
-        if((((ArrayList<String>)raffleDetails.get(6)).size())==0)
+        if(!winnersGenerated)
         {
 
             findWinners.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    osm.generateWinnersList(raffleID);
+
                     findWinners.setText("Winners declared!");
                     findWinners.setEnabled(false);
-                    raffleInfo.append("The winners are:\n");
-                    for(int i = 0;i<((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).size();i++)
-                    {
-                        raffleInfo.append("\n"+((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).get(i));
-                    }
+                    raffleInfo.setText(o.getRaffleDetails());
                 }
             });
         }
@@ -113,28 +98,7 @@ public class OrganizerViewRafflePage extends JFrame {
         {
             findWinners.setText("Winners declared!");
             findWinners.setEnabled(false);
-            raffleInfo.append("\nThe winners are:\n");
-            for(int i = 0;i<((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).size();i++)
-            {
-                raffleInfo.append("\n"+((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).get(i));
-            }
         }
-
-        winnerInfo = new JTextArea();
-        winnerInfo.setEditable(false);
-        winnerInfo.setPreferredSize(new Dimension(frame.getWidth() - 30,40));
-        winnerInfo.setMinimumSize(winnerInfo.getPreferredSize());
-        winnerInfo.setMaximumSize(winnerInfo.getPreferredSize());
-
-        if((((ArrayList<String>)raffleDetails.get(6)).size())==0)
-        {
-            winnerInfo.append("The winners are:");
-            for(int i = 0;i<((ArrayList<String>)raffleDetails.get(6)).size();i++)
-            {
-                winnerInfo.append(((ArrayList<String>)raffleDetails.get(6)).get(i));
-            }
-        }
-        //winnerInfo
 
         GroupLayout.ParallelGroup pg = gl.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(raffleInfo)

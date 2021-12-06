@@ -12,20 +12,20 @@ import java.awt.event.MouseListener;
 import java.util.Arrays;
 
 public class SignInPage extends JFrame {
-    private static JFrame jFrame1;
-    private static JPanel jPanel1;
-    private static JPanel jPanel2;
-    private static JLabel signInLabel;
-    private static JLabel usernameLabel;
-    private static JLabel passwordLabel;
-    private static JTextField usernameTextField;
-    private static JPasswordField passwordField;
-    private static JToggleButton showPassword;
-    private static JButton signUpButton;
-    private static JButton enterButton;
-    private static JComboBox comboBox;
-    private static JLabel comboBoxLabel;
-
+    private JFrame jFrame1;
+    private JPanel jPanel1;
+    private JPanel jPanel2;
+    private JLabel signInLabel;
+    private JLabel usernameLabel;
+    private JLabel passwordLabel;
+    private JTextField usernameTextField;
+    private JPasswordField passwordField;
+    private JToggleButton showPassword;
+    private JButton signUpButton;
+    private JButton enterButton;
+    private JComboBox comboBox;
+    private JLabel comboBoxLabel;
+    private JButton exitButton;
 
     public SignInPage()
     {
@@ -64,7 +64,7 @@ public class SignInPage extends JFrame {
         usernameLabel.setPreferredSize(new Dimension(jPanel2.getWidth(),60));
         usernameLabel.setMinimumSize(usernameLabel.getPreferredSize());
         usernameLabel.setMaximumSize(usernameLabel.getPreferredSize());
-        usernameLabel.setFont(new Font("Futura",Font.BOLD,22));
+        usernameLabel.setFont(new Font("Chalkboard",Font.BOLD,22));
         usernameLabel.setForeground(new Color(0,0,0));
 
         passwordLabel = new JLabel("Password:",SwingConstants.LEFT);
@@ -72,7 +72,7 @@ public class SignInPage extends JFrame {
         passwordLabel.setPreferredSize(new Dimension(jPanel2.getWidth(),60));
         passwordLabel.setMinimumSize(passwordLabel.getPreferredSize());
         passwordLabel.setMaximumSize(passwordLabel.getPreferredSize());
-        passwordLabel.setFont(new Font("Futura",Font.BOLD,22));
+        passwordLabel.setFont(new Font("Chalkboard",Font.BOLD,28));
         passwordLabel.setForeground(new Color(0,0,0));
 
         usernameTextField = new JTextField("Enter Username");
@@ -84,26 +84,19 @@ public class SignInPage extends JFrame {
         usernameTextField.setForeground(new Color(0,0,0,80));
         usernameTextField.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
+            public void mouseClicked(MouseEvent e) {}
+            @Override
+            public void mousePressed(MouseEvent e) {}
 
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
             public void mouseEntered(MouseEvent e) {
                 if (usernameTextField.getText().equals("Enter Username"))
                 {
                     usernameTextField.setText("");
-                    usernameTextField.setFont(new Font("Calibri",Font.PLAIN,14));
+                    usernameTextField.setFont(new Font("Chalkboard",Font.PLAIN,18));
                     usernameTextField.setForeground(new Color(0,0,0));
                 }
             }
@@ -123,7 +116,6 @@ public class SignInPage extends JFrame {
         showPassword.setMinimumSize(showPassword.getPreferredSize());
         showPassword.setMaximumSize(showPassword.getPreferredSize());
 
-
         passwordField = new JPasswordField("Enter Password");
         passwordField.setEchoChar((char)0);
         passwordField.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -132,7 +124,6 @@ public class SignInPage extends JFrame {
         passwordField.setMaximumSize(passwordField.getPreferredSize());
         passwordField.setFont(new Font("TimesRoman",Font.ITALIC,14));
         passwordField.setForeground(new Color(0,0,0,80));
-
 
         showPassword.addActionListener(new ActionListener() {
             @Override
@@ -145,22 +136,13 @@ public class SignInPage extends JFrame {
             }
         });
 
-
         passwordField.addMouseListener(new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
+            public void mouseClicked(MouseEvent e) {}
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
+            public void mousePressed(MouseEvent e) {}
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -171,7 +153,6 @@ public class SignInPage extends JFrame {
                         passwordField.setEchoChar('*');
                     passwordField.setText("");
                     passwordField.setForeground(new Color(0,0,0));
-
                 }
             }
 
@@ -214,7 +195,7 @@ public class SignInPage extends JFrame {
         comboBoxLabel.setMinimumSize(comboBoxLabel.getPreferredSize());
         comboBoxLabel.setMaximumSize(comboBoxLabel.getPreferredSize());
         comboBoxLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        comboBoxLabel.setFont(new Font("Futura",Font.BOLD,22));
+        comboBoxLabel.setFont(new Font("Chalkboard",Font.BOLD,28));
         comboBoxLabel.setForeground(new Color(0,0,0));
 
         enterButton = new JButton("Enter");
@@ -240,7 +221,6 @@ public class SignInPage extends JFrame {
                     else
                     {
                         JOptionPane.showMessageDialog(jFrame1,"Wrong username and/or password","Error",JOptionPane.ERROR_MESSAGE);
-
                     }
                 }
                 else
@@ -254,9 +234,22 @@ public class SignInPage extends JFrame {
                     else
                     {
                         JOptionPane.showMessageDialog(jFrame1,"Wrong username and/or password","Error",JOptionPane.ERROR_MESSAGE);
-
                     }
                 }
+            }
+        });
+
+        exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        exitButton.setPreferredSize(new Dimension(jPanel2.getWidth()/6,50));
+        exitButton.setMinimumSize(exitButton.getPreferredSize());
+        exitButton.setMaximumSize(exitButton.getPreferredSize());
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int option = JOptionPane.showConfirmDialog(jFrame1,"Are you sure you want to exit?","Confirm exit",JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION)
+                    System.exit(0);
             }
         });
 
@@ -269,13 +262,14 @@ public class SignInPage extends JFrame {
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(passwordField)
                                 .addComponent(showPassword)
-
                         )
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(comboBoxLabel)
                                 .addComponent(comboBox)
                         )
                         .addGroup(gl.createSequentialGroup()
+                                .addComponent(exitButton)
+                                .addGap(100)
                                 .addComponent(signUpButton)
                                 .addGap(100)
                                 .addComponent(enterButton)
@@ -302,16 +296,15 @@ public class SignInPage extends JFrame {
                         )
                         .addGap(50)
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(exitButton)
                                 .addComponent(signUpButton)
                                 .addComponent(enterButton)
                         )
         );
-
 
         jFrame1.getContentPane().add(jPanel2);
         jFrame1.getContentPane().add(jPanel1);
         jFrame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame1.setVisible(true);
     }
-
 }

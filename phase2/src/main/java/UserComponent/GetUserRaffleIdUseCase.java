@@ -1,9 +1,10 @@
-package src.main.java.UserComponent;
+package main.java.UserComponent;
 
 import main.java.DatabaseRe.AccessData;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import main.java.RaffleComponent.DataAccessPoint;
 
 public class GetUserRaffleIdUseCase {
     private DataAccessPoint DataAccess;
@@ -17,11 +18,11 @@ public class GetUserRaffleIdUseCase {
     }
 
     public ArrayList<String> getPtcRaffleIdsFromDatabase(String username){
-        return DataAccessPoint.getParticipantRaffleIds(username);
+        return this.DataAccess.getParticipantRaffleIds(username);
     }
 
     public String[] getOrgRafflesIdsFromDatabase(String username){
-        ArrayList<String> orgRafflesIdsFromDatabase = DataAccessPoint.getOrganizerRaffleIds(username)
+        ArrayList<String> orgRafflesIdsFromDatabase = this.DataAccess.getOrganizerRaffleIds(username);
         int orgRaffleIdSize = orgRafflesIdsFromDatabase.size();
         String[] orgRaffleIds = new String[orgRaffleIdSize];
         for (int i = 0; i < orgRaffleIdSize; i++){
