@@ -8,7 +8,6 @@ public class CreateTaskController {
         // this controller is going to need to get the information from the database about the taken raffle ids
         // and the information from the user input all raffle details coming from the commandline or gui
 
-        // todo private ArrayList<String> takenTaskIds;
         private final String taskName;
         private final String taskDescription;
         private final String taskLink;

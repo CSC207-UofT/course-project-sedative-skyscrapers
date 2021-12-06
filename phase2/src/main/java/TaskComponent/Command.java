@@ -2,7 +2,7 @@ package main.java.TaskComponent;
 
 public interface Command {
 
-    public void execute() throws Exception;
+    void execute() throws Exception;
 
 }
 
