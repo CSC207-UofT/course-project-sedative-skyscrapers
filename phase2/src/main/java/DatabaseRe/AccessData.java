@@ -8,11 +8,13 @@ import main.java.RaffleComponent.DataAccessPoint;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AccessData implements DataAccessPoint {
     TaskGetter taskGetter = new TaskGetter();
     UserGetter userGetter = new UserGetter();
     RaffleGetter raffleGetter = new RaffleGetter();
+
 
     public AccessData() throws SQLException {
     }
@@ -36,10 +38,15 @@ public class AccessData implements DataAccessPoint {
             raffleDetails.add(taskGetter.getTaskIDsInRaffle(orgRaffleId));
             raffleDetails.add(userGetter.getParticipantsInRaffle(orgRaffleId));
             raffleDetails.add(raffleGetter.getWinners(orgRaffleId));
-            raffleDetails.add(raffleGetter.getOrganizer(orgRaffleId));
+            ArrayList<String> organizer = (ArrayList<String>) raffleGetter.getOrganizer(orgRaffleId);
+            raffleDetails.add(organizer.get(0));
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+//        raffleDetails.remove(3);
+        raffleDetails.remove(0);
+        raffleDetails.remove(3);
+        Collections.swap(raffleDetails, 0, 1);
         return raffleDetails;
     }
 

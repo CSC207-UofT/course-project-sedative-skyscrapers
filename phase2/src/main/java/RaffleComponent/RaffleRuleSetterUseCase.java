@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class RaffleRuleSetterUseCase {
@@ -58,9 +59,9 @@ public class RaffleRuleSetterUseCase {
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
-
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3),
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()), (LocalDate) dateTimeFormatter.parse(this.orgRaffleInfo.get(3).toString()),
                 (String)this.orgRaffleInfo.get(6));
         this.orgRaffle.setRaffleId(raffleId);
         // taskIdList, ptcIdList and winnerIdList empty at this stage
