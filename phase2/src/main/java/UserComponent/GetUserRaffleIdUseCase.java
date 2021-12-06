@@ -20,8 +20,13 @@ public class GetUserRaffleIdUseCase {
         return DataAccessPoint.getParticipantRaffleIds(username);
     }
 
-    //TODO: convert ArrayList<String> to String[]
     public String[] getOrgRafflesIdsFromDatabase(String username){
-        return DataAccessPoint.getOrganizerRaffleIds(username);
+        ArrayList<String> orgRafflesIdsFromDatabase = DataAccessPoint.getOrganizerRaffleIds(username)
+        int orgRaffleIdSize = orgRafflesIdsFromDatabase.size();
+        String[] orgRaffleIds = new String[orgRaffleIdSize];
+        for (int i = 0; i < orgRaffleIdSize; i++){
+            orgRaffleIds[i] = orgRafflesIdsFromDatabase.get(i);
+        }
+        return orgRaffleIds;
     }
 }
