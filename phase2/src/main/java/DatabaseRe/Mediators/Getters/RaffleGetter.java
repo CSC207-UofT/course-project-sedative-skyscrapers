@@ -1,21 +1,18 @@
 package main.java.DatabaseRe.Mediators.Getters;
 
-import main.java.DatabaseRe.Mediators.Query;
-import main.java.DatabaseRe.TalkToDatabase.ConfigConstants;
+import main.java.DatabaseRe.Mediators.SelectQueries;
+import main.java.DatabaseRe.Mediators.DataTools;
 import main.java.DatabaseRe.TalkToDatabase.SelectQuery;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Types;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RaffleGetter {
     SelectQuery selectQuery = new SelectQuery();
+    DataTools dataTools = new DataTools();
+
 
     public RaffleGetter() throws SQLException {
     }
@@ -25,9 +22,9 @@ public class RaffleGetter {
      * @return An array of strings containing raffle details in format: [raflleName, noOfWinners, rafflRules, endDate]
      */
     public ArrayList<Object> getDetails(String orgRaffleId) throws SQLException, ParseException {
-        String query = Query.detailsQuery(orgRaffleId);
+        String query = SelectQueries.getDetailsQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return sortResult(results);
+        return (DataTools.getRow(results));
     }
 
     /** gets the raffleIDs that are already used by in the system
@@ -35,7 +32,7 @@ public class RaffleGetter {
      */
     public ArrayList<String> getUsedRaffleIds() throws SQLException {
         ArrayList<String> usedIDs = new ArrayList<>();
-        String query = Query.usedRaffleIDs;
+        String query = SelectQueries.usedRaffleIDs;
         ResultSet results = selectQuery.getResultSet(query);
 
         while (results.next()) {
@@ -45,32 +42,29 @@ public class RaffleGetter {
         return usedIDs;
     }
 
-    private ArrayList<Object> sortResult(ResultSet results) throws SQLException, ParseException {
-        ArrayList<Object> details = new ArrayList<>();
-        if (results != null) {
-            while (results.next()) {
-                ResultSetMetaData resultSetMetaData = results.getMetaData();
-                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-                    int type = resultSetMetaData.getColumnType(i);
-                    ArrayList<Integer> possibleDataTypes = ConfigConstants.getTypes();
-                    if (possibleDataTypes.contains(type)) {
-                        if (type == Types.DATE) {
-                            String date = results.getString(i);
-                            String modified = date.substring(8,10) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
-                            Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(modified);
-                            details.add(date2);
-                        }
-                        else {
-                            details.add(results.getString(i));
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            throw new RuntimeException("Empty Row found");
-        }
-        return details;
+    public Object getWinners(String orgRaffleId) throws SQLException {
+        String query = SelectQueries.getWinnersQuery(orgRaffleId);
+        ResultSet results = selectQuery.getResultSet(query);
+        return dataTools.getStrings(results, "PuserID");
     }
 
+    public ArrayList<String> getTaskDetails(String taskId) throws SQLException, ParseException {
+        String query = SelectQueries.getTaskQuery(taskId);
+        ResultSet results = selectQuery.getResultSet(query);
+        ArrayList<Object> raffleDetails = DataTools.getRow(results);
+        return DataTools.convertToString(raffleDetails);
+    }
+
+
+    public Object getOrganizer(String orgRaffleId) throws SQLException {
+        String query = SelectQueries.getOrganizerOfRaffle(orgRaffleId);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        return dataTools.getStrings(resultSet, "OuserID");
+    }
+
+    public ArrayList<String> getRaffleIDfromRaffleName(String raffleName) throws SQLException {
+        String query = SelectQueries.getRaffleIdFromName(raffleName);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        return dataTools.getStrings(resultSet, "raffleID");
+    }
 }

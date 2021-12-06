@@ -2,7 +2,7 @@ package test.java;
 
 import java.util.ArrayList;
 
-import main.java.Helpers.RaffleIdGenerator;
+import main.java.Helpers.EntityIdGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ public class RaffleIdGeneratorTest {
     int lowValue;
     ArrayList<String> takenIds;
     ArrayList<Integer> takenNumList;
-    RaffleIdGenerator idGenerator;
+    EntityIdGenerator idGenerator;
     final char RAFFLE_CODE = 'R';
 
     @Before
@@ -25,7 +25,7 @@ public class RaffleIdGeneratorTest {
         for(i = 1000; i < 5000; i++){
             takenIds.add(String.valueOf(RAFFLE_CODE) + i);
         }
-        idGenerator = new RaffleIdGenerator(takenIds);
+        idGenerator = new EntityIdGenerator(takenIds);
         takenNumList = idGenerator.takenNumList(RAFFLE_CODE);
         highValue = 9999;
         lowValue = 5000;

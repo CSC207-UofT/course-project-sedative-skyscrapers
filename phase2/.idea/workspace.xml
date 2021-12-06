@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="refactoring(RaffleUseCases): update for database usage (pending final touches)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilderInterface.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="21TDfWxQ9nWsUwPMM2y4ipvGzBT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="" />
+      <created>1637956292254</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1637956292254</updated>
+      <workItem from="1637956294736" duration="442000" />
+      <workItem from="1637973187928" duration="124000" />
+      <workItem from="1637973327690" duration="9819000" />
+      <workItem from="1638024600679" duration="13889000" />
+      <workItem from="1638054106537" duration="5149000" />
+      <workItem from="1638113442801" duration="3671000" />
+      <workItem from="1638226723119" duration="7203000" />
+      <workItem from="1638393932812" duration="294000" />
+      <workItem from="1638394249271" duration="4541000" />
+      <workItem from="1638631388351" duration="59000" />
+      <workItem from="1638631468222" duration="1040000" />
+      <workItem from="1638634739019" duration="7932000" />
+      <workItem from="1638666831863" duration="4416000" />
+      <workItem from="1638715855399" duration="2933000" />
+      <workItem from="1638718893617" duration="7581000" />
+    </task>
+    <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
+      <created>1637956673104</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637956673104</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactoring(Raffle Controllers): merging of raffle controllers into proper structure">
+      <created>1638231608046</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1638231608046</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases">
+      <created>1638232101940</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638232101940</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactoring(RaffleUseCases): de-cluttering of use case code">
+      <created>1638398741194</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638398741194</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refactoring(RaffleUseCases): update for database usage (pending final touches)">
+      <created>1638723779875</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638723779875</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles" />
+    <MESSAGE value="Refactoring(Raffle Controllers): merging of raffle controllers into proper structure" />
+    <MESSAGE value="feat(RaffleEntity): endDate now modifiable (observer pattern), slight refactoring on use cases" />
+    <MESSAGE value="refactoring(RaffleUseCases): de-cluttering of use case code" />
+    <MESSAGE value="refactoring(RaffleUseCases): update for database usage (pending final touches)" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring(RaffleUseCases): update for database usage (pending final touches)" />
+  </component>
+</project>

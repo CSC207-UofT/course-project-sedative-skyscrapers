@@ -1,56 +1,88 @@
-// FILE UNDER MAINTENANCE TO BE REOPENED IN PHASE2
+package main.java.RaffleComponent;
 
-//package main.java.RaffleComponent;
-//
-//import java.util.ArrayList;
-//
-//public interface DataProviderPoint {
-//
-//    void uploadCreatedRaffle(String orgRaffleId, ArrayList<Object> raffleCreatedInfo);
-//    // update of the takenIds after an organizer raffle object is created, along with the new organizer Raffle
-//    // information that was just input by the used.
-//    // RaffleCreatedInfo format: [raffleName="raffle", numberOfWinners=2, rules="this is a string of rules",
-//    //        endDate=LocalDate.of(2021, 12, 25), taskIds=ArrayList<String>, ptcIds=ArrayList<String>,
-//    //        winnerIds=ArrayList<String>]
-//
-//    void uploadModifiedOrgRaffle(String orgRaffleId, ArrayList<Object> raffleModifiedInfo);
-//    // sends updated orgRaffle information data to DB under the provided Id, at DB all data related to the raffle
-//    // is updated according to raffleModifiedInfo, this would be just like uploadCreatedRaffle, but some values
-//    // are to be replaced/added according to how the raffle was modified
-//
-//    void uploadLoggedInRaffle(String ptcRaffleId, ArrayList<Object> raffleJoinedInfo);
-//    // sends data of newly logged in participant raffle object to the database to be stored under the raffleId provided
-//    // the raffleJoinedInfo has the format:
-//    // [raffleName="raffle", numberOfWinners=2, rules="this is a string of rules",
-//    //        endDate=LocalDate.of(2021, 12, 25), taskIds=ArrayList<String>]
-//
-//    void uploadModifiedPtcRaffle(String ptcRaffleId, ArrayList<Object> raffleModifiedInfo);
-//    // sends updated ptcRaffle information data to DB under the provided Id, at DB all data related to the raffle
-//    // is updated according to raffleModifiedInfo, this would be just like uploadLoggedInRaffle, but some values
-//    // are to be replaced/added according to how the raffle was modified
-//
-//    void uploadCreatedTask(String taskId, ArrayList<String> taskInfo);
-//
-//    // add the organizer info
-//    void updateOrganizerPool(String username, String password, String affiliatedOrganization, String phone,
-//                             String email);
-//    // need to be able to check whether the username is in organizerPool
-//    // need a getter method to get the rest of the organizer info by using the username
-//    // need a getter method to get particularly password using the username
-//
-//    // should be able to check whether the participant is a new user or it is an update of the participant info
-//    void updateParticipantPool(String username, String password, String firstName, String lastName, String dateOfBirth,
-//                               String phone, String email);
-//
-//
-//    // todo not implemented?
-//    // add the raffleID to the list of raffleIDs the username is a part of
-//    void addRaffleIDtoParticipant(String username, String raffleID);
-//    // need a getter method to get the list of raffleIDs associated with the username
-//
-//    // add the raffleId to the list of raffleIDs the username created
-//    void addRaffleIDtoOrganizer(String username, String raffleID);
-//    // need a getter method to get the list of raffleIDs associated with the username
-//
-//
-//}
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+
+public interface DataProviderPoint {
+    /**
+     * Adds a newly created raffle to the database by an organizer.
+     */
+    void addRaffle(String orgRaffleId, String organizerUsername, String raffleName,
+                   Integer numberOfWinners, String raffleRules, LocalDate endDate);
+
+    /**
+     * Adds the list of taskIDs to a raffle.
+     */
+    void addTasks(String raffleID, ArrayList<String> taskIDs);
+
+    void deleteTask(ArrayList<String> taskIdsToDelete);
+    /**
+     * Adds the list of participants to the Raffle.
+     * Note: The participant must already exist.
+     */
+    void addParticipantsToRaffle(String raffleID, ArrayList<String> participantUsernames);
+
+    /**
+     * Adds the winners (who have claimed) to raffle.
+     */
+    void addWinnersToRaffle(String raffleID, ArrayList<String> participantUsernames) throws SQLException;
+
+    /**
+     *  Updates the raffle rules of <raffleId>
+     */
+    void updateRaffleRules(String raffleId, String newRaffleRules);
+
+    /**
+     * Updates the raffle endDate of <raffleId>
+     */
+    void changeRaffleEndDate(String raffleID, LocalDate newDate);
+
+    /**
+     *  Adds the details of the task
+     *  Note: The task must already exist.
+     */
+    void addDetailsOfTask(String taskId, ArrayList<String> taskInfo);
+
+    /**
+     *  Adds organizer to the database.
+     */
+    void addOrganizer(String organizerId, String username, String password, String affiliatedOrganization,
+                      String phone, String email);
+
+    /**
+     *  Adds organizer to the database.
+     */
+    void addParticipant(String userId, String username, String password, String firstName,
+                        String lastName, String dateOfBirth, String phone, String email, ArrayList<String> rafflesWon);
+
+    /**
+     *  Adds a participant to raffle.
+     */
+    void addRaffleIDtoParticipant(String username, String raffleID);
+
+    /**
+     *  Sets the task status of the participant to True (if it has completed the task) or False.
+     */
+    void setTaskStatus(String ptcRaffleId, String taskCompletedId, boolean status);
+
+    /**
+     *  Associates raffle to its organizer.
+     */
+    void addRaffleIDtoOrganizer(String username, String raffleID);
+
+    /**
+     * Updates the information about organizer.
+     * @param detailToBeChanged can take values: "affiliatedOrg", "password", "phone", "email", "username"
+     */
+    void changeOrganizerDetail(String username, String detailToBeChanged, String newValue);
+
+    /**
+     * Updates the information about participant.
+     * @param detailToBeChanged can take values: "username", "password", "phone", "email"
+     */
+    void changeParticipantDetail(String username, String detailToBeChanged, String newValue);
+}
+
+
