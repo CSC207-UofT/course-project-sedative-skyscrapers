@@ -39,28 +39,9 @@ public class UserController {
         userCreator.storeParticipant(username, password, firstName, lastName, dateOfBirth.toString(), phone, email);
     }
 
-//    public Participant getExistedParticipant(String username) {
-//        String[] ptcInfo = new String[5];
-//        try {
-//            ptcInfo = dataExtractor.getParticipantDetails(username);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        String password = ptcInfo[0];
-//        String firstName = ptcInfo[1];
-//        String lastName = ptcInfo[2];
-//        LocalDate doB = LocalDate.parse(ptcInfo[3]);
-//        String phone = ptcInfo[4];
-//        String email = ptcInfo[5];
-//        GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(username, password, firstName,
-//                lastName, doB, phone, email);
-//        return getParticipantUseCase.getParticipant();
-//    }
-
-//    //phase2 extension
-//    public void updateParticipantPool() {
-//
-//    }
+    public ArrayList<String> getExistedParticipantInfo(String username) {
+        return userLookUp.getPtcInfo(username);
+    }
 
     /**
      * Store the new organizer to the database
@@ -73,6 +54,10 @@ public class UserController {
     public void createNewOrganizer(String username, String password, String orgName, String phone,
                                         String email) {
         userCreator.storeOrganizer(username, password, orgName, phone, email);
+    }
+
+    public ArrayList<String> getExistedOrganizerInfo(String username){
+        return userLookUp.getOrgInfo(username);
     }
 
 

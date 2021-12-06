@@ -21,8 +21,12 @@ public class LookUpUser {
         }
     }
 
+    public ArrayList<String> getPtcInfo(String username){
+        return DataAccess.getParticipantInfo(username);
+    }
+
     public Participant getPtc(String username){
-        ArrayList<String> ptcInfo = DataAccess.getParticipantInfo(username);
+        ArrayList<String> ptcInfo = getPtcInfo(username);
         String ptcUserId = ptcInfo.get(0);
         String ptcUsername = ptcInfo.get(1);
         String password = ptcInfo.get(2);
@@ -44,8 +48,12 @@ public class LookUpUser {
         return getPtc(username).getPassword();
     }
 
+    public ArrayList<String> getOrgInfo(String username){
+        return DataAccess.getOrganizerInfo(username);
+    }
+
     public Organizer getOrg(String username){
-        ArrayList<String> orgInfo = DataAccess.getOrganizerInfo(username);
+        ArrayList<String> orgInfo = getOrgInfo(username);
         String orgUserId = orgInfo.get(0);
         String orgUsername = orgInfo.get(1);
         String password = orgInfo.get(2);
