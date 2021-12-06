@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class FakeMain {
     public static void main(String[] args) throws Exception {
+        AccessData accessData = new AccessData();
+        System.out.print(accessData.getTaskById("T5811"));
 //
 //        RaffleGetter raffleGetter = new RaffleGetter();
 //        System.out.print(raffleGetter.getOrganizer("R012"));

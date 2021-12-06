@@ -1,5 +1,7 @@
 package main.java.DatabaseRe.Mediators;
 
+import java.util.ArrayList;
+
 /**
  * Query class contains the queries that need to be made to the database
  */
@@ -83,5 +85,10 @@ public abstract class SelectQueries {
         return "SELECT OuserCred.*" +
                 "    FROM innodb.OuserCred" +
                 "    WHERE OuserCred.organization = \""+organization+"\";";
+    }
+
+    public static String getUsernameFromID(String organizerID) {
+        return "SELECT OrganizerUsernames.* FROM innodb.OrganizerUsernames WHERE OrganizerUsernames.OuserID = \""
+                + organizerID + "\";";
     }
 }

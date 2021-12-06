@@ -18,8 +18,7 @@ public class OrganizerRafflePresenter {
         o.setUsername(username);
         o.setRaffleID(username);
     }
-    public String getRaffleDetails()
-    {
+    public String getRaffleDetails() throws Exception {
         ArrayList<Object> details = o.getRaffleDetails(raffleID);
         String s = "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nNumber of Winners: "+details.get(1)+"\nEnd Date: "+((java.util.Date)details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nParticipants:";
         for(int i = 0;i<((ArrayList<String>)details.get(5)).size();i++)
@@ -27,13 +26,14 @@ public class OrganizerRafflePresenter {
         s += "\nTask Details:\n";
         for(int i = 0;i<((ArrayList<Object>)details.get(4)).size();i++)
         {
-            s+= "\nTask "+(i+1)+": "+(ArrayList<String>)((ArrayList<Object>)details.get(4)).get(0)+"\nDescription: "+(ArrayList<String>)((ArrayList<Object>)details.get(4)).get(2)+"\nLink: "+(ArrayList<String>)((ArrayList<Object>)details.get(4)).get(1)+"\n";
+            ArrayList<String> d = o.getTaskInfo(raffleID, ((ArrayList<Object>)details.get(4)).get(i).toString());
+            s+= "\nTask "+(i+1)+": "+d.get(1) +"\nDescription: "+d.get(2)+"\nLink: "+d.get(3)+"\n";
         }
         if(winnersGenerated())
         {
             s += "\nWinners:\n";
-            for(int i = 0;i<((ArrayList<String>)details.get(4)).size();i++)
-                s+="\n"+((ArrayList<String>)details.get(4)).get(i);
+            for(int i = 0;i<((ArrayList<String>)details.get(6)).size();i++)
+                s+="\n"+((ArrayList<String>)details.get(6)).get(i);
         }
         return s;
     }

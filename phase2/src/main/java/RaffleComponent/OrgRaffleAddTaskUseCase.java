@@ -24,7 +24,6 @@ public class OrgRaffleAddTaskUseCase {
 //        // of failing when adding a task id
 //    }
 
-    private final String FIELD_TO_BE_CHANGED = "TaskIdList";
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
     private final ArrayList<String> taskIds;
@@ -67,18 +66,56 @@ public class OrgRaffleAddTaskUseCase {
         // uncomment: this.ptcAllRaffles = DataAccess.getAllParticipantRafflesAndIds(raffleId)
         // at the moment of task adding, no participant can join the raffle yet
 
+        String date = this.orgRaffleInfo.get(3).toString();
+        System.out.println(date.substring(8,10) + date.substring(4, 7) + date.substring(24, 28));
+        int day = Integer.parseInt(date.substring(8, 10));
+        int month = convertMonthToInt(date.substring(4, 7));
+        int year = Integer.parseInt(date.substring(24, 28));
+        System.out.println(LocalDate.of(year, month , day));
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), (LocalDate)this.orgRaffleInfo.get(3),
-                (String)this.orgRaffleInfo.get(6));
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
+                LocalDate.of(year, month, day),
+                (String)this.orgRaffleInfo.get(7));
+
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
 
          this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
          this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
-         this.orgRaffle.setOrgUsername((String)this.orgRaffleInfo.get(6));
+         this.orgRaffle.setOrgUsername((String)this.orgRaffleInfo.get(7));
         // no winners set yet
 
 //        this.dataPackager = new PackageRaffleEntityInstance();
+    }
+    public int convertMonthToInt(String month){
+        switch(month){
+            case "Jan":
+                return 1;
+            case "Feb":
+                return 2;
+            case "Mar":
+                return 3;
+            case "Apr":
+                return 4;
+            case "May":
+                return 5;
+            case "Jun":
+                return 6;
+            case "Jul":
+                return 7;
+            case "Aug":
+                return 8;
+            case "Sep":
+                return 9;
+            case "Oct":
+                return 10;
+            case "Nov":
+                return 11;
+            case "Dec":
+                return 12;
+            default:
+                return 12;
+        }
     }
 
     public boolean updateTaskList(){

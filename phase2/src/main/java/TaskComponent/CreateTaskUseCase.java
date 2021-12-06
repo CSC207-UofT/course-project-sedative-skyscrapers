@@ -44,7 +44,7 @@ public class CreateTaskUseCase {
             taskInfo.add(this.task.getLink());
             taskInfo.add(this.task.getDescription());
 
-            this.writer.addDetailsOfTask(this.raffleId, taskInfo);
+            this.writer.addDetailsOfTask(taskID, taskInfo);
             return taskID;
         }
         return null;

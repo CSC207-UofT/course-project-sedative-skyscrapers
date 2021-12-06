@@ -25,6 +25,7 @@ public class TaskIdGenerator implements IEntityIdGenerator {
             if (takenId.equals("")){
                 continue;
             }
+            System.out.println(takenId);
             String[] takenIdNum = takenId.split(Character.toString(entityCode));
             int idNumber = Integer.parseInt(takenIdNum[1]);
             numList.add(idNumber);

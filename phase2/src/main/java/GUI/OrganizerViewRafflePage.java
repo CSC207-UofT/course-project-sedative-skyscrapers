@@ -56,7 +56,12 @@ public class OrganizerViewRafflePage extends JFrame {
 
         OrganizerSystemManager osm = new OrganizerSystemManager();
         ArrayList<Object> raffleDetails = osm.getRaffleDetails(raffleID);
-        raffleInfo = new JTextArea(o.getRaffleDetails());
+        try {
+            raffleInfo = new JTextArea(o.getRaffleDetails());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame,"Cannot load raffle details. Please go back and try again.","Error",JOptionPane.ERROR_MESSAGE);
+            raffleInfo = new JTextArea();
+        }
         raffleInfo.setEditable(false);
         raffleInfo.setFont(new Font("Chalkboard",Font.PLAIN,22));
 
@@ -90,7 +95,11 @@ public class OrganizerViewRafflePage extends JFrame {
 
                     findWinners.setText("Winners declared!");
                     findWinners.setEnabled(false);
-                    raffleInfo.setText(o.getRaffleDetails());
+                    try {
+                        raffleInfo.setText(o.getRaffleDetails());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             });
         }

@@ -38,19 +38,21 @@ public class TaskController {
                     // a task can be created only if tas name, link and description is given
                     this.runCreate();
                 }
-
+                break;
 
             case EXECUTE:
                 if ((raffleID != null) && (taskID != null)){
                     // task is executed when raffleID and taskID are given
                     this.runExecute();
                 }
+                break;
 
             case LOOKUP:
-                if((taskID != null) && (raffleID == null)){
+                if((taskID != null) && (raffleID != null)){
                     // when only taskID is provided
                     this.runLookup();
                 }
+
 
         }
     }

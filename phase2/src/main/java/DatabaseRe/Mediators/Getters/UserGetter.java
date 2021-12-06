@@ -123,4 +123,13 @@ public class UserGetter {
         selectQuery.close();
         return ouserID;
     }
+
+    public String getUsernameFromUserID(String organizerID) throws SQLException {
+        String query = SelectQueries.getUsernameFromID(organizerID);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        ArrayList<String> users = dataTools.getStrings(resultSet, "username");
+        resultSet.close();
+        selectQuery.close();
+        return users.get(0);
+    }
 }

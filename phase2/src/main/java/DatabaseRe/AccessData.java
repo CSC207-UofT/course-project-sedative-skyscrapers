@@ -39,11 +39,12 @@ public class AccessData implements DataAccessPoint {
             raffleDetails.add(userGetter.getParticipantsInRaffle(orgRaffleId));
             raffleDetails.add(raffleGetter.getWinners(orgRaffleId));
             ArrayList<String> organizer = (ArrayList<String>) raffleGetter.getOrganizer(orgRaffleId);
-            raffleDetails.add(organizer.get(0));
+            String orgas =(organizer.get(0));
+            raffleDetails.add(userGetter.getUsernameFromUserID(orgas));
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
-//        raffleDetails.remove(3);
+
         raffleDetails.remove(0);
         raffleDetails.remove(3);
         Collections.swap(raffleDetails, 0, 1);

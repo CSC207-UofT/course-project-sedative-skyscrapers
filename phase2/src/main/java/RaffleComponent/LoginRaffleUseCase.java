@@ -69,7 +69,7 @@ public class LoginRaffleUseCase {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
                  Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
-                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),(String)this.orgRaffleInfo.get(6));
+                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),(String)this.orgRaffleInfo.get(7));
         // todo, this 6 is assuming orgUsername is passed
         this.orgRaffle.setRaffleId(orgRaffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
