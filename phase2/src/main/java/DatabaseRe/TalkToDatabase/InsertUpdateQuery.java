@@ -7,12 +7,19 @@ import java.sql.Statement;
 
 public class InsertUpdateQuery {
 
+    private Statement statement;
+    private Connection connection;
 
-    public static void run(String query) throws SQLException {
+    public void run(String query) throws SQLException {
         DatabaseConnector.setConnection();
-        Connection connection = DatabaseConnector.connection;
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
+        this.connection = DatabaseConnector.connection;
+        this.statement = this.connection.createStatement();
+        this.statement.executeUpdate(query);
+    }
+
+    public void close() throws SQLException {
+        this.statement.close();
+        this.connection.close();
     }
 
 }

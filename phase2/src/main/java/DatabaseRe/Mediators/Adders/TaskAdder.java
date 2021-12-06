@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class TaskAdder {
     static TaskGetter taskGetter;
+    static InsertUpdateQuery insertUpdateQuery = new InsertUpdateQuery();
 
     static {
         try {
@@ -25,7 +26,8 @@ public class TaskAdder {
             for (String task : tasks) {
                 System.out.print(task);
                 String query = InsertQueries.assignTaskStatusToParticipant(participant, task, false);
-                InsertUpdateQuery.run(query);
+                insertUpdateQuery.run(query);
+                insertUpdateQuery.close();
             }
         }
     }
@@ -34,7 +36,8 @@ public class TaskAdder {
         for (String taskID : taskIDs) {
             String query = InsertQueries.addTaskIdToRaffle(orgRaffleId, taskID);
             try {
-                InsertUpdateQuery.run(query);
+                insertUpdateQuery.run(query);
+                insertUpdateQuery.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -44,7 +47,8 @@ public class TaskAdder {
     public void addDetails(String taskId, ArrayList<String> taskInfo) {
         String query = InsertQueries.addTaskDetails(taskId, taskInfo);
         try {
-            InsertUpdateQuery.run(query);
+            insertUpdateQuery.run(query);
+            insertUpdateQuery.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -19,19 +19,28 @@ public class TaskGetter {
     public ArrayList<String> getTaskIDsInRaffle(String orgRaffleId) throws SQLException {
         String query = SelectQueries.getTasksInRafflesQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, "taskID");
+        ArrayList<String> taskID = dataTools.getStrings(results, "taskID");
+        results.close();
+        selectQuery.close();
+        return taskID;
     }
 
     public boolean getTaskStatus(String ptcRaffleId, String taskId) throws SQLException {
         String query = SelectQueries.getTaskStatusQuery(ptcRaffleId, taskId);
         ResultSet results = selectQuery.getResultSet(query);
         results.next();
-        return results.getBoolean("taskStatus");
+        boolean taskStatus = results.getBoolean("taskStatus");
+        results.close();
+        selectQuery.close();
+        return taskStatus;
     }
 
     public ArrayList<String> getUsedTaskIDs() throws SQLException {
         String query = SelectQueries.usedTaskIDs;
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, "taskID");
+        ArrayList<String> taskID = dataTools.getStrings(results, "taskID");
+        results.close();
+        selectQuery.close();
+        return taskID;
     }
 }

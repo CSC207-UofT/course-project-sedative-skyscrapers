@@ -7,12 +7,12 @@ import java.sql.Statement;
 
 public class SelectQuery {
 
-    private final Statement statement;
+    private Statement statement;
+    private Connection connection;
 
     public SelectQuery() throws SQLException {
-        DatabaseConnector.setConnection();
-        Connection connection = DatabaseConnector.getConnection();
-        this.statement = connection.createStatement();
+        this.connection = connection;
+        this.statement = statement;
     }
 
     /**
@@ -22,6 +22,14 @@ public class SelectQuery {
      * a while loop of resultSet.next()
      */
     public ResultSet getResultSet(String query) throws SQLException {
+        DatabaseConnector.setConnection();
+        this.connection = DatabaseConnector.getConnection();
+        this.statement = this.connection.createStatement();
         return statement.executeQuery(query);
+    }
+
+    public void close() throws SQLException {
+        this.connection.close();
+        this.statement.close();
     }
 }
