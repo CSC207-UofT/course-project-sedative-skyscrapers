@@ -7,6 +7,7 @@ public abstract class SelectQueries {
     public static String usedRaffleIDs = "select raffleID from innodb.RaffleDetails;";
     public static String usedOrganizerIdsQuery = "SELECT OuserID FROM innodb.OrganizerUsernames;";
     public static String usedParticipantIdsQuery = "SELECT PuserID FROM innodb.ParticipantUsernames;";
+    public static String usedTaskIDs = "SELECT * FROM innodb.TaskDetails;";
 
     public static String getDetailsQuery(String orgRaffleId) {
         return "SELECT RaffleDetails.* FROM innodb.RaffleDetails WHERE innodb.RaffleDetails.raffleID = '" + orgRaffleId +  "';";
