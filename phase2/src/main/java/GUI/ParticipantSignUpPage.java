@@ -224,7 +224,8 @@ public class ParticipantSignUpPage {
                         ParticipantSystemManager psm = new ParticipantSystemManager();
                         if(parPhoneTextField.getText().length() == 10)
                         {
-                            int phone = Integer.parseInt(parPhoneTextField.getText());
+                            System.out.print(parPhoneTextField.getText());
+                            long phone = Integer.parseInt(parPhoneTextField.getText());
                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             LocalDate ld = LocalDate.parse(parDoBTextField.getText(),dtf);
                             if(!psm.isValidUsername(parUsernameTextField.getText()))

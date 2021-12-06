@@ -32,7 +32,7 @@ public class ParticipantPresenter {
     public String formatDetails(String raffleID, int index)
     {
         ArrayList<Object> t = o.getRaffleDetails(raffleID);
-        return  ((index+1) + ". Raffle Name: "+t.get(0)+"\t\t\t\tRaffle ID: "+raffleID+"\t\t\t\tOrganizer: "+t.get(7)+"\t\t\t\tEnd Date: "+ ((LocalDate)t.get(3)).toString());
+        return  ((index+1) + ". Raffle Name: "+t.get(0)+"\t\t\t\tRaffle ID: "+raffleID+"\t\t\t\tOrganizer: "+t.get(7)+"\t\t\t\tEnd Date: "+ (t.get(3)).toString());
     }
 
     public String[] getWonRafflesDetailstoDisplay()

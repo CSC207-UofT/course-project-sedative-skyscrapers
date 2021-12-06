@@ -24,9 +24,9 @@ public class RaffleGetter {
     public ArrayList<Object> getDetails(String orgRaffleId) throws SQLException, ParseException {
         String query = SelectQueries.getDetailsQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        selectQuery.close();
         ArrayList<Object> row = DataTools.getRow(results);
         results.close();
+        selectQuery.close();
         return row;
     }
 
@@ -37,11 +37,11 @@ public class RaffleGetter {
         ArrayList<String> usedIDs = new ArrayList<>();
         String query = SelectQueries.usedRaffleIDs;
         ResultSet results = selectQuery.getResultSet(query);
-        selectQuery.close();
         while (results.next()) {
             usedIDs.add(results.getString("raffleID"));
         }
         results.close();
+        selectQuery.close();
         return usedIDs;
     }
 
