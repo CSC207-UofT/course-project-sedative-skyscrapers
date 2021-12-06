@@ -24,7 +24,10 @@ public class RaffleGetter {
     public ArrayList<Object> getDetails(String orgRaffleId) throws SQLException, ParseException {
         String query = SelectQueries.getDetailsQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return (DataTools.getRow(results));
+        selectQuery.close();
+        ArrayList<Object> row = DataTools.getRow(results);
+        results.close();
+        return row;
     }
 
     /** gets the raffleIDs that are already used by in the system
@@ -34,24 +37,29 @@ public class RaffleGetter {
         ArrayList<String> usedIDs = new ArrayList<>();
         String query = SelectQueries.usedRaffleIDs;
         ResultSet results = selectQuery.getResultSet(query);
-
+        selectQuery.close();
         while (results.next()) {
             usedIDs.add(results.getString("raffleID"));
         }
-
+        results.close();
         return usedIDs;
     }
 
     public Object getWinners(String orgRaffleId) throws SQLException {
         String query = SelectQueries.getWinnersQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, "PuserID");
+        ArrayList<String> puserID = dataTools.getStrings(results, "PuserID");
+        results.close();
+        selectQuery.close();
+        return puserID;
     }
 
     public ArrayList<String> getTaskDetails(String taskId) throws SQLException, ParseException {
         String query = SelectQueries.getTaskQuery(taskId);
         ResultSet results = selectQuery.getResultSet(query);
         ArrayList<Object> raffleDetails = DataTools.getRow(results);
+        results.close();
+        selectQuery.close();
         return DataTools.convertToString(raffleDetails);
     }
 
@@ -59,12 +67,18 @@ public class RaffleGetter {
     public Object getOrganizer(String orgRaffleId) throws SQLException {
         String query = SelectQueries.getOrganizerOfRaffle(orgRaffleId);
         ResultSet resultSet = selectQuery.getResultSet(query);
-        return dataTools.getStrings(resultSet, "OuserID");
+        ArrayList<String> ouserID = dataTools.getStrings(resultSet, "OuserID");
+        resultSet.close();
+        selectQuery.close();
+        return ouserID;
     }
 
     public ArrayList<String> getRaffleIDfromRaffleName(String raffleName) throws SQLException {
         String query = SelectQueries.getRaffleIdFromName(raffleName);
         ResultSet resultSet = selectQuery.getResultSet(query);
-        return dataTools.getStrings(resultSet, "raffleID");
+        ArrayList<String> raffleID = dataTools.getStrings(resultSet, "raffleID");
+        resultSet.close();
+        selectQuery.close();
+        return raffleID;
     }
 }

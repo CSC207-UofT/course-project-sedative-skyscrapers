@@ -19,7 +19,10 @@ public class UserGetter {
     public ArrayList<String> getParticipantsInRaffle(String orgRaffleId) throws SQLException {
         String query = SelectQueries.getPTCInRafflesQuery(orgRaffleId);
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, "PuserID");
+        ArrayList<String> puserID = dataTools.getStrings(results, "PuserID");
+        results.close();
+        selectQuery.close();
+        return puserID;
     }
 
 
@@ -32,7 +35,10 @@ public class UserGetter {
         }
         String query = SelectQueries.getPTCInfoQuery(userID, organizer);
         ResultSet results = selectQuery.getResultSet(query);
-        return DataTools.convertToString(DataTools.getRow(results));
+        ArrayList<String> strings = DataTools.convertToString(DataTools.getRow(results));
+        results.close();
+        selectQuery.close();
+        return strings;
     }
 
     public ArrayList<String> getRaffleIdsOfParticipant(String ptcUsername) throws SQLException {
@@ -44,7 +50,10 @@ public class UserGetter {
         }
         String query = SelectQueries.getRafflesOfParticipantsQuery(ptcID);
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, "raffleID");
+        ArrayList<String> raffleID = dataTools.getStrings(results, "raffleID");
+        results.close();
+        selectQuery.close();
+        return raffleID;
     }
 
     public ArrayList<String> getRafflesOfOrganizer(String orgUsername) throws SQLException {
@@ -56,7 +65,10 @@ public class UserGetter {
         }
         String query = SelectQueries.getRafflesOfOrganizer(orgID);
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, "raffleID");
+        ArrayList<String> raffleID = dataTools.getStrings(results, "raffleID");
+        results.close();
+        selectQuery.close();
+        return raffleID;
     }
 
 
@@ -68,7 +80,10 @@ public class UserGetter {
             columnName = "OuserID";
         }
         ResultSet results = selectQuery.getResultSet(query);
-        return dataTools.getStrings(results, columnName);
+        ArrayList<String> strings = dataTools.getStrings(results, columnName);
+        results.close();
+        selectQuery.close();
+        return strings;
     }
 
     public String getUserID(String username, boolean organizer) throws Exception {
@@ -78,7 +93,10 @@ public class UserGetter {
         String columnName = "PuserID";
         if (organizer) { columnName = "OuserID"; }
         try {
-            return dataTools.getStrings(results, columnName).get(0);
+            String s = dataTools.getStrings(results, columnName).get(0);
+            results.close();
+            selectQuery.close();
+            return s;
         }
         catch (IndexOutOfBoundsException e) {
             throw new Exception("The user does not exists");
@@ -89,6 +107,8 @@ public class UserGetter {
         String query = SelectQueries.getPusername(userID);
         ResultSet results = selectQuery.getResultSet(query);
         ArrayList<String> username = dataTools.getStrings(results, "username");
+        results.close();
+        selectQuery.close();
         return (!username.isEmpty());
 
     }
@@ -97,6 +117,9 @@ public class UserGetter {
     public ArrayList<String> getOrgIDfromOrganization(String organization) throws SQLException {
         String query = SelectQueries.getOrgIDfromOrganization(organization);
         ResultSet resultSet = selectQuery.getResultSet(query);
-        return dataTools.getStrings(resultSet, "OuserID");
+        ArrayList<String> ouserID = dataTools.getStrings(resultSet, "OuserID");
+        resultSet.close();
+        selectQuery.close();
+        return ouserID;
     }
 }

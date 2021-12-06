@@ -9,10 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TaskModifier {
-
+    static InsertUpdateQuery insertUpdateQuery = new InsertUpdateQuery();
     public void setStatus(String ptcRaffleId, String taskCompletedId, boolean status) throws SQLException {
         String query = UpdateQueries.taskStatus(ptcRaffleId, taskCompletedId, status);
-        InsertUpdateQuery.run(query);
+        insertUpdateQuery.run(query);
+        insertUpdateQuery.close();
     }
 
     public void removeTaskIds(ArrayList<String> taskIDs) {
@@ -21,8 +22,10 @@ public class TaskModifier {
             String query = UpdateQueries.deleteTask(taskID);
             String query2 = UpdateQueries.deleteTaskFromStatus(taskID);
             try {
-                InsertUpdateQuery.run(query);
-                InsertUpdateQuery.run(query2);
+                insertUpdateQuery.run(query);
+                insertUpdateQuery.close();
+                insertUpdateQuery.run(query2);
+                insertUpdateQuery.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

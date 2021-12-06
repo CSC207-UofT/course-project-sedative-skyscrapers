@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class RaffleAdder {
     static UserGetter userGetter;
+    static InsertUpdateQuery insertUpdateQuery = new InsertUpdateQuery();
 
     static {
         try {
@@ -27,7 +28,8 @@ public class RaffleAdder {
             boolean userExists = userGetter.checkParticipantID(ptcID);
             if (userExists) {
                 String query = InsertQueries.participantToRaffle(orgRaffleId, ptcID);
-                InsertUpdateQuery.run(query);
+                insertUpdateQuery.run(query);
+                insertUpdateQuery.close();
             }
             else {
                 throw new Exception("Invalid Username " + ptcID + ". Please Check.");
@@ -40,7 +42,8 @@ public class RaffleAdder {
                                  String raffleRules, LocalDate endDate)  {
         String query = InsertQueries.raffleDetails(orgRaffleId, raffleName, numberOfWinners, raffleRules, endDate);
         try {
-            InsertUpdateQuery.run(query);
+            insertUpdateQuery.run(query);
+            insertUpdateQuery.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

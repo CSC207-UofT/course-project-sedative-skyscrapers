@@ -10,8 +10,11 @@ public class FakeMain {
 //
 //        RaffleGetter raffleGetter = new RaffleGetter();
 //        System.out.print(raffleGetter.getOrganizer("R012"));
-        AccessData accessData = new AccessData();
-        System.out.print(accessData.getOrganizerRaffleById("R4469"));
+//        ProvideData provideData = new ProvideData();
+//        provideData.addParticipant("P012", "usernae", "passw", "je", "nnifer", "2001-11-21", "909098282", "kskda@jaf.com", new ArrayList<>());
+//        AccessData accessData = new AccessData();
+//        System.out.print(accessData.getParticipantInfo("usernae"));
+//        System.out.print(accessData.getParticipantInfo("usernae"));
 //        ProvideData provideData = new ProvideData();
 //        ArrayList<String> chut = new ArrayList<>();
 //        chut.add("chutiya");
