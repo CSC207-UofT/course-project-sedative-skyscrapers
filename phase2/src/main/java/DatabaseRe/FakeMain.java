@@ -12,7 +12,13 @@ public class FakeMain {
 //        System.out.print(raffleGetter.getOrganizer("R012"));
 
 //        ProvideData provideData = new ProvideData();
-//        LocalDate date = LocalDate.of(2025, 12, 12);
+//        ArrayList<String> chut = new ArrayList<>();
+//        chut.add("chutiya");
+//        chut.add("gando.maro");
+//        chut.add("bjhosdaksd");
+//
+////        LocalDate date = LocalDate.of(2025, 12, 12);
+//        provideData.addDetailsOfTask("T001", chut);
 //        provideData.changeRaffleEndDate("O12", date);
 //        ArrayList<String> raffles = new ArrayList<>();
 //        raffles.add("T02");
@@ -44,9 +50,9 @@ public class FakeMain {
 //        System.out.print(date.toString());
 //        raffleAdder.addRaffleDetails("R04", "melt", 12,
 //                "These are super important rules", date);
-        AccessData accessData = new AccessData();
-//        System.out.print(accessData.getOrgIDByOrganization("organization"));
-        System.out.print(accessData.getTakenTaskIds());
+//        AccessData accessData = new AccessData();
+////        System.out.print(accessData.getOrgIDByOrganization("organization"));
+//        System.out.print(accessData.getTakenTaskIds());
 //        System.out.println("This is how you see participant info");
 //        System.out.print(accessData.getParticipantInfo("chutiya"));
 //        System.out.println("\nThis is how you see organizer info");

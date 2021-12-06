@@ -42,6 +42,11 @@ public class TaskAdder {
     }
 
     public void addDetails(String taskId, ArrayList<String> taskInfo) {
-
+        String query = InsertQueries.addTaskDetails(taskId, taskInfo);
+        try {
+            InsertUpdateQuery.run(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
