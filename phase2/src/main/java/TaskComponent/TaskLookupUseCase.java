@@ -8,14 +8,13 @@ public class TaskLookupUseCase {
     public final String taskID;
     public GetTaskDetails extractor;
 
-    public TaskLookupUseCase (String taskID) throws FileNotFoundException {
+    public TaskLookupUseCase(String taskID) throws FileNotFoundException {
         this.taskID = taskID;
         this.extractor = new GetTaskDetails();
     }
 
     public ArrayList<String> getTaskInfo() throws FileNotFoundException{
-        ArrayList<String> taskInfo = extractor.getTaskDetails(this.taskID);
-        return taskInfo;
+        return extractor.getTaskDetails(this.taskID);
     }
 
 }

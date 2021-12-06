@@ -8,6 +8,6 @@ public class Button {
         CompleteTask = newTask;
     }
     public void press() throws Exception {
-        CompleteTask.execute();
+        CompleteTask.execute(); // execution of command to complete task (by pressing button to open hyperlink)
     }
 }
