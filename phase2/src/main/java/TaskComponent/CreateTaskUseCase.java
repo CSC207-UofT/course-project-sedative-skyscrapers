@@ -1,7 +1,6 @@
 package main.java.TaskComponent;
 import main.java.Helpers.TaskIdGenerator;
 import main.java.database.AddOrganizer;
-import main.java.database.DataExtractor;
 import main.java.database.GetTaskDetails;
 
 import java.io.FileNotFoundException;
@@ -20,7 +19,7 @@ public class CreateTaskUseCase {
 
     public CreateTaskUseCase(String raffleID, String name, String description, String link) throws IOException {
         this.raffleId = raffleID;
-        this.task = new Task(name, description, link);
+        this.task = new Task(name, description, link); //creation of task object
         try {
             this.extractor = new GetTaskDetails();
         } catch (FileNotFoundException e) {
@@ -31,7 +30,7 @@ public class CreateTaskUseCase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.idGenerator = new TaskIdGenerator(this.takenIds);
+        this.idGenerator = new TaskIdGenerator(this.takenIds);// generating taskID so that it is different from preexisting taskIDs
         this.writer = new AddOrganizer();
     }
 

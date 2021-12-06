@@ -1,8 +1,5 @@
 package main.java.TaskComponent;
 
-import java.util.HashMap;
-
-
 public class Task {
     private String name;
     private String description;
@@ -15,6 +12,13 @@ public class Task {
         this.link = link;
     }
 
+    @Override
+    public String toString() {
+       return("Name: " + name + ", Description: " + description + ", Link: " + link);
+
+    }
+
+    //getters and setters
     public String getName(){
         return name;
     }
@@ -34,15 +38,4 @@ public class Task {
     public void setTaskID(String taskID) {
         this.taskID = taskID;
     }
-
-    // public void setTaskLink(String link) {this.link = link;}
-
-
-    @Override
-    public String toString() {
-       return("Name: " + name + ", Description: " + description + ", Link: " + link);
-
-    }
-
-
 }
