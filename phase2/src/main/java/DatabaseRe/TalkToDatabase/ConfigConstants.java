@@ -24,6 +24,7 @@ public abstract class ConfigConstants {
         possibleValues.add(Types.LONGVARCHAR);
         possibleValues.add(Types.DATE);
         possibleValues.add(Types.VARCHAR);
+        possibleValues.add(Types.INTEGER);
         return possibleValues;
     }
 }

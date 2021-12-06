@@ -228,7 +228,7 @@ public class OrganizerCreateRafflePage extends JFrame {
                             frame.setVisible(false);
                         }catch(Exception io)
                         {
-                            JOptionPane.showMessageDialog(frame,"Invalid inputs","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(frame,io.getStackTrace(),"Error",JOptionPane.ERROR_MESSAGE);
                         }}
                     else
                         JOptionPane.showMessageDialog(frame,"End date cannot be before today's date","Error",JOptionPane.ERROR_MESSAGE);

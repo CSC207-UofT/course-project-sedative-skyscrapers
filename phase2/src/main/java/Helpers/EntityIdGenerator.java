@@ -27,6 +27,7 @@ public class EntityIdGenerator implements IEntityIdGenerator {
 
         for (String takenId : this.takenRaffleIds){
             String[] takenIdNum = takenId.split(Character.toString(entityCode)); // get the number on its own
+            System.out.print(takenIdNum.length);
             int idNumber = Integer.parseInt(takenIdNum[1]);
             numList.add(idNumber);
         }
