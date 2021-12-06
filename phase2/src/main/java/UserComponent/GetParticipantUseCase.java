@@ -1,13 +1,14 @@
 package main.java.UserComponent;
 
 import java.time.LocalDate;
+import main.java.UserComponent.Participant;
 
 public class GetParticipantUseCase {
     private final Participant participant;
 
-    public GetParticipantUseCase(String userName, String password, String firstName, String lastName,
+    public GetParticipantUseCase(String userId, String userName, String password, String firstName, String lastName,
                                  LocalDate dateOfBirth, String phone, String email) {
-        Participant newParticipant = new Participant(userName, password, firstName, lastName);
+        Participant newParticipant = new Participant(userId, userName, password, firstName, lastName);
         if (dateOfBirth != null) {
             newParticipant.setDateOfBirth(dateOfBirth);
         }
