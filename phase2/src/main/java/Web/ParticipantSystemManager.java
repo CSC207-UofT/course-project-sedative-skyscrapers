@@ -13,6 +13,8 @@ import main.java.UserWeb.UserController;
 import main.java.Web.TaskController;
 import main.java.Web.TaskDirector;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
 public class ParticipantSystemManager {
     private String username;
     private String raffleID;
@@ -46,14 +48,23 @@ public class ParticipantSystemManager {
     }
     // todo: Have varun call org sys man method for getting raffleInfo and accessing the taskID index and pass this to this method.
     public void storeRaffleInParticipantData(String raffleID, String username) throws Exception {
-        UserController userCont = new UserController();
-        userCont.addRaffleIDToParticipant(username, raffleID);
-        String ptcUserID = userCont.getUserUserId(username, "P");
-        //String[] ptcRaffleParts = raffleID.split(":");
-        String ptcRaffleID = username + ":" + raffleID;
+//        String[] Ids =  raffleID.split(":");
+        RaffleDataHelper dh = new RaffleDataHelper();
+        ArrayList<String> orgRafflePtcs = (ArrayList<String>) dh.getOrgRaffleInfo(raffleID).get(5);
 
-        PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, null);
-        ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.LOGIN);
+        if (!orgRafflePtcs.contains(username)){
+            System.out.println("It never reaches this if block");
+            UserController userCont = new UserController();
+            userCont.addRaffleIDToParticipant(username, raffleID);
+            String ptcUserID = userCont.getUserUserId(username, "P");
+            //String[] ptcRaffleParts = raffleID.split(":");
+            String ptcRaffleID = username + ":" + raffleID;
+
+            PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, null);
+            ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.LOGIN);
+        } else {
+            throw new Exception("orgRafflePtcs already contains this ptc");
+        }
 
         // old code:
 //        LoginRaffleController loginRaffCont = new LoginRaffleController(orgRaffleID, username);
@@ -137,12 +148,16 @@ public class ParticipantSystemManager {
 
     public boolean hasCompletedTasks(String taskID)throws FileNotFoundException
     {
-        String[] ptcRaffleParts = raffleID.split(":");
-        String orgRaffleID = ptcRaffleParts[1];
+//        String[] ptcRaffleParts = raffleID.split(":");
+//        String orgRaffleID = ptcRaffleParts[1];
+//
+//        PtcRaffleController ptcRaff = new PtcRaffleController(null, orgRaffleID, raffleID, taskID);
+//
+//        return ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.COMPLETE_TASK);
+        RaffleDataHelper dh = new RaffleDataHelper();
+        return dh.isTaskCompleted(raffleID , taskID);
 
-        PtcRaffleController ptcRaff = new PtcRaffleController(null, orgRaffleID, null, taskID);
 
-        return ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.COMPLETE_TASK);
         // old code:
 //        CompleteTaskController c= new CompleteTaskController(this.raffleID,taskID);
 //        return c.hasCompletedTask(this.username);

@@ -36,7 +36,12 @@ public class ProvideData implements DataProviderPoint {
 
         raffleAdder.addRaffleDetails(orgRaffleId, raffleName, numberOfWinners, raffleRules, endDate);
         addRaffleIDtoOrganizer(organizerUsername, orgRaffleId);
+    }
 
+    public void addRaffleFake(String orgRaffleId, String organizerUsername,
+                          String raffleName, Integer numberOfWinners, String raffleRules, LocalDate endDate) {
+
+        raffleAdder.addRaffleDetails(orgRaffleId, raffleName, numberOfWinners, raffleRules, endDate);
     }
 
     /**
@@ -62,9 +67,17 @@ public class ProvideData implements DataProviderPoint {
      */
     @Override
     public void addParticipantsToRaffle(String raffleID, ArrayList<String> participantUsernames) {
+        System.out.println("This function is caLLED AND I AM AN IDIOT");
         ArrayList<String> participantIDs = null;
         try {
             participantIDs = DataTools.getUserIds(participantUsernames, false);
+//            for (String ptcId : participantIDs){
+//                System.out.println("participant id: " + ptcId);
+//            }
+//            for (String ptcUser : participantUsernames){
+//                System.out.println("participant username: " + ptcUser);
+//            }
+
             RaffleAdder.addParticipantsToRaffle(raffleID, participantIDs);
             taskAdder.assignParticipantsTaskStatus(raffleID, participantIDs);
         } catch (Exception e) {

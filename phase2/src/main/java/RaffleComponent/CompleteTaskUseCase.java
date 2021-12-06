@@ -42,7 +42,7 @@ public class CompleteTaskUseCase {
 //         task use case to set them as complete in the db over there too. THIS IS A MUST FOR CLEAN ARCH
         //this.ptcRaffleInfo = extractor
         String[] IDs = raffleId.split(":");
-
+        System.out.println(raffleId + ",,," + IDs.length);
         try {
 
             dataAccess = new AccessData();
@@ -75,14 +75,52 @@ public class CompleteTaskUseCase {
         }
 
         if (this.ptcRaffleInfo != null) {
-            this.ptcRaffle = new ParticipantRaffleEntity(ptcRaffleInfo.get(0).toString(), Integer.parseInt(ptcRaffleInfo.get(1).toString()),
-                    LocalDate.parse(ptcRaffleInfo.get(3).toString(), dtf));
+            String date = this.ptcRaffleInfo.get(3).toString();
+            System.out.println(date);
+            int day = Integer.parseInt(date.substring(8, 10));
+            int month = convertMonthToInt(date.substring(4, 7));
+            int year = Integer.parseInt(date.substring(24, 28));
+            System.out.println(LocalDate.of(year, month , day));
+            this.ptcRaffle = new ParticipantRaffleEntity((String)this.ptcRaffleInfo.get(0),
+                    Integer.parseInt(this.ptcRaffleInfo.get(1).toString()),
+                    LocalDate.of(year, month, day));
             this.ptcRaffle.setRaffleId(raffleId);
             this.ptcRaffle.setRaffleRules((String) ptcRaffleInfo.get(2));
             this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
         }
         this.taskId = taskId;
 
+    }
+
+    public int convertMonthToInt(String month){
+        switch(month){
+            case "Jan":
+                return 1;
+            case "Feb":
+                return 2;
+            case "Mar":
+                return 3;
+            case "Apr":
+                return 4;
+            case "May":
+                return 5;
+            case "Jun":
+                return 6;
+            case "Jul":
+                return 7;
+            case "Aug":
+                return 8;
+            case "Sep":
+                return 9;
+            case "Oct":
+                return 10;
+            case "Nov":
+                return 11;
+            case "Dec":
+                return 12;
+            default:
+                return 12;
+        }
     }
 
     /**

@@ -224,7 +224,7 @@ public class ParticipantSignUpPage {
                         ParticipantSystemManager psm = new ParticipantSystemManager();
                         if(parPhoneTextField.getText().length() == 10)
                         {
-                            int phone = Integer.parseInt(parPhoneTextField.getText());
+                            long phone = Long.parseLong(parPhoneTextField.getText());
                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             LocalDate ld = LocalDate.parse(parDoBTextField.getText(),dtf);
                             if(!psm.isValidUsername(parUsernameTextField.getText()))
@@ -256,12 +256,12 @@ public class ParticipantSignUpPage {
                         }
                         else
                         {
-                            JOptionPane.showMessageDialog(parFrame,"Invalid Phone number","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(parFrame,"Invalid Phone number","Error1",JOptionPane.ERROR_MESSAGE);
                         }
                     }
                     catch(NumberFormatException nfe)
                     {
-                        JOptionPane.showMessageDialog(parFrame,"Invalid Phone number","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(parFrame,"Invalid Phone number","Error2",JOptionPane.ERROR_MESSAGE);
                     }
 
                 }

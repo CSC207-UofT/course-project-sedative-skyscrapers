@@ -29,9 +29,9 @@ public class ParticipantRafflePresenter {
     {
         ArrayList<Object> details = o.getRaffleDetails(raffleID);
         if(!isWinner())
-            return "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nEnd Date: "+((LocalDate)details.get(3)).toString()+"\nOrganizer: "+details.get(7);
+            return "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nEnd Date: "+(details.get(3)).toString()+"\nOrganizer: "+details.get(7);
         else
-            return "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nEnd Date: "+((LocalDate)details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nYou are a winner of this raffle!!!";
+            return "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nEnd Date: "+(details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nYou are a winner of this raffle!!!";
     }
     public String[] getTaskIDs() throws IOException
     {

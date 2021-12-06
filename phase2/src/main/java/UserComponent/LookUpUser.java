@@ -9,6 +9,7 @@ import main.java.UserComponent.GetOrganizerUseCase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LookUpUser {
@@ -32,16 +33,18 @@ public class LookUpUser {
         if (ptcInfo.isEmpty()){
             return null;
         }
+        System.out.print(ptcInfo);
         String ptcUserId = ptcInfo.get(0);
-        String ptcUsername = ptcInfo.get(1);
-        String password = ptcInfo.get(2);
-        String firstName = ptcInfo.get(3);
-        String lastName = ptcInfo.get(4);
-        LocalDate doB = LocalDate.parse(ptcInfo.get(5));
-        String phone = ptcInfo.get(6);
-        String email = ptcInfo.get(7);
+        String ptcUsername = username;
+        String password = ptcInfo.get(1);
+        String firstName = ptcInfo.get(2);
+        String lastName = ptcInfo.get(3);
+        String date = ptcInfo.get(4);
+        LocalDate doB = LocalDate.parse(date.substring(0, 10), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String phone = ptcInfo.get(5);
+        String email = ptcInfo.get(6);
         GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(ptcUserId, ptcUsername, password,
-                firstName, lastName, doB, phone, email);
+                firstName, "fake", doB, phone, email);
         return getParticipantUseCase.getParticipant();
     }
 

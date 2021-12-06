@@ -39,6 +39,7 @@ public class PtcRaffleController {
                     return this.runLogin();
                 }
                 // else case is handled by the system, technically there should never be such error
+                break;
 
             case COMPLETE_TASK:
                 if (taskId != null || this.ptcRaffleId != null){

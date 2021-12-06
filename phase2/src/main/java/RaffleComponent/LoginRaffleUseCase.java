@@ -67,19 +67,55 @@ public class LoginRaffleUseCase {
 //        this.dataPackager = new PackageRaffleEntityInstance();
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = this.orgRaffleInfo.get(3).toString();
+        System.out.println(date.substring(8,10) + date.substring(4, 7) + date.substring(24, 28));
+        int day = Integer.parseInt(date.substring(8, 10));
+        int month = convertMonthToInt(date.substring(4, 7));
+        int year = Integer.parseInt(date.substring(24, 28));
+        System.out.println(LocalDate.of(year, month , day));
         this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                 Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
-                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),(String)this.orgRaffleInfo.get(7));
-        // todo, this 6 is assuming orgUsername is passed
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
+                LocalDate.of(year, month, day),
+                (String)this.orgRaffleInfo.get(7));
         this.orgRaffle.setRaffleId(orgRaffleId);
         this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
-        // todo: watch out for possible null here, Im not sure if database took care of this appropriately
         this.orgRaffle.setTaskIdList((ArrayList<String>)this.orgRaffleInfo.get(4));
         this.orgRaffle.setParticipantIdList((ArrayList<String>)this.orgRaffleInfo.get(5));
         // winnerList automatically set by constructor to empty, as it should stay while participants can log in
 
 //        this.dataPackager = new PackageRaffleEntityInstance();
 
+    }
+
+    public int convertMonthToInt(String month){
+        switch(month){
+            case "Jan":
+                return 1;
+            case "Feb":
+                return 2;
+            case "Mar":
+                return 3;
+            case "Apr":
+                return 4;
+            case "May":
+                return 5;
+            case "Jun":
+                return 6;
+            case "Jul":
+                return 7;
+            case "Aug":
+                return 8;
+            case "Sep":
+                return 9;
+            case "Oct":
+                return 10;
+            case "Nov":
+                return 11;
+            case "Dec":
+                return 12;
+            default:
+                return 12;
+        }
     }
 
     /**
@@ -103,8 +139,8 @@ public class LoginRaffleUseCase {
             this.orgRaffle.getParticipantIdList().add(this.ptcLoggingInId);
 
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
-
-            this.dataUploader.addRaffleIDtoOrganizer(this.ptcLoggingInId, this.orgRaffleId);
+            System.out.print(this.ptcLoggingInId);
+            this.dataUploader.addRaffleIDtoParticipant(this.ptcLoggingInId, this.ptcRaffle.getRaffleId());
 
 //            try {
 //                this.dataUploader.uploadModifiedRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,

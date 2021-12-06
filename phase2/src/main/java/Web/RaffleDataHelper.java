@@ -96,4 +96,20 @@ public class RaffleDataHelper {
     public ArrayList<String> RaffleIDsFromName(String raffleName){
         return dataAccess.getRaffleIDByRaffleName(raffleName);
     }
+
+    public boolean isTaskCompleted(String ptcRaffleId, String taskIdToCheck){
+        String[] Ids = ptcRaffleId.split(":");
+
+        System.out.println("size " +  Ids.length);
+        ArrayList<String> orgTaskIds = (ArrayList<String>)this.dataAccess.getOrganizerRaffleById(Ids[1]).get(4);
+
+        for (String orgTaskId: orgTaskIds){
+            if (taskIdToCheck.equals(orgTaskId)){  // task has been completed and popped
+                return true;
+            }
+            // else, task hasn't been completed
+        }
+
+        return false;
+    }
 }
