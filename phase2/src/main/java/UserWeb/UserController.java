@@ -39,6 +39,11 @@ public class UserController {
         userCreator.storeParticipant(username, password, firstName, lastName, dateOfBirth.toString(), phone, email);
     }
 
+    /**
+     * return the information of a registered participant
+     * @param username username of the participant
+     * @return an ArrayList of participant info
+     */
     public ArrayList<String> getExistedParticipantInfo(String username) {
         return userLookUp.getPtcInfo(username);
     }
@@ -56,25 +61,23 @@ public class UserController {
         userCreator.storeOrganizer(username, password, orgName, phone, email);
     }
 
+    /**
+     * return the information of a registered organizer
+     * @param username username of the organizer
+     * @return an ArrayList of organizer info
+     */
     public ArrayList<String> getExistedOrganizerInfo(String username){
         return userLookUp.getOrgInfo(username);
     }
 
-
-//    public Organizer getExistedOrganizer(String username) {
-//        String[] orgInfo = new String[3];
-//        try {
-//            orgInfo = dataExtractor.getOrganizerDetails(username);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        String password = orgInfo[0];
-//        String orgName = orgInfo[1];
-//        String phone = orgInfo[2];
-//        String email = orgInfo[3];
-//        GetOrganizerUseCase getOrganizerUseCase = new GetOrganizerUseCase(username, password, orgName, phone, email);
-//        return getOrganizerUseCase.getOrganizer();
-//    }
+    /**
+     * return the organizerIDs that are under the particular organization
+     * @param organization name of organizer's organization
+     * @return an ArrayList of organizerIDs
+     */
+    public ArrayList<String> getOrganizerIdByOrgName(String organization){
+        return userLookUp.getOrgId(organization);
+    }
 
     /**
      * Get a list of raffleIDs of the raffles that the participant is a part of
@@ -132,6 +135,12 @@ public class UserController {
         return this.usernameChecker.checkOrgUsernameMatchPassword(username, password);
     }
 
+    /**
+     * return the userID of the particular user
+     * @param username username of the user
+     * @param userType "O" for organizer, "P" for participant
+     * @return username of the user
+     */
     public String getUserUserId(String username, String userType) {
         if (userType.equals("O")) {
             return userLookUp.getOrgUserId(username);
@@ -140,5 +149,4 @@ public class UserController {
         }
         return null;
     }
-
     }

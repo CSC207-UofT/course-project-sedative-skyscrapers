@@ -72,4 +72,8 @@ public class LookUpUser {
     public String getOrgPassword(String username){
         return getOrg(username).getPassword();
     }
+
+    public ArrayList<String> getOrgId(String organization){
+        return DataAccess.getOrgIDByOrganization(organization);
+    }
 }
