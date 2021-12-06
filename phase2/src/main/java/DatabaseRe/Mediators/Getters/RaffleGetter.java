@@ -61,4 +61,10 @@ public class RaffleGetter {
         ResultSet resultSet = selectQuery.getResultSet(query);
         return dataTools.getStrings(resultSet, "OuserID");
     }
+
+    public ArrayList<String> getRaffleIDfromRaffleName(String raffleName) throws SQLException {
+        String query = SelectQueries.getRaffleIdFromName(raffleName);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        return dataTools.getStrings(resultSet, "raffleID");
+    }
 }

@@ -71,4 +71,10 @@ public abstract class SelectQueries {
                 "    FROM innodb.OrganizersRaffles " +
                 "    WHERE OrganizersRaffles.raffleID = \""+orgRaffleId+"\";";
     }
+
+    public static String getRaffleIdFromName(String raffleName) {
+        return "SELECT RaffleDetails.* " +
+                "    FROM innodb.RaffleDetails " +
+                "    WHERE RaffleDetails.raffleName = \""+ raffleName +"\";";
+    }
 }

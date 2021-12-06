@@ -159,4 +159,16 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
+
+    @Override
+    public ArrayList<String> getRaffleIDByRaffleName(String raffleName) {
+        try {
+            return raffleGetter.getRaffleIDfromRaffleName(raffleName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
