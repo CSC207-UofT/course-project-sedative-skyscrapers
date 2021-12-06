@@ -1,12 +1,10 @@
 package main.java.RaffleComponent;
 
 import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.DataAccessPoint;
+import main.java.DatabaseRe.DataProviderPoint;
 import main.java.DatabaseRe.ProvideData;
-import main.java.database.AddOrganizer;
-import main.java.database.DataExtractor;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;

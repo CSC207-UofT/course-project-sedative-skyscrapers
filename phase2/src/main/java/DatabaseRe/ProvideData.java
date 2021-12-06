@@ -8,12 +8,10 @@ import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 import main.java.DatabaseRe.Mediators.Modifiers.RaffleModifier;
 import main.java.DatabaseRe.Mediators.Modifiers.TaskModifier;
 import main.java.DatabaseRe.Mediators.Modifiers.UserModifier;
-import main.java.RaffleComponent.DataProviderPoint;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ProvideData implements DataProviderPoint {
     RaffleAdder raffleAdder = new RaffleAdder();

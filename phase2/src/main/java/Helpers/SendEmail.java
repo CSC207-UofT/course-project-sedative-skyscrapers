@@ -19,9 +19,9 @@ public class SendEmail {
     private final String useremailid;
     private final String rafflename;
 
-    public SendEmail(String user, String emailID, String raffle) {
+    public SendEmail(String user, String emailId, String raffle) {
         this.username = user;
-        this.useremailid = emailid;
+        this.useremailid = emailId;
         this.rafflename = raffle;
     }
 

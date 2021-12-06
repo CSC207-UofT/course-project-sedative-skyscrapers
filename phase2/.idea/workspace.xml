@@ -5,14 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="refactoring(RaffleUseCases): update for database usage (pending final touches)">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phase2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/phase2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/AccessData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/AccessData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OrganizerCreateRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OrganizerCreateRafflePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OrganizerMainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OrganizerMainPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantMainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantMainPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/SignInPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/SignInPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/SignUpPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/SignUpPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/TaskButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/TaskButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/SendEmail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CreateRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/DataAccessPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataProviderPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/DataProviderPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/OrgRaffleAddTaskUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleEndDateModifierUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ORCBuilderInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleRuleSetterUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/CompleteTaskController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/CreateRaffleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/LoginRaffleController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/RaffleLookupController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/RaffleRuleSetterController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/RaffleTaskController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleWeb/RaffleWinnerGeneratorController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TaskWeb/CreateTaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/CreateTaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TaskWeb/ExecuteCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/ExecuteCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TaskWeb/TaskLookupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/TaskLookupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserWeb/CheckUsernameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/CheckUsernameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserWeb/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserWeb/UserRaffleIDController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/UserRaffleIDController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/OrganizerSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SystemManagers/OrganizerSystemManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SystemManagers/ParticipantSystemManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +58,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="21TDfWxQ9nWsUwPMM2y4ipvGzBT" />
@@ -37,6 +72,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -48,7 +88,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
@@ -75,6 +115,8 @@
       <workItem from="1638666831863" duration="4416000" />
       <workItem from="1638715855399" duration="2933000" />
       <workItem from="1638718893617" duration="7581000" />
+      <workItem from="1638756423486" duration="2507000" />
+      <workItem from="1638759422086" duration="430000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
       <created>1637956673104</created>

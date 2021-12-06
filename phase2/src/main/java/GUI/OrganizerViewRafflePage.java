@@ -1,6 +1,6 @@
 package main.java.GUI;
 
-import main.java.Web.OrganizerSystemManager;
+import main.java.SystemManagers.OrganizerSystemManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class OrganizerViewRafflePage extends JFrame {
     public static JFrame frame;

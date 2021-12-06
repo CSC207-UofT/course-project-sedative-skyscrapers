@@ -1,21 +1,19 @@
-package main.java.Web;
+package main.java.SystemManagers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
 //import main.java.RaffleComponent.OrgRaffleEditTaskUseCase;
 import main.java.RaffleWeb.*;
 import main.java.RaffleWeb.RaffleLookupController;
-import main.java.TaskWeb.CreateTaskController;
-import main.java.TaskWeb.TaskLookupController;
-import main.java.UserWeb.UserController;
-import main.java.UserWeb.UserRaffleIDController;
-import main.java.UserWeb.CheckUsernameController;
+import main.java.Web.CreateTaskController;
+import main.java.Web.TaskLookupController;
+import main.java.Web.UserController;
+import main.java.Web.UserRaffleIDController;
+import main.java.Web.CheckUsernameController;
 
 public class OrganizerSystemManager {
 

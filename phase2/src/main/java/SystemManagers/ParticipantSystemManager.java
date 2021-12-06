@@ -1,16 +1,15 @@
-package main.java.Web;
+package main.java.SystemManagers;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
 import main.java.RaffleWeb.*;
-import main.java.TaskWeb.ExecuteCommandController;
-import main.java.UserWeb.CheckUsernameController;
-import main.java.UserWeb.UserController;
-import main.java.UserWeb.UserRaffleIDController;
+import main.java.Web.ExecuteCommandController;
+import main.java.Web.CheckUsernameController;
+import main.java.Web.UserController;
+import main.java.Web.UserRaffleIDController;
 
 public class ParticipantSystemManager {
     private String username;

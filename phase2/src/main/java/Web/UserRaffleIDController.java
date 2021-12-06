@@ -1,4 +1,4 @@
-package main.java.UserWeb;
+package main.java.Web;
 
 import main.java.database.DataExtractor;
 import main.java.database.JoinUserToRaffle;

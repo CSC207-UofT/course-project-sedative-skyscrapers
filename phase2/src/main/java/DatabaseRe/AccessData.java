@@ -3,7 +3,6 @@ package main.java.DatabaseRe;
 import main.java.DatabaseRe.Mediators.Getters.RaffleGetter;
 import main.java.DatabaseRe.Mediators.Getters.TaskGetter;
 import main.java.DatabaseRe.Mediators.Getters.UserGetter;
-import main.java.RaffleComponent.DataAccessPoint;
 
 import java.sql.SQLException;
 import java.text.ParseException;

@@ -1,6 +1,6 @@
 package main.java.GUI;
 
-import main.java.Web.OrganizerSystemManager;
+import main.java.SystemManagers.OrganizerSystemManager;
 
 import javax.swing.*;
 import java.awt.*;

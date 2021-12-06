@@ -1,11 +1,11 @@
 package main.java.RaffleComponent;
 
 import main.java.DatabaseRe.AccessData;
+import main.java.DatabaseRe.DataAccessPoint;
+import main.java.DatabaseRe.DataProviderPoint;
 import main.java.DatabaseRe.ProvideData;
-import main.java.Helpers.PackageRaffleEntityInstance;
 import main.java.Helpers.EntityIdGenerator;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
