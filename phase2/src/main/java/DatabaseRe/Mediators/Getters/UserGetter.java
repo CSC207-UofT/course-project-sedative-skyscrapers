@@ -94,4 +94,9 @@ public class UserGetter {
     }
 
 
+    public ArrayList<String> getOrgIDfromOrganization(String organization) throws SQLException {
+        String query = SelectQueries.getOrgIDfromOrganization(organization);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        return dataTools.getStrings(resultSet, "OuserID");
+    }
 }
