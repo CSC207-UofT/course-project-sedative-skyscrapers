@@ -6,6 +6,7 @@ import main.java.TaskComponent.TaskLookupUseCase;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TaskController {
@@ -54,7 +55,7 @@ public class TaskController {
         }
     }
 
-public void runCreate() throws IOException {
+public void runCreate() throws SQLException {
         CreateTaskUseCase createTaskManager = new CreateTaskUseCase(this.raffleID, this.taskName, this.description, this.taskLink);
         this.taskID = createTaskManager.runTaskCreation();
 }
@@ -64,7 +65,7 @@ public void runExecute() throws Exception {
         executeManager.RunExecuteCommand();
 }
 
-public void runLookup() throws FileNotFoundException {
+public void runLookup() throws FileNotFoundException, SQLException {
         TaskLookupUseCase lookupManager = new TaskLookupUseCase(this.taskID);
         this.taskInfo = lookupManager.getTaskInfo();
 }
