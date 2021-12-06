@@ -83,6 +83,11 @@ public interface DataProviderPoint {
      * @param detailToBeChanged can take values: "username", "password", "phone", "email"
      */
     void changeParticipantDetail(String username, String detailToBeChanged, String newValue);
+    
+    /**
+     *  Changes the endDate of the Raffle
+     */
+    void changeRaffleEndDate(String raffleID, LocalDate newData);
 }
 
 
