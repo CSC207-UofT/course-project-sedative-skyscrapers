@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.Set;
 
 import main.java.RaffleWeb.*;
+import main.java.TaskComponent.Task;
 import main.java.TaskWeb.ExecuteCommandController;
-import main.java.UserWeb.CheckUsernameController;
+
 import main.java.UserWeb.UserController;
-import main.java.UserWeb.UserRaffleIDController;
+import main.java.Web.TaskController;
+import main.java.Web.TaskDirector;
 
 public class ParticipantSystemManager {
     private String username;
@@ -36,34 +38,46 @@ public class ParticipantSystemManager {
     public void setRaffleID(String raffleID) {
         this.raffleID = raffleID;
     }
+
     public void storePartDetails(String username, String password, String firstName, String lastName, String email,
                                  String phone, LocalDate DOB){
 
         UserController userCont = new UserController();
         userCont.createNewParticipant(username, password, firstName, lastName, DOB, phone, email);
     }
-
-
-
-    public void storeRaffleInParticipantData(String raffleID, String username){
-        UserRaffleIDController userRaffIDCont = new UserRaffleIDController();
-        userRaffIDCont.addRaffleIDToParticipant(username, raffleID);
+    // todo: Have varun call org sys man method for getting raffleInfo and accessing the taskID index and pass this to this method.
+    public void storeRaffleInParticipantData(String taskID, String raffleID, String username) throws Exception {
+        UserController userCont = new UserController();
+        userCont.addRaffleIDToParticipant(username, raffleID);
+        String ptcUserID = userCont.getUserUserId(username, "P");
         //String[] ptcRaffleParts = raffleID.split(":");
-        String orgRaffleID =raffleID;
-        LoginRaffleController loginRaffCont = new LoginRaffleController(orgRaffleID, username);
-        loginRaffCont.runLoginRaffle();
+        String ptcRaffleID = username + ":" + raffleID;
+
+        PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, taskID);
+        ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.LOGIN);
+
+        // old code:
+//        LoginRaffleController loginRaffCont = new LoginRaffleController(orgRaffleID, username);
+//        loginRaffCont.runLoginRaffle();
     }
 
-    // TODO (Code works just clarification): Ask varun about how 1 by 1 task complete and you call completeTask is called,
-    //  how that will handle for that task in controller and store..
+
     public void completeTask(String raffleID, String taskID) throws Exception {
         // Call taskController, save task and add it to the participant raffle object. miGHT Have to call the necessary
         // controller to do this.
 
         ExecuteCommandController executor = new ExecuteCommandController(raffleID, taskID);
         executor.runExecuteCommand();
-        CompleteTaskController compTask = new CompleteTaskController(raffleID, taskID);
-        compTask.runCompleteTask();
+        UserController userCont = new UserController();
+        String ptcUserID = userCont.getUserUserId(username, "P");
+        String ptcRaffleID = username + ":" + raffleID;
+
+        PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, taskID);
+        ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.COMPLETE_TASK);
+
+        //old code:
+//        CompleteTaskController compTask = new CompleteTaskController(raffleID, taskID);
+//        compTask.runCompleteTask();
 
 
 
@@ -71,49 +85,68 @@ public class ParticipantSystemManager {
 
     public ArrayList<String> getTaskIDs(String raffleID){
 
-        RaffleLookupController raffleLookupCont = new RaffleLookupController();
+        RaffleDataHelper raffleData = new RaffleDataHelper();
         String[] ptcRaffleParts = raffleID.split(":");
         String orgRaffleID = ptcRaffleParts[1];
-        return (ArrayList<String>) raffleLookupCont.runLookupOrgRaffleInfo(orgRaffleID).get(4);
+        return (ArrayList<String>) raffleData.getOrgRaffleInfo(orgRaffleID).get(4);
     }
 
     public boolean checkLoginMatch(String username, String password){
-        CheckUsernameController checkObj = new CheckUsernameController();
-        return checkObj.participantUsernameMatchPassword(username, password);
+        UserController userCont = new UserController();
+        return userCont.participantUsernameMatchPassword(username, password);
+
+        //OLD CODE
+//        CheckUsernameController checkObj = new CheckUsernameController();
+//        return checkObj.participantUsernameMatchPassword(username, password);
+    }
+    // todo: Let varun loop thorugh and make arraylist of emails and pass that array list to generateWinenrs func.
+    public String generateEmail(String username){
+        UserController userCont = new UserController();
+        return userCont.getExistedParticipantInfo(username).get(7);
     }
 
     public boolean isValidUsername(String username){
-        CheckUsernameController checkName = new CheckUsernameController();
-        return checkName.userNameUsed(username);
+        UserController userCont = new UserController();
+        return userCont.userNameUsed(username);
+
+        // Old code
+//        CheckUsernameController checkName = new CheckUsernameController();
+//        return checkName.userNameUsed(username);
 
     }
 
     public ArrayList<String> getParticipatingList(String raffleID){
         // Return list of all users that are participating in the given raffleID
-        RaffleLookupController raffleLookupCont = new RaffleLookupController();
+        RaffleDataHelper raffleData = new RaffleDataHelper();
         String[] ptcRaffleParts = raffleID.split(":");
         String orgRaffleID = ptcRaffleParts[1];
-        ArrayList<Object> raffleInfo = raffleLookupCont.runLookupOrgRaffleInfo(orgRaffleID);
+        ArrayList<Object> raffleInfo = raffleData.getOrgRaffleInfo(orgRaffleID);
         return (ArrayList<String>) raffleInfo.get(5);
     }
 
     public ArrayList<String> getPartRaffleList(String username){
         // Return the given participant's raffle list they are participating in.
-        UserRaffleIDController userRaffIDCont = new UserRaffleIDController();
-        return userRaffIDCont.getParticipantRaffleID(username);
+        UserController userCont = new UserController();
+        return userCont.getParticipantRaffleID(username);
     }
 
     public Set<String> getAllRaffleID(){
-        RaffleLookupController raffleLookupCont = new RaffleLookupController();
+        RaffleDataHelper raffleData = new RaffleDataHelper();
         // I get all raffle info as hashmap. Now I do keySets() to get set of keys.
-        return raffleLookupCont.runLookupAllRaffleInfo().keySet();
+        return raffleData.getAllOrgRaffleInfo().keySet();
     }
 
     public boolean hasCompletedTasks(String taskID)throws FileNotFoundException
     {
+        String[] ptcRaffleParts = raffleID.split(":");
+        String orgRaffleID = ptcRaffleParts[1];
 
-        CompleteTaskController c= new CompleteTaskController(this.raffleID,taskID);
-        return c.hasCompletedTask(this.username);
+        PtcRaffleController ptcRaff = new PtcRaffleController(null, orgRaffleID, null, taskID);
+
+        return ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.COMPLETE_TASK);
+        // old code:
+//        CompleteTaskController c= new CompleteTaskController(this.raffleID,taskID);
+//        return c.hasCompletedTask(this.username);
     }
 }
 

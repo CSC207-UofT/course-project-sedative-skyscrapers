@@ -32,6 +32,11 @@ public class OrgRaffleController {
     // returning attributes
     private boolean creationResult;
     private ArrayList<String> winnersGenerated;
+
+    public ArrayList<String> getWinnersGenerated() {
+        return winnersGenerated;
+    }
+
     private LocalDate updatedEndDate;
 
     public enum OrgRaffleAction {
@@ -48,6 +53,10 @@ public class OrgRaffleController {
         this.rulesString = null;
         this.taskIds = null;
         this.newEndDate = null;
+    }
+
+    public String getOrgRaffleId() {
+        return orgRaffleId;
     }
 
     public boolean runRaffleController(OrgRaffleAction actionToProcess){

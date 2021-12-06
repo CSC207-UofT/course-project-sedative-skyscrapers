@@ -93,4 +93,7 @@ public class RaffleDataHelper {
         return this.getAllOrgRaffleInfo().containsKey(orgRaffleID);
     }
 
+    public ArrayList<String> RaffleIDsFromName(String raffleName){
+        return dataAccess.getRaffleIDByRaffleName(raffleName);
+    }
 }
