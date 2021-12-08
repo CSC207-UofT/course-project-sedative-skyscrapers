@@ -25,8 +25,8 @@ public class TaskGetter {
         return taskID;
     }
 
-    public boolean getTaskStatus(String ptcRaffleId, String taskId) throws SQLException {
-        String query = SelectQueries.getTaskStatusQuery(ptcRaffleId, taskId);
+    public boolean getTaskStatus(String participantID, String taskId) throws SQLException {
+        String query = SelectQueries.getTaskStatusQuery(participantID, taskId);
         ResultSet results = selectQuery.getResultSet(query);
         results.next();
         boolean taskStatus = results.getBoolean("taskStatus");

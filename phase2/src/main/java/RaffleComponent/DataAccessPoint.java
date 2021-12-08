@@ -26,7 +26,7 @@ public interface DataAccessPoint {
 
      ArrayList<String> getOrganizerRaffleIds(String orgUsername);
 
-     boolean hasCompletedTask(String ptcRaffleId, String userName, String taskId) throws SQLException;
+     boolean hasCompletedTask(String ptcRaffleId, String taskId) throws SQLException;
 
      ArrayList<String> getTakenOrganizerIds();
 
@@ -40,5 +40,9 @@ public interface DataAccessPoint {
      ArrayList<String> getOrgIDByOrganization(String organization);
 
      ArrayList<String>  getTakenTaskIds();
- }
+
+     String getParticipantUsernameFromID(String ptcID, boolean organizer);
+
+     String getUserIDFromUsername(String username, boolean organizer) throws Exception;
+}
 

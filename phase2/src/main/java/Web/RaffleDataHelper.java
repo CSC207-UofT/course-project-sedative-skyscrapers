@@ -1,13 +1,8 @@
 package main.java.Web;
 
 import main.java.DatabaseRe.AccessData;
-import main.java.database.AddOrganizer;
-import main.java.database.DataExtractor;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -100,16 +95,33 @@ public class RaffleDataHelper {
     public boolean isTaskCompleted(String ptcRaffleId, String taskIdToCheck){
         String[] Ids = ptcRaffleId.split(":");
 
-        System.out.println("size " +  Ids.length);
-        ArrayList<String> orgTaskIds = (ArrayList<String>)this.dataAccess.getOrganizerRaffleById(Ids[1]).get(4);
-
-        for (String orgTaskId: orgTaskIds){
-            if (taskIdToCheck.equals(orgTaskId)){  // task has been completed and popped
-                return true;
-            }
-            // else, task hasn't been completed
+        String raffleID = Ids[1];
+        String username = Ids[0];
+        try {
+            return (this.dataAccess.hasCompletedTask(getPtcUserIdFromUsername(username), taskIdToCheck));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return false;
     }
+
+    public String getPtcUserIdFromUsername(String username){
+        try {
+            return this.dataAccess.getUserIDFromUsername(username, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getUsernameFromUserId(String userId, boolean organizer){
+        return this.dataAccess.getParticipantUsernameFromID(userId, organizer);
+    }
+
+    public String getEmailFromParticipantId(String ptcUserId){
+        String username = this.dataAccess.getParticipantUsernameFromID(ptcUserId, false);
+        return this.dataAccess.getParticipantInfo(username).get(6);
+
+    }
+
 }

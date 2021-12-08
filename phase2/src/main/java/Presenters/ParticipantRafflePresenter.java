@@ -4,8 +4,8 @@ import main.java.Web.OrganizerSystemManager;
 import main.java.Web.ParticipantSystemManager;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import main.java.Web.RaffleDataHelper;
 
 public class ParticipantRafflePresenter {
     private String username;
@@ -46,19 +46,21 @@ public class ParticipantRafflePresenter {
     public String[] formatTaskDetails(String taskID)throws Exception
     {
         String[] taskDetails = new String[2];
-        taskDetails[0] = "Task Name: "+o.getTaskInfo(raffleID,taskID).get(0);
-        taskDetails[1] = "Description: "+o.getTaskInfo(raffleID,taskID).get(2)+"\nLink: "+o.getTaskInfo(raffleID,taskID).get(1);
+        taskDetails[0] = "Task Name: "+o.getTaskInfo(raffleID,taskID).get(1);
+        taskDetails[1] = "Description: "+o.getTaskInfo(raffleID,taskID).get(3)+"\nLink: "+o.getTaskInfo(raffleID,taskID).get(2);
         return taskDetails;
     }
     public boolean isWinner()
     {
-        ArrayList<String> pIDs = (ArrayList<String>) o.getRaffleDetails(raffleID).get(5);
-        return pIDs.contains(username+":"+raffleID);
+        ArrayList<String> pIDs = (ArrayList<String>) o.getRaffleDetails(raffleID).get(6);
+        RaffleDataHelper dh = new RaffleDataHelper();
+        return pIDs.contains(dh.getPtcUserIdFromUsername(username));
     }
     public boolean isEnrolled()
     {
         ArrayList<String> pIDs = (ArrayList<String>) o.getRaffleDetails(raffleID).get(5);
-        return pIDs.contains(username+":"+raffleID);
+        RaffleDataHelper dh = new RaffleDataHelper();
+        return pIDs.contains(dh.getPtcUserIdFromUsername(username));
     }
     public boolean hasCompletedTask(String taskID)throws IOException
     {

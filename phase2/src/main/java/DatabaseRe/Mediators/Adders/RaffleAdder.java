@@ -1,5 +1,6 @@
 package main.java.DatabaseRe.Mediators.Adders;
 
+import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 import main.java.DatabaseRe.Mediators.InsertQueries;
 import main.java.DatabaseRe.TalkToDatabase.InsertUpdateQuery;
@@ -25,6 +26,7 @@ public class RaffleAdder {
 
     public static void addParticipantsToRaffle(String orgRaffleId, ArrayList<String> partID) throws Exception {
         for (String ptcID: partID) {
+            System.out.println("RaffleAdder, line 29, should be a ptcID, in reality a username: " + ptcID);
             boolean userExists = userGetter.checkParticipantID(ptcID);
             if (userExists) {
                 String query = InsertQueries.participantToRaffle(orgRaffleId, ptcID);

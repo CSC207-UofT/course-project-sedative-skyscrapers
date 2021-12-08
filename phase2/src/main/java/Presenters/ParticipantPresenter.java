@@ -2,6 +2,7 @@ package main.java.Presenters;
 
 import main.java.Web.OrganizerSystemManager;
 import main.java.Web.ParticipantSystemManager;
+import main.java.Web.RaffleDataHelper;
 
 import java.text.DateFormat;
 import java.time.LocalDate;
@@ -60,9 +61,22 @@ public class ParticipantPresenter {
     public String[] getAllRafflesWithOrgName(String orgName)
     {
         ArrayList<String> ids = o.getOrgIDsByOrgName(orgName);
-        String[] raffleIDs = new String[ids.size()];
-        for(int i = 0;i<ids.size();i++)
-            raffleIDs[i] = ids.get(i);
+        ArrayList<String> rids = new ArrayList<>();
+        RaffleDataHelper dh = new RaffleDataHelper();
+
+        for (int i = 0; i<ids.size(); i++){
+            String username = dh.getUsernameFromUserId(ids.get(i), true);
+            String[] temp = o.getOrgRaffleID(username);
+            for (int j = 0; j < temp.length ; j++) {
+                rids.add(temp[j]);
+            }
+
+    }
+        String[] raffleIDs = new String[rids.size()];
+
+        for(int i = 0;i<rids.size();i++) {
+            raffleIDs[i] = rids.get(i);
+        }
         return raffleIDs;
     }
     public String getAllRafflesWithRaffleID(String raffleID)

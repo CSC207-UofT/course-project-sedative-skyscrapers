@@ -48,18 +48,52 @@ public class RaffleWinnerGeneratorUseCase {
         }
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
-                LocalDate.parse(this.orgRaffleInfo.get(3).toString(),dtf),
-                (String)this.orgRaffleInfo.get(6));
+        String date = this.orgRaffleInfo.get(3).toString();
+        int day = Integer.parseInt(date.substring(8, 10));
+        int month = convertMonthToInt(date.substring(4, 7));
+        int year = Integer.parseInt(date.substring(24, 28));
+        this.orgRaffle = new OrganizerRaffleEntity(this.orgRaffleInfo.get(0).toString(),
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()), LocalDate.of(year, month, day),
+                this.orgRaffleInfo.get(7).toString());
         this.orgRaffle.setRaffleId(raffleId);
-        this.orgRaffle.setRaffleRules((String)this.orgRaffleInfo.get(2));
-        this.orgRaffle.setTaskIdList((ArrayList<String>) this.orgRaffleInfo.get(4));
-        this.orgRaffle.setParticipantIdList((ArrayList<String>) this.orgRaffleInfo.get(5));
+        this.orgRaffle.setRaffleRules((String) orgRaffleInfo.get(2));
+        this.orgRaffle.setTaskIdList((ArrayList<String>) orgRaffleInfo.get(4));
         // no winners set yet
 
         this.validParticipantIds = this.dataAccess.getValidParticipants(this.orgRaffle.getRaffleId());
 
+    }
+
+
+    public int convertMonthToInt(String month){
+        switch(month){
+            case "Jan":
+                return 1;
+            case "Feb":
+                return 2;
+            case "Mar":
+                return 3;
+            case "Apr":
+                return 4;
+            case "May":
+                return 5;
+            case "Jun":
+                return 6;
+            case "Jul":
+                return 7;
+            case "Aug":
+                return 8;
+            case "Sep":
+                return 9;
+            case "Oct":
+                return 10;
+            case "Nov":
+                return 11;
+            case "Dec":
+                return 12;
+            default:
+                return 12;
+        }
     }
 
     /**
@@ -70,8 +104,8 @@ public class RaffleWinnerGeneratorUseCase {
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
         if (!this.generateWinners().isEmpty()){
             this.orgRaffle.setWinnerList(this.generateWinners());
-
             try {
+
                 this.dataUploader.addWinnersToRaffle(this.orgRaffle.getRaffleId(), this.orgRaffle.getWinnerList());
             } catch (SQLException e) {
                 e.printStackTrace();

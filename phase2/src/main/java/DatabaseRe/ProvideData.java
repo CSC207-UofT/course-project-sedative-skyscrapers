@@ -67,19 +67,12 @@ public class ProvideData implements DataProviderPoint {
      */
     @Override
     public void addParticipantsToRaffle(String raffleID, ArrayList<String> participantUsernames) {
-        System.out.println("This function is caLLED AND I AM AN IDIOT");
         ArrayList<String> participantIDs = null;
         try {
-            participantIDs = DataTools.getUserIds(participantUsernames, false);
-//            for (String ptcId : participantIDs){
-//                System.out.println("participant id: " + ptcId);
-//            }
-//            for (String ptcUser : participantUsernames){
-//                System.out.println("participant username: " + ptcUser);
-//            }
-
-            RaffleAdder.addParticipantsToRaffle(raffleID, participantIDs);
-            taskAdder.assignParticipantsTaskStatus(raffleID, participantIDs);
+            //todo: check for other errors
+//            participantIDs = DataTools.getUserIds(participantUsernames, false);
+            RaffleAdder.addParticipantsToRaffle(raffleID, participantUsernames);
+            taskAdder.assignParticipantsTaskStatus(raffleID, participantUsernames);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,11 +83,12 @@ public class ProvideData implements DataProviderPoint {
      * Adds the winners (who have claimed) to raffle.
      */
     @Override
-    public void addWinnersToRaffle(String raffleID, ArrayList<String> participantUsernames) throws SQLException {
-        ArrayList<String> participantIDs = null;
-        participantIDs = DataTools.getUserIds(participantUsernames, false);
+    public void addWinnersToRaffle(String raffleID, ArrayList<String> participantUserIDs) throws SQLException {
+//        ArrayList<String> participantIDs = null;
+//        participantIDs = DataTools.getUserIds(participantUsernames, false);
         try {
-            userAdder.winnersToRaffle(raffleID, participantIDs);
+            // if it gets participantUsernames, then convert to ids first
+            userAdder.winnersToRaffle(raffleID, participantUserIDs);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,6 +155,16 @@ public class ProvideData implements DataProviderPoint {
      */
     @Override
     public void addRaffleIDtoParticipant(String username, String raffleID) {
+        AccessData ad = null;
+        try {
+            ad = new AccessData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("PD ln 164 username: " + username);
+//        String username = ad.getParticipantUsernameFromID(ptcUserId, false);
+        System.out.println("PD ln 166 PtcUseId: " + username);
+        System.out.println("Provide Data, line 157, should be username?: " + username);
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
         addParticipantsToRaffle(raffleID, temp);

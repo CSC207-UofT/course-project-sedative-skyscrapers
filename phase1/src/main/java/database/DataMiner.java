@@ -2,6 +2,7 @@ package main.java.database;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Arrays;
 
 /**
  * Mines data from the file it wants to.
@@ -69,6 +70,7 @@ public class DataMiner {
         if (line == null) {
             return null;}
         data_mined = line.split(",");
+        System.out.println(Arrays.toString(data_mined));
         return data_mined;
     }
 

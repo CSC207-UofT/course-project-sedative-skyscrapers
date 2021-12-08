@@ -1,5 +1,6 @@
 package main.java.GUI;
 
+import main.java.Helpers.SendEmail;
 import main.java.Web.OrganizerSystemManager;
 
 import javax.swing.*;
@@ -101,7 +102,9 @@ public class OrganizerViewRafflePage extends JFrame {
                     osm.generateWinnersList(raffleID);
                     findWinners.setText("Winners declared!");
                     findWinners.setEnabled(false);
-                    raffleInfo.append("The winners are:\n");
+                    raffleInfo.append("The winners are: Nischal");
+                    SendEmail sender= new SendEmail("Nischal", "nischal3232002@gmail.com", "RaffleBYMichele");
+                    sender.send();
                     for(int i = 0;i<((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).size();i++)
                     {
                         raffleInfo.append("\n"+((ArrayList<String>)osm.getRaffleDetails(raffleID).get(6)).get(i));

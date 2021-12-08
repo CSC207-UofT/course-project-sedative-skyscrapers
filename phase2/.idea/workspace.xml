@@ -4,18 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="debugged">
+    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="fix(GUI/SystemMang.): last minute fixes before presentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/AccessData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/AccessData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/FakeMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/FakeMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/RaffleAdder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/RaffleAdder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/UserAdder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/UserAdder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/TaskGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/TaskGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/UserGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/UserGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Modifiers/TaskModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Modifiers/TaskModifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/SelectQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/SelectQueries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantMainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantMainPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantSignUpPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantSignUpPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/TaskButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/TaskButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/SendEmail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/OrganizerRafflePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/OrganizerRafflePresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantRafflePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantRafflePresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/UserComponent/LookUpUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserComponent/LookUpUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UserComponent/AddUserRaffleIdUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserComponent/AddUserRaffleIdUseCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Web/OrganizerSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/OrganizerSystemManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Web/PtcRaffleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/PtcRaffleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Web/RaffleDataHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/RaffleDataHelper.java" afterDir="false" />
@@ -30,10 +43,16 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -51,13 +70,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/DatabaseRe/lib/mysql-connector-java-8.0.27.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../FinalProjFinal/course-project-sedative-skyscrapers/phase2" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -65,6 +91,14 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="test" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="FakeMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -125,7 +159,12 @@
       <workItem from="1638718893617" duration="7581000" />
       <workItem from="1638782753799" duration="12453000" />
       <workItem from="1638795737984" duration="18273000" />
-      <workItem from="1638816261183" duration="9605000" />
+      <workItem from="1638816261183" duration="10028000" />
+      <workItem from="1638826515006" duration="1703000" />
+      <workItem from="1638830855638" duration="2426000" />
+      <workItem from="1638908969079" duration="1372000" />
+      <workItem from="1638923501549" duration="27677000" />
+      <workItem from="1638951606706" duration="6779000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
       <created>1637956673104</created>
@@ -176,7 +215,21 @@
       <option name="project" value="LOCAL" />
       <updated>1638806083602</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="debugged">
+      <created>1638826208225</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1638826208225</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix(GUI/SystemMang.): last minute fixes before presentation">
+      <created>1638909088216</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1638909088217</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,15 +255,16 @@
     <MESSAGE value="refactoring(RaffleUseCases): update for database usage (pending final touches)" />
     <MESSAGE value="fix(project details): final bug fixes" />
     <MESSAGE value="debugged" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugged" />
+    <MESSAGE value="fix(GUI/SystemMang.): last minute fixes before presentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(GUI/SystemMang.): last minute fixes before presentation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java</url>
-          <line>208</line>
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java</url>
+          <line>157</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -23,7 +23,8 @@ public class TaskButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ParticipantSystemManager psm = new ParticipantSystemManager();
         try {
-            psm.completeTask(raffleID, taskID);
+            psm.setUsername(raffleID.split(":")[0]);
+            psm.completeTask(raffleID.split(":")[1], taskID);
             button.setEnabled(false);
             button.setText("Task Completed");
         }

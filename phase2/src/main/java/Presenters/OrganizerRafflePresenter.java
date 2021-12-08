@@ -23,11 +23,11 @@ public class OrganizerRafflePresenter {
         String s = "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nNumber of Winners: "+details.get(1)+"\nEnd Date: "+((java.util.Date)details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nParticipants:";
         for(int i = 0;i<((ArrayList<String>)details.get(5)).size();i++)
             s += "\n"+(i+1)+". "+((ArrayList<String>)details.get(5)).get(i);
-        s += "\nTask Details:\n";
+        s += "\n\nTask Details:\n";
         for(int i = 0;i<((ArrayList<Object>)details.get(4)).size();i++)
         {
             ArrayList<String> d = o.getTaskInfo(raffleID, ((ArrayList<Object>)details.get(4)).get(i).toString());
-            s+= "\nTask "+(i+1)+": "+d.get(1) +"\nDescription: "+d.get(2)+"\nLink: "+d.get(3)+"\n";
+            s+= "\nTask "+(i+1)+": "+d.get(1) +"\nDescription: "+d.get(3)+"\nLink: "+d.get(2)+"\n";
         }
         if(winnersGenerated())
         {
@@ -39,7 +39,8 @@ public class OrganizerRafflePresenter {
     }
     public boolean winnersGenerated()
     {
-        if(((ArrayList<String>)o.getRaffleDetails(raffleID).get(4)).size()==0)
+        int i;
+        if(((ArrayList<String>)o.getRaffleDetails(raffleID).get(6)).size()==0)
             return false;
         else
             return true;

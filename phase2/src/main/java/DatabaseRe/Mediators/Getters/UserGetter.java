@@ -124,12 +124,22 @@ public class UserGetter {
         return ouserID;
     }
 
-    public String getUsernameFromUserID(String organizerID) throws SQLException {
+    public String getOrganizerUsernameFromID(String organizerID) throws SQLException {
         String query = SelectQueries.getUsernameFromID(organizerID);
         ResultSet resultSet = selectQuery.getResultSet(query);
         ArrayList<String> users = dataTools.getStrings(resultSet, "username");
         resultSet.close();
         selectQuery.close();
+        return users.get(0);
+    }
+
+    public String getParticipantUsernameFromID(String ptcID) throws SQLException {
+        String query = SelectQueries.getParticipantFromID(ptcID);
+        ResultSet resultSet = selectQuery.getResultSet(query);
+        ArrayList<String> users = dataTools.getStrings(resultSet, "username");
+        resultSet.close();
+        selectQuery.close();
+        System.out.println("userGetter ln 140, username: " + users.get(0));
         return users.get(0);
     }
 }

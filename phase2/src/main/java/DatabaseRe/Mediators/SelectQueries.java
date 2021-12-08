@@ -91,4 +91,9 @@ public abstract class SelectQueries {
         return "SELECT OrganizerUsernames.* FROM innodb.OrganizerUsernames WHERE OrganizerUsernames.OuserID = \""
                 + organizerID + "\";";
     }
+
+    public static String getParticipantFromID(String ptcID) {
+        return "SELECT ParticipantUsernames.* FROM innodb.ParticipantUsernames WHERE ParticipantUsernames.PuserID = \""
+                + ptcID + "\";";
+    }
 }

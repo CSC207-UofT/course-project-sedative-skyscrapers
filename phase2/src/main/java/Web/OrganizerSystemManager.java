@@ -170,7 +170,7 @@ public class OrganizerSystemManager {
 
     }
 
-    public void generateWinnersList(ArrayList<String> emailIDs, String raffleID){
+    public void generateWinnersList(){
         // This method returns the list of generated winners and contacts them via email.
         ORCDirector raffleObj = new ORCDirector();
         raffleObj.ORCBuildWinnerGenerator(raffleID);
@@ -179,14 +179,18 @@ public class OrganizerSystemManager {
 
         orgRaffle.runRaffleController(OrgRaffleController.OrgRaffleAction.GENERATE_WINNERS);
         ArrayList<String> winners = orgRaffle.getWinnersGenerated();
-        for(int i = 0; i < winners.size(); i++){
-            SendEmail emailObj = new SendEmail(winners.get(i), emailIDs.get(i), raffleID);
+
+        RaffleDataHelper raffData = new RaffleDataHelper();
+
+        for (int i = 0; i < winners.size(); i++){
+            String emailId = raffData.getEmailFromParticipantId(winners.get(i));
+            String username = raffData.getUsernameFromUserId(winners.get(i), false);
+            String raffleName = raffData.getOrgRaffleInfo(raffleID).get(0).toString();
+            SendEmail emailObj = new SendEmail(username, emailId, raffleName);
             emailObj.send();
 
         }
-        // OLD CODE:
-//        RaffleWinnerGeneratorController raffleWinCont = new RaffleWinnerGeneratorController(raffleID);
-//        return raffleWinCont.runRaffleWinnerGenerator();
+
     }
 
     public ArrayList<String> getWinnersList(String raffleID){

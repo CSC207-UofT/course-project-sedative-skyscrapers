@@ -35,12 +35,6 @@ public class CompleteTaskUseCase {
      * @param raffleId the id of the raffle to which the task being completed belongs to
      */
     public CompleteTaskUseCase(String raffleId, String taskId){
-//        this.extractor = new GetTaskDetails();  // todo, talk about how this extractor should be outside,
-//         managed by system manager, this raffle use case should not be doing anything other than notifying
-//         the controller of the tasks that this user has completed, which notified the system manager, which
-//         then hands this over to the task controller to set those the tasks ids given by this use case to the
-//         task use case to set them as complete in the db over there too. THIS IS A MUST FOR CLEAN ARCH
-        //this.ptcRaffleInfo = extractor
         String[] IDs = raffleId.split(":");
         System.out.println(raffleId + ",,," + IDs.length);
         try {
@@ -75,18 +69,16 @@ public class CompleteTaskUseCase {
         }
 
         if (this.ptcRaffleInfo != null) {
-            String date = this.ptcRaffleInfo.get(3).toString();
-            System.out.println(date);
+            String date = this.ptcRaffleInfo.get(5).toString();  // todo check for errors
             int day = Integer.parseInt(date.substring(8, 10));
             int month = convertMonthToInt(date.substring(4, 7));
             int year = Integer.parseInt(date.substring(24, 28));
-            System.out.println(LocalDate.of(year, month , day));
-            this.ptcRaffle = new ParticipantRaffleEntity((String)this.ptcRaffleInfo.get(0),
+            this.ptcRaffle = new ParticipantRaffleEntity((String)this.ptcRaffleInfo.get(2),
                     Integer.parseInt(this.ptcRaffleInfo.get(1).toString()),
                     LocalDate.of(year, month, day));
             this.ptcRaffle.setRaffleId(raffleId);
-            this.ptcRaffle.setRaffleRules((String) ptcRaffleInfo.get(2));
-            this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
+            this.ptcRaffle.setRaffleRules((String) ptcRaffleInfo.get(3));
+            this.ptcRaffle.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(6));
         }
         this.taskId = taskId;
 
@@ -128,7 +120,7 @@ public class CompleteTaskUseCase {
      * @return the arraylist containing the ids of all the raffles a participant has completed up to now
      */
     public boolean completeTask(){
-        ArrayList<String> completedTaskIds;
+        ArrayList<String> completedTaskIds = new ArrayList<>();
 
         //String[] IDs = ptcRaffle.getRaffleId().split(":");
         //            JoinUserToRaffle joiner = new JoinUserToRaffle();
@@ -137,16 +129,23 @@ public class CompleteTaskUseCase {
         if (this.taskId != null) {
             this.ptcRaffle.getTaskIdList().remove(this.taskId);  // pop tasks from the tasks to do by user
             // compare orgRaffleTaskIdList to ptcRaffleTaskIdList to return completed task Ids
-            completedTaskIds = generateCompletedTaskIds(this.ptcRaffle.getTaskIdList(),
-                    (ArrayList<String>) this.orgRaffleInfo.get(4));
-
-            // todo: Im pretty sure this method only creates the tasks and appends them to the TaskIdList, but we need
-            //  for this instance to be able to edit just the TaskIdList, so separate the functionality into two I
-            //  guess, and let me both create the tasks at time for raffle creation, and delete the ids from taskIdList
-            //  for when a use completes a task
+            try {
+                completedTaskIds = generateCompletedTaskIds(this.ptcRaffle.getTaskIdList(),
+                        (ArrayList<String>) this.orgRaffleInfo.get(4));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 //            this.dataUploader.deleteTask(this.ptcRaffle.getRaffleId(), this.ptcRaffle.getTaskIdList());
-            this.dataUploader.deleteTask(this.ptcRaffle.getTaskIdList());
-
+//            this.dataUploader.deleteTask(this.ptcRaffle.getTaskIdList());
+            String username = this.ptcRaffle.getRaffleId().split(":")[0];
+            String ptcUserID = null;
+            try {
+                ptcUserID = this.dataAccess.getUserIDFromUsername(username, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("taskId "+  this.taskId + "ptcUserId" + ptcUserID);
+            this.dataUploader.setTaskStatus(ptcUserID, this.taskId, true);
             // despite not currently completing a task, other tasks might have been previously solved, so we still compare
             this.ptcCompletedTasks = completedTaskIds;
             return true;
@@ -172,11 +171,20 @@ public class CompleteTaskUseCase {
      * @param orgTaskIds arraylist of all the taskIds that are to be completed by ptcs of this raffle
      * @return the difference between these two lists of ids
      */
-    public ArrayList<String> generateCompletedTaskIds(ArrayList<String> ptcTaskIds,  ArrayList<String> orgTaskIds){
+    public ArrayList<String> generateCompletedTaskIds(ArrayList<String> ptcTaskIds,  ArrayList<String> orgTaskIds) throws SQLException {
+
         ArrayList<String> completedTaskIds = new ArrayList<>();
 
-        for (String taskId: orgTaskIds){
-            if (!ptcTaskIds.contains(taskId)){  // task has been completed and popped
+        String username = this.ptcRaffle.getRaffleId().split(":")[0];
+        String ptcUserID = null;
+        try {
+            ptcUserID = this.dataAccess.getUserIDFromUsername(username, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (String taskId: this.ptcRaffle.getTaskIdList()){
+            if (this.dataAccess.hasCompletedTask(ptcUserID, taskId)){  // task has been completed and popped
                 completedTaskIds.add(taskId);
             }
             // else, task hasn't been completed

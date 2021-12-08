@@ -15,6 +15,8 @@ public class UserAdder {
 
     public void winnersToRaffle(String raffleID, ArrayList<String> participantIDs) throws Exception {
         for (String ptcID : participantIDs) {
+//            String username = this.userGetter.getParticipantUsernameFromID(ptcID);
+
             boolean userExists = userGetter.checkParticipantID(ptcID);
             if (userExists) {
                 addRaffleWinner(raffleID, ptcID);

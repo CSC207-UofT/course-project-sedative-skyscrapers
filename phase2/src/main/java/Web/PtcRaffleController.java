@@ -55,7 +55,7 @@ public class PtcRaffleController {
     public boolean runLogin(){
         // if raffleId is valid, then it is passed onto the use case, otherwise, use case takes care of null input
         LoginRaffleUseCase loginRaffleManager = new LoginRaffleUseCase(this.orgRaffleId, this.participantUserId);
-
+        System.out.println("PtcRaffleController line 58, orgRaffleId: " + this.orgRaffleId + " ptcUserId: " + this.participantUserId);
         boolean result = loginRaffleManager.runRaffleLogin();
         this.ptcRaffleId = loginRaffleManager.getPtcRaffle().getRaffleId();
         return result;
