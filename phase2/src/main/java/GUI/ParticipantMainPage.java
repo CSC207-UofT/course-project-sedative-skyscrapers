@@ -27,6 +27,10 @@ public class ParticipantMainPage extends JFrame {
     private JComboBox<String> searchOption;
     private ParticipantPresenter pp;
     private boolean hasSearched;
+    private JScrollPane smallScrollPane;
+    private JPanel smallPanel;
+    private JFrame smallFrame;
+
 
     public ParticipantMainPage(String username)
     {
@@ -172,6 +176,8 @@ public class ParticipantMainPage extends JFrame {
 
         mpPanel = new JPanel();
         GroupLayout gl = new GroupLayout(mpPanel);
+        gl.setAutoCreateGaps(true);
+        gl.setAutoCreateContainerGaps(true);
         mpPanel.setLayout(gl);
         mpPanel.setBackground(new Color(160,160,160,100));
 
@@ -195,31 +201,51 @@ public class ParticipantMainPage extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GroupLayout.ParallelGroup tpg = gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(welcomeLabel).addComponent(userRaffleLabel);
-                GroupLayout.SequentialGroup tsg = gl.createSequentialGroup().addComponent(welcomeLabel).addGap(30).addComponent(userRaffleLabel).addGap(30);
-                for(int i = 0;i<userRaffles.length;i++) {
-                    tpg.addComponent(userRaffles[i]);
-                    tsg.addComponent(userRaffles[i]);
-                }
-                tpg.addGroup(gl.createSequentialGroup().addComponent(logout).addComponent(exitButton)).addComponent(searchLabel).addGroup(gl.createSequentialGroup().addComponent(searchField).addComponent(searchOption).addComponent(searchButton));
-                tsg.addGap(30).addGroup(gl.createParallelGroup().addComponent(logout).addComponent(exitButton)).addGap(50).addComponent(searchLabel).addGap(10).addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(searchField).addComponent(searchOption).addComponent(searchButton)).addGap(30);
+//                GroupLayout.ParallelGroup tpg = gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(welcomeLabel).addComponent(userRaffleLabel);
+//                GroupLayout.SequentialGroup tsg = gl.createSequentialGroup().addComponent(welcomeLabel).addGap(30).addComponent(userRaffleLabel).addGap(30);
+//                for(int i = 0;i<userRaffles.length;i++) {
+//
+//                    tpg.addComponent(userRaffles[i]);
+//                    tsg.addComponent(userRaffles[i]);
+//                }
+//                tpg.addGroup(gl.createSequentialGroup().addComponent(logout).addComponent(exitButton)).addComponent(searchLabel).addGroup(gl.createSequentialGroup().addComponent(searchField).addComponent(searchOption).addComponent(searchButton));
+//                tsg.addGap(30).addGroup(gl.createParallelGroup().addComponent(logout).addComponent(exitButton)).addGap(50).addComponent(searchLabel).addGap(10).addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER).addComponent(searchField).addComponent(searchOption).addComponent(searchButton)).addGap(30);
+                smallPanel = new JPanel();
+                GroupLayout tgl =  new GroupLayout(smallPanel);
+                smallPanel.setLayout(tgl);
+
+                smallScrollPane = new JScrollPane(smallPanel);
+                smallScrollPane.setPreferredSize(new Dimension(7*mpPanel.getWidth()/8,200));
+                smallScrollPane.setMinimumSize(smallScrollPane.getPreferredSize());
+                smallScrollPane.setMaximumSize(smallScrollPane.getPreferredSize());
+
+                GroupLayout.ParallelGroup tpg = tgl.createParallelGroup();
+                GroupLayout.SequentialGroup tsg = tgl.createSequentialGroup();
+                smallFrame = new JFrame();
+                smallFrame.setBounds(mpFrame.getWidth()/4, mpFrame.getHeight()/4, mpFrame.getWidth()/2, mpFrame.getHeight()/2);
+
                 String toDisplay[];
                 if(searchOption.getSelectedIndex() == 0) {
                     toDisplay = pp.getAllRafflesWithRaffleName(searchField.getText());
                     if (toDisplay.length>0) {
                         searchedButtons = new JButton[toDisplay.length];
+
                         for (int i = 0; i < toDisplay.length; i++) {
                             searchedButtons[i] = new JButton(pp.formatDetails(toDisplay[i], i));
                             searchedButtons[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-                            searchedButtons[i].setPreferredSize(new Dimension(7 * mpFrame.getWidth() / 8, 50));
+                            searchedButtons[i].setPreferredSize(new Dimension(smallFrame.getWidth(), 50));
                             searchedButtons[i].setMinimumSize(searchedButtons[i].getPreferredSize());
                             searchedButtons[i].setMaximumSize(searchedButtons[i].getPreferredSize());
-                            searchedButtons[i].addActionListener(new RaffleButton(toDisplay[i], mpFrame, true, username));
+                            searchedButtons[i].addActionListener(new RaffleButton(toDisplay[i], mpFrame, smallFrame, true, username));
                             tpg.addComponent(searchedButtons[i]);
                             tsg.addComponent(searchedButtons[i]);
                         }
-                        gl.setHorizontalGroup(tpg);
-                        gl.setVerticalGroup(tsg);
+                        tgl.setHorizontalGroup(tpg);
+                        tgl.setVerticalGroup(tsg);
+
+                        smallFrame.getContentPane().add(smallScrollPane);
+                        smallFrame.setVisible(true);
+
                     } else {
                         JOptionPane.showMessageDialog(mpFrame, "No such Raffle found", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -229,18 +255,22 @@ public class ParticipantMainPage extends JFrame {
                     toDisplay = pp.getAllRafflesWithOrgName(searchField.getText());
                     if (toDisplay.length>0) {
                         searchedButtons = new JButton[toDisplay.length];
+
                         for (int i = 0; i < toDisplay.length; i++) {
                             searchedButtons[i] = new JButton(pp.formatDetails(toDisplay[i], i));
                             searchedButtons[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-                            searchedButtons[i].setPreferredSize(new Dimension(7 * mpFrame.getWidth() / 8, 50));
+                            searchedButtons[i].setPreferredSize(new Dimension(smallFrame.getWidth(), 50));
                             searchedButtons[i].setMinimumSize(searchedButtons[i].getPreferredSize());
                             searchedButtons[i].setMaximumSize(searchedButtons[i].getPreferredSize());
-                            searchedButtons[i].addActionListener(new RaffleButton(toDisplay[i], mpFrame, true, username));
+                            searchedButtons[i].addActionListener(new RaffleButton(toDisplay[i], mpFrame, smallFrame, true, username));
                             tpg.addComponent(searchedButtons[i]);
                             tsg.addComponent(searchedButtons[i]);
                         }
-                        gl.setHorizontalGroup(tpg);
-                        gl.setVerticalGroup(tsg);
+                        tgl.setHorizontalGroup(tpg);
+                        tgl.setVerticalGroup(tsg);
+
+                        smallFrame.getContentPane().add(smallScrollPane);
+                        smallFrame.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(mpFrame, "No such Raffle found", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -251,14 +281,18 @@ public class ParticipantMainPage extends JFrame {
                         searchedButtons = new JButton[1];
                         searchedButtons[0] = new JButton(display);
                         searchedButtons[0].setAlignmentX(Component.LEFT_ALIGNMENT);
-                        searchedButtons[0].setPreferredSize(new Dimension(7 * mpFrame.getWidth() / 8, 50));
+                        searchedButtons[0].setPreferredSize(new Dimension(smallFrame.getWidth(), 50));
                         searchedButtons[0].setMinimumSize(searchedButtons[0].getPreferredSize());
                         searchedButtons[0].setMaximumSize(searchedButtons[0].getPreferredSize());
-                        searchedButtons[0].addActionListener(new RaffleButton(searchField.getText(), mpFrame, true, username));
+                        searchedButtons[0].addActionListener(new RaffleButton(searchField.getText(), mpFrame, smallFrame, true, username));
                         tpg.addComponent(searchedButtons[0]);
                         tsg.addComponent(searchedButtons[0]);
-                        gl.setHorizontalGroup(tpg);
-                        gl.setVerticalGroup(tsg);
+
+                    tgl.setHorizontalGroup(tpg);
+                    tgl.setVerticalGroup(tsg);
+
+                    smallFrame.getContentPane().add(smallScrollPane);
+                    smallFrame.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(mpFrame, "No such Raffle found", "Error", JOptionPane.ERROR_MESSAGE);
                     }

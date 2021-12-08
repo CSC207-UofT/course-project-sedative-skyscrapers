@@ -1,53 +1,41 @@
-// TESTING TEMPORARILY DISABLED IN FACE OF ISSUES ARISING FROM USE CASES ACCESSING DATABASE
-// HOWEVER THEY SHOULD PROVIDE GOOD INSIGHT IN TERMS OF HOW WE APPROACH THE TESTING OF
-// USE CASES (PRE-DATA BASE IMPLEMENTATION, CALLS TO DATABASE WITH SPECIFIC RAFFLEIDS
-// MESS THINGS UP)
+package test.java;
 
-//package test.java;
-//
-//import main.java.RaffleComponent.CreateRaffleUseCase;
-//
-//import org.junit.Before;
-//import org.junit.Test;
-//
-//import java.time.LocalDate;
-//import java.util.ArrayList;
-//
-//import static org.junit.Assert.*;
-//
-//public class CreateRaffleUseCaseTest {
-//    CreateRaffleUseCase correctRaffleManager;
-//    ArrayList<String> takenRaffleIds;
-//
-//
-//    @Before
-//    public void setUp() throws Exception {
-//
-//        takenRaffleIds = new ArrayList<>();
-//        correctRaffleManager = new CreateRaffleUseCase("TestRaffle0", 2,
-//                LocalDate.of(2021, 12, 25), "organizerName");
-//        correctRaffleManager.setTakenIds(new ArrayList<>());
-//
-//    }
-//
-//    @Test(timeout = 60)
-//    public void TestSuccessfulCreation(){
-//        correctRaffleManager.runRaffleCreation();
-//        assertEquals(correctRaffleManager.getCreationOutcome(), CreateRaffleUseCase.CreationResult.SUCCESS);
-//        // create with non-registered registered id
-//
-//    }
-//
-//    public void TestSuccessfulCreationMessage(){
-//        correctRaffleManager.runRaffleCreation();
-//        assertNotNull(correctRaffleManager.runRaffleCreation());
-//        // verify we get a string as a result
-//
-//    }
-//
-//    // there is no possible way for the creation to turn out as a fail due to how Ids are generated to not be repeated
-//
-//    // checks for correct input are to be implemented in the input layers of the program, so no check for valid input
-//    // is required of this use case
-//
-//}
+import main.java.DatabaseRe.AccessData;
+import main.java.RaffleComponent.CreateRaffleUseCase;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.time.LocalDate;
+
+import static org.junit.Assert.*;
+
+public class CreateRaffleUseCaseTest {
+    String raffleName;
+    int numOfWinners;
+    LocalDate endDate;
+    String organizerUsername;
+    CreateRaffleUseCase raffleManager;
+    AccessData dataAccess;
+
+    @Before
+    public void setUp() throws Exception {
+        raffleName = "SampleRaffle";
+        numOfWinners = 1;
+        endDate = LocalDate.of(2021, 12, 9);
+        organizerUsername = "MicheleOrg";
+        raffleManager = new CreateRaffleUseCase(raffleName, numOfWinners, endDate, organizerUsername);
+        dataAccess = new AccessData();
+    }
+
+    @Test(timeout = 60)
+    public void TestSuccessfulRun(){
+        raffleManager.runRaffleCreation();
+        String orgRaffleId = raffleManager.getGeneratedRaffleId();
+        // orgRaffleId must now be storing the created raffle's information
+        assertFalse(dataAccess.getOrganizerRaffleById(orgRaffleId).isEmpty());
+
+    }
+
+
+}
