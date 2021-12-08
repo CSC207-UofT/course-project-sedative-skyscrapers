@@ -30,7 +30,7 @@ public class CompleteTaskUseCaseTest {
         ArrayList<String> updatedTaskList = (ArrayList<String>) dataAccess.getParticipantRaffleById(this.ptcRaffleId).get(6);
 
         assertFalse(updatedTaskList.contains(taskIdToComplete));
-        // musrat be false
+        // must be false
     }
 
 }
