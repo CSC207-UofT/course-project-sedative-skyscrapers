@@ -105,7 +105,8 @@ public class RaffleWinnerGeneratorUseCase {
         if (!this.generateWinners().isEmpty()){
             this.orgRaffle.setWinnerList(this.generateWinners());
             try {
-
+                System.out.println("winnergen use case, line 108, should be orgRaffleId: " + this.orgRaffle.getRaffleId()
+                        + " winnerList: " + this.orgRaffle.getWinnerList().toString());
                 this.dataUploader.addWinnersToRaffle(this.orgRaffle.getRaffleId(), this.orgRaffle.getWinnerList());
             } catch (SQLException e) {
                 e.printStackTrace();

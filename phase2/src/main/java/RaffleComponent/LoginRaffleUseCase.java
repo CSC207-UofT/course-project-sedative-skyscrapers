@@ -138,9 +138,8 @@ public class LoginRaffleUseCase {
             // the adding step of the observer pattern
             this.orgRaffle.getParticipantIdList().add(this.ptcLoggingInId);
 
-//            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
             System.out.print("LoginRaffleUseCase line 142, should be ptcUserId :" + this.ptcLoggingInId);
-            this.dataUploader.addRaffleIDtoParticipant(this.ptcLoggingInId, this.ptcRaffle.getRaffleId());
+            this.dataUploader.addRaffleIDtoParticipant(this.ptcLoggingInId, this.orgRaffleId);
 
 //            try {
 //                this.dataUploader.uploadModifiedRaffle(this.orgRaffle.getRaffleId(), this.FIELD_TO_BE_CHANGED,

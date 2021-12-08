@@ -144,7 +144,6 @@ public class CompleteTaskUseCase {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("taskId "+  this.taskId + "ptcUserId" + ptcUserID);
             this.dataUploader.setTaskStatus(ptcUserID, this.taskId, true);
             // despite not currently completing a task, other tasks might have been previously solved, so we still compare
             this.ptcCompletedTasks = completedTaskIds;

@@ -4,34 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="fix(GUI/SystemMang.): last minute fixes before presentation">
+    <list default="true" id="514c9533-58e3-4af4-a944-98a13e6fc2c1" name="Changes" comment="fix(latest working update): still fix raffle login issues">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/AccessData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/AccessData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/FakeMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/FakeMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phase2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/phase2.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/RaffleAdder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/RaffleAdder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/UserAdder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Adders/UserAdder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/TaskGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/TaskGetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/UserGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Getters/UserGetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Modifiers/TaskModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/Modifiers/TaskModifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/SelectQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/Mediators/SelectQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/OrganizerViewRafflePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantMainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantMainPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ParticipantRafflePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/TaskButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/TaskButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Helpers/SendEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Helpers/SendEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/OrganizerRafflePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/OrganizerRafflePresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantRafflePresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Presenters/ParticipantRafflePresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/CompleteTaskUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/DataAccessPoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/LoginRaffleUseCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/RaffleComponent/RaffleWinnerGeneratorUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/UserComponent/AddUserRaffleIdUseCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UserComponent/AddUserRaffleIdUseCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/OrganizerSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/OrganizerSystemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/ParticipantSystemManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/PtcRaffleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/PtcRaffleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Web/RaffleDataHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Web/RaffleDataHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CompleteTaskUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CompleteTaskUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CreateRaffleUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CreateRaffleUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LoginRaffleUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/LoginRaffleUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/OrganizerRaffleEditTaskUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/OrgRaffleAddTaskUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RaffleRuleSetterUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RaffleRuleSetterUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RaffleWinnerGeneratorUseCaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RaffleWinnerGeneratorUseCaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UseCaseTestHelpers.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +70,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../FinalProjFinal/course-project-sedative-skyscrapers/phase2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -164,7 +151,11 @@
       <workItem from="1638830855638" duration="2426000" />
       <workItem from="1638908969079" duration="1372000" />
       <workItem from="1638923501549" duration="27677000" />
-      <workItem from="1638951606706" duration="6779000" />
+      <workItem from="1638951606706" duration="6904000" />
+      <workItem from="1638958729241" duration="159000" />
+      <workItem from="1638971294159" duration="1308000" />
+      <workItem from="1638976675202" duration="8814000" />
+      <workItem from="1638997945789" duration="341000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring(RaffleEntity): removal of parent-child class relationship between ptc and org raffles">
       <created>1637956673104</created>
@@ -229,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638909088217</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix(latest working update): still fix raffle login issues">
+      <created>1638958500299</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1638958500299</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,15 +254,27 @@
     <MESSAGE value="fix(project details): final bug fixes" />
     <MESSAGE value="debugged" />
     <MESSAGE value="fix(GUI/SystemMang.): last minute fixes before presentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(GUI/SystemMang.): last minute fixes before presentation" />
+    <MESSAGE value="fix(latest working update): still fix raffle login issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(latest working update): still fix raffle login issues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java</url>
-          <line>157</line>
-          <option name="timeStamp" value="5" />
+          <line>156</line>
+          <properties class="main.java.DatabaseRe.ProvideData" method="addRaffleIDtoParticipant">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/DatabaseRe/ProvideData.java</url>
+          <line>68</line>
+          <properties class="main.java.DatabaseRe.ProvideData" method="addParticipantsToRaffle">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
