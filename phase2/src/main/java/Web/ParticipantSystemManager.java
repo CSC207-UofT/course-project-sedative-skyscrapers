@@ -3,17 +3,11 @@ package main.java.Web;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
-import main.java.TaskComponent.Task;
 import main.java.TaskWeb.ExecuteCommandController;
 
 import main.java.UserWeb.UserController;
-import main.java.Web.TaskController;
-import main.java.Web.TaskDirector;
-
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 
 public class ParticipantSystemManager {
     private String username;
@@ -51,14 +45,12 @@ public class ParticipantSystemManager {
 //        String[] Ids =  raffleID.split(":");
         RaffleDataHelper dh = new RaffleDataHelper();
         ArrayList<String> orgRafflePtcs = (ArrayList<String>) dh.getOrgRaffleInfo(raffleID).get(5);
-
-        if (!orgRafflePtcs.contains(username)){
-            System.out.println("It never reaches this if block");
+        if (!orgRafflePtcs.contains(dh.getPtcUserIdFromUsername(username))){
             UserController userCont = new UserController();
             userCont.addRaffleIDToParticipant(username, raffleID);
             String ptcUserID = userCont.getUserUserId(username, "P");
-            //String[] ptcRaffleParts = raffleID.split(":");
             String ptcRaffleID = username + ":" + raffleID;
+            System.out.println("ptcSM line 54, should be ptcId: " + ptcRaffleID);
 
             PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, null);
             ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.LOGIN);
@@ -75,7 +67,6 @@ public class ParticipantSystemManager {
     public void completeTask(String raffleID, String taskID) throws Exception {
         // Call taskController, save task and add it to the participant raffle object. miGHT Have to call the necessary
         // controller to do this.
-
         ExecuteCommandController executor = new ExecuteCommandController(raffleID, taskID);
         executor.runExecuteCommand();
         UserController userCont = new UserController();

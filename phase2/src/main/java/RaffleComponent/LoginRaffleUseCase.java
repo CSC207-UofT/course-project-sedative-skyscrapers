@@ -139,7 +139,7 @@ public class LoginRaffleUseCase {
             this.orgRaffle.getParticipantIdList().add(this.ptcLoggingInId);
 
 //            ArrayList<Object> packagedPtcRaffle = this.dataPackager.packageParticipantRaffle(this.ptcRaffle);
-            System.out.print(this.ptcLoggingInId);
+            System.out.print("LoginRaffleUseCase line 142, should be ptcUserId :" + this.ptcLoggingInId);
             this.dataUploader.addRaffleIDtoParticipant(this.ptcLoggingInId, this.ptcRaffle.getRaffleId());
 
 //            try {

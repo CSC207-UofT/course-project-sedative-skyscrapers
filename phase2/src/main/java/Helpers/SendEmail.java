@@ -48,8 +48,8 @@ public class SendEmail {
         MimeMessage msg = new MimeMessage(session);
         try {
             msg.setFrom(new InternetAddress(fromEmail));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(this.username));
-            msg.setSubject("Winner Winner Chicken Dinner! Skyscraper Raffle Win Notification>");
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(this.useremailid));
+            msg.setSubject("Winner Winner Chicken Dinner! Skyscraper Raffle Win Notification");
 
             Multipart emailContent = new MimeMultipart();
 
@@ -73,6 +73,7 @@ public class SendEmail {
 
             Transport.send(msg);
             System.out.println("Sent message");
+            System.out.println(useremailid);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

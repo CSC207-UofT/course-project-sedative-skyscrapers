@@ -40,7 +40,7 @@ public class AccessData implements DataAccessPoint {
             raffleDetails.add(raffleGetter.getWinners(orgRaffleId));
             ArrayList<String> organizer = (ArrayList<String>) raffleGetter.getOrganizer(orgRaffleId);
             String orgas =(organizer.get(0));
-            raffleDetails.add(userGetter.getUsernameFromUserID(orgas));
+            raffleDetails.add(userGetter.getOrganizerUsernameFromID(orgas));
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
@@ -117,8 +117,8 @@ public class AccessData implements DataAccessPoint {
     }
 
     @Override
-    public boolean hasCompletedTask(String ptcRaffleId, String userName, String taskId) throws SQLException {
-        return taskGetter.getTaskStatus(ptcRaffleId, taskId);
+    public boolean hasCompletedTask(String ptcID, String taskId) throws SQLException {
+        return taskGetter.getTaskStatus(ptcID, taskId);
     }
 
     @Override
@@ -196,6 +196,34 @@ public class AccessData implements DataAccessPoint {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String getParticipantUsernameFromID(String ptcID, boolean organizer) {
+        if (organizer){
+            try {
+                return userGetter.getOrganizerUsernameFromID(ptcID);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            return userGetter.getParticipantUsernameFromID(ptcID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String getUserIDFromUsername(String username, boolean organizer) throws Exception {
+        try {
+            return userGetter.getUserID(username, organizer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        throw new Exception("Please check the username and make sure you are pointing towards the " +
+                "right kind of user i.e. participant (False) or organizer (True)");
     }
 
 

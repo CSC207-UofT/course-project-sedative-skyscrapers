@@ -85,13 +85,16 @@ public class OrganizerViewRafflePage extends JFrame {
         findWinners.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
-
         if(!winnersGenerated)
         {
 
             findWinners.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    OrganizerSystemManager osm = new OrganizerSystemManager();
+                    osm.setRaffleID(raffleID);
+                    osm.setUsername(username);
+                    osm.generateWinnersList();
 
                     findWinners.setText("Winners declared!");
                     findWinners.setEnabled(false);

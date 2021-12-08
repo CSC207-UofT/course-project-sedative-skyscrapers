@@ -1,8 +1,10 @@
 package main.java.DatabaseRe;
 
 import main.java.DatabaseRe.Mediators.Getters.RaffleGetter;
+import main.java.DatabaseRe.Mediators.Getters.TaskGetter;
 import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 import main.java.UserComponent.Participant;
+import main.java.Web.RaffleDataHelper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,15 +12,18 @@ import java.util.ArrayList;
 public class FakeMain {
 
     public static void main(String[] args) throws Exception {
-        AccessData accessData = new AccessData();
-//        System.out.print(accessData.getTaskById("T5811"));
-        ProvideData provideData = new ProvideData();
+        TaskGetter taskGetter = new TaskGetter();
+//        System.out.print(taskGetter.getTaskStatus("P7597", "T4903"));
+//        AccessData accessData = new AccessData();
+//        System.out.print(accessData.getParticipantRaffleIds("shih"));
+////        System.out.print(accessData.getTaskById("T5811"));
+//        ProvideData provideData = new ProvideData();
 //        Participant ptc = new Participant("P1234", "x", "123", "mi", "mas");
 //        provideData.addRaffleIDtoParticipant("P1234", "R1001");
 //        provideData.addParticipant("P9997", "varun123", "Task123", "Michele", "Massa", "2001-11-21", "9090987878", "michele@mass.com", new ArrayList<>());
-        UserGetter ug = new UserGetter();
-        System.out.println(ug.getUserID("varun123", false));
-        System.out.println("I hva eprint erhte name");
+//        UserGetter ug = new UserGetter();
+//        System.out.println(ug.getUserID("varun123", false));
+//        System.out.println("I hva eprint erhte name");
 //
 //        RaffleGetter raffleGetter = new RaffleGetter();
 //        System.out.print(raffleGetter.getOrganizer("R012"));
@@ -73,6 +78,8 @@ public class FakeMain {
 //        System.out.print(accessData.getParticipantInfo("chutiya"));
 //        System.out.println("\nThis is how you see organizer info");
 //        System.out.print(accessData.getOrganizerInfo("chutiya"));
+        RaffleDataHelper dh = new RaffleDataHelper();
+        System.out.println(dh.getEmailFromParticipantId("P9232"));
 
     }
 }

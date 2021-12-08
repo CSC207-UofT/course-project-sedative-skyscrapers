@@ -18,7 +18,7 @@ public class TaskModifier {
 
     public void removeTaskIds(ArrayList<String> taskIDs) {
         for (String taskID : taskIDs) {
-            System.out.print(taskID);
+            System.out.println(taskID);
             String query = UpdateQueries.deleteTask(taskID);
             String query2 = UpdateQueries.deleteTaskFromStatus(taskID);
             try {

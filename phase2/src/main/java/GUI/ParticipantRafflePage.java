@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ParticipantRafflePage extends JFrame {
     private JFrame rFrame;
@@ -66,7 +67,7 @@ public class ParticipantRafflePage extends JFrame {
         raffleInfoField.setFont(new Font("Chalkboard",Font.PLAIN,28));
 
         infoScrollPane = new JScrollPane(raffleInfoField,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        infoScrollPane.setPreferredSize(new Dimension(rScrollPane.getWidth(),130));
+        infoScrollPane.setPreferredSize(new Dimension(rScrollPane.getWidth(),180));
         infoScrollPane.setMinimumSize(infoScrollPane.getPreferredSize());
         infoScrollPane.setMaximumSize(infoScrollPane.getPreferredSize());
         infoScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -206,11 +207,10 @@ public class ParticipantRafflePage extends JFrame {
                 {
                     ParticipantSystemManager psm = new ParticipantSystemManager();
                     try {
-                        System.out.println("Is this line executed");
                         psm.storeRaffleInParticipantData(raffleID, username);
                     }catch(Exception exp)
                     {
-                        JOptionPane.showMessageDialog(rFrame,"Cannot store. Try again","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(rFrame,exp.getMessage() + "\n " + Arrays.toString(exp.getStackTrace()),"Error",JOptionPane.ERROR_MESSAGE);
                     }
                     joinButton.setEnabled(false);
                     joinButton.setText("Joined");
