@@ -25,10 +25,17 @@ public class SignUpPage extends JFrame {
     public JLabel exitLabel;
     public JButton exitButton;
 
+    /**
+     * Calls initComponents()
+     */
+
     public SignUpPage()
     {
         initComponents();
     }
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
     private void initComponents()
     {
         optionFrame = new JFrame("Choose Account");

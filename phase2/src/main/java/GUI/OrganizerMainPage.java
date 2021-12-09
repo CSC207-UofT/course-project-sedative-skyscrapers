@@ -25,11 +25,20 @@ public class OrganizerMainPage extends JFrame {
     private JButton exitButton;
     private OrganizerPresenter op;
 
+    /**
+     * Initializes username and calls initComponents()
+     * @param username - username of the current organizer
+     */
+
     public OrganizerMainPage(String username) {
         this.username = username;
         op = new OrganizerPresenter(username);
         initComponents();
     }
+
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
 
     private void initComponents() {
         orgFrame = new JFrame("Home Page");

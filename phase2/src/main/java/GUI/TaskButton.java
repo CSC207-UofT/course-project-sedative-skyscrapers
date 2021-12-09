@@ -11,6 +11,14 @@ public class TaskButton implements ActionListener {
     public JButton button;
     public String raffleID;
     public JFrame frame;
+
+    /**
+     * Initializes the instance variables
+     * @param taskID - ID of the task to be completed
+     * @param raffleID - ID of the raffle whose task is to be completed
+     * @param button - The JButton that is pressed when the task is to be completed
+     * @param frame - The JFrame where the participant is interacting with the raffle
+     */
     public TaskButton(String taskID, String raffleID,JButton button,JFrame frame)
     {
         this.taskID = taskID;
@@ -18,6 +26,10 @@ public class TaskButton implements ActionListener {
         this.raffleID = raffleID;
         this.frame = frame;
     }
+    /**
+     * Completes the current task of the current raffle and disables button. Displays the error on frame, if any
+     * @param e ActionEvent that is triggered when button is pressed
+     */
 
     @Override
     public void actionPerformed(ActionEvent e) {

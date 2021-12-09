@@ -30,6 +30,12 @@ public class ParticipantRafflePage extends JFrame {
     private JButton exitButton;
     private ParticipantRafflePresenter prp;
 
+    /**
+     * Initializes raffleID and username and calls initComponents()
+     * @param raffleID - raffle ID of the current raffle
+     * @param username - username of the current participant
+     */
+
     public ParticipantRafflePage(String raffleID,String username)
     {
         this.raffleID = raffleID;
@@ -38,6 +44,10 @@ public class ParticipantRafflePage extends JFrame {
         isEnrolled = prp.isEnrolled();
         initComponents();
     }
+
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
     private void initComponents()
     {
         rFrame = new JFrame("Raffle Page");

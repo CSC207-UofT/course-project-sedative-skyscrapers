@@ -26,10 +26,17 @@ public class OrganizerSignUpPage {
     public JButton orgBackButton;
     public JButton orgEnterButton;
     public JButton orgExitButton;
+
+    /**
+     * Calls initComponents()
+     */
     public OrganizerSignUpPage()
     {
         initComponents();
     }
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
     public void initComponents()
     {
         orgFrame = new JFrame("Organizer Sign up");

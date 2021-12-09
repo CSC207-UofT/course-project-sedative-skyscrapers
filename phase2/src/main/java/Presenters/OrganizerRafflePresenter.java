@@ -10,6 +10,12 @@ public class OrganizerRafflePresenter {
     private String raffleID;
     private OrganizerSystemManager o;
 
+    /**
+     * Initializes instance variables
+     * @param username - username of the current organizer
+     * @param raffleID - raffle ID of the current raffle
+     */
+
     public OrganizerRafflePresenter(String username, String raffleID)
     {
         this.username = username;
@@ -18,6 +24,12 @@ public class OrganizerRafflePresenter {
         o.setUsername(username);
         o.setRaffleID(username);
     }
+
+    /**
+     * Returns the raffle details as a String to be displayed
+     * @return String
+     * @throws Exception
+     */
     public String getRaffleDetails() throws Exception {
         ArrayList<Object> details = o.getRaffleDetails(raffleID);
         String s = "Raffle Name: "+details.get(0)+"\nRaffle Rules: "+details.get(2)+"\nNumber of Winners: "+details.get(1)+"\nEnd Date: "+((java.util.Date)details.get(3)).toString()+"\nOrganizer: "+details.get(7)+"\n\nParticipants:";
