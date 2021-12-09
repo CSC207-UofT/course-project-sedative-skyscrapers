@@ -17,12 +17,15 @@ public class CommandTask implements Command {
 
     @Override
     public void execute() throws Exception{
+        /*
+        Launches default browser to display URI after extracting taskLink
+         */
 
         TaskLookupUseCase Looker = new TaskLookupUseCase(theTaskID);
         Desktop d = Desktop.getDesktop(); // returns desktop instance of current browser context
-        String link = Looker.getTaskInfo().get(2); // extracts the taskLink from the task info
-        link.trim(); // removes leading and trialing spaces
-        d.browse(new URI(link)); // launches the default browser to display URI
+        String link = Looker.getTaskInfo().get(2);
+        link.trim(); // removes leading and trailing spaces
+        d.browse(new URI(link));
 
     }
 }

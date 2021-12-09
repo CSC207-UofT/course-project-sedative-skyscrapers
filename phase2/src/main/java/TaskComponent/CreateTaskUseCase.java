@@ -16,8 +16,8 @@ public class CreateTaskUseCase {
     private TaskIdGenerator idGenerator;
     private static final char entityCode = 'T';
     private ArrayList<String> takenIds;
-    private DataAccessPoint extractor;
-    private DataProviderPoint writer;
+    private AccessData extractor;
+    private ProvideData writer;
     private String raffleId;
 
     public CreateTaskUseCase(String raffleID, String name, String description, String link) throws SQLException {
@@ -30,7 +30,9 @@ public class CreateTaskUseCase {
     }
 
     public String runTaskCreation(){
-
+        /*
+        Creates task and generates Id using generator
+         */
         ArrayList<Integer> takenTaskIdNums = idGenerator.takenNumList(CreateTaskUseCase.entityCode);
         // generate id from use case
         String taskID = idGenerator.generateEntityId(CreateTaskUseCase.entityCode, takenTaskIdNums);
@@ -51,6 +53,9 @@ public class CreateTaskUseCase {
     }
 
     public Task getTask(){
+        /*
+        Returns task instance
+         */
         return this.task;
     }
 

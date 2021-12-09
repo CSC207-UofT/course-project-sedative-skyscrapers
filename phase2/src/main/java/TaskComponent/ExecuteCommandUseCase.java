@@ -14,7 +14,10 @@ public class ExecuteCommandUseCase {
     }
 
     public void RunExecuteCommand() throws Exception{
-        this.invoker.press(); // button is pressed to execute command and command is executed (command design pattern)
+        /*
+        button is pressed to execute command and then it is executed (command design pattern)
+         */
+        this.invoker.press();
     }
 
 }

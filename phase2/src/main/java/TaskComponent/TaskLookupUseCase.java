@@ -16,6 +16,9 @@ public class TaskLookupUseCase {
     }
 
     public ArrayList<String> getTaskInfo() {
+        /*
+        Returns task info from database
+         */
         return extractor.getTaskById(this.taskID);
     }
 
