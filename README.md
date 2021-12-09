@@ -16,7 +16,7 @@ Check import statements of the file. If the imports are not being resolved, plea
 To run the code:
 Navigate to course-project-sedative-skyscrapers -> phase2 -> main.java and run the main.main method. The GUI should open in a few seconds
 
-Working with the program
+Working with the program:
 Part 1 - Becoming an Organizer
 1. After creating an account with an organizer, click on create raffles from the main page
 2. Create raffles with any specifications. Please keep in mind the following
@@ -43,7 +43,7 @@ Part 3 - Generating winners
 A video link of the entire functionality can be found here: https://drive.google.com/file/d/1ewA8Y_ZuNIfmhO1-dEv5ztD45jfnGwCv/view?usp=sharing
 
 Overall notes:
-If required, multiple particiapnt profiles can be created to join the raffle. If more than one participant completes all tasks, winners will be generated at random from those participants who have completed all tasks
+If required, multiple participant profiles can be created to join the raffle. If more than one participant completes all tasks, winners will be generated at random from those participants who have completed all tasks
 Multiple raffles can be created by the same organizer
 Participants can join multiple raffles
 
