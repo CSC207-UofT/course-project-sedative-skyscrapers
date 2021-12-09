@@ -1,11 +1,11 @@
 package main.java.Presenters;
 
-import main.java.Web.OrganizerSystemManager;
-import main.java.Web.ParticipantSystemManager;
+import main.java.SystemManagers.OrganizerSystemManager;
+import main.java.SystemManagers.ParticipantSystemManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import main.java.Web.RaffleDataHelper;
+import main.java.DatabaseRe.RaffleDataHelper;
 
 public class ParticipantRafflePresenter {
     private String username;

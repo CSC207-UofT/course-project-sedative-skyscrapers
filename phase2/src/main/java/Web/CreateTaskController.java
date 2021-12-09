@@ -1,4 +1,4 @@
-package main.java.TaskWeb;
+package main.java.Web;
 import main.java.TaskComponent.CreateTaskUseCase;
 
 import java.io.IOException;

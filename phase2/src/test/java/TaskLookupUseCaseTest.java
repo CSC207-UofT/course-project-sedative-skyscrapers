@@ -54,7 +54,6 @@ public class TaskLookupUseCaseTest {
         String taskID = taskManager.runTaskCreation();
         lookupManager = new TaskLookupUseCase(taskID);
         ArrayList<String> taskDetails = dataAccess.getTaskById(taskID);
-        System.out.println("??" + taskDetails.get(1) + " "+ taskDetails.get(3) + " " + taskDetails.get(2));
         assertEquals("TestTask+", taskDetails.get(1));
         assertEquals("open the link", taskDetails.get(3));
         assertEquals("https://www.google.com", taskDetails.get(2));

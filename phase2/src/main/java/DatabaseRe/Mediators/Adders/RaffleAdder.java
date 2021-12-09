@@ -26,7 +26,6 @@ public class RaffleAdder {
 
     public static void addParticipantsToRaffle(String orgRaffleId, ArrayList<String> partID) throws Exception {
         for (String ptcID: partID) {
-            System.out.println("RaffleAdder, line 29, should be a ptcID: " + ptcID);
             boolean userExists = userGetter.checkParticipantID(ptcID);
             if (userExists) {
                 String query = InsertQueries.participantToRaffle(orgRaffleId, ptcID);

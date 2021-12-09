@@ -1,13 +1,12 @@
 package main.java.GUI;
 
 import main.java.Presenters.ParticipantRafflePresenter;
-import main.java.Web.ParticipantSystemManager;
+import main.java.SystemManagers.ParticipantSystemManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 

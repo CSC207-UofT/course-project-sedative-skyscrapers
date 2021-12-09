@@ -17,11 +17,12 @@ public class ParticipantRaffleEntity {
 
     /**
      * Constructor initializing a new RaffleEntity, parent to OrganizerRaffleEntity
-     * @param raffleName the name of this raffle
+     *
+     * @param raffleName      the name of this raffle
      * @param numberOfWinners the number of participants to be able to win this raffle
-     * @param endDate the day this raffle ends
+     * @param endDate         the day this raffle ends
      */
-    public ParticipantRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate){
+    public ParticipantRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate) {
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;
@@ -29,7 +30,7 @@ public class ParticipantRaffleEntity {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         // only to be called when all information is available
         String generalInfo = "Raffle Name: " + this.raffleName + "\nRaffle ID: " + this.raffleId +
                 "\nEnding Date: " + this.getFormattedEndDate() + "\nNumber of Winners: "
@@ -37,7 +38,7 @@ public class ParticipantRaffleEntity {
 
         StringBuilder taskListStr = new StringBuilder();
         int i;
-        for (i = 0; i < this.taskIdList.size(); i++){
+        for (i = 0; i < this.taskIdList.size(); i++) {
             taskListStr.append("[").append(i).append("]").append(this.taskIdList.get(i)).append("\n");
         }
 
@@ -68,19 +69,20 @@ public class ParticipantRaffleEntity {
         return endDate;
     }
 
-    public String getFormattedEndDate(){
+    public String getFormattedEndDate() {
         int year = this.endDate.getYear();
         int month = this.endDate.getMonthValue();
         int day = this.endDate.getDayOfMonth();
 
-        return year + "/" +  month + "/" + day;
+        return year + "/" + month + "/" + day;
     }
 
     /**
      * update this ParticipantRaffleEntity endDate attribute (for observer pattern)
+     *
      * @param newEndDate the new endDate to be set
      */
-    public void updateEndDate(LocalDate newEndDate){
+    public void updateEndDate(LocalDate newEndDate) {
         this.endDate = newEndDate;
     }
 

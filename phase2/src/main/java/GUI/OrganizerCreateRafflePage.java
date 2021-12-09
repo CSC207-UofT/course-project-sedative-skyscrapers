@@ -1,14 +1,11 @@
 package main.java.GUI;
 
-import main.java.Web.OrganizerSystemManager;
+import main.java.SystemManagers.OrganizerSystemManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

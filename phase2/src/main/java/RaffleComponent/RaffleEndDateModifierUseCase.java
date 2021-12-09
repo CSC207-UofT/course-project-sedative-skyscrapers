@@ -3,6 +3,9 @@ package main.java.RaffleComponent;
 import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.UseCaseDateFormatter;
+import main.java.DatabaseRe.DataAccessPoint;
+import main.java.DatabaseRe.DataProviderPoint;
+
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -18,10 +21,11 @@ public class RaffleEndDateModifierUseCase {
 
     /**
      * Constructor for the use case handling the event of an organizer updating the endDate of a raffle
+     *
      * @param orgRaffleId reference to the organizer raffle entity whose rules attribute is being overridden
-     * @param newEndDate the new endDate to be given to both the organizer raffle and related ptcRaffles
+     * @param newEndDate  the new endDate to be given to both the organizer raffle and related ptcRaffles
      */
-    public RaffleEndDateModifierUseCase(String orgRaffleId, LocalDate newEndDate){
+    public RaffleEndDateModifierUseCase(String orgRaffleId, LocalDate newEndDate) {
         this.newEndDate = newEndDate;
 
         try {
@@ -43,17 +47,18 @@ public class RaffleEndDateModifierUseCase {
 
         String date = this.orgRaffleInfo.get(3).toString();
         int[] dateData = UseCaseDateFormatter.formatDateIntoStrings(date);
-        this.orgRaffle = new OrganizerRaffleEntity((String)this.orgRaffleInfo.get(0),
-                (Integer)this.orgRaffleInfo.get(1), LocalDate.of(dateData[0], dateData[1], dateData[2]),
-                (String)this.orgRaffleInfo.get(6));
+        this.orgRaffle = new OrganizerRaffleEntity((String) this.orgRaffleInfo.get(0),
+                (Integer) this.orgRaffleInfo.get(1), LocalDate.of(dateData[0], dateData[1], dateData[2]),
+                (String) this.orgRaffleInfo.get(6));
         this.orgRaffle.setRaffleId(orgRaffleId);
     }
 
     /**
      * Registers the new endDate onto the this.orgRaffle instance
+     *
      * @return the bool representing whether the endDate update was successful
      */
-    public boolean updateEndDate(){
+    public boolean updateEndDate() {
         this.orgRaffle.setEndDate(this.newEndDate);
         this.dataUploader.changeRaffleEndDate(this.orgRaffle.getRaffleId(), this.orgRaffle.getEndDate());
 
@@ -61,8 +66,8 @@ public class RaffleEndDateModifierUseCase {
         return true;
     }
 
-    public void updatePtcRaffles(){
-        for (String participant : this.orgRaffle.getParticipantIdList()){
+    public void updatePtcRaffles() {
+        for (String participant : this.orgRaffle.getParticipantIdList()) {
             // create ptcRaffleObject
             String ptcRaffleId = participant + ":" + this.orgRaffle.getRaffleId();
 
@@ -86,7 +91,7 @@ public class RaffleEndDateModifierUseCase {
         ptcRaffleToUpdate.setRaffleRules(this.orgRaffle.getRaffleRules());
 
         // now extract the specific arraylist of taskIds for the specific ptcRaffle instance
-        ptcRaffleToUpdate.setTaskIdList((ArrayList<String>)ptcRaffleInfo.get(4));
+        ptcRaffleToUpdate.setTaskIdList((ArrayList<String>) ptcRaffleInfo.get(4));
 
         // update endDate for specific participant raffle through update method of subscriber
         ptcRaffleToUpdate.updateEndDate(this.newEndDate);
@@ -98,11 +103,11 @@ public class RaffleEndDateModifierUseCase {
 
     // for testing purposes
 
-    public OrganizerRaffleEntity getOrgRaffle(){
+    public OrganizerRaffleEntity getOrgRaffle() {
         return this.orgRaffle;
     }
 
-    public void setOrgRaffle(OrganizerRaffleEntity orgRaffle){
+    public void setOrgRaffle(OrganizerRaffleEntity orgRaffle) {
         this.orgRaffle = orgRaffle;
     }
 

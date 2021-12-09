@@ -22,9 +22,7 @@ public class TaskAdder {
     public void assignParticipantsTaskStatus(String raffleID, ArrayList<String> participantIDs) throws SQLException {
         ArrayList<String> tasks = taskGetter.getTaskIDsInRaffle(raffleID);
         for (String participant : participantIDs) {
-            System.out.print(participant);
             for (String task : tasks) {
-                System.out.print(task);
                 String query = InsertQueries.assignTaskStatusToParticipant(participant, task, false);
                 insertUpdateQuery.run(query);
                 insertUpdateQuery.close();

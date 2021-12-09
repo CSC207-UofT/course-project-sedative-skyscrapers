@@ -2,11 +2,6 @@ package main.java.TaskComponent;
 import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.TaskIdGenerator;
-import main.java.database.AddOrganizer;
-import main.java.database.GetTaskDetails;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

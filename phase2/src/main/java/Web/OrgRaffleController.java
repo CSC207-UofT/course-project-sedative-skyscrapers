@@ -1,6 +1,7 @@
 package main.java.Web;
 
 import main.java.RaffleComponent.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class OrgRaffleController {
     /**
      * Empty constructor setting everything to null or default values to allow for ORCDirector to take over
      */
-    public OrgRaffleController(){
+    public OrgRaffleController() {
         this.orgRaffleId = null;
         this.raffleName = null;
         this.numOfWinners = 0;
@@ -43,11 +44,13 @@ public class OrgRaffleController {
 
     /**
      * Executes the correct Organizer raffle object use case call with the provided information
+     *
      * @param actionToProcess indicates the use case to execute
      * @return bool describing whether use case call was successful (should be checked in OSM)
      */
-    public boolean runRaffleController(OrgRaffleAction actionToProcess){
+    public boolean runRaffleController(OrgRaffleAction actionToProcess) {
         switch (actionToProcess) {
+            // enhanced switch not supported by all java versions so we've left it like that
             case CREATE:
                 return this.runRaffleCreation();
             case SET_RULES:
@@ -66,9 +69,10 @@ public class OrgRaffleController {
 
     /**
      * executes the raffle creation use case of an organizer raffle
+     *
      * @return boolean describing the success of the outcome of the use case call with the given information
      */
-    private boolean runRaffleCreation(){
+    private boolean runRaffleCreation() {
         CreateRaffleUseCase raffleManager = new CreateRaffleUseCase(this.raffleName, this.numOfWinners,
                 this.endDate, this.orgUsername);
         boolean result = raffleManager.runRaffleCreation();
@@ -78,9 +82,10 @@ public class OrgRaffleController {
 
     /**
      * executes the raffle rule setter use case of an organizer raffle
+     *
      * @return boolean describing the success of the outcome of the use case call with the given information
      */
-    private boolean runRaffleRuleSetter(){
+    private boolean runRaffleRuleSetter() {
         RaffleRuleSetterUseCase raffleManager = new RaffleRuleSetterUseCase(this.orgRaffleId,
                 this.rulesString); // no longer need raffleInfoSoFar
         return raffleManager.updateRules(); // updates the rules in the raffleManager raffle
@@ -88,9 +93,10 @@ public class OrgRaffleController {
 
     /**
      * executes the raffle winner generator use case of an organizer raffle
+     *
      * @return boolean describing the success of the outcome of the use case call with the given information
      */
-    private boolean runRaffleWinnerGenerator(){
+    private boolean runRaffleWinnerGenerator() {
         RaffleWinnerGeneratorUseCase raffleManager3 = new RaffleWinnerGeneratorUseCase(this.orgRaffleId);
         boolean result = raffleManager3.updateRaffleWinners();
         this.winnersGenerated = raffleManager3.getOrgRaffle().getWinnerList();
@@ -99,18 +105,20 @@ public class OrgRaffleController {
 
     /**
      * executes the raffle taskIdList attribute expansion use case (to add tasks) of an organizer raffle
+     *
      * @return boolean describing the success of the outcome of the use case call with the given information
      */
-    private boolean runEditOrgTaskList(){
+    private boolean runEditOrgTaskList() {
         OrgRaffleAddTaskUseCase raffleManager4 = new OrgRaffleAddTaskUseCase(this.orgRaffleId, this.taskIds);
         return raffleManager4.updateTaskList();
     }
 
     /**
      * executes the update of a raffle's endDate through RaffleEndDateModifierUseCase
+     *
      * @return boolean describing the success of the outcome of the use case call with the given information
      */
-    private boolean runEditEndDate(){
+    private boolean runEditEndDate() {
         RaffleEndDateModifierUseCase raffleManager5 = new RaffleEndDateModifierUseCase(this.orgRaffleId,
                 this.newEndDate);
         boolean result = raffleManager5.updateEndDate();
@@ -148,7 +156,9 @@ public class OrgRaffleController {
         this.taskIds = taskIds;
     }
 
-    public void setNewEndDate(LocalDate newEndDate) {this.newEndDate = newEndDate;}
+    public void setNewEndDate(LocalDate newEndDate) {
+        this.newEndDate = newEndDate;
+    }
 
     public ArrayList<String> getWinnersGenerated() {
         return winnersGenerated;

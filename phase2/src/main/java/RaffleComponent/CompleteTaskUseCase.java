@@ -3,11 +3,12 @@ package main.java.RaffleComponent;
 import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.UseCaseDateFormatter;
+import main.java.DatabaseRe.DataAccessPoint;
+import main.java.DatabaseRe.DataProviderPoint;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CompleteTaskUseCase {
@@ -20,10 +21,11 @@ public class CompleteTaskUseCase {
 
     /**
      * Constructor for the use case handling an event of a user completing a raffle task
-     * @param taskId the id of the task completed by the participant
+     *
+     * @param taskId   the id of the task completed by the participant
      * @param raffleId the id of the participant raffle to which the task being completed belongs to
      */
-    public CompleteTaskUseCase(String raffleId, String taskId){
+    public CompleteTaskUseCase(String raffleId, String taskId) {
         String[] IDs = raffleId.split(":");
 
         try {
@@ -33,17 +35,13 @@ public class CompleteTaskUseCase {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
-        catch(SQLException ioe)
-        {
+        } catch (SQLException ioe) {
             ioe.getStackTrace();
         }
 
         try {
             dataUploader = new ProvideData();
-        }
-        catch(SQLException ioe)
-        {
+        } catch (SQLException ioe) {
             ioe.getStackTrace();
         }
 
@@ -70,9 +68,10 @@ public class CompleteTaskUseCase {
 
     /**
      * Informs the program that the task under this.taskId has been completed
-     * @return  whether the task was successfully completed and update this.ptcCompletedTasks
+     *
+     * @return whether the task was successfully completed and update this.ptcCompletedTasks
      */
-    public boolean completeTask(){
+    public boolean completeTask() {
         ArrayList<String> completedTaskIds = new ArrayList<>();
 
         if (this.taskId != null) {
@@ -104,6 +103,7 @@ public class CompleteTaskUseCase {
 
     /**
      * Contrast the tasks to be done by a user to the original set of tasks to see which tasks have been completed
+     *
      * @return the difference between the taskIdList of a participant of a raffle and the reference organizer raffle
      */
     private ArrayList<String> generateCompletedTaskIds() throws SQLException {
@@ -118,8 +118,8 @@ public class CompleteTaskUseCase {
             e.printStackTrace();
         }
 
-        for (String taskId: this.ptcRaffle.getTaskIdList()){
-            if (this.dataAccess.hasCompletedTask(ptcUserID, taskId)){  // task has been completed and popped
+        for (String taskId : this.ptcRaffle.getTaskIdList()) {
+            if (this.dataAccess.hasCompletedTask(ptcUserID, taskId)) {  // task has been completed and popped
                 completedTaskIds.add(taskId);
             }
             // else, task hasn't been completed

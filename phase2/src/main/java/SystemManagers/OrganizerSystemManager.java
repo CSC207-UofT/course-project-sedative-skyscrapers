@@ -1,16 +1,14 @@
-package main.java.Web;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
+package main.java.SystemManagers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Set;
 
 
-import main.java.TaskWeb.TaskLookupController;
-import main.java.UserWeb.UserController;
+import main.java.DatabaseRe.RaffleDataHelper;
+import main.java.Web.UserController;
 import main.java.Helpers.SendEmail;
+import main.java.Web.*;
 
 
 public class OrganizerSystemManager {
@@ -124,7 +122,6 @@ public class OrganizerSystemManager {
 
             taskCont.runTaskController(TaskController.taskAction.CREATE);
             String taskID = taskCont.getTaskID();
-            //System.out.println(taskID);
             taskIDs.add(taskID);
         }
         makeRaff.ORCBuildTaskEditor(raffleID, taskIDs);
