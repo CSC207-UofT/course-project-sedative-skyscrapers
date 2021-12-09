@@ -5,6 +5,7 @@ import org.junit.Test;
 import main.java.DatabaseRe.AccessData;
 import main.java.UserComponent.CreateUserUseCase;
 import main.java.UserComponent.CheckUserUsernameUseCase;
+import main.java.UserComponent.LookUpUser;
 
 import static org.junit.Assert.*;
 
@@ -22,8 +23,9 @@ public class UserUseCasesTest {
     String orgPhone;
     String orgEmail;
     CreateUserUseCase userCreater;
-    CheckUsernameUseCase usernameChecker;
+    CheckUserUsernameUseCase usernameChecker;
     AccessData dataAccess;
+    LookUpUser userLoopUp;
 
     @Before
     public void setUp() throws Exception {
@@ -40,7 +42,8 @@ public class UserUseCasesTest {
         orgPhone = "1234567890";
         orgEmail = "orgtest@gmail.com";
         this.userCreater = new CreateUserUseCase();
-        this.usernameChecker = new CheckUsernameUseCase();
+        this.usernameChecker = new CheckUserUsernameUseCase();
+        this.userLoopUp = new LookUpUser();
         this.dataAccess = new AccessData();
     }
 
@@ -48,23 +51,23 @@ public class UserUseCasesTest {
     public void TestStoreParticipant() {
         userCreater.storeParticipant(ptcUsername, ptcPassword, firstName, lastName, dateOfBirth, ptcPhone, ptcEmail);
         assertFalse(dataAccess.getParticipantInfo(ptcUsername).isEmpty());
+        assertTrue(userLoopUp.getPtc(ptcUsername).getUserId().equals(userLoopUp.getPtcUserId(ptcUsername)));
     }
 
     @Test
     public void TestStoreOrganizer() {
         userCreater.storeOrganizer(orgUsername, orgPassword, organization, orgPhone, orgEmail);
-        assertFalse(dataAccess.getOrganizerInfo(ptcUsername).isEmpty());
+        assertFalse(dataAccess.getOrganizerInfo(orgUsername).isEmpty());
     }
 
     @Test
-    public void TestCheckUsername() {
-        assertFalse(usernameChecker.checkUsernameUsed("test"));
-        assertTrue(usernameChecker.checkUsernameUsed("orgTest"));
+    public void TestCheckUsernameUsed() {
+        assertFalse(usernameChecker.checkUserNameUsed("test"));
     }
 
     @Test
     public void TestCheckUsernameMatchPassword() {
         assertFalse(usernameChecker.checkUsernameMatchPassword(ptcUsername, "5678", "P"));
-        assertTrue(usernameChecker.checkUsernameMatchPassword(orgUsername, "5678", "O"));
+        assertTrue(usernameChecker.checkUsernameMatchPassword(orgUsername, orgPassword, "O"));
     }
 }
