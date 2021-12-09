@@ -30,7 +30,9 @@ public class CreateTaskUseCase {
     }
 
     public String runTaskCreation(){
-
+        /*
+        Creates task and generates Id using generator
+         */
         ArrayList<Integer> takenTaskIdNums = idGenerator.takenNumList(CreateTaskUseCase.entityCode);
         // generate id from use case
         String taskID = idGenerator.generateEntityId(CreateTaskUseCase.entityCode, takenTaskIdNums);
@@ -51,6 +53,9 @@ public class CreateTaskUseCase {
     }
 
     public Task getTask(){
+        /*
+        Returns task instance
+         */
         return this.task;
     }
 

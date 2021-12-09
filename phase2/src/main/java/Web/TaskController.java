@@ -32,6 +32,9 @@ public class TaskController {
     }
 
     public void runTaskController(taskAction actionToProcess) throws Exception {
+        /*
+        Chooses which controller to call depending on the variables initialized
+         */
         switch(actionToProcess){
             case CREATE:
                 if((taskName != null) && (taskLink != null) && (description != null)){
@@ -58,16 +61,25 @@ public class TaskController {
     }
 
 public void runCreate() throws SQLException {
+        /*
+        Calls CreateTaskUseCase to create task
+         */
         CreateTaskUseCase createTaskManager = new CreateTaskUseCase(this.raffleID, this.taskName, this.description, this.taskLink);
         this.taskID = createTaskManager.runTaskCreation();
 }
 
 public void runExecute() throws Exception {
+        /*
+        Calls ExecuteCommandUseCase to execute command
+         */
         ExecuteCommandUseCase executeManager = new ExecuteCommandUseCase(this.raffleID, this.taskID);
         executeManager.RunExecuteCommand();
 }
 
 public void runLookup() throws FileNotFoundException, SQLException {
+        /*
+        Calls TaskLookupUseCase to return task info after taking taskID.
+         */
         TaskLookupUseCase lookupManager = new TaskLookupUseCase(this.taskID);
         this.taskInfo = lookupManager.getTaskInfo();
 }
@@ -94,7 +106,6 @@ public void setTaskName(String taskName){
         this.taskName = taskName;
 }
 // getters
-
 public String getTaskID(){
         return this.taskID;
 }

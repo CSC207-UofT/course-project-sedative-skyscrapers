@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TaskLookupUseCase {
     public final String taskID;
-    public AccessData extractor;
+    public DataAccessPoint extractor;
 
     public TaskLookupUseCase(String taskID) throws SQLException {
         this.taskID = taskID;
@@ -16,6 +16,9 @@ public class TaskLookupUseCase {
     }
 
     public ArrayList<String> getTaskInfo() {
+        /*
+        Returns task info from database
+         */
         return extractor.getTaskById(this.taskID);
     }
 
