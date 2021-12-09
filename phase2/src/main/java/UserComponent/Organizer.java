@@ -1,12 +1,15 @@
 package main.java.UserComponent;
 
+/**
+ * the class represents an Organizer user
+ */
 public class Organizer {
     private final String userId;
-    private final String username; //required upon creation
-    private final String password; //required upon creation
-    private final String affiliatedOrganization; // required upon creation
-    private final String phone; //optional upon creation
-    private final String email; //optional upon creation
+    private final String username;
+    private final String password;
+    private final String affiliatedOrganization;
+    private final String phone;
+    private final String email;
 
     public Organizer(OrganizerBuilder builder) {
         this.userId = builder.userId;
@@ -17,7 +20,7 @@ public class Organizer {
         this.email = builder.email;
     }
 
-    public String getUserId(){
+    public String getUserId() {
         return this.userId;
     }
 
