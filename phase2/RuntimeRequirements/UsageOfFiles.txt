@@ -1,0 +1,1 @@
+- Follow instructions on README in order to properly handle the downloading of this files, and the setup in the Project Structure.
