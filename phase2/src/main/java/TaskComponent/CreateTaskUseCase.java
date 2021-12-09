@@ -16,8 +16,8 @@ public class CreateTaskUseCase {
     private TaskIdGenerator idGenerator;
     private static final char entityCode = 'T';
     private ArrayList<String> takenIds;
-    private AccessData extractor;
-    private ProvideData writer;
+    private DataAccessPoint extractor;
+    private DataProviderPoint writer;
     private String raffleId;
 
     public CreateTaskUseCase(String raffleID, String name, String description, String link) throws SQLException {
