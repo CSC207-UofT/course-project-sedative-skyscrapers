@@ -1,6 +1,5 @@
 package main.java.RaffleComponent;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,8 +26,6 @@ public class ParticipantRaffleEntity {
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;
         this.taskIdList = new ArrayList<>();
-
-//        this.raffleID = tempId;  TO BE SET THROUGH USE CASE
     }
 
     @Override
@@ -79,22 +76,12 @@ public class ParticipantRaffleEntity {
         return year + "/" +  month + "/" + day;
     }
 
-//    // observer pattern update method
-//    public ArrayList<String> updateTaskIdList(boolean editType, ArrayList<String> taskIds){
-//        // true means add tasks, false means remove tasks
-//        if (editType){
-//            this.getTaskIdList().addAll(taskIds);
-//        } else {
-//            this.getTaskIdList().removeAll(taskIds);
-//        }
-//        return this.getTaskIdList();
-//    }
-
-    // observer pattern update method
-    public LocalDate updateEndDate(LocalDate newEndDate){
-        // true means add tasks, false means remove tasks
+    /**
+     * update this ParticipantRaffleEntity endDate attribute (for observer pattern)
+     * @param newEndDate the new endDate to be set
+     */
+    public void updateEndDate(LocalDate newEndDate){
         this.endDate = newEndDate;
-        return this.endDate;
     }
 
 

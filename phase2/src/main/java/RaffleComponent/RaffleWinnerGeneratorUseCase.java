@@ -2,11 +2,8 @@ package main.java.RaffleComponent;
 
 import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
-import main.java.database.DataExtractor;
-import main.java.database.JoinUserToRaffle;
+import main.java.Helpers.UseCaseDateFormatter;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -18,7 +15,6 @@ public class RaffleWinnerGeneratorUseCase {
 
     private ArrayList<Object> orgRaffleInfo;
     private OrganizerRaffleEntity orgRaffle;
-//    private PackageRaffleEntityInstance dataPackager;
     private DataAccessPoint dataAccess;
     private DataProviderPoint dataUploader;
     private final ArrayList<String> validParticipantIds;
@@ -47,13 +43,11 @@ public class RaffleWinnerGeneratorUseCase {
             e.printStackTrace();
         }
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String date = this.orgRaffleInfo.get(3).toString();
-        int day = Integer.parseInt(date.substring(8, 10));
-        int month = convertMonthToInt(date.substring(4, 7));
-        int year = Integer.parseInt(date.substring(24, 28));
+        int[] dateData = UseCaseDateFormatter.formatDateIntoStrings(date);
         this.orgRaffle = new OrganizerRaffleEntity(this.orgRaffleInfo.get(0).toString(),
-                Integer.parseInt(this.orgRaffleInfo.get(1).toString()), LocalDate.of(year, month, day),
+                Integer.parseInt(this.orgRaffleInfo.get(1).toString()),
+                LocalDate.of(dateData[0], dateData[1], dateData[2]),
                 this.orgRaffleInfo.get(7).toString());
         this.orgRaffle.setRaffleId(raffleId);
         this.orgRaffle.setRaffleRules((String) orgRaffleInfo.get(2));
@@ -64,57 +58,22 @@ public class RaffleWinnerGeneratorUseCase {
 
     }
 
-
-    public int convertMonthToInt(String month){
-        switch(month){
-            case "Jan":
-                return 1;
-            case "Feb":
-                return 2;
-            case "Mar":
-                return 3;
-            case "Apr":
-                return 4;
-            case "May":
-                return 5;
-            case "Jun":
-                return 6;
-            case "Jul":
-                return 7;
-            case "Aug":
-                return 8;
-            case "Sep":
-                return 9;
-            case "Oct":
-                return 10;
-            case "Nov":
-                return 11;
-            case "Dec":
-                return 12;
-            default:
-                return 12;
-        }
-    }
-
     /**
      * Executes the processes to generate, return and store this.orgRaffle 's winners
-     * @return the updated winnerIdList of this.orgRaffle
+     * @return the boolean representing whether the raffleWinners have been declared and stored,
+     * while storing the selected winners in this.orgRaffle.winnerIdList
      */
     public boolean updateRaffleWinners(){
         // for now any participant can be selected as a winner, phase2 this will be updated to only valid ones
         if (!this.generateWinners().isEmpty()){
             this.orgRaffle.setWinnerList(this.generateWinners());
             try {
-                System.out.println("winnergen use case, line 108, should be orgRaffleId: " + this.orgRaffle.getRaffleId()
-                        + " winnerList: " + this.orgRaffle.getWinnerList().toString());
                 this.dataUploader.addWinnersToRaffle(this.orgRaffle.getRaffleId(), this.orgRaffle.getWinnerList());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
             return true;
         }
-
         // else
         return false;
     }
@@ -124,7 +83,7 @@ public class RaffleWinnerGeneratorUseCase {
      * updates the database accordingly
      * @return the arraylist of strings consisting of the winning participants of this raffle
      */
-    public ArrayList<String> generateWinners(){
+    private ArrayList<String> generateWinners(){
         int i;
         ArrayList<String> winnersSoFar = new ArrayList<>();
         ArrayList<Integer> winningNumsSoFar = new ArrayList<>();
@@ -138,13 +97,6 @@ public class RaffleWinnerGeneratorUseCase {
             winningNumsSoFar.add(winningEntry);
             winnersSoFar.add(this.validParticipantIds.get(winningEntry));  // winningEntry is the index
         }
-        //System.out.println("winnersSoFar"+winnersSoFar.get(0));
-        // upload results to database
-//        try {
-//            this.dataUploader.uploadRaffleWinners(this.orgRaffle.getRaffleId(), winnersSoFar);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return winnersSoFar;  // returns arrayList of userId strings
     }
 
@@ -153,7 +105,7 @@ public class RaffleWinnerGeneratorUseCase {
      * @param winningNumsSoFar the indexes who have already been identified as winners (to not be repeated)
      * @return a single index referring to the winning entry
      */
-    public int calculateWinningEntry(ArrayList<Integer> winningNumsSoFar){
+    private int calculateWinningEntry(ArrayList<Integer> winningNumsSoFar){
 
         int winningEntry = (int)(this.orgRaffle.getParticipantIdList().size() * Math.random());
 

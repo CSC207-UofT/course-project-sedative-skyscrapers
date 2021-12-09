@@ -23,9 +23,9 @@ public class OrganizerRaffleEntity {
      * @param raffleName the name to be given to this raffle
      * @param numberOfWinners the number of participants to be able to win this raffle
      * @param endDate the day this raffle ends
-     * @param username the username of the organizer who has created this instance of OrganizerRaffleEntity
+     * @param orgUsername the username of the organizer who has created this instance of OrganizerRaffleEntity
      */
-    public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String username){
+    public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String orgUsername){
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;
@@ -34,7 +34,7 @@ public class OrganizerRaffleEntity {
         // participantList and winnerList not yet initialized, but rather gotten from use case
         this.participantIdList = new ArrayList<>();
         this.winnerIdList = new ArrayList<>();
-        this.orgUsername = username;
+        this.orgUsername = orgUsername;
     }
 
     @Override
@@ -136,5 +136,9 @@ public class OrganizerRaffleEntity {
 
     public void setOrgUsername(String orgUsername) {
         this.orgUsername = orgUsername;
+    }
+
+    public String getOrgUsername() {
+        return orgUsername;
     }
 }

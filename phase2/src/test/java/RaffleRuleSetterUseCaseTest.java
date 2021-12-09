@@ -15,13 +15,13 @@ public class RaffleRuleSetterUseCaseTest {
 
     @Before
     public void setUp() throws Exception{
-        orgRaffleId = "yes";
+        orgRaffleId = "R9097";
         updateRuleString = "These are the new rules B)";
         raffleManager = new RaffleRuleSetterUseCase(orgRaffleId, updateRuleString);
         dataAccess = new AccessData();
     }
 
-    @Test(timeout = 60)
+    @Test(timeout = 10000)
     public void TestSuccessfulRun(){
         raffleManager.updateRules();
         // this rulesString must not be set as the orgRaffle's rules

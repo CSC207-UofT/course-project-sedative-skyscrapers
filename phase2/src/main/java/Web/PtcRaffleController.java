@@ -2,10 +2,6 @@ package main.java.Web;
 
 import main.java.RaffleComponent.CompleteTaskUseCase;
 import main.java.RaffleComponent.LoginRaffleUseCase;
-import main.java.RaffleComponent.ParticipantRaffleEntity;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PtcRaffleController {
@@ -14,22 +10,33 @@ public class PtcRaffleController {
     private final String orgRaffleId;
     private String ptcRaffleId;
     private final String taskId;
-
-    private ArrayList<String> ptcCompletedTasks;
+    private ArrayList<String> completedTaskIds;
 
     public enum PtcRaffleAction{
         LOGIN, COMPLETE_TASK
     }
 
+    /**
+     * Constructor of the participant raffle controller,
+     * @param ptcUserId the id of a participant logging into a raffle
+     * @param orgRaffleId the id of the organizer raffle being joined / for which a task is being completed
+     * @param ptcRaffleId the id of the ptc raffle undergoing task completion
+     * @param taskId the id of the task to be completed
+     */
     public PtcRaffleController(String ptcUserId, String orgRaffleId, String ptcRaffleId, String taskId){
         this.participantUserId = ptcUserId;
         this.orgRaffleId = orgRaffleId;
         this.ptcRaffleId = ptcRaffleId;
         this.taskId = taskId;
+        this.completedTaskIds = null;
 
     }
 
-    // each of orgRaffleId or taskId can be introduced as null if actionToProcess is not related to them
+    /**
+     * Executes the correct Participant raffle object use case call with the provided information
+     * @param actionToProcess indicates the use case to execute
+     * @return bool describing whether use case call was successful (should be checked in PSM)
+     */
     public boolean runRaffleController(PtcRaffleAction actionToProcess){
 
         switch (actionToProcess){
@@ -52,22 +59,27 @@ public class PtcRaffleController {
         return false;
     }
 
-    public boolean runLogin(){
+    /**
+     *  executes the raffle login use case of a participant raffle
+     * @return boolean describing the success of the outcome of the use case call with the given information
+     */
+    private boolean runLogin(){
         // if raffleId is valid, then it is passed onto the use case, otherwise, use case takes care of null input
         LoginRaffleUseCase loginRaffleManager = new LoginRaffleUseCase(this.orgRaffleId, this.participantUserId);
-        System.out.println("PtcRaffleController line 58, orgRaffleId: " + this.orgRaffleId + " ptcUserId: " + this.participantUserId);
         boolean result = loginRaffleManager.runRaffleLogin();
         this.ptcRaffleId = loginRaffleManager.getPtcRaffle().getRaffleId();
         return result;
     }
 
-    // ptcRaffles can only complete a task to pop it, but cannot add one on their own without it happening
-    // through the subscription system to an orgRaffle
-    public boolean runCompleteTask(){
+    /**
+     *  executes the raffle complete task use case of a participant raffle
+     * @return boolean describing the success of the outcome of the use case call with the given information
+     */
+    private boolean runCompleteTask(){
 
         CompleteTaskUseCase raffleManager = new CompleteTaskUseCase(this.ptcRaffleId, this.taskId);
         boolean result = raffleManager.completeTask();
-        this.ptcCompletedTasks = raffleManager.getPtcCompletedTasks();
+        this.completedTaskIds = raffleManager.getPtcCompletedTasks();
         return result;
     }
 
