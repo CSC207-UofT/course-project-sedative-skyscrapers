@@ -50,7 +50,10 @@ public class AccessData implements DataAccessPoint {
         Collections.swap(raffleDetails, 0, 1);
         return raffleDetails;
     }
-
+    
+    /**
+    Get the Raffle Details by the RaffleID
+    */
     @Override
     public ArrayList<Object> getParticipantRaffleById(String ptcRaffleID){
         //  [raffleName, numOfWinners, rules, endDate, taskIdList]
@@ -65,7 +68,12 @@ public class AccessData implements DataAccessPoint {
         }
         return raffleDetails;
     }
-
+    
+    
+    /**
+    Get the Task Details by the RaffleID
+    Returns in the form [raffleName, raffleRules, link, descreption]
+    */
     @Override
     public ArrayList<String> getTaskById(String taskId) {
         try {
@@ -75,7 +83,11 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    
+    /**
+    Retrieves the information about the participant using the participant username. 
+    */
     @Override
     public ArrayList<String> getParticipantInfo(String ptcUsername) {
         try {
@@ -85,7 +97,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Retrieves the information about the organizer using the participant username. 
+    */
     @Override
     public ArrayList<String> getOrganizerInfo(String orgUsername) {
         try {
@@ -95,7 +110,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns the list of raffleIDs in which a participant is enrolled in
+    */
     @Override
     public ArrayList<String> getParticipantRaffleIds(String ptcUsername) {
         try {
@@ -105,7 +123,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns the list of raffleIDs which an organizer has created
+    */
     @Override
     public ArrayList<String> getOrganizerRaffleIds(String orgUsername) {
         try {
@@ -115,12 +136,18 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns a boolean incdicating if a participant has completed the taskID.
+    */
     @Override
     public boolean hasCompletedTask(String ptcID, String taskId) throws SQLException {
         return taskGetter.getTaskStatus(ptcID, taskId);
     }
-
+    
+    /**
+    Returns a list of organizer ids which are already in use.
+    */
     @Override
     public ArrayList<String> getTakenOrganizerIds() {
         try {
@@ -130,7 +157,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns a list of participant ids which are already in use.
+    */
     @Override
     public ArrayList<String> getTakenParticipantIds() {
         try {
@@ -140,7 +170,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns a list of participants which are valid to be winners in a raffle using the raffleID
+    */
     @Override
     public ArrayList<String> getValidParticipants(String orgRaffleId) {
         try {
@@ -167,7 +200,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns the raffleName using the raffleID
+    */
     @Override
     public ArrayList<String> getRaffleIDByRaffleName(String raffleName) {
         try {
@@ -177,7 +213,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns the list of organizer IDs which are using the given <organization> name
+    */
     @Override
     public ArrayList<String> getOrgIDByOrganization(String organization) {
         try {
@@ -187,7 +226,10 @@ public class AccessData implements DataAccessPoint {
         }
         return null;
     }
-
+    
+    /**
+    Returns a list of Task IDs which are already used.
+    */
     @Override
     public ArrayList<String> getTakenTaskIds() {
         try {
