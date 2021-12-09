@@ -2,14 +2,12 @@ Readme:
 
 Before running the code:
 
-Go to GetFileToAppend class in main.java.database package. Right click on a database and select Copy Path/Reference, then paste it in the filename parameter in each of the 6 return statements in the Constructor for FileWriter class for the respective csvs.
-
-While running the code:
-
-As an organizer or a participant, it is necessary to exit the program to reflect any changes made during a session. For example, if an organizer creates a raffle, the change is reflected when the organizer logs in next after exiting the program.
-
-Note: We are planning to get rid of these issues, specially the ones regarding setting up the databases by shifting to SQL.
-
-Running the code: 
-
-For phase1, the code to be executed is inside the phase1 folder on our repo, once inside there navigate to our src -> Main.java -> Main, and run the main function inside Main.
+Since the Email notification requires the external javax.mail and activation libraries, these need to be added to the project structure
+After cloning the repo, please open the file under course-project-sedative-skyscrapers -> phase2 -> src -> main -> Helpers -> SendEmail.java
+Check import statements of the file. If the imports are not being resolved, please do the following
+1. In the top right hand corner of IntelliJ click on file
+2. In the drop down menu that opens, click on project structure
+3. In the window that opens, on the top left hand side, click on the Modules tab under project settings
+4. Find the + symbol below the Module SDK field text and click on it
+5. Select JARs or Directories
+6. Navigate to the files course-project-sedative-skyscrapers -> phase2
