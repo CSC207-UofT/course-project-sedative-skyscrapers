@@ -36,10 +36,17 @@ public class ParticipantSignUpPage {
     public JButton parEnterButton;
     public JButton parExitButton;
 
+    /**
+     * Calls initComponents()
+     */
+
     public ParticipantSignUpPage()
     {
         initComponents();
     }
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
     public void initComponents()
     {
         parFrame = new JFrame("Participant Login");

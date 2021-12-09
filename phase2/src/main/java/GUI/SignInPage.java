@@ -27,10 +27,18 @@ public class SignInPage extends JFrame {
     private JLabel comboBoxLabel;
     private JButton exitButton;
 
+    /**
+     * Calls initComponents()
+     */
+
     public SignInPage()
     {
         initComponents();
     }
+
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
 
     private void initComponents()
     {

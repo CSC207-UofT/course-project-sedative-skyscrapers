@@ -44,11 +44,20 @@ public class OrganizerCreateRafflePage extends JFrame {
     public JButton backButton;
     public JButton exitButton;
 
+    /**
+     * Initializes username and calls initComponents()
+     * @param username - username of the current organizer
+     */
+
     public OrganizerCreateRafflePage(String username)
     {
         this.username = username;
         initcomponents();
     }
+
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
     public void initcomponents()
     {
         frame = new JFrame("Create Raffle");

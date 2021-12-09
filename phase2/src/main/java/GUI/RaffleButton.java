@@ -13,6 +13,14 @@ public class RaffleButton implements ActionListener {
     //role = true -> participant
     //role = false -> organizer
 
+    /**
+     * Initializes instance attributes
+     * @param raffleID - Raffle ID of the current raffle
+     * @param frame - JFrame of the page where the raffles are displayed
+     * @param role - user: true if partipant, false if organizer
+     * @param username - username of the current user
+     */
+
     public RaffleButton(String raffleID,JFrame frame, boolean role,String username)
     {
         this.raffleID = raffleID;
@@ -21,6 +29,15 @@ public class RaffleButton implements ActionListener {
         this.username = username;
     }
 
+    /**
+     * Initializes instance attributes
+     * @param raffleID - Raffle ID of the current raffle
+     * @param frame1 - JFrame of the page where raffles are displayed
+     * @param frame2 - JFrame of the page where searched raffles are displayed
+     * @param role - user: true if partipant, false if organizer
+     * @param username - username of the current user
+     */
+
     public RaffleButton(String raffleID, JFrame frame1, JFrame frame2, boolean role, String username){
         this.frame1 = frame1;
         this.raffleID = raffleID;
@@ -28,6 +45,11 @@ public class RaffleButton implements ActionListener {
         this.role = role;
         this.username = username;
     }
+
+    /**
+     * Opens the raffle page when the button is triggered
+     * @param e - ActionEvent that occurs when the button is pressed
+     */
 
     @Override
     public void actionPerformed(ActionEvent e) {

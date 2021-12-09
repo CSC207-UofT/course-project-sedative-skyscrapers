@@ -25,6 +25,12 @@ public class OrganizerViewRafflePage extends JFrame {
     private boolean winnersGenerated;
     private OrganizerRafflePresenter o;
 
+    /**
+     * Initializes raffleID and username and calls initComponents()
+     * @param raffleID - raffleID
+     * @param username - username
+     */
+
     public OrganizerViewRafflePage(String raffleID, String username)
     {
         this.raffleID = raffleID;
@@ -33,6 +39,10 @@ public class OrganizerViewRafflePage extends JFrame {
         this.winnersGenerated = o.winnersGenerated();
         initComponents();
     }
+
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
     private void initComponents()
     {
 

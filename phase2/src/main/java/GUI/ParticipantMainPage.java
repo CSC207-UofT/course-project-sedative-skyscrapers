@@ -31,6 +31,10 @@ public class ParticipantMainPage extends JFrame {
     private JPanel smallPanel;
     private JFrame smallFrame;
 
+    /**
+     * Initializes username and calls initComponents()
+     * @param username - username of the current participant
+     */
 
     public ParticipantMainPage(String username)
     {
@@ -39,6 +43,10 @@ public class ParticipantMainPage extends JFrame {
         initComponents();
         hasSearched = false;
     }
+
+    /**
+     * initComponents initializes and sets important attributes of all the components of the GUI
+     */
 
     private void initComponents()
     {
