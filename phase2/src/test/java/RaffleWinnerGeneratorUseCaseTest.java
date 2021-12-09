@@ -11,24 +11,22 @@ import static org.junit.Assert.*;
 
 public class RaffleWinnerGeneratorUseCaseTest {
     String orgRaffleId;
-    String ptcId1;
-    String ptcId2;
     RaffleWinnerGeneratorUseCase raffleManager;
     AccessData dataAccess;
 
     @Before
     public void setUp() throws Exception{
-    orgRaffleId = "yes";
-    ptcId1 = "yes";
-    ptcId2 = "yes";
+    orgRaffleId = "R5870";
     raffleManager = new RaffleWinnerGeneratorUseCase(orgRaffleId);
+    dataAccess = new AccessData();
     }
 
-    @Test(timeout = 60)
+    @Test(timeout = 10000)
     public void TestSuccessfulRun(){
         raffleManager.updateRaffleWinners();
-        ArrayList<String> winnerIdList = (ArrayList<String>) dataAccess.getOrganizerRaffleById(orgRaffleId).get(6);
-        assertTrue(winnerIdList.contains(ptcId1) || winnerIdList.contains(ptcId2));
+        // no ptcs signed up
+        ArrayList<String> winnerIdList = (ArrayList<String>)dataAccess.getOrganizerRaffleById(orgRaffleId).get(6);
+        assertTrue(winnerIdList.isEmpty());
 
     }
 }

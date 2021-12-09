@@ -1,7 +1,5 @@
 package main.java.Web;
 
-import main.java.RaffleComponent.OrgRaffleAddTaskUseCase;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -52,9 +50,6 @@ public class ORCDirector {
     }
 
     public OrgRaffleController getORCProduct() {
-//        OrgRaffleController product = this.ORC;
-//        this.reset();
-//        return product;
         return this.ORC;
     }
 
