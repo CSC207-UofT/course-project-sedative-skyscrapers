@@ -12,10 +12,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * the class accesses the database through dependency injection to look up and provide the information of the user.
+ */
 public class LookUpUser {
     private DataAccessPoint DataAccess;
 
-    public LookUpUser(){
+    public LookUpUser() {
         try {
             this.DataAccess = new AccessData();
         } catch (SQLException e) {
@@ -23,17 +26,22 @@ public class LookUpUser {
         }
     }
 
-    public ArrayList<String> getPtcInfo(String username){
+    public ArrayList<String> getPtcInfo(String username) {
         return DataAccess.getParticipantInfo(username);
     }
 
-    public Participant getPtc(String username){
+    /**
+     * returns a participant by retrieving participant info from the database
+     *
+     * @param username particpant username
+     * @return Participant object
+     */
+    public Participant getPtc(String username) {
         ArrayList<String> ptcInfo = getPtcInfo(username);
 
-        if (ptcInfo.isEmpty()){
+        if (ptcInfo.isEmpty()) {
             return null;
         }
-        System.out.print(ptcInfo);
         String ptcUserId = ptcInfo.get(0);
         String ptcUsername = username;
         String password = ptcInfo.get(1);
@@ -44,33 +52,45 @@ public class LookUpUser {
         String phone = ptcInfo.get(5);
         String email = ptcInfo.get(6);
         GetParticipantUseCase getParticipantUseCase = new GetParticipantUseCase(ptcUserId, ptcUsername, password,
-                firstName, "fake", doB, phone, email);
+                firstName, lastName, doB, phone, email);
         return getParticipantUseCase.getParticipant();
     }
 
-    public String getPtcUserId(String username){
+    /**
+     * gets participant userID using username
+     */
+    public String getPtcUserId(String username) {
         Participant ptc = getPtc(username);
-        if (ptc != null){
+        if (ptc != null) {
             return ptc.getUserId();
         }
         return null;
     }
 
-    public String getPtcPassword(String username){
+    /**
+     * gets participant password using username
+     */
+    public String getPtcPassword(String username) {
         Participant ptc = getPtc(username);
-        if (ptc != null){
+        if (ptc != null) {
             return ptc.getPassword();
         }
         return null;
     }
 
-    public ArrayList<String> getOrgInfo(String username){
+    public ArrayList<String> getOrgInfo(String username) {
         return DataAccess.getOrganizerInfo(username);
     }
 
-    public Organizer getOrg(String username){
+    /**
+     * returns an organizer by retrieving organizer info from the database
+     *
+     * @param username organizer username
+     * @return Organizer object
+     */
+    public Organizer getOrg(String username) {
         ArrayList<String> orgInfo = getOrgInfo(username);
-        if (orgInfo.isEmpty()){
+        if (orgInfo.isEmpty()) {
             return null;
         }
         String orgUserId = orgInfo.get(0);
@@ -83,23 +103,32 @@ public class LookUpUser {
         return getOrganizerUseCase.getOrganizer();
     }
 
-    public String getOrgUserId(String username){
+    /**
+     * gets organizer userID using username
+     */
+    public String getOrgUserId(String username) {
         Organizer org = getOrg(username);
-        if (org != null){
+        if (org != null) {
             return org.getUserId();
         }
         return null;
     }
 
-    public String getOrgPassword(String username){
+    /**
+     * gets organizer password using username
+     */
+    public String getOrgPassword(String username) {
         Organizer org = getOrg(username);
-        if (org != null){
+        if (org != null) {
             return org.getPassword();
         }
         return null;
     }
 
-    public ArrayList<String> getOrgId(String organization){
+    /**
+     * gets organizer userID using organization name
+     */
+    public ArrayList<String> getOrgId(String organization) {
         return DataAccess.getOrgIDByOrganization(organization);
     }
 }

@@ -1,28 +1,33 @@
 package main.java.UserComponent;
+
 import java.time.LocalDate;
 
+/**
+ * the class represents a Particpant user
+ */
 public class Participant {
     private final String userId;
     private final String username;
     private final String password;
     private final String firstName;
     private final String lastName;
-    private LocalDate dateOfBirth;
+    private final LocalDate dateOfBirth;
     private String phone;
-    private String email;
+    private final String email;
 
-    public Participant(String userId, String username, String password, String firstName, String lastName) {
+    public Participant(String userId, String username, String password, String firstName, String lastName,
+                       LocalDate dateOfBirth, String email) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = null;
+        this.dateOfBirth = dateOfBirth;
         this.phone = null;
-        this.email = null;
+        this.email = email;
     }
 
-    public String getUserId(){
+    public String getUserId() {
         return this.userId;
     }
 
@@ -34,16 +39,12 @@ public class Participant {
         return this.password;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public String getEmail() {
+        return this.email;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override

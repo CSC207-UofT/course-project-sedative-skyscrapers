@@ -25,22 +25,24 @@ public class UserController {
     }
 
     /**
-     * Store the new participant into the database
-     * @param username username
-     * @param password password
-     * @param firstName first name
-     * @param lastName last name
+     * Stores the new participant into the database
+     *
+     * @param username    username
+     * @param password    password
+     * @param firstName   first name
+     * @param lastName    last name
      * @param dateOfBirth date of birth
-     * @param phone phone
-     * @param email email
+     * @param phone       phone
+     * @param email       email
      */
     public void createNewParticipant(String username, String password, String firstName, String lastName,
-                                            LocalDate dateOfBirth, String phone, String email) {
+                                     LocalDate dateOfBirth, String phone, String email) {
         userCreator.storeParticipant(username, password, firstName, lastName, dateOfBirth.toString(), phone, email);
     }
 
     /**
-     * return the information of a registered participant
+     * Returns the information of a registered participant
+     *
      * @param username username of the participant
      * @return an ArrayList of participant info
      */
@@ -49,38 +51,42 @@ public class UserController {
     }
 
     /**
-     * Store the new organizer to the database
+     * Stores the new organizer to the database
+     *
      * @param username username
      * @param password password
-     * @param orgName name of affiliated organization
-     * @param phone phone
-     * @param email email
+     * @param orgName  name of affiliated organization
+     * @param phone    phone
+     * @param email    email
      */
     public void createNewOrganizer(String username, String password, String orgName, String phone,
-                                        String email) {
+                                   String email) {
         userCreator.storeOrganizer(username, password, orgName, phone, email);
     }
 
     /**
-     * return the information of a registered organizer
+     * Returns the information of a registered organizer
+     *
      * @param username username of the organizer
      * @return an ArrayList of organizer info
      */
-    public ArrayList<String> getExistedOrganizerInfo(String username){
+    public ArrayList<String> getExistedOrganizerInfo(String username) {
         return userLookUp.getOrgInfo(username);
     }
 
     /**
-     * return the organizerIDs that are under the particular organization
+     * Returns the organizerIDs that are under the particular organization
+     *
      * @param organization name of organizer's organization
      * @return an ArrayList of organizerIDs
      */
-    public ArrayList<String> getOrganizerIdByOrgName(String organization){
+    public ArrayList<String> getOrganizerIdByOrgName(String organization) {
         return userLookUp.getOrgId(organization);
     }
 
     /**
-     * Get a list of raffleIDs of the raffles that the participant is a part of
+     * Gets a list of raffleIDs of the raffles that the participant is a part of
+     *
      * @param username participant username
      * @return a list of raffleIDs
      */
@@ -89,7 +95,8 @@ public class UserController {
     }
 
     /**
-     * Get the raffleID of the raffle that the organizer created
+     * Gets the raffleID of the raffle that the organizer created
+     *
      * @param username organizer username
      * @return a raffleID String
      */
@@ -98,7 +105,8 @@ public class UserController {
     }
 
     /**
-     * Upload the raffleID of the raffle the participant joined to database
+     * Uploads the raffleID of the raffle the participant joined to database
+     *
      * @param username participant username
      * @param raffleID the raffleID of the raffle the participant joined
      */
@@ -107,8 +115,9 @@ public class UserController {
     }
 
     /**
-     * Check whether a username is already registered
-     * @param username username that a user trying to register
+     * Checks whether a username is already registered
+     *
+     * @param username username that a user is trying to register
      * @return false if the username is not registered yet, true if the username is already used
      */
     public boolean userNameUsed(String username) {
@@ -116,27 +125,30 @@ public class UserController {
     }
 
     /**
-     * Check whether the participant username is already registered and match the password
-     * @param username username of the participant
-     * @param password password of the organizer
+     * Checks whether the participant username is already registered and match the password
+     *
+     * @param username participant username
+     * @param password participant password
      * @return true if the username is registered as a participant and matches the password, false otherwise
      */
     public boolean participantUsernameMatchPassword(String username, String password) {
-        return usernameChecker.checkPtcUsernameMatchPassword(username, password);
+        return this.usernameChecker.checkUsernameMatchPassword(username, password, "P");
     }
 
     /**
-     * Check whether the organizer username is already registered and match the password
-     * @param username username of the organizer
-     * @param password password of the organizer
+     * Checks whether the organizer username is already registered and match the password
+     *
+     * @param username organizer username
+     * @param password organizer password
      * @return true if the username is registered as an organizer and matches the password, false otherwise
      */
     public boolean organizerUsernameMatchPassword(String username, String password) {
-        return this.usernameChecker.checkOrgUsernameMatchPassword(username, password);
+        return this.usernameChecker.checkUsernameMatchPassword(username, password, "O");
     }
 
     /**
-     * return the userID of the particular user
+     * Returns the userID of the particular user
+     *
      * @param username username of the user
      * @param userType "O" for organizer, "P" for participant
      * @return username of the user
@@ -144,9 +156,9 @@ public class UserController {
     public String getUserUserId(String username, String userType) {
         if (userType.equals("O")) {
             return userLookUp.getOrgUserId(username);
-        } else if (userType.equals("P")){
+        } else if (userType.equals("P")) {
             return userLookUp.getPtcUserId(username);
         }
         return null;
     }
-    }
+}

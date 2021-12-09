@@ -2,15 +2,20 @@ package main.java.UserComponent;
 
 import main.java.DatabaseRe.AccessData;
 import main.java.UserComponent.LookUpUser;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import main.java.RaffleComponent.DataAccessPoint;
 
+/**
+ * the class is reponsible for checking the username the user enters
+ */
 public class CheckUserUsernameUseCase {
     private DataAccessPoint dataAccess;
     private final LookUpUser userLookUp;
 
-    public CheckUserUsernameUseCase(){
+    public CheckUserUsernameUseCase() {
         try {
             this.dataAccess = new AccessData();
         } catch (SQLException e) {
@@ -19,26 +24,32 @@ public class CheckUserUsernameUseCase {
         this.userLookUp = new LookUpUser();
     }
 
-    public boolean checkUserNameUsed(String username){
-        if (dataAccess.getTakenParticipantIds().contains(username)){
+    /**
+     * returns true if the username is already registered by other users, either participants or organizers
+     */
+    public boolean checkUserNameUsed(String username) {
+        if (dataAccess.getTakenParticipantIds().contains(username)) {
             return true;
         } else return dataAccess.getTakenOrganizerIds().contains(username);
     }
 
-    public boolean checkPtcUsernameMatchPassword(String username, String password){
-        String pw = userLookUp.getPtcPassword(username);
-        if (pw == null){
-            return false;
+    /**
+     * returns true if the username matches the password
+     */
+    public boolean checkUsernameMatchPassword(String username, String password, String userType) {
+        if (userType.equals("P")) {
+            String pw = userLookUp.getPtcPassword(username);
+            if (pw == null) {
+                return false;
+            }
+            return pw.equals(password);
+        } else if (userType.equals("O")) {
+            String pw = userLookUp.getOrgPassword(username);
+            if (pw == null) {
+                return false;
+            }
+            return pw.equals(password);
         }
-        return pw.equals(password);
-    }
-
-    public boolean checkOrgUsernameMatchPassword(String username, String password){
-        String pw = userLookUp.getOrgPassword(username);
-        System.out.println("pw" + pw);
-        if (pw == null){
-            return false;
-        }
-        return pw.equals(password);
+        return false;
     }
 }
