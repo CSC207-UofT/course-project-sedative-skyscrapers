@@ -1,12 +1,10 @@
 package main.java.UserComponent;
 
 import main.java.DatabaseRe.AccessData;
-import main.java.UserComponent.LookUpUser;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import main.java.RaffleComponent.DataAccessPoint;
+import main.java.DatabaseRe.DataAccessPoint;
 
 /**
  * the class is reponsible for checking the username the user enters

@@ -20,12 +20,13 @@ public class OrganizerRaffleEntity {
 
     /**
      * Constructor initializing a new OrganizerRaffleEntity according to the inputs
-     * @param raffleName the name to be given to this raffle
+     *
+     * @param raffleName      the name to be given to this raffle
      * @param numberOfWinners the number of participants to be able to win this raffle
-     * @param endDate the day this raffle ends
-     * @param orgUsername the username of the organizer who has created this instance of OrganizerRaffleEntity
+     * @param endDate         the day this raffle ends
+     * @param orgUsername     the username of the organizer who has created this instance of OrganizerRaffleEntity
      */
-    public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String orgUsername){
+    public OrganizerRaffleEntity(String raffleName, int numberOfWinners, LocalDate endDate, String orgUsername) {
         this.raffleName = raffleName;
         this.numberOfWinners = numberOfWinners;
         this.endDate = endDate;
@@ -38,26 +39,26 @@ public class OrganizerRaffleEntity {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String generalInfo = "Raffle Name: " + this.getRaffleName() + "\nRaffle ID: " + this.getRaffleId() +
                 "\nRaffle Creator: " + "\nEnding Date: " + this.getFormattedEndDate() + "\nNumber of Winners: "
                 + this.getNumberOfWinners();
 
         StringBuilder taskListStr = new StringBuilder();
         int i;
-        for (i = 0; i < this.getTaskIdList().size(); i++){
+        for (i = 0; i < this.getTaskIdList().size(); i++) {
             taskListStr.append("[").append(i).append("]").append(this.getTaskIdList().get(i)).append("\n");
         }
 
         StringBuilder ptcListStr = new StringBuilder();
         int j;
-        for (j = 0; j < this.participantIdList.size(); j++){
+        for (j = 0; j < this.participantIdList.size(); j++) {
             ptcListStr.append("[").append(j).append("]").append(this.participantIdList.get(j)).append("\n");
         }
 
         StringBuilder winnerListStr = new StringBuilder();
         int k;
-        for (k = 0; k < this.winnerIdList.size(); k++){
+        for (k = 0; k < this.winnerIdList.size(); k++) {
             winnerListStr.append("[").append(j).append("]").append(this.winnerIdList.get(j)).append("\n");
         }
 
@@ -89,15 +90,15 @@ public class OrganizerRaffleEntity {
         return endDate;
     }
 
-    public String getFormattedEndDate(){
+    public String getFormattedEndDate() {
         int year = this.endDate.getYear();
         int month = this.endDate.getMonthValue();
         int day = this.endDate.getDayOfMonth();
 
-        return year + "/" +  month + "/" + day;
+        return year + "/" + month + "/" + day;
     }
 
-    public void setEndDate(LocalDate endDate){
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

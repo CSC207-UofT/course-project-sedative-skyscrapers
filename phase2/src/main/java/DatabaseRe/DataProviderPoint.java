@@ -1,4 +1,4 @@
-package main.java.RaffleComponent;
+package main.java.DatabaseRe;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

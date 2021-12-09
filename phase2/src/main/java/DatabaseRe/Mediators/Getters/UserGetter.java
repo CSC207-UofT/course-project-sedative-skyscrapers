@@ -139,7 +139,6 @@ public class UserGetter {
         ArrayList<String> users = dataTools.getStrings(resultSet, "username");
         resultSet.close();
         selectQuery.close();
-        System.out.println("userGetter ln 140, username: " + users.get(0));
         return users.get(0);
     }
 }

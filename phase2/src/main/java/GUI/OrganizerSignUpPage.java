@@ -1,6 +1,6 @@
 package main.java.GUI;
 
-import main.java.Web.OrganizerSystemManager;
+import main.java.SystemManagers.OrganizerSystemManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -193,7 +193,6 @@ public class OrganizerSignUpPage {
                                 osm.storeOrgDetails(orgUsernameTextField.getText(),password,orgOrgNameTextField.getText(),orgEmailTextField.getText(),orgPhoneTextField.getText());
                                 OrganizerMainPage omp = new OrganizerMainPage(orgUsernameTextField.getText());
                                 orgFrame.setVisible(false);
-                                //System.out.println("Hello");
 
                             }
                             else

@@ -1,8 +1,7 @@
 package main.java.TaskComponent;
 import main.java.DatabaseRe.AccessData;
-import main.java.database.GetTaskDetails;
+import main.java.DatabaseRe.DataAccessPoint;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

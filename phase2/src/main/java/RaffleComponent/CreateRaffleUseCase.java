@@ -3,6 +3,9 @@ package main.java.RaffleComponent;
 import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
 import main.java.Helpers.EntityIdGenerator;
+import main.java.DatabaseRe.DataAccessPoint;
+import main.java.DatabaseRe.DataProviderPoint;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,12 +23,13 @@ public class CreateRaffleUseCase {
 
     /**
      * Constructor for the use case of having an organizer create a raffle
-     * @param raffleName the string name attribute of the raffle being created
+     *
+     * @param raffleName   the string name attribute of the raffle being created
      * @param numOfWinners the number of winners to be awarded in the raffle as dictated by the organizer
-     * @param endDate the day this raffle ends
-     * @param orgUsername the username of the organizer creating this raffle
+     * @param endDate      the day this raffle ends
+     * @param orgUsername  the username of the organizer creating this raffle
      */
-    public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername){
+    public CreateRaffleUseCase(String raffleName, int numOfWinners, LocalDate endDate, String orgUsername) {
         this.orgRaffle = new OrganizerRaffleEntity(raffleName, numOfWinners, endDate, orgUsername);
 
         try {
@@ -51,15 +55,16 @@ public class CreateRaffleUseCase {
 
     /**
      * Runs the processes to create an OrganizerRaffle instance
+     *
      * @return the boolean representing whether a raffle creation was successful
      */
-    public boolean runRaffleCreation(){
+    public boolean runRaffleCreation() {
 
         ArrayList<Integer> takenRaffleIdNums = idGenerator.takenNumList(CreateRaffleUseCase.entityCode);
         // generate id from use case
         this.generatedRaffleId = idGenerator.generateEntityId(CreateRaffleUseCase.entityCode, takenRaffleIdNums);
 
-        if (!this.takenIds.contains(this.generatedRaffleId)){
+        if (!this.takenIds.contains(this.generatedRaffleId)) {
             this.orgRaffle.setRaffleId(this.generatedRaffleId);  // always true based on RaffleIdGenerator
             // update  takenIds
             this.takenIds.add(this.generatedRaffleId);
@@ -77,7 +82,7 @@ public class CreateRaffleUseCase {
         return false;
     }
 
-    public String getGeneratedRaffleId(){
+    public String getGeneratedRaffleId() {
         return this.generatedRaffleId;
     }
 

@@ -1,13 +1,15 @@
-package main.java.Web;
+package main.java.SystemManagers;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Set;
 
-import main.java.TaskWeb.ExecuteCommandController;
+import main.java.Web.ExecuteCommandController;
 
-import main.java.UserWeb.UserController;
+import main.java.Web.UserController;
+import main.java.Web.PtcRaffleController;
+import main.java.DatabaseRe.RaffleDataHelper;
 
 public class ParticipantSystemManager {
     private String username;
@@ -71,7 +73,6 @@ public class ParticipantSystemManager {
             userCont.addRaffleIDToParticipant(username, raffleID);
             String ptcUserID = userCont.getUserUserId(username, "P");
             String ptcRaffleID = username + ":" + raffleID;
-            System.out.println("ptcSM line 54, should be ptcId: " + ptcRaffleID);
 
             PtcRaffleController ptcRaff = new PtcRaffleController(ptcUserID, raffleID, ptcRaffleID, null);
             ptcRaff.runRaffleController(PtcRaffleController.PtcRaffleAction.LOGIN);

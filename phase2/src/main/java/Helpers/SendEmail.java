@@ -25,7 +25,7 @@ public class SendEmail {
         this.rafflename = raffle;
     }
 
-    public void send(){
+    public void send() {
         //authentication
         final String username = "skyscraperraffles@gmail.com";
         final String password = "@207phase2";
@@ -40,7 +40,7 @@ public class SendEmail {
 
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username,password);
+                return new PasswordAuthentication(username, password);
             }
         });
 
@@ -62,7 +62,7 @@ public class SendEmail {
                     "\n" +
                     "We hope you enjoyed participating in the Raffle, " +
                     "head over to our application to participate and win more prizes! \n" +
-                    "\n"+
+                    "\n" +
                     "Best Regards,\n" +
                     "The Sedative Skyscraper Raffle Team.");
 
@@ -72,8 +72,6 @@ public class SendEmail {
             msg.setContent(emailContent);
 
             Transport.send(msg);
-            System.out.println("Sent message");
-            System.out.println(useremailid);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

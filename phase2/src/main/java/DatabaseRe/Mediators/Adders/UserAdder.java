@@ -29,7 +29,6 @@ public class UserAdder {
 
     public void addRaffleWinner(String raffleID, String ptcID) throws SQLException {
         String query = InsertQueries.addRaffleWinner(raffleID, ptcID);
-        System.out.println("userAdder ln 32, raffleId, ptcId: "  +raffleID+ ", " + ptcID);
         insertUpdateQuery.run(query);
         insertUpdateQuery.close();
     }

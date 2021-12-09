@@ -1,12 +1,9 @@
 package main.java.Presenters;
 
-import main.java.Web.OrganizerSystemManager;
-import main.java.Web.ParticipantSystemManager;
-import main.java.Web.RaffleDataHelper;
+import main.java.SystemManagers.OrganizerSystemManager;
+import main.java.SystemManagers.ParticipantSystemManager;
+import main.java.DatabaseRe.RaffleDataHelper;
 
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ParticipantPresenter {

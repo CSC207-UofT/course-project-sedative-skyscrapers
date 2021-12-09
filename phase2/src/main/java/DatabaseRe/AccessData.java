@@ -3,7 +3,6 @@ package main.java.DatabaseRe;
 import main.java.DatabaseRe.Mediators.Getters.RaffleGetter;
 import main.java.DatabaseRe.Mediators.Getters.TaskGetter;
 import main.java.DatabaseRe.Mediators.Getters.UserGetter;
-import main.java.RaffleComponent.DataAccessPoint;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -38,9 +37,12 @@ public class AccessData implements DataAccessPoint {
             raffleDetails.add(taskGetter.getTaskIDsInRaffle(orgRaffleId));
             raffleDetails.add(userGetter.getParticipantsInRaffle(orgRaffleId));
             raffleDetails.add(raffleGetter.getWinners(orgRaffleId));
-            ArrayList<String> organizer = (ArrayList<String>) raffleGetter.getOrganizer(orgRaffleId);
-            String orgas =(organizer.get(0));
-            raffleDetails.add(userGetter.getOrganizerUsernameFromID(orgas));
+            ArrayList<String> organizerList = (ArrayList<String>) raffleGetter.getOrganizer(orgRaffleId);
+            if (!organizerList.isEmpty()){
+                String orgas =(organizerList.get(0));
+                raffleDetails.add(userGetter.getOrganizerUsernameFromID(orgas));
+            }
+
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }

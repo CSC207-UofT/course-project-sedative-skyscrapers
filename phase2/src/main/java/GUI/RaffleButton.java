@@ -54,7 +54,6 @@ public class RaffleButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //function to get to Raffle at index
-        //System.out.println(index);
         if(role)
         {
             ParticipantRafflePage p = new ParticipantRafflePage(raffleID,username);

@@ -1,9 +1,7 @@
 package main.java.Presenters;
 
-import main.java.Web.OrganizerSystemManager;
+import main.java.SystemManagers.OrganizerSystemManager;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class OrganizerPresenter {

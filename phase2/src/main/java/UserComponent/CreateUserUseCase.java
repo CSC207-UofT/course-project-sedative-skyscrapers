@@ -4,8 +4,8 @@ import main.java.DatabaseRe.AccessData;
 import main.java.DatabaseRe.ProvideData;
 
 import main.java.Helpers.EntityIdGenerator;
-import main.java.RaffleComponent.DataAccessPoint;
-import main.java.RaffleComponent.DataProviderPoint;
+import main.java.DatabaseRe.DataAccessPoint;
+import main.java.DatabaseRe.DataProviderPoint;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

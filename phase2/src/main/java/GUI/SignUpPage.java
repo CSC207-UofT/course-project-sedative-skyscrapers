@@ -1,16 +1,9 @@
 package main.java.GUI;
-import main.java.Web.OrganizerSystemManager;
-import main.java.Web.ParticipantSystemManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 //Sign up page
 

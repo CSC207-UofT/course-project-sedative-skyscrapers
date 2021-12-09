@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+
 import main.java.DatabaseRe.AccessData;
 import main.java.TaskComponent.CreateTaskUseCase;
 import main.java.RaffleComponent.CreateRaffleUseCase;
@@ -27,10 +28,10 @@ public class CreateTaskUseCaseTest {
     CreateRaffleUseCase raffleManager;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception {
         raffleName = "SampleRaffla";
         numOfWinners = 1;
-        enddate = LocalDate.of(2021,12,10);
+        enddate = LocalDate.of(2021, 12, 10);
         organizerUsername = "TestOra";
         raffleManager = new CreateRaffleUseCase(raffleName, numOfWinners, enddate, organizerUsername);
         dataAccess = new AccessData();

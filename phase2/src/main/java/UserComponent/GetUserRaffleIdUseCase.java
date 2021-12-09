@@ -5,7 +5,7 @@ import main.java.DatabaseRe.AccessData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import main.java.RaffleComponent.DataAccessPoint;
+import main.java.DatabaseRe.DataAccessPoint;
 
 /**
  * the class gets the raffeIDs of the raffles associated with the user through the database using dependency injection

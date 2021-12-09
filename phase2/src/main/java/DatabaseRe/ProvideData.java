@@ -8,12 +8,10 @@ import main.java.DatabaseRe.Mediators.Getters.UserGetter;
 import main.java.DatabaseRe.Mediators.Modifiers.RaffleModifier;
 import main.java.DatabaseRe.Mediators.Modifiers.TaskModifier;
 import main.java.DatabaseRe.Mediators.Modifiers.UserModifier;
-import main.java.RaffleComponent.DataProviderPoint;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ProvideData implements DataProviderPoint {
     RaffleAdder raffleAdder = new RaffleAdder();
@@ -67,9 +65,8 @@ public class ProvideData implements DataProviderPoint {
      */
     @Override
     public void addParticipantsToRaffle(String raffleID, ArrayList<String> participantUsernames) {
-        ArrayList<String> participantIDs = null;
+//        ArrayList<String> participantIDs = null;
         try {
-            //todo: check for other errors
 //            participantIDs = DataTools.getUserIds(participantUsernames, false);
             RaffleAdder.addParticipantsToRaffle(raffleID, participantUsernames);
             taskAdder.assignParticipantsTaskStatus(raffleID, participantUsernames);
@@ -161,10 +158,6 @@ public class ProvideData implements DataProviderPoint {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("PD ln 164 username: " + username);
-//        String username = ad.getParticipantUsernameFromID(ptcUserId, false);
-        System.out.println("PD ln 166 PtcUseId: " + username);
-        System.out.println("Provide Data, line 157, should be username?: " + username);
         ArrayList<String> temp = new ArrayList<>();
         temp.add(username);
         addParticipantsToRaffle(raffleID, temp);

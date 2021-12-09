@@ -1,4 +1,4 @@
-package main.java.UserWeb;
+package main.java.Web;
 
 import main.java.UserComponent.AddUserRaffleIdUseCase;
 import main.java.UserComponent.CheckUserUsernameUseCase;
